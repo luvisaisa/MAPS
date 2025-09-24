@@ -7,13 +7,9 @@ import sys
 from pathlib import Path
 
 # Add src to path for development
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-try:
-    from ra_d_ps import parse_multiple, export_excel, convert_parsed_data_to_ra_d_ps_format, NYTXMLGuiApp
-except ImportError:
-    # Fallback to original modules
-    from XMLPARSE import parse_multiple, export_excel, convert_parsed_data_to_ra_d_ps_format, NYTXMLGuiApp
+from ra_d_ps.parser import parse_multiple, export_excel, convert_parsed_data_to_ra_d_ps_format, NYTXMLGuiApp
 import tkinter as tk
 
 
