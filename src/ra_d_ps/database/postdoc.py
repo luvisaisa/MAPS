@@ -50,9 +50,10 @@ def init_db(env_path: Optional[str] = None) -> DatabaseConfig:
     # DatabaseConfig.load uses PostgreSQLConfig.from_env internally which
     # reads environment variables (python-dotenv is loaded in db_config).
     config = DatabaseConfig.load()
-    # Invalidate cached engines when config changes
-    _sync_engine = None
-    _async_engine = None
+    # Invalidate cached engines when config changes (thread-safe)
+    with _engine_lock:
+        _sync_engine = None
+        _async_engine = None
     return config
 
 
