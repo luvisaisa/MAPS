@@ -9,6 +9,7 @@ This module intentionally keeps a lightweight surface so parser code can call
 `init_db()` early and then use one-line helpers such as `get_sync_engine()` or
 `get_connection_string()` when building DB-backed parsing/export flows.
 """
+
 from __future__ import annotations
 
 from typing import Optional
@@ -25,6 +26,11 @@ from .db_config import DatabaseConfig, PostgreSQLConfig, db_config
 # environment if needed; by default it uses the already-loaded `db_config`.
 config: DatabaseConfig = db_config
 
+# Module-level engine cache to prevent resource exhaustion.
+# Engines are created once and reused across session factory calls.
+_sync_engine: Optional[Engine] = None
+_async_engine: Optional[AsyncEngine] = None
+
 
 def init_db(env_path: Optional[str] = None) -> DatabaseConfig:
     """Re-load database configuration and return it.
@@ -38,10 +44,13 @@ def init_db(env_path: Optional[str] = None) -> DatabaseConfig:
     Returns:
         The initialized `DatabaseConfig` instance.
     """
-    global config
+    global config, _sync_engine, _async_engine
     # DatabaseConfig.load uses PostgreSQLConfig.from_env internally which
     # reads environment variables (python-dotenv is loaded in db_config).
     config = DatabaseConfig.load()
+    # Invalidate cached engines when config changes
+    _sync_engine = None
+    _async_engine = None
     return config
 
 
@@ -60,30 +69,54 @@ def get_engine_kwargs() -> dict:
 
 
 def get_sync_engine() -> Engine:
-    """Create and return a synchronous SQLAlchemy Engine using the config."""
-    conn = get_connection_string(async_driver=False)
-    kwargs = get_engine_kwargs()
-    return create_engine(conn, **kwargs)
+    """Create and return a synchronous SQLAlchemy Engine using the config.
+
+    The engine is cached at module level and reused across calls to prevent
+    resource exhaustion from creating multiple connection pools.
+    """
+    global _sync_engine
+    if _sync_engine is None:
+        conn = get_connection_string(async_driver=False)
+        kwargs = get_engine_kwargs()
+        _sync_engine = create_engine(conn, **kwargs)
+    return _sync_engine
 
 
 def get_async_engine() -> AsyncEngine:
-    """Create and return an asynchronous SQLAlchemy AsyncEngine using config."""
-    conn = get_connection_string(async_driver=True)
-    kwargs = get_engine_kwargs()
-    # SQLAlchemy async engines accept the same general kwargs for pool
-    return create_async_engine(conn, **kwargs)
+    """Create and return an asynchronous SQLAlchemy AsyncEngine using config.
+
+    The engine is cached at module level and reused across calls to prevent
+    resource exhaustion from creating multiple connection pools.
+    """
+    global _async_engine
+    if _async_engine is None:
+        conn = get_connection_string(async_driver=True)
+        kwargs = get_engine_kwargs()
+        # SQLAlchemy async engines accept the same general kwargs for pool
+        _async_engine = create_async_engine(conn, **kwargs)
+    return _async_engine
 
 
 def make_sync_session_factory(**session_kwargs):
-    """Return a sync `sessionmaker` bound to the sync engine."""
+    """Return a sync `sessionmaker` bound to the sync engine.
+
+    The underlying engine is cached and reused to prevent resource exhaustion.
+    Multiple calls to this function will share the same connection pool.
+    """
     engine = get_sync_engine()
     return sessionmaker(bind=engine, expire_on_commit=False, **session_kwargs)
 
 
 def make_async_session_factory(**session_kwargs):
-    """Return an async `sessionmaker` producing `AsyncSession` instances."""
+    """Return an async `sessionmaker` producing `AsyncSession` instances.
+
+    The underlying engine is cached and reused to prevent resource exhaustion.
+    Multiple calls to this function will share the same connection pool.
+    """
     engine = get_async_engine()
-    return sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False, **session_kwargs)
+    return sessionmaker(
+        bind=engine, class_=AsyncSession, expire_on_commit=False, **session_kwargs
+    )
 
 
 __all__ = [
