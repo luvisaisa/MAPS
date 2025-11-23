@@ -40,13 +40,6 @@ jobs:
       - name: Generate coverage
         run: npm run test:coverage
       
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./web/coverage/lcov.info
-          flags: web
-          token: ${{ secrets.CODECOV_TOKEN }}
-      
       - name: Archive coverage report
         uses: actions/upload-artifact@v4
         with:
@@ -88,13 +81,6 @@ jobs:
       
       - name: Run tests
         run: pytest --cov=src --cov-report=xml --cov-report=term-missing -v
-      
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage.xml
-          flags: python
-          token: ${{ secrets.CODECOV_TOKEN }}
       
       - name: Archive test results
         uses: actions/upload-artifact@v4
