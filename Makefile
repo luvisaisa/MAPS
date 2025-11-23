@@ -15,6 +15,7 @@ help:
 	@echo "  make db-up          - Start PostgreSQL container"
 	@echo "  make db-down        - Stop PostgreSQL container"
 	@echo "  make db-migrate     - Apply database migrations"
+	@echo "  make db-migrate-list - List migration status"
 	@echo "  make db-reset       - ⚠️  Reset database (deletes all data)"
 	@echo "  make db-shell       - Open PostgreSQL shell"
 	@echo "  make pgadmin        - Start pgAdmin UI (http://localhost:5050)"
@@ -75,10 +76,12 @@ db-down:
 
 db-migrate:
 	@echo "📊 Applying database migrations..."
-	@export PGPASSWORD=changeme && \
-	psql -h localhost -U ra_d_ps_user -d ra_d_ps_db \
-	     -f migrations/001_initial_schema.sql
+	@python scripts/apply_migrations.py
 	@echo "✅ Migrations applied"
+
+db-migrate-list:
+	@echo "📋 Listing migration status..."
+	@python scripts/apply_migrations.py --list
 
 db-reset:
 	@echo "⚠️  WARNING: This will delete all data!"
