@@ -23,13 +23,15 @@ export function BatchProcessor({ files, profileName, onComplete }: BatchProcesso
   const uploadMutation = useMutation({
     mutationFn: async ({ file, profile }: { file: File; profile: string }) => {
       return apiClient.uploadFiles([file], profile, (progress) => {
-        setUploadProgress(prev =>
-          prev.map(p =>
-            p.fileName === file.name
-              ? { ...p, progress: Math.round((progress.loaded / progress.total!) * 100), status: 'uploading' }
-              : p
-          )
-        );
+        if (progress.total) {
+          setUploadProgress(prev =>
+            prev.map(p =>
+              p.fileName === file.name
+                ? { ...p, progress: Math.round((progress.loaded / (progress.total || 1)) * 100), status: 'uploading' }
+                : p
+            )
+          );
+        }
       });
     },
   });

@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '../services/api';
-import type { Keyword, KeywordDirectory } from '../types/api';
+import type { Keyword } from '../types/api';
 
 export default function Keywords() {
   const [searchTerm, setSearchTerm] = useState('');

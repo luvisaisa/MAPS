@@ -6,7 +6,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '../services/api';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#14B8A6', '#F97316'];
 
@@ -80,13 +80,13 @@ export default function Analytics() {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
-                data={parseCases}
+                data={parseCases as any}
                 dataKey="count"
                 nameKey="parse_case"
                 cx="50%"
                 cy="50%"
                 outerRadius={100}
-                label={({ parse_case, percentage }) => `${parse_case}: ${percentage.toFixed(1)}%`}
+                label={(entry: any) => `${entry.parse_case}: ${entry.percentage.toFixed(1)}%`}
               >
                 {parseCases.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
