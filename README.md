@@ -1,16 +1,16 @@
-# NYT XML Parser - Radiology Data Processing System
+# MAPS - Medical Annotation Processing Suite
 
 ## Overview
 
-The NYT XML Parser is a comprehensive Python-based application designed to parse, analyze, and export radiology XML data from various medical imaging systems. Built specifically for handling complex radiology session data with multiple radiologist readings, nodule annotations, and coordinate mappings.
+MAPS (Medical Annotation Processing Suite) is a comprehensive Python-based application designed to parse, analyze, and export medical imaging annotation data from various medical imaging systems. Built specifically for handling complex medical imaging session data with multiple observer readings, nodule annotations, and coordinate mappings.
 
 ## Purpose
 
-This system was developed to address the challenges of processing heterogeneous XML radiology data formats, providing researchers and medical professionals with tools to:
+This system was developed to address the challenges of processing heterogeneous medical annotation data formats, providing researchers and medical professionals with tools to:
 
-- Parse XML files from different radiology systems (NYT, LIDC formats)
-- Extract radiologist readings, confidence scores, and nodule characteristics
-- Handle multi-session radiologist reviews and unblinded readings
+- Parse XML files from different medical imaging systems (LIDC and other formats)
+- Extract observer readings, confidence scores, and nodule characteristics
+- Handle multi-session observer reviews and unblinded readings
 - Export data to standardized Excel templates and SQLite databases
 - **NEW: Import PYLIDC data directly to Supabase PostgreSQL**
 - **NEW: Schema-agnostic parsing with automatic parse case detection**

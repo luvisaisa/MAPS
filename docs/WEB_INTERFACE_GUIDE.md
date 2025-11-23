@@ -1,6 +1,6 @@
 # web interface user guide
 
-comprehensive guide for using the ra-d-ps web interface.
+comprehensive guide for using the MAPS web interface.
 
 ## table of contents
 

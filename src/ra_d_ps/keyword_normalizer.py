@@ -4,7 +4,7 @@ Keyword Normalizer
 Normalizes medical keywords using synonyms, abbreviations, and medical terminology.
 Supports canonical form mapping and synonym expansion for search queries.
 
-Database: PostgreSQL (ra_d_ps) via KeywordRepository
+Database: PostgreSQL (maps) via KeywordRepository
 Dictionary: data/medical_terms.json
 """
 

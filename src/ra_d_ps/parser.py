@@ -44,7 +44,7 @@ def open_file_cross_platform(file_path):
     except Exception as e:
         print(f"Could not open file {file_path}: {e}")
 
-# -------- RA-D-PS Excel Exporter --------
+# -------- MAPS Excel Exporter --------
 
 def _sanitize_name(name: str) -> str:
     """Keep A-Z a-z 0-9 _ -, replace others with underscore."""
@@ -253,18 +253,18 @@ def export_excel(records, folder_path, sheet="radiology_data", blue_argb="FFCCE5
     folder_name = os.path.basename(os.path.abspath(folder_path)) or "export"
     folder_name = _sanitize_name(folder_name)
     ts = _timestamp()
-    base_filename = f"{folder_name}_RA-D-PS_{ts}.xlsx"
+    base_filename = f"{folder_name}_MAPS_{ts}.xlsx"
     out_path = _next_versioned_path(folder_path, base_filename)
 
     # Save
     wb.save(out_path)
     return out_path
 
-# -------- End RA-D-PS Excel Exporter --------
+# -------- End MAPS Excel Exporter --------
 
 def convert_parsed_data_to_ra_d_ps_format(dataframes):
     """
-    Convert parsed XML DataFrames to RA-D-PS format records.
+    Convert parsed XML DataFrames to MAPS format records.
     
     Args:
         dataframes: tuple of (main_df, unblinded_df) from parse_radiology_sample

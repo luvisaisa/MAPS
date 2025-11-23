@@ -71,7 +71,7 @@ except ImportError:
 if False:  # disabled GUI block
     def _disabled_gui_block():
         pass
-    # self.master.title("RA-D-PS: Radiology XML Data Processing System")
+    # self.master.title("MAPS: Medical Annotation Processing Suite")
         self.master.configure(bg="#d7e3fc")
         
         # Set window size to accommodate improved layout
@@ -961,7 +961,7 @@ if False:  # disabled GUI block
                     ws = wb.create_sheet(title=sanitized_name)
                     
                     # Determine R_max for this folder
-                    R_max = _get_R_max(ra_d_ps_records)
+                    R_max = _get_R_max(maps_records)
                     cols = _build_columns(R_max)
                     
                     # Write headers
@@ -971,7 +971,7 @@ if False:  # disabled GUI block
                     
                     # Write data
                     row_idx = 2
-                    for rec in ra_d_ps_records:
+                    for rec in maps_records:
                         # Fixed fields
                         ws.cell(row=row_idx, column=1, value=rec.get("file_number"))
                         ws.cell(row=row_idx, column=2, value=rec.get("study_uid"))
@@ -1026,7 +1026,7 @@ if False:  # disabled GUI block
                     f"• Processed {total_folders} folders\n"
                     f"• Total records: {total_records}\n"
                     f"• Separate sheet per folder\n"
-                    f"• RA-D-PS format with dynamic columns\n\n"
+                    f"• MAPS format with dynamic columns\n\n"
                     f"📄 File: {os.path.basename(output_path)}"
                 )
                 
@@ -1343,30 +1343,30 @@ if False:  # disabled GUI block
                     )
                     
                     if excel_path:
-                        log_message(f"Exporting to RA-D-PS Excel: {os.path.basename(excel_path)}", "FILE")
-                        status_label.config(text=f"Folder {i}/{total_folders} | Exporting RA-D-PS Excel...")
+                        log_message(f"Exporting to MAPS Excel: {os.path.basename(excel_path)}", "FILE")
+                        status_label.config(text=f"Folder {i}/{total_folders} | Exporting MAPS Excel...")
                         progress_window.update()
                         
                         try:
-                            # Convert to RA-D-PS format
-                            log_message("Converting data to RA-D-PS format...", "PROCESSING")
+                            # Convert to MAPS format
+                            log_message("Converting data to MAPS format...", "PROCESSING")
                             combined_dataframes = {}
                             for case, case_data_list in parse_cases.items():
                                 if case_data_list:
                                     combined_dataframes[case] = pd.DataFrame(case_data_list)
                             
-                            ra_d_ps_records = convert_parsed_data_to_ra_d_ps_format(combined_dataframes)
+                            maps_records = convert_parsed_data_to_ra_d_ps_format(combined_dataframes)
                             
-                            if ra_d_ps_records:
+                            if maps_records:
                                 # Use the folder itself as the output directory for auto-naming
                                 output_folder = os.path.dirname(excel_path)
-                                actual_output_path = export_excel(ra_d_ps_records, output_folder, sheet=f"{folder_name}_data")
-                                log_message(f"Successfully exported RA-D-PS Excel: {os.path.basename(actual_output_path)}", "SUCCESS")
+                                actual_output_path = export_excel(maps_records, output_folder, sheet=f"{folder_name}_data")
+                                log_message(f"Successfully exported MAPS Excel: {os.path.basename(actual_output_path)}", "SUCCESS")
                             else:
-                                log_message("No RA-D-PS records generated, skipping export", "WARNING")
+                                log_message("No MAPS records generated, skipping export", "WARNING")
                         except Exception as export_error:
-                            log_message(f"RA-D-PS Excel export failed: {str(export_error)}", "ERROR")
-                            messagebox.showerror("Export Error", f"Failed to export RA-D-PS Excel for {folder_name}:\n{str(export_error)}")
+                            log_message(f"MAPS Excel export failed: {str(export_error)}", "ERROR")
+                            messagebox.showerror("Export Error", f"Failed to export MAPS Excel for {folder_name}:\n{str(export_error)}")
                     else:
                         log_message("User cancelled Excel save", "INFO")
                 
@@ -1576,7 +1576,7 @@ if False:  # disabled GUI block
         messagebox.showinfo("Success", f"Parsed {len(self.files)} files into {len(case_data)} main cases and {len(case_unblinded_data)} unblinded cases.\nTotal: {total_main_rows} main rows, {total_unblinded_rows} unblinded rows\nExported to: {output_path}")
         open_file_cross_platform(output_path)
 
-        self.master.title("NYT XML Parser")  # Reset title
+        self.master.title("MAPS")  # Reset title
 
     def export_to_sqlite(self):
         """Export parsed data to SQLite database with analysis capabilities"""
@@ -1600,7 +1600,7 @@ if False:  # disabled GUI block
 
         try:
             # Parse the XML files
-            self.master.title("NYT XML Parser - Parsing files...")
+            self.master.title("MAPS - Parsing files...")
             case_data, case_unblinded_data = parse_multiple(self.files)
             
             if not case_data and not case_unblinded_data:
@@ -1626,14 +1626,14 @@ if False:  # disabled GUI block
             if not self._check_for_na_rows(all_parsed_data, "selected files"):
                 return
 
-            self.master.title("NYT XML Parser - Creating database...")
+            self.master.title("MAPS - Creating database...")
             
             # Create database and insert data
             with RadiologyDatabase(db_path) as db:
                 batch_id = db.insert_batch_data(all_parsed_data)
                 
                 # Generate analysis report
-                self.master.title("NYT XML Parser - Generating analysis...")
+                self.master.title("MAPS - Generating analysis...")
                 quality_report = db.get_quality_report()
                 
                 # Create Excel export alongside database
@@ -1674,10 +1674,10 @@ if False:  # disabled GUI block
             if messagebox.askyesno("Open Results", "Would you like to open the Excel analysis file?"):
                 open_file_cross_platform(excel_path)
 
-            self.master.title("NYT XML Parser")
+            self.master.title("MAPS")
 
         except Exception as e:
-            self.master.title("NYT XML Parser")
+            self.master.title("MAPS")
             error_msg = f"Error creating SQLite database:\n{str(e)}"
             messagebox.showerror("Database Error", error_msg)
             print(f"SQLite export error: {traceback.format_exc()}")
@@ -1736,7 +1736,7 @@ if False:  # disabled GUI block
             messagebox.showerror("Export Error", f"Error creating Excel file:\n{str(e)}")
             print(f"Excel export error: {traceback.format_exc()}")
 
-        self.master.title("NYT XML Parser")  # Reset title
+        self.master.title("MAPS")  # Reset title
 
     def _transform_to_template_format(self, all_data):
         """
@@ -1953,8 +1953,8 @@ if False:  # disabled GUI block
                 messagebox.showinfo("Result", "No data parsed.")
                 return
 
-            # Convert parsed data to RA-D-PS format
-            print("🔄 Converting to RA-D-PS format...")
+            # Convert parsed data to MAPS format
+            print("🔄 Converting to MAPS format...")
             
             # Properly combine main and unblinded data per parse case
             combined_case_data = {}
@@ -1979,23 +1979,23 @@ if False:  # disabled GUI block
                 all_ra_d_ps_records.extend(case_records)
                 print(f"  ✅ Generated {len(case_records)} records for case '{case}'")
             
-            ra_d_ps_records = all_ra_d_ps_records
+            maps_records = all_ra_d_ps_records
             
-            if not ra_d_ps_records:
-                messagebox.showinfo("Result", "No data to export in RA-D-PS format.")
+            if not maps_records:
+                messagebox.showinfo("Result", "No data to export in MAPS format.")
                 return
 
             # Export to Excel with auto-naming
-            print("📊 Exporting to RA-D-PS Excel format...")
-            output_path = export_excel(ra_d_ps_records, folder_path, sheet="radiology_data")
+            print("📊 Exporting to MAPS Excel format...")
+            output_path = export_excel(maps_records, folder_path, sheet="radiology_data")
             
             # Calculate summary statistics
-            total_records = len(ra_d_ps_records)
-            total_radiologists = sum(len(rec.get("radiologists", {})) for rec in ra_d_ps_records)
-            max_radiologists = max((len(rec.get("radiologists", {})) for rec in ra_d_ps_records), default=0)
+            total_records = len(maps_records)
+            total_radiologists = sum(len(rec.get("radiologists", {})) for rec in maps_records)
+            max_radiologists = max((len(rec.get("radiologists", {})) for rec in maps_records), default=0)
             
             success_msg = (
-                f"✅ RA-D-PS Excel export completed!\n\n"
+                f"✅ MAPS Excel export completed!\n\n"
                 f"📊 Summary:\n"
                 f"• Total records: {total_records}\n"
                 f"• Total radiologist entries: {total_radiologists}\n"
@@ -2010,10 +2010,10 @@ if False:  # disabled GUI block
             open_file_cross_platform(output_path)
 
         except Exception as e:
-            messagebox.showerror("Export Error", f"Error creating RA-D-PS Excel file:\n{str(e)}")
-            print(f"RA-D-PS export error: {traceback.format_exc()}")
+            messagebox.showerror("Export Error", f"Error creating MAPS Excel file:\n{str(e)}")
+            print(f"MAPS export error: {traceback.format_exc()}")
 
-        self.master.title("NYT XML Parser")  # Reset title
+        self.master.title("MAPS")  # Reset title
 
     def _sanitize_sheet_name(self, case_name, suffix=""):
         """
@@ -2187,7 +2187,7 @@ if False:  # disabled GUI block
     def show_help(self):
         """Display help and about information in a popup window"""
         help_window = tk.Toplevel(self.master)
-        help_window.title("RA-D-PS Help & About")
+        help_window.title("MAPS Help & About")
         help_window.geometry("600x500")
         help_window.configure(bg="#f8f9fa")
         help_window.transient(self.master)
@@ -2232,7 +2232,7 @@ Export to single XLSX file with multiple sheets
 • Combines ALL selected folders into ONE Excel file
 • Each folder becomes a SEPARATE SHEET in that Excel file
 • Example: If you select folders "157", "185", and "186"
-  → Result: One file "RA-D-PS_combined.xlsx" with 3 sheets
+  → Result: One file "MAPS_combined.xlsx" with 3 sheets
 • Best for: Comparing data across folders, consolidated reports, 
   overview analysis where you want everything in one place
 
@@ -2241,7 +2241,7 @@ Export each folder as an individual XLSX file
 • Creates SEPARATE Excel files for each folder
 • Each folder gets its own dedicated Excel file
 • Example: If you select folders "157", "185", and "186"
-  → Result: Three files: "157_RA-D-PS.xlsx", "185_RA-D-PS.xlsx", "186_RA-D-PS.xlsx"
+  → Result: Three files: "157_MAPS.xlsx", "185_MAPS.xlsx", "186_MAPS.xlsx"
 • Best for: Individual folder analysis, separate reports, 
   when you want to keep folder data isolated
 

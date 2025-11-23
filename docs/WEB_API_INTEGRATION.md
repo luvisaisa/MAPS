@@ -1,6 +1,6 @@
 # web interface api integration
 
-technical documentation for integrating the ra-d-ps web interface with the fastapi backend.
+technical documentation for integrating the MAPS web interface with the fastapi backend.
 
 ## table of contents
 
@@ -113,7 +113,7 @@ response:
 ```json
 {
   "status": "healthy",
-  "service": "RA-D-PS API",
+  "service": "MAPS API",
   "version": "1.0.0"
 }
 ```

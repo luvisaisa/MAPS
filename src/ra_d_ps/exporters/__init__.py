@@ -1,5 +1,5 @@
 """
-Exporters for RA-D-PS data processing system.
+Exporters for MAPS data processing system.
 
 This module provides various export formats for processed radiology data,
 including Excel, SQLite, and other output formats.

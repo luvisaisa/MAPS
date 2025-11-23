@@ -1,5 +1,5 @@
 """
-Schemas module for RA-D-PS schema-agnostic data ingestion system.
+Schemas module for MAPS schema-agnostic data ingestion system.
 """
 
 from .canonical import (

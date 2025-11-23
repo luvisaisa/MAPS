@@ -1,5 +1,5 @@
 """
-Parser module for RA-D-PS
+Parser module for MAPS
 
 This module provides a generic, profile-driven parsing system that converts
 various document formats into canonical schema representations.

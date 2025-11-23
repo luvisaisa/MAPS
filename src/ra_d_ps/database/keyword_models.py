@@ -2,7 +2,7 @@
 Keyword Extraction SQLAlchemy Models
 
 Models for keyword extraction, normalization, search, and analytics.
-Database: PostgreSQL (ra_d_ps)
+Database: PostgreSQL (maps)
 """
 
 from sqlalchemy import (

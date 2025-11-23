@@ -12,7 +12,7 @@ Utilities for working with 3D contour data from LIDC-IDRI dataset:
 Requirements:
     scipy, scikit-image, trimesh, plotly, SimpleITK, pingouin
 
-Author: RA-D-PS Team
+Author: MAPS Team
 Date: November 2025
 """
 

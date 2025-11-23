@@ -1,5 +1,5 @@
 """
-Canonical Schema Definitions for RA-D-PS Schema-Agnostic Data Ingestion System
+Canonical Schema Definitions for MAPS Schema-Agnostic Data Ingestion System
 
 This module defines the flexible canonical schema using Pydantic v2 models.
 All source formats (XML, JSON, CSV, PDF, etc.) are normalized into this schema.

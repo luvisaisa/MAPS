@@ -1,5 +1,5 @@
 """
-RA-D-PS PyQt GUI Structure Mockup
+MAPS PyQt GUI Structure Mockup
 Modular, scalable, and ready for advanced features (database, PDF, keyword review, analytics).
 """
 

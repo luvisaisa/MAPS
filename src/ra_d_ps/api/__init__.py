@@ -1,5 +1,5 @@
 """
-RA-D-PS REST API
+MAPS REST API
 
 FastAPI-based REST API for radiology data processing system.
 Provides endpoints for parsing, querying, and exporting radiology data.

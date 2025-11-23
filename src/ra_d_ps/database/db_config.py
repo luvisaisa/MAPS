@@ -21,8 +21,8 @@ class PostgreSQLConfig(BaseModel):
 
     host: str = Field(default="localhost", description="PostgreSQL host")
     port: int = Field(default=5432, description="PostgreSQL port")
-    database: str = Field(default="ra_d_ps", description="Database name")
-    user: str = Field(default="ra_d_ps_user", description="Database user")
+    database: str = Field(default="maps", description="Database name")
+    user: str = Field(default="maps_user", description="Database user")
     password: str = Field(default="", description="Database password")
 
     # Connection pool settings
@@ -47,8 +47,8 @@ class PostgreSQLConfig(BaseModel):
         return cls(
             host=os.getenv("DB_HOST", "localhost"),
             port=int(os.getenv("DB_PORT", "5432")),
-            database=os.getenv("DB_NAME", "ra_d_ps"),
-            user=os.getenv("DB_USER", "ra_d_ps_user"),
+            database=os.getenv("DB_NAME", "maps"),
+            user=os.getenv("DB_USER", "maps_user"),
             password=os.getenv("DB_PASSWORD", ""),
             pool_size=int(os.getenv("DB_POOL_SIZE", "5")),
             max_overflow=int(os.getenv("DB_MAX_OVERFLOW", "10")),

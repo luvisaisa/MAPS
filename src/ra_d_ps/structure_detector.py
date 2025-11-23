@@ -1,5 +1,5 @@
 """
-Structure Detection Module for RA-D-PS XML Parsing
+Structure Detection Module for MAPS XML Parsing
 
 This module provides intelligent XML structure detection and parse case determination
 for batch processing of radiology annotation files. It separates the structure

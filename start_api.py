@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RA-D-PS API Startup Script
+MAPS API Startup Script
 
 Launches the FastAPI server.
 """

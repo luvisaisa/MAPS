@@ -1,7 +1,7 @@
-# CLAUDE.md - AI Assistant Guide for RA-D-PS
+# CLAUDE.md - AI Assistant Guide for MAPS
 
-**Last Updated:** November 21, 2025
-**Repository:** RA-D-PS (Radiology XML Data Processing System)
+**Last Updated:** November 23, 2025
+**Repository:** MAPS (Medical Annotation Processing Suite)
 **Version:** 1.0.0
 **Python Version:** 3.8+
 
@@ -109,7 +109,7 @@ RA-D-PS is a schema-agnostic radiology data processing system that parses, analy
 ## Repository Structure
 
 ```
-RA-D-PS/
+MAPS/
 ├── src/ra_d_ps/              # Main source code package
 │   ├── __init__.py           # Package initialization and public API
 │   ├── parser.py             # Core parsing logic (legacy)
@@ -297,8 +297,8 @@ Profiles define how to map source data to canonical schema:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/luvisaisa/RA-D-PS.git
-cd RA-D-PS
+git clone https://github.com/luvisaisa/MAPS.git
+cd MAPS
 
 # 2. Create virtual environment
 python3 -m venv .venv
@@ -373,13 +373,13 @@ make db-reset
 **PostgreSQL** (via Docker):
 - Host: `localhost`
 - Port: `5432`
-- Database: `ra_d_ps_db`
-- User: `ra_d_ps_user`
+- Database: `maps_db`
+- User: `maps_user`
 - Password: `changeme`
 
 **pgAdmin** (optional UI):
 - URL: `http://localhost:5050`
-- Email: `admin@ra-d-ps.local`
+- Email: `admin@maps.local`
 - Password: `admin`
 
 ### Environment Variables
@@ -388,7 +388,7 @@ Copy `.env.example` to `.env` and configure:
 
 ```bash
 # Database
-DATABASE_URL=postgresql://ra_d_ps_user:changeme@localhost:5432/ra_d_ps_db
+DATABASE_URL=postgresql://maps_user:changeme@localhost:5432/maps_db
 
 # Paths
 PROFILE_DIR=./profiles
@@ -396,7 +396,7 @@ DATA_DIR=./data
 
 # Logging
 LOG_LEVEL=INFO
-LOG_FILE=./logs/ra_d_ps.log
+LOG_FILE=./logs/maps.log
 ```
 
 ---
@@ -1380,7 +1380,7 @@ This project is licensed under the MIT License.
 ## Authors
 
 - **Isa Lucia Schlichting** - Original author and maintainer
-- **RA-D-PS Team** - Development team
+- **MAPS Team** - Development team
 
 ---
 

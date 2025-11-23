@@ -14,7 +14,7 @@ class Settings(BaseModel):
     """API configuration settings"""
 
     # API Settings
-    API_TITLE: str = "RA-D-PS API"
+    API_TITLE: str = "MAPS API"
     API_VERSION: str = "1.0.0"
     API_DESCRIPTION: str = "Radiology XML Data Processing System REST API"
 

@@ -1,5 +1,5 @@
 """
-Base parser interface for RA-D-PS
+Base parser interface for MAPS
 
 Defines the abstract interface that all parsers must implement.
 """

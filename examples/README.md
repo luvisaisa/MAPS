@@ -1,6 +1,6 @@
-# RA-D-PS Examples
+# MAPS Examples
 
-This directory contains example scripts demonstrating how to use the RA-D-PS package for various XML parsing and analysis tasks.
+This directory contains example scripts demonstrating how to use the MAPS package for various medical annotation parsing and analysis tasks.
 
 ## Available Examples
 
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 ## Example Data Flow
 
 ```
-XML Files → Parser → RA-D-PS Format → Excel Export
+XML Files → Parser → MAPS Format → Excel Export
                   ↘ Database → Analysis → Excel Report
 ```
 

@@ -1,4 +1,4 @@
-# RA-D-PS Documentation
+# MAPS Documentation
 
 ## Quick Start
 - [README](../README.md) - Main project overview and setup
@@ -43,7 +43,7 @@ ra-d-ps/
 
 ### Exporters (`ra_d_ps.exporters`)
 - `export_excel()` - Export to Excel with formatting
-- `convert_parsed_data_to_ra_d_ps_format()` - Convert to RA-D-PS format
+- `convert_parsed_data_to_ra_d_ps_format()` - Convert to MAPS format
 
 ### GUI (`ra_d_ps.gui`)
 - `NYTXMLGuiApp` - Main GUI application

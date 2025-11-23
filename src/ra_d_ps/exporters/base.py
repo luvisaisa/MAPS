@@ -1,5 +1,5 @@
 """
-Base exporter interface for RA-D-PS export system.
+Base exporter interface for MAPS export system.
 """
 
 from abc import ABC, abstractmethod

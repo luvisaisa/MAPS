@@ -1,5 +1,5 @@
 """
-Profile Manager for RA-D-PS Schema-Agnostic Data Ingestion System
+Profile Manager for MAPS Schema-Agnostic Data Ingestion System
 
 Handles loading, validation, storage, and retrieval of mapping profiles.
 

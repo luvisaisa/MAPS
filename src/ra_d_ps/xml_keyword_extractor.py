@@ -8,7 +8,7 @@ Handles multiple parse case formats and extracts:
 - Anatomical terms
 - Metadata fields
 
-Database: PostgreSQL (ra_d_ps) via KeywordRepository
+Database: PostgreSQL (maps) via KeywordRepository
 """
 
 import xml.etree.ElementTree as ET

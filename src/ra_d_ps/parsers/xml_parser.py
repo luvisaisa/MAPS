@@ -1,5 +1,5 @@
 """
-Generic XML Parser for RA-D-PS
+Generic XML Parser for MAPS
 
 Profile-driven XML parser that converts XML documents to canonical schema
 using profile-defined field mappings and transformations.

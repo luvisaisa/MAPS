@@ -1,5 +1,5 @@
 """
-PyLIDC Adapter for RA-D-PS Schema-Agnostic System
+PyLIDC Adapter for MAPS Schema-Agnostic System
 
 This adapter converts pylidc Scan and Annotation objects into the canonical schema format.
 Supports direct integration with the pylidc library for LIDC-IDRI dataset processing.

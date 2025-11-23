@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '../services/api';
 import type { ProcessingJob, JobFilters } from '../types/api';
-import { ExportOptions } from '../components/ExportOptions/ExportOptions';
+import { ExportOptions } from '../components/ExportOptions';
 
 export function History() {
   const [page, setPage] = useState(1);

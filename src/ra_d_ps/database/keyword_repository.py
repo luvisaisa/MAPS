@@ -4,7 +4,7 @@ Keyword Repository
 Repository pattern for keyword extraction, normalization, and search operations.
 Provides CRUD operations for keywords, sources, statistics, and synonyms.
 
-Database: PostgreSQL (ra_d_ps)
+Database: PostgreSQL (maps)
 """
 
 import logging
@@ -40,7 +40,7 @@ class KeywordRepository:
     - Search history (analytics)
     """
     
-    def __init__(self, database: str = "ra_d_ps", 
+    def __init__(self, database: str = "maps", 
                  host: str = "localhost", 
                  port: int = 5432,
                  user: str = None, 
@@ -49,7 +49,7 @@ class KeywordRepository:
         Initialize keyword repository with database connection.
         
         Args:
-            database: Database name (default: ra_d_ps)
+            database: Database name (default: maps)
             host: Database host (default: localhost)
             port: Database port (default: 5432)
             user: Database user (optional, uses env if not provided)

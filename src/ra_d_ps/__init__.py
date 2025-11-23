@@ -1,5 +1,5 @@
 """
-RA-D-PS: Radiology XML Data Processing System
+MAPS: Medical Annotation Processing Suite
 
 A comprehensive Python package for parsing, analyzing, and exporting 
 radiology XML data from various medical imaging systems.
@@ -72,7 +72,7 @@ except ImportError:
     create_optimized_processing_plan = None
 
 __version__ = "1.0.0"
-__author__ = "RA-D-PS Team"
+__author__ = "MAPS Team"
 
 # Define public API
 __all__ = [

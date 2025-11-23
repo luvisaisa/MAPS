@@ -1,5 +1,5 @@
 """
-RA-D-PS FastAPI Application
+MAPS FastAPI Application
 
 Main FastAPI application with all routers and middleware.
 """

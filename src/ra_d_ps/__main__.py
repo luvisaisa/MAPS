@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-entry point for running ra_d_ps gui as a module
+entry point for running MAPS gui as a module
 usage: python -m src.ra_d_ps
 """
 import tkinter as tk

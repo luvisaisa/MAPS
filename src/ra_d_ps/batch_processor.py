@@ -1,5 +1,5 @@
 """
-Batch Processing Optimizer for RA-D-PS XML Parsing
+Batch Processing Optimizer for MAPS XML Parsing
 
 This module provides intelligent batch processing capabilities that optimize
 parsing strategies based on detected XML structure types. It pre-analyzes

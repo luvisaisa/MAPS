@@ -1,5 +1,5 @@
 """
-Utility functions for the RA-D-PS package
+Utility functions for the MAPS package
 """
 import re
 import datetime

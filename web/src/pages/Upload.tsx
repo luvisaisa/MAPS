@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { FileUploader } from '../components/FileUploader/FileUploader';
-import { ProfileSelector } from '../components/ProfileSelector/ProfileSelector';
-import { BatchProcessor } from '../components/BatchProcessor/BatchProcessor';
-import { ProgressTracker } from '../components/ProgressTracker/ProgressTracker';
+import { FileUploader } from '../components/FileUploader';
+import { ProfileSelector } from '../components/ProfileSelector';
+import { BatchProcessor } from '../components/BatchProcessor';
+import { ProgressTracker } from '../components/ProgressTracker';
 
 export function Upload() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);

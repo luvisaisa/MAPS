@@ -1,5 +1,5 @@
 """
-Excel Exporter for RA-D-PS - Schema-Agnostic Data Export System
+Excel Exporter for MAPS - Schema-Agnostic Data Export System
 
 This module handles all Excel formatting and export operations, extracting
 629+ lines of formatting logic from gui.py into a reusable, testable module.
@@ -150,9 +150,9 @@ class ExcelExporter(BaseExporter):
 
 class RADPSExcelFormatter(ExcelExporter):
     """
-    RA-D-PS format Excel exporter with radiologist blocks and spacers.
+    MAPS format Excel exporter with radiologist blocks and spacers.
     
-    RA-D-PS Format Structure:
+    MAPS Format Structure:
     - Fixed columns: file #, Study UID, [spacer], NoduleID, [spacer]
     - Radiologist blocks: For each radiologist 1-N:
       [Subtlety, Confidence, Obscuration, Reason, Coordinates, SPACER]
@@ -165,7 +165,7 @@ class RADPSExcelFormatter(ExcelExporter):
                force_blocks: Optional[int] = None, 
                sheet_name: str = "radiology_data") -> Path:
         """
-        Export records to RA-D-PS formatted Excel file.
+        Export records to MAPS formatted Excel file.
         
         Args:
             records: List of record dicts with 'radiologists' nested structure
@@ -258,7 +258,7 @@ class RADPSExcelFormatter(ExcelExporter):
         return output_path
     
     def validate_data(self, data: Any) -> bool:
-        """Validate RA-D-PS format data."""
+        """Validate MAPS format data."""
         if not isinstance(data, list):
             return False
         
@@ -342,12 +342,12 @@ class RADPSExcelFormatter(ExcelExporter):
         """
         Generate auto-named output path with versioning.
         
-        Format: {folder_name}_RA-D-PS_{timestamp}.xlsx
+        Format: {folder_name}_MAPS_{timestamp}.xlsx
         Auto-versions: _v2, _v3, etc. if file exists
         """
         folder_name = self._sanitize_filename(output_folder.name or "export")
         timestamp = self._get_timestamp()
-        base_filename = f"{folder_name}_RA-D-PS_{timestamp}.xlsx"
+        base_filename = f"{folder_name}_MAPS_{timestamp}.xlsx"
         base_path = output_folder / base_filename
         
         return self._next_versioned_path(base_path)

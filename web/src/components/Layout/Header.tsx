@@ -8,13 +8,13 @@ export function Header() {
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">RA</span>
+                <span className="text-white font-bold text-lg">M</span>
               </div>
               <h1 className="text-xl font-semibold text-gray-900">
-                RA-D-PS
+                MAPS
               </h1>
             </Link>
-            <span className="text-sm text-gray-500">Radiology Data Processing System</span>
+            <span className="text-sm text-gray-500">Medical Annotation Processing Suite</span>
           </div>
 
           <div className="flex items-center space-x-4">

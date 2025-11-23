@@ -3,16 +3,16 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ra-d-ps"
+name = "maps"
 version = "1.0.0"
-description = "Radiology XML parsing utilities for medical imaging data analysis"
+description = "Medical Annotation Processing Suite - comprehensive medical imaging annotation analysis"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "RA-D-PS Team"}
+    {name = "MAPS Team"}
 ]
-keywords = ["radiology", "xml", "medical", "imaging", "data-analysis"]
+keywords = ["medical", "annotation", "imaging", "processing", "analysis", "psychophysics"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Healthcare Industry",
@@ -43,12 +43,12 @@ gui = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/luvisaisa/RA-D-PS"
-Repository = "https://github.com/luvisaisa/RA-D-PS"
-Documentation = "https://github.com/luvisaisa/RA-D-PS/tree/main/docs"
+Homepage = "https://github.com/luvisaisa/MAPS"
+Repository = "https://github.com/luvisaisa/MAPS"
+Documentation = "https://github.com/luvisaisa/MAPS/tree/main/docs"
 
 [project.scripts]
-ra-d-ps = "ra_d_ps.parser:main"
+maps = "ra_d_ps.parser:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
