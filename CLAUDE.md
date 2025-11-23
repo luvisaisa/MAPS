@@ -1364,7 +1364,7 @@ make docker-logs        # View container logs
 3. Run tests: `pytest -q`
 4. Run linters: `make lint`
 5. Update documentation
-6. Push to branch with `claude/` prefix for Claude Code
+6. Push to branch as specified github contributor (luvisaisa)
 7. Create detailed commit messages
 
 ---
