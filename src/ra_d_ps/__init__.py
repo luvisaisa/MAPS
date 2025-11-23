@@ -5,16 +5,45 @@ A comprehensive Python package for parsing, analyzing, and exporting
 radiology XML data from various medical imaging systems.
 """
 
-# Import from the main parser module
-from .parser import (
-    parse_radiology_sample,
-    parse_multiple,
-    export_excel,
-    convert_parsed_data_to_ra_d_ps_format,
-    open_file_cross_platform,
-    detect_parse_case,
-    get_expected_attributes_for_case
-)
+# Import from the main parser module (lazy to avoid tkinter dependency)
+def _lazy_import_parser():
+    """Lazy import parser functions to avoid tkinter dependency in API context"""
+    from .parser import (
+        parse_radiology_sample,
+        parse_multiple,
+        export_excel,
+        convert_parsed_data_to_ra_d_ps_format,
+        open_file_cross_platform,
+        detect_parse_case,
+        get_expected_attributes_for_case
+    )
+    return (parse_radiology_sample, parse_multiple, export_excel,
+            convert_parsed_data_to_ra_d_ps_format, open_file_cross_platform,
+            detect_parse_case, get_expected_attributes_for_case)
+
+# Try to import parser functions, but don't fail if tkinter unavailable
+try:
+    from .parser import (
+        parse_radiology_sample,
+        parse_multiple,
+        export_excel,
+        convert_parsed_data_to_ra_d_ps_format,
+        open_file_cross_platform,
+        detect_parse_case,
+        get_expected_attributes_for_case
+    )
+except ImportError as e:
+    # If tkinter not available, set placeholders
+    if "tkinter" in str(e):
+        parse_radiology_sample = None
+        parse_multiple = None
+        export_excel = None
+        convert_parsed_data_to_ra_d_ps_format = None
+        open_file_cross_platform = None
+        detect_parse_case = None
+        get_expected_attributes_for_case = None
+    else:
+        raise
 
 # Import GUI from separate module
 try:

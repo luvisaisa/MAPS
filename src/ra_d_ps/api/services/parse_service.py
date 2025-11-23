@@ -13,10 +13,19 @@ import tempfile
 import os
 from pathlib import Path
 
-from ...parser import parse_radiology_sample, detect_parse_case
-from ...pdf_keyword_extractor import PDFKeywordExtractor
 from ..models.responses import ParseResponse, BatchJobResponse
 from datetime import datetime
+
+# Lazy imports to avoid tkinter dependency at module level
+def _get_parser_functions():
+    """Lazy import of parser functions to avoid tkinter dependency"""
+    from ...parser import parse_radiology_sample, detect_parse_case
+    return parse_radiology_sample, detect_parse_case
+
+def _get_pdf_extractor():
+    """Lazy import of PDF extractor"""
+    from ...pdf_keyword_extractor import PDFKeywordExtractor
+    return PDFKeywordExtractor
 
 
 class ParseService:
@@ -46,12 +55,13 @@ class ParseService:
 
             try:
                 # Use existing parse_radiology_sample function
-                main_df, unblinded_df = parse_radiology_sample(tmp_path)
+                parse_func, detect_func = _get_parser_functions()
+                main_df, unblinded_df = parse_func(tmp_path)
 
                 # Detect parse case if requested
                 detected_parse_case = None
                 if detect_parse_case:
-                    detected_parse_case = detect_parse_case(tmp_path)
+                    detected_parse_case = detect_func(tmp_path)
 
                 # TODO: Insert to database if requested
                 document_id = None
@@ -109,6 +119,7 @@ class ParseService:
 
                 if extract_keywords:
                     # Use PDFKeywordExtractor
+                    PDFKeywordExtractor = _get_pdf_extractor()
                     extractor = PDFKeywordExtractor()
                     metadata, keywords = extractor.extract_from_pdf(tmp_path)
 
