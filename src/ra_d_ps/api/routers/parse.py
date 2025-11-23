@@ -93,6 +93,45 @@ async def parse_pdf(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.post("/upload")
+async def upload_files(
+    files: List[UploadFile] = File(...),
+    profile: str = "lidc_idri_standard",
+    db: Session = Depends(get_db)
+):
+    """
+    Upload and parse multiple files.
+
+    Args:
+        files: List of files to upload and parse
+        profile: Parsing profile to use
+        db: Database session
+
+    Returns:
+        Upload response with job ID
+    """
+    service = ParseService(db)
+
+    try:
+        # Create batch job for the uploaded files
+        result = await service.parse_batch(
+            files,
+            profile=profile,
+            batch_size=len(files),
+            validate=True,
+            extract_keywords=True
+        )
+        
+        return {
+            "job_id": result.job_id,
+            "files_uploaded": len(files),
+            "message": f"Successfully created batch job for {len(files)} file(s)"
+        }
+    except Exception as e:
+        logger.error(f"Upload failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.post("/batch", response_model=BatchJobResponse)
 async def parse_batch(
     files: List[UploadFile] = File(...),
@@ -169,6 +208,38 @@ async def parse_preview(
         return result
     except Exception as e:
         logger.error(f"Parse preview failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/zip")
+async def extract_and_parse_zip(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db)
+):
+    """
+    Extract ZIP file and return contained files for parsing.
+
+    Args:
+        file: ZIP file to extract
+        db: Database session
+
+    Returns:
+        List of extracted files with metadata
+    """
+    if not file.filename.endswith('.zip'):
+        raise HTTPException(status_code=400, detail="File must be ZIP format")
+
+    service = ParseService(db)
+
+    try:
+        content = await file.read()
+        result = await service.extract_zip(
+            content,
+            file.filename
+        )
+        return result
+    except Exception as e:
+        logger.error(f"ZIP extraction failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 

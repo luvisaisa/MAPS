@@ -11,6 +11,7 @@ from fastapi import UploadFile
 import time
 import tempfile
 import os
+import zipfile
 from pathlib import Path
 
 from ..models.responses import ParseResponse, BatchJobResponse
@@ -150,6 +151,79 @@ class ParseService:
                 errors=[str(e)],
                 processing_time_ms=(time.time() - start_time) * 1000
             )
+
+    async def extract_zip(
+        self,
+        content: bytes,
+        filename: str
+    ) -> dict:
+        """
+        Extract files from ZIP archive.
+        
+        Returns list of extracted files with their content and metadata.
+        """
+        start_time = time.time()
+        extracted_files = []
+        
+        try:
+            # Save ZIP to temporary file
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.zip', delete=False) as tmp_file:
+                tmp_file.write(content)
+                tmp_path = tmp_file.name
+
+            try:
+                # Extract ZIP contents
+                with zipfile.ZipFile(tmp_path, 'r') as zip_ref:
+                    # Create temporary directory for extraction
+                    extract_dir = tempfile.mkdtemp()
+                    
+                    try:
+                        zip_ref.extractall(extract_dir)
+                        
+                        # Walk through extracted files
+                        for root, dirs, files in os.walk(extract_dir):
+                            for file in files:
+                                file_path = os.path.join(root, file)
+                                relative_path = os.path.relpath(file_path, extract_dir)
+                                
+                                # Only process supported file types
+                                if file.endswith(('.xml', '.json', '.pdf')):
+                                    with open(file_path, 'rb') as f:
+                                        file_size = os.path.getsize(file_path)
+                                    
+                                    extracted_files.append({
+                                        'filename': file,
+                                        'path': relative_path,
+                                        'size': file_size,
+                                        'type': file.split('.')[-1].upper()
+                                    })
+                    finally:
+                        # Clean up extraction directory
+                        import shutil
+                        if os.path.exists(extract_dir):
+                            shutil.rmtree(extract_dir)
+            finally:
+                # Clean up ZIP file
+                if os.path.exists(tmp_path):
+                    os.unlink(tmp_path)
+
+            processing_time = (time.time() - start_time) * 1000
+
+            return {
+                'status': 'success',
+                'zip_filename': filename,
+                'extracted_count': len(extracted_files),
+                'files': extracted_files,
+                'processing_time_ms': processing_time
+            }
+
+        except Exception as e:
+            return {
+                'status': 'error',
+                'zip_filename': filename,
+                'error': str(e),
+                'processing_time_ms': (time.time() - start_time) * 1000
+            }
 
     async def parse_batch(
         self,
