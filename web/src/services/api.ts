@@ -32,6 +32,9 @@ import type {
   DatabaseHealth,
   WSMessage,
   JobProgressUpdate,
+  QueueItem,
+  QueueStats,
+  ApprovalRequest,
 } from '../types/api';
 import * as mockData from './mockData';
 
@@ -485,6 +488,54 @@ class APIClient {
       throw new Error('Database reset requires explicit confirmation');
     }
     const response = await this.client.post('/api/v1/db/reset', { confirm });
+    return response.data;
+  }
+
+  // Approval Queue
+  async getQueueStats(): Promise<QueueStats> {
+    const response = await this.client.get<QueueStats>('/api/v1/approval-queue/stats');
+    return response.data;
+  }
+
+  async getQueueItems(params?: {
+    status?: 'pending' | 'approved' | 'rejected';
+    min_confidence?: number;
+    max_confidence?: number;
+    limit?: number;
+  }): Promise<QueueItem[]> {
+    const response = await this.client.get<QueueItem[]>('/api/v1/approval-queue', { params });
+    return response.data;
+  }
+
+  async getQueueItem(itemId: string): Promise<QueueItem> {
+    const response = await this.client.get<QueueItem>(`/api/v1/approval-queue/${itemId}`);
+    return response.data;
+  }
+
+  async reviewQueueItem(itemId: string, request: ApprovalRequest): Promise<QueueItem> {
+    const response = await this.client.post<QueueItem>(`/api/v1/approval-queue/${itemId}/review`, request);
+    return response.data;
+  }
+
+  async batchReviewQueueItems(itemIds: string[], action: 'approve' | 'reject', reviewedBy?: string): Promise<{
+    total: number;
+    success: number;
+    failed: number;
+    results: Array<{ item_id: string; status: string; action?: string; error?: string }>;
+  }> {
+    const response = await this.client.post('/api/v1/approval-queue/batch-review', null, {
+      params: { action, item_ids: itemIds, reviewed_by: reviewedBy || 'system' }
+    });
+    return response.data;
+  }
+
+  async deleteQueueItem(itemId: string): Promise<APIResponse> {
+    const response = await this.client.delete<APIResponse>(`/api/v1/approval-queue/${itemId}`);
+    return response.data;
+  }
+
+  async reprocessQueueItem(itemId: string): Promise<APIResponse> {
+    const response = await this.client.post<APIResponse>(`/api/v1/approval-queue/${itemId}/reprocess`);
     return response.data;
   }
 

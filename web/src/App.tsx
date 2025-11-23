@@ -5,6 +5,7 @@ import { Sidebar } from './components/Layout/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { Upload } from './pages/Upload';
 import { Profiles } from './pages/Profiles';
+import { ApprovalQueue } from './pages/ApprovalQueue';
 import { History } from './pages/History';
 import { Stats } from './pages/Stats';
 import Keywords from './pages/Keywords';
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/profiles" element={<Profiles />} />
+                <Route path="/approval-queue" element={<ApprovalQueue />} />
                 <Route path="/history" element={<History />} />
                 <Route path="/stats" element={<Stats />} />
                 <Route path="/analytics" element={<AnalyticsEnhanced />} />

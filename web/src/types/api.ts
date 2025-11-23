@@ -342,3 +342,35 @@ export interface JobProgressUpdate {
   status: ProcessingJob['status'];
   message?: string;
 }
+
+// Approval Queue Types
+export interface QueueItem {
+  id: string;
+  filename: string;
+  detected_parse_case: string;
+  confidence: number;
+  file_type: string;
+  file_size: number;
+  uploaded_at: string;
+  status: 'pending' | 'approved' | 'rejected';
+  reviewed_by?: string;
+  reviewed_at?: string;
+  notes?: string;
+}
+
+export interface QueueStats {
+  total_pending: number;
+  total_approved: number;
+  total_rejected: number;
+  avg_confidence: number;
+  low_confidence_count: number;
+  medium_confidence_count: number;
+  oldest_pending?: string;
+}
+
+export interface ApprovalRequest {
+  action: 'approve' | 'reject';
+  parse_case?: string;
+  notes?: string;
+  reviewed_by?: string;
+}
