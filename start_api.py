@@ -2,7 +2,8 @@
 """
 MAPS API Startup Script
 
-Launches the FastAPI server.
+Medical Annotation Processing System - FastAPI Backend
+Launches the FastAPI server with WebSocket support for real-time updates.
 """
 
 import uvicorn
