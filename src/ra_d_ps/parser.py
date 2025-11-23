@@ -22,7 +22,7 @@ from openpyxl.formatting.rule import Rule
 
 # Import the database module
 try:
-    from radiology_database import RadiologyDatabase
+    from .radiology_database import RadiologyDatabase
     SQLITE_AVAILABLE = True
 except ImportError:
     SQLITE_AVAILABLE = False
