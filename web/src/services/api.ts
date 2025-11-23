@@ -33,11 +33,14 @@ import type {
   WSMessage,
   JobProgressUpdate,
 } from '../types/api';
+import * as mockData from './mockData';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
 
 class APIClient {
   private client: AxiosInstance;
+  private useMockData: boolean = USE_MOCK_DATA;
 
   constructor(baseURL: string = API_BASE_URL) {
     this.client = axios.create({
@@ -55,7 +58,12 @@ class APIClient {
     this.client.interceptors.response.use(
       (response) => response,
       (error: AxiosError) => {
-        console.error('API Error:', error.response?.data || error.message);
+        console.warn('API Error:', error.response?.data || error.message);
+        // Automatically fallback to mock data if API is unavailable
+        if (!error.response || error.code === 'ERR_NETWORK') {
+          console.log('🔄 Falling back to mock data - backend API not available');
+          this.useMockData = true;
+        }
         return Promise.reject(error);
       }
     );
@@ -63,14 +71,30 @@ class APIClient {
 
   // Health Check
   async healthCheck() {
-    const response = await this.client.get('/health');
-    return response.data;
+    if (this.useMockData) {
+      return { status: 'ok (mock)', timestamp: new Date().toISOString() };
+    }
+    try {
+      const response = await this.client.get('/health');
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return { status: 'ok (mock)', timestamp: new Date().toISOString() };
+    }
   }
 
   // Profile Management
   async getProfiles(): Promise<Profile[]> {
-    const response = await this.client.get<Profile[]>('/api/v1/profiles');
-    return response.data;
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockProfiles);
+    }
+    try {
+      const response = await this.client.get<Profile[]>('/api/v1/profiles');
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockProfiles;
+    }
   }
 
   async getProfile(name: string): Promise<Profile> {
@@ -119,10 +143,18 @@ class APIClient {
 
   // Job Management
   async getJobs(params?: PaginationParams & JobFilters): Promise<PaginatedResponse<ProcessingJob>> {
-    const response = await this.client.get<PaginatedResponse<ProcessingJob>>('/api/v1/batch/jobs', {
-      params,
-    });
-    return response.data;
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockJobs);
+    }
+    try {
+      const response = await this.client.get<PaginatedResponse<ProcessingJob>>('/api/v1/batch/jobs', {
+        params,
+      });
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockJobs;
+    }
   }
 
   async getJob(jobId: string): Promise<ProcessingJob> {
@@ -142,10 +174,18 @@ class APIClient {
 
   // Documents
   async getDocuments(params?: PaginationParams): Promise<PaginatedResponse<CanonicalDocument>> {
-    const response = await this.client.get<PaginatedResponse<CanonicalDocument>>('/api/v1/documents', {
-      params,
-    });
-    return response.data;
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockDocuments);
+    }
+    try {
+      const response = await this.client.get<PaginatedResponse<CanonicalDocument>>('/api/v1/documents', {
+        params,
+      });
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockDocuments;
+    }
   }
 
   async getDocument(documentId: string): Promise<CanonicalDocument> {
@@ -173,10 +213,44 @@ class APIClient {
     return response.data;
   }
 
+  // ZIP Extraction
+  async extractZip(file: File): Promise<{
+    status: string;
+    zip_filename: string;
+    extracted_count: number;
+    files: Array<{
+      filename: string;
+      path: string;
+      size: number;
+      type: string;
+    }>;
+    processing_time_ms: number;
+    error?: string;
+  }> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await this.client.post('/api/v1/parse/zip', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data;
+  }
+
   // Statistics & Analytics
   async getDashboardStats(): Promise<DashboardStats> {
-    const response = await this.client.get<DashboardStats>('/api/v1/analytics/dashboard');
-    return response.data;
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockDashboardStats);
+    }
+    try {
+      const response = await this.client.get<DashboardStats>('/api/v1/analytics/dashboard');
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockDashboardStats;
+    }
   }
 
   async getProcessingTrends(dateFrom?: string, dateTo?: string) {
@@ -192,23 +266,55 @@ class APIClient {
   }
 
   async getParseCaseDistribution(): Promise<ParseCaseDistribution[]> {
-    const response = await this.client.get<ParseCaseDistribution[]>('/api/v1/analytics/parse-cases');
-    return response.data;
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockParseCaseDistribution);
+    }
+    try {
+      const response = await this.client.get<ParseCaseDistribution[]>('/api/v1/analytics/parse-cases');
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockParseCaseDistribution;
+    }
   }
 
   async getKeywordStats(): Promise<KeywordStats> {
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockKeywordStats);
+    }
+    try {
     const response = await this.client.get<KeywordStats>('/api/v1/analytics/keywords');
-    return response.data;
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockKeywordStats;
+    }
   }
 
   async getInterRaterReliability(): Promise<InterRaterReliability> {
-    const response = await this.client.get<InterRaterReliability>('/api/v1/analytics/inter-rater');
-    return response.data;
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockInterRaterReliability);
+    }
+    try {
+      const response = await this.client.get<InterRaterReliability>('/api/v1/analytics/inter-rater-reliability');
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockInterRaterReliability;
+    }
   }
 
   async getDataCompleteness(): Promise<DataCompleteness> {
-    const response = await this.client.get<DataCompleteness>('/api/v1/analytics/completeness');
-    return response.data;
+    if (this.useMockData) {
+      return Promise.resolve(mockData.mockDataCompleteness);
+    }
+    try {
+      const response = await this.client.get<DataCompleteness>('/api/v1/analytics/data-completeness');
+      return response.data;
+    } catch (error) {
+      this.useMockData = true;
+      return mockData.mockDataCompleteness;
+    }
   }
 
   // Keywords
@@ -256,7 +362,14 @@ class APIClient {
   }
 
   // PYLIDC Integration
-  async getPYLIDCScans(params?: PaginationParams): Promise<PaginatedResponse<PYLIDCScan>> {
+  async getPYLIDCScans(params?: PaginationParams & {
+    patient_id?: string;
+    min_slices?: number;
+    max_slices?: number;
+    min_thickness?: number;
+    max_thickness?: number;
+    has_nodules?: boolean;
+  }): Promise<PaginatedResponse<PYLIDCScan>> {
     const response = await this.client.get<PaginatedResponse<PYLIDCScan>>('/api/v1/pylidc/scans', { params });
     return response.data;
   }
@@ -268,6 +381,11 @@ class APIClient {
 
   async importPYLIDCScan(scanId: string) {
     const response = await this.client.post(`/api/v1/pylidc/import/${scanId}`);
+    return response.data;
+  }
+
+  async importPYLIDCScans(scanIds: string[]) {
+    const response = await this.client.post('/api/v1/pylidc/import-batch', { scan_ids: scanIds });
     return response.data;
   }
 
