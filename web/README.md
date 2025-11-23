@@ -1,23 +1,36 @@
 # RA-D-PS Web Interface
 
-Modern React-based web interface for the Radiology XML Data Processing System.
+modern react-based web interface for the radiology annotation data processing system (ra-d-ps).
 
-## Technology Stack
+## overview
 
-- React 18+ with TypeScript
-- Vite - Build tool and dev server
-- Tailwind CSS - Utility-first CSS framework
-- React Router - Client-side routing
-- TanStack Query (React Query) - Server state management
-- Axios - HTTP client
-- Zustand - Lightweight state management
-- Recharts - Data visualization
-- React Dropzone - File upload with drag-and-drop
-- Vitest - Testing framework
+this web interface provides a user-friendly frontend for uploading, processing, and managing radiology xml data. it connects to the fastapi backend and offers functionality equivalent to the tkinter gui with enhanced usability and modern design.
 
-## Getting Started
+## features
 
-### Installation
+- **file upload & processing**: drag-and-drop xml file upload with batch processing
+- **profile management**: create, edit, and manage parsing profiles
+- **processing history**: view and filter processing jobs with real-time status
+- **export options**: download results in excel, json, or csv formats
+- **dashboard analytics**: view processing statistics and trends
+- **responsive design**: works on desktop, tablet, and mobile devices
+
+## technology stack
+
+- react 19 with typescript
+- vite - build tool and dev server
+- tailwind css 3 - utility-first css framework
+- react router - client-side routing
+- tanstack query (react query) - server state management
+- axios - http client
+- zustand - lightweight state management
+- recharts - data visualization
+- react dropzone - file upload with drag-and-drop
+- vitest - testing framework
+
+## getting started
+
+### installation
 
 ```bash
 npm install

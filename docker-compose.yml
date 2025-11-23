@@ -44,7 +44,7 @@ services:
     profiles:
       - dev  # Only start with: docker-compose --profile dev up
 
-  # FastAPI Application (when ready in Phase 9)
+  # FastAPI Application
   api:
     build:
       context: .
@@ -66,6 +66,9 @@ services:
       API_HOST: 0.0.0.0
       API_PORT: 8000
       WORKERS: ${API_WORKERS:-4}
+      
+      # CORS configuration
+      CORS_ORIGINS: http://localhost:3000,http://web:3000
     ports:
       - "8000:8000"
     volumes:
@@ -82,6 +85,28 @@ services:
     command: uvicorn src.ra_d_ps.api.main:app --host 0.0.0.0 --port 8000 --reload
     profiles:
       - api  # Only start with: docker-compose --profile api up
+
+  # React Web Interface
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      target: development
+    container_name: ra_d_ps_web
+    environment:
+      VITE_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web/src:/app/src
+      - ./web/public:/app/public
+    networks:
+      - ra_d_ps_network
+    depends_on:
+      - api
+    restart: unless-stopped
+    profiles:
+      - web  # Only start with: docker-compose --profile web up
 
   # Nginx (optional - for production reverse proxy)
   nginx:
