@@ -3,6 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Header } from './components/Layout/Header';
 import { Sidebar } from './components/Layout/Sidebar';
 import { Dashboard } from './pages/Dashboard';
+import { Upload } from './pages/Upload';
+import { Profiles } from './pages/Profiles';
+import { History } from './pages/History';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,9 +28,9 @@ function App() {
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
-                <Route path="/upload" element={<div className="p-8">Upload & Process (Coming Soon)</div>} />
-                <Route path="/profiles" element={<div className="p-8">Profiles (Coming Soon)</div>} />
-                <Route path="/history" element={<div className="p-8">History (Coming Soon)</div>} />
+                <Route path="/upload" element={<Upload />} />
+                <Route path="/profiles" element={<Profiles />} />
+                <Route path="/history" element={<History />} />
                 <Route path="/documents" element={<div className="p-8">Documents (Coming Soon)</div>} />
                 <Route path="/export" element={<div className="p-8">Export (Coming Soon)</div>} />
               </Routes>

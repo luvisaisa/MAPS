@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import axios, { type AxiosInstance, type AxiosError } from 'axios';
 import type {
   APIResponse,
   Profile,
@@ -73,7 +73,11 @@ class APIClient {
   }
 
   // File Upload & Processing
-  async uploadFiles(files: File[], profileName: string, onProgress?: (progress: number) => void): Promise<UploadResponse> {
+  async uploadFiles(
+    files: File[], 
+    profileName: string, 
+    onProgress?: (progress: { loaded: number; total?: number }) => void
+  ): Promise<UploadResponse> {
     const formData = new FormData();
     files.forEach((file) => formData.append('files', file));
     formData.append('profile', profileName);
@@ -83,9 +87,8 @@ class APIClient {
         'Content-Type': 'multipart/form-data',
       },
       onUploadProgress: (progressEvent) => {
-        if (progressEvent.total && onProgress) {
-          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          onProgress(percentCompleted);
+        if (onProgress) {
+          onProgress({ loaded: progressEvent.loaded, total: progressEvent.total });
         }
       },
     });
@@ -132,6 +135,13 @@ class APIClient {
   // Export & Download
   async exportData(options: ExportOptions): Promise<ExportResponse> {
     const response = await this.client.post<ExportResponse>('/api/v1/export', options);
+    return response.data;
+  }
+
+  async exportJob(jobId: string, options: { format: ExportOptions['format'] }): Promise<ExportResponse> {
+    const response = await this.client.get<ExportResponse>(`/api/v1/export/job/${jobId}`, {
+      params: { format: options.format },
+    });
     return response.data;
   }
 
