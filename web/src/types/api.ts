@@ -224,10 +224,15 @@ export interface VisualizationMetadata {
 export interface PYLIDCScan {
   scan_id: string;
   patient_id: string;
+  study_instance_uid: string;
   series_instance_uid: string;
   slice_count: number;
   slice_thickness: number;
+  slice_spacing: number | null;
   pixel_spacing: number[];
+  contrast_used: boolean;
+  annotation_count: number;
+  has_nodules: boolean;
 }
 
 export interface PYLIDCAnnotation {
