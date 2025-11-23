@@ -9,8 +9,13 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
-from ...parser import detect_parse_case, get_expected_attributes_for_case
 from ..models.responses import ParseCaseInfo, ParseCaseStatsResponse, DetectResponse, StructureAnalysis
+
+# Lazy import to avoid tkinter dependency
+def _get_parser_functions():
+    """Lazy import of parser functions"""
+    from ...parser import detect_parse_case, get_expected_attributes_for_case
+    return detect_parse_case, get_expected_attributes_for_case
 
 
 class ParseCaseService:
@@ -75,7 +80,8 @@ class ParseCaseService:
             root = ET.fromstring(content)
 
             # Detect parse case using existing function
-            parse_case = detect_parse_case(root)
+            detect_func, get_attrs_func = _get_parser_functions()
+            parse_case = detect_func(root)
 
             # Structure analysis
             structure = None
@@ -91,7 +97,7 @@ class ParseCaseService:
                 )
 
             # Get expected fields
-            expected_attrs = get_expected_attributes_for_case(parse_case)
+            expected_attrs = get_attrs_func(parse_case)
 
             return DetectResponse(
                 detected_parse_case=parse_case,

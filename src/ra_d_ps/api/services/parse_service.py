@@ -9,9 +9,23 @@ from typing import Optional, List
 from sqlalchemy.orm import Session
 from fastapi import UploadFile
 import time
+import tempfile
+import os
+from pathlib import Path
 
-from ...parser import parse_radiology_sample
 from ..models.responses import ParseResponse, BatchJobResponse
+from datetime import datetime
+
+# Lazy imports to avoid tkinter dependency at module level
+def _get_parser_functions():
+    """Lazy import of parser functions to avoid tkinter dependency"""
+    from ...parser import parse_radiology_sample, detect_parse_case
+    return parse_radiology_sample, detect_parse_case
+
+def _get_pdf_extractor():
+    """Lazy import of PDF extractor"""
+    from ...pdf_keyword_extractor import PDFKeywordExtractor
+    return PDFKeywordExtractor
 
 
 class ParseService:
@@ -30,23 +44,52 @@ class ParseService:
         detect_parse_case: bool,
         insert_to_db: bool
     ) -> ParseResponse:
-        """Parse XML file"""
+        """Parse XML file using ra_d_ps.parser.parse_radiology_sample"""
         start_time = time.time()
 
         try:
-            # TODO: Implement using existing ra_d_ps.parser.parse_radiology_sample
-            # and ra_d_ps.parsers.xml_parser.XMLParser
+            # Save content to temporary file (parser expects file path)
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.xml', delete=False) as tmp_file:
+                tmp_file.write(content)
+                tmp_path = tmp_file.name
 
-            processing_time = (time.time() - start_time) * 1000
+            try:
+                # Use existing parse_radiology_sample function
+                parse_func, detect_func = _get_parser_functions()
+                main_df, unblinded_df = parse_func(tmp_path)
 
-            return ParseResponse(
-                status="success",
-                document_id="placeholder-id",
-                parse_case="LIDC_Multi_Session_4",
-                keywords_extracted=0 if not extract_keywords else 45,
-                processing_time_ms=processing_time,
-                errors=None
-            )
+                # Detect parse case if requested
+                detected_parse_case = None
+                if detect_parse_case:
+                    detected_parse_case = detect_func(tmp_path)
+
+                # TODO: Insert to database if requested
+                document_id = None
+                if insert_to_db and self.db:
+                    # Will implement database insertion here
+                    document_id = "placeholder-doc-id"
+
+                # TODO: Extract keywords if requested
+                keywords_count = 0
+                if extract_keywords:
+                    # Will implement keyword extraction here
+                    keywords_count = 0
+
+                processing_time = (time.time() - start_time) * 1000
+
+                return ParseResponse(
+                    status="success",
+                    document_id=document_id,
+                    parse_case=detected_parse_case,
+                    keywords_extracted=keywords_count,
+                    processing_time_ms=processing_time,
+                    errors=None
+                )
+            finally:
+                # Clean up temporary file
+                if os.path.exists(tmp_path):
+                    os.unlink(tmp_path)
+
         except Exception as e:
             return ParseResponse(
                 status="error",
@@ -61,9 +104,52 @@ class ParseService:
         extract_keywords: bool,
         insert_to_db: bool
     ) -> ParseResponse:
-        """Parse PDF file"""
-        # TODO: Implement using ra_d_ps.pdf_keyword_extractor
-        return ParseResponse(status="not_implemented", errors=["PDF parsing not yet implemented"])
+        """Parse PDF file using ra_d_ps.pdf_keyword_extractor"""
+        start_time = time.time()
+
+        try:
+            # Save content to temporary file
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.pdf', delete=False) as tmp_file:
+                tmp_file.write(content)
+                tmp_path = tmp_file.name
+
+            try:
+                document_id = None
+                keywords_count = 0
+
+                if extract_keywords:
+                    # Use PDFKeywordExtractor
+                    PDFKeywordExtractor = _get_pdf_extractor()
+                    extractor = PDFKeywordExtractor()
+                    metadata, keywords = extractor.extract_from_pdf(tmp_path)
+
+                    keywords_count = len(keywords)
+
+                    # TODO: Insert to database if requested
+                    if insert_to_db and self.db:
+                        document_id = "placeholder-pdf-doc-id"
+
+                processing_time = (time.time() - start_time) * 1000
+
+                return ParseResponse(
+                    status="success",
+                    document_id=document_id,
+                    parse_case="PDF_Document",
+                    keywords_extracted=keywords_count,
+                    processing_time_ms=processing_time,
+                    errors=None
+                )
+            finally:
+                # Clean up temporary file
+                if os.path.exists(tmp_path):
+                    os.unlink(tmp_path)
+
+        except Exception as e:
+            return ParseResponse(
+                status="error",
+                errors=[str(e)],
+                processing_time_ms=(time.time() - start_time) * 1000
+            )
 
     async def parse_batch(
         self,
@@ -75,22 +161,38 @@ class ParseService:
     ) -> BatchJobResponse:
         """Batch parse files"""
         # TODO: Implement using ra_d_ps.batch_processor
-        from datetime import datetime
+        job_id = f"batch-{int(time.time())}"
+
         return BatchJobResponse(
-            job_id="batch-placeholder",
+            job_id=job_id,
             status="created",
             total_files=len(files),
             processed_files=0,
             failed_files=0,
-            created_at=datetime.utcnow()
+            created_at=datetime.utcnow(),
+            errors=[]
         )
 
     def list_profiles(self):
         """List available profiles"""
         # TODO: Use ra_d_ps.profile_manager
-        return {
-            "profiles": [
-                {"name": "lidc_idri_standard", "description": "LIDC-IDRI standard format"},
-                {"name": "nyt_standard", "description": "NYT XML format"}
-            ]
-        }
+        from ...profile_manager import get_profile_manager
+
+        try:
+            manager = get_profile_manager()
+            profiles = manager.list_profiles()
+
+            return {
+                "profiles": [
+                    {"name": p, "description": f"Profile: {p}"}
+                    for p in profiles
+                ]
+            }
+        except Exception as e:
+            return {
+                "profiles": [
+                    {"name": "lidc_idri_standard", "description": "LIDC-IDRI standard format"},
+                    {"name": "nyt_standard", "description": "NYT XML format"}
+                ],
+                "error": str(e)
+            }
