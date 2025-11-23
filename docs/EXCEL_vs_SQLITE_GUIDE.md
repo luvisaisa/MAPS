@@ -1,30 +1,24 @@
 # Excel vs SQLite for Radiology Data Analysis
 
-## **Comparison Summary**
-
-| Feature | Excel | SQLite | Winner |
+## **Comparison Summary** | Feature | Excel | SQLite | Winner |
 |---------|--------|--------|--------|
-| **Quick Viewing** | ✅ Immediate visual access | ⚠️ Requires queries | **Excel** |
-| **Large Datasets** | ❌ 1M row limit | ✅ No practical limits | **SQLite** |
-| **Complex Analysis** | ⚠️ Limited pivot tables | ✅ Unlimited SQL queries | **SQLite** |
-| **Data Integrity** | ❌ Easy to corrupt | ✅ ACID compliance | **SQLite** |
-| **Sharing/Collaboration** | ✅ Universal format | ⚠️ Needs database tools | **Excel** |
-| **Performance** | ❌ Slow with large data | ✅ Fast indexing | **SQLite** |
-| **Data Relationships** | ❌ Flat structure | ✅ Relational design | **SQLite** |
-| **Reporting** | ✅ Built-in charts | ⚠️ Export to Excel needed | **Excel** |
+| **Quick Viewing** |  Immediate visual access |  Requires queries | **Excel** |
+| **Large Datasets** |  1M row limit |  No practical limits | **SQLite** |
+| **Complex Analysis** |  Limited pivot tables |  Unlimited SQL queries | **SQLite** |
+| **Data Integrity** |  Easy to corrupt |  ACID compliance | **SQLite** |
+| **Sharing/Collaboration** |  Universal format |  Needs database tools | **Excel** |
+| **Performance** |  Slow with large data |  Fast indexing | **SQLite** |
+| **Data Relationships** |  Flat structure |  Relational design | **SQLite** |
+| **Reporting** |  Built-in charts |  Export to Excel needed | **Excel** |
 
-## **Recommended Approach: Hybrid Strategy**
-
-### **Use SQLite for:**
-1. **Data Storage & Analysis**
-   - Primary data repository
+## **Recommended Approach: Hybrid Strategy** ### **Use SQLite for:**
+1. **Data Storage & Analysis** - Primary data repository
    - Complex queries and filtering
    - Radiologist agreement analysis
    - Data quality monitoring
    - Performance tracking
 
-2. **Advanced Analytics Examples:**
-   ```sql
+2. **Advanced Analytics Examples:** ```sql
    -- Find nodules with high radiologist disagreement
    SELECT file_id, nodule_id, 
           MAX(confidence) - MIN(confidence) as disagreement
@@ -48,20 +42,16 @@
    ```
 
 ### **Use Excel for:**
-1. **Quick Reviews & Presentations**
-   - Initial data exploration
+1. **Quick Reviews & Presentations** - Initial data exploration
    - Charts and visualizations
    - Sharing with non-technical users
    - Manual data verification
 
-2. **Generated from SQLite:**
-   - Export specific analysis results
+2. **Generated from SQLite:** - Export specific analysis results
    - Create formatted reports
    - Generate charts for presentations
 
-## **Your Radiology Data Benefits from SQLite**
-
-### **1. Nodule-Centric Analysis**
+## **Your Radiology Data Benefits from SQLite** ### **1. Nodule-Centric Analysis**
 ```sql
 -- Find all nodules with Z coordinates in specific range
 SELECT * FROM nodules 
@@ -118,9 +108,7 @@ GROUP BY z_bin
 ORDER BY z_bin;
 ```
 
-## **Workflow Recommendation**
-
-### **Step 1: Primary Storage (SQLite)**
+## **Workflow Recommendation** ### **Step 1: Primary Storage (SQLite)**
 - Parse XML → Store in SQLite database
 - Run quality checks and data validation
 - Perform complex analysis queries
@@ -135,9 +123,7 @@ ORDER BY z_bin;
 - Create custom views for common analyses
 - Generate periodic reports
 
-## **Implementation in Your Current System**
-
-Your updated XML parser now supports both:
+## **Implementation in Your Current System** Your updated XML parser now supports both:
 
 1. **Excel Export** (existing functionality)
    - Maintains all current formatting
@@ -151,20 +137,15 @@ Your updated XML parser now supports both:
    - Data integrity and performance
    - Automatic Excel export included
 
-## **Next Steps**
-
-1. **Try SQLite with your XML files:**
-   - Use the "Export to SQLite" button in the GUI
+## **Next Steps** 1. **Try SQLite with your XML files:** - Use the "Export to SQLite" button in the GUI
    - Explore the generated analysis Excel file
    - Run custom queries using the advanced_queries.py script
 
-2. **Develop your analysis workflow:**
-   - Store primary data in SQLite
+2. **Develop your analysis workflow:** - Store primary data in SQLite
    - Export specific results to Excel for presentations
    - Use SQL queries for research questions
 
-3. **Consider your team's needs:**
-   - If sharing with non-technical users → prioritize Excel
+3. **Consider your team's needs:** - If sharing with non-technical users → prioritize Excel
    - If doing serious analysis → prioritize SQLite
    - For best of both → use the hybrid approach
 

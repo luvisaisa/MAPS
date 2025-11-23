@@ -1,11 +1,11 @@
-# 🧪 GUI Testing Instructions
+#  GUI Testing Instructions
 
 ## Complete Workflow Test
 
 ### Setup
 1. Close any running GUI windows
 2. Run: `python3 -m src.ra_d_ps`
-3. Watch terminal for debug output (🔍 DEBUG messages)
+3. Watch terminal for debug output ( DEBUG messages)
 
 ---
 
@@ -13,26 +13,26 @@
 **Steps:**
 1. Click "Select Folders" button in main GUI
 2. Preview dialog opens with tree view
-3. Click "📂 Add Single Folder" button
+3. Click " Add Single Folder" button
 4. Select folder "185" (or any folder with XML files)
 5. **CHECK**: Tree view should show folder with XML file count
 6. **CHECK**: Status at bottom should say "Selected: 1 folder(s)"
-7. Click "✅ Confirm Selection" button
+7. Click " Confirm Selection" button
 8. **CHECK**: Preview dialog closes
 9. **CHECK**: Main GUI listbox shows selected folder
-10. **CHECK**: Folder count label shows "✅ 1 folders selected"
+10. **CHECK**: Folder count label shows " 1 folders selected"
 
 **Expected Debug Output:**
 ```
-🔍 DEBUG: add_single_folder called
-🔍 DEBUG: User selected folder: /path/to/folder
-🔍 DEBUG: Added folder. Total folders: 1
-🔍 DEBUG: update_tree_view called with 1 folders
-🔍 DEBUG: Folder 'foldername' has X XML files
-🔍 DEBUG: Tree view updated, status: 1 folder(s)
-🔍 DEBUG: confirm_selection called with 1 folders
-🔍 DEBUG: Transferring 1 folders to main GUI
-🔍 DEBUG: Main GUI updated, closing preview dialog
+ DEBUG: add_single_folder called
+ DEBUG: User selected folder: /path/to/folder
+ DEBUG: Added folder. Total folders: 1
+ DEBUG: update_tree_view called with 1 folders
+ DEBUG: Folder 'foldername' has X XML files
+ DEBUG: Tree view updated, status: 1 folder(s)
+ DEBUG: confirm_selection called with 1 folders
+ DEBUG: Transferring 1 folders to main GUI
+ DEBUG: Main GUI updated, closing preview dialog
 ```
 
 ---
@@ -41,33 +41,33 @@
 **Steps:**
 1. Click "Select Folders" button in main GUI
 2. Preview dialog opens
-3. Click "📁 Browse Parent Folder" button
+3. Click " Browse Parent Folder" button
 4. Select parent folder (e.g., "/Users/isa/Desktop/XML files parse")
 5. **CHECK**: Checkbox dialog appears showing subfolders
-6. **CHECK**: Subfolders with XML files are auto-checked (☑)
+6. **CHECK**: Subfolders with XML files are auto-checked ()
 7. Select/deselect folders as needed
-8. Click "✅ Add Selected" button
+8. Click " Add Selected" button
 9. **CHECK**: Checkbox dialog closes
 10. **CHECK**: Tree view shows all selected folders
 11. **CHECK**: Status shows "Selected: X folder(s)"
-12. Click "✅ Confirm Selection" button
+12. Click " Confirm Selection" button
 13. **CHECK**: Preview dialog closes
 14. **CHECK**: Main GUI shows all folders
 15. **CHECK**: Folder count label updates
 
 **Expected Debug Output:**
 ```
-🔍 DEBUG: browse_parent_folder called
-🔍 DEBUG: User selected: /path/to/parent
-🔍 DEBUG: Scanning subfolders in /path/to/parent
-🔍 DEBUG: Found X items in parent folder
-🔍 DEBUG: Checking item: folder1 (isdir=True)
-🔍 DEBUG:   → Subfolder 'folder1' has Y XML files
-🔍 DEBUG: Found X subfolders total
-🔍 DEBUG: Creating checkbox dialog
-🔍 DEBUG: Checkbox dialog created successfully
-🔍 DEBUG: update_tree_view called with X folders
-🔍 DEBUG: confirm_selection called with X folders
+ DEBUG: browse_parent_folder called
+ DEBUG: User selected: /path/to/parent
+ DEBUG: Scanning subfolders in /path/to/parent
+ DEBUG: Found X items in parent folder
+ DEBUG: Checking item: folder1 (isdir=True)
+ DEBUG:   → Subfolder 'folder1' has Y XML files
+ DEBUG: Found X subfolders total
+ DEBUG: Creating checkbox dialog
+ DEBUG: Checkbox dialog created successfully
+ DEBUG: update_tree_view called with X folders
+ DEBUG: confirm_selection called with X folders
 ```
 
 ---
@@ -82,13 +82,13 @@
 
 **Expected Debug Output:**
 ```
-🔍 DEBUG: browse_parent_folder called
-🔍 DEBUG: User selected: /path/to/folder
-🔍 DEBUG: Scanning subfolders in /path/to/folder
-🔍 DEBUG: Found X items in parent folder
-🔍 DEBUG: Checking item: file.xml (isdir=False)
-🔍 DEBUG: Found 0 subfolders total
-🔍 DEBUG: No subfolders - showing info dialog
+ DEBUG: browse_parent_folder called
+ DEBUG: User selected: /path/to/folder
+ DEBUG: Scanning subfolders in /path/to/folder
+ DEBUG: Found X items in parent folder
+ DEBUG: Checking item: file.xml (isdir=False)
+ DEBUG: Found 0 subfolders total
+ DEBUG: No subfolders - showing info dialog
 ```
 
 ---
@@ -101,7 +101,7 @@
 - **If YES**: Follow debug messages to see where it stops
 
 ### Issue: "Folders don't appear in main GUI"
-- **Check**: Did you click "✅ Confirm Selection" in preview dialog?
+- **Check**: Did you click " Confirm Selection" in preview dialog?
 - **Solution**: Must click confirm button to transfer folders
 
 ### Issue: "Browse Parent Folder shows 'No subfolders'"
@@ -118,41 +118,41 @@
 ## Understanding the Workflow
 
 ```
-┌─────────────────────────────────────────┐
-│         Main GUI Window                 │
-│                                         │
-│  [Select Folders] ← Click here first   │
-│                                         │
-│  Listbox: (empty until confirmed)      │
-│                                         │
-└─────────────────────────────────────────┘
+
+         Main GUI Window                 
+                                         
+  [Select Folders] ← Click here first   
+                                         
+  Listbox: (empty until confirmed)      
+                                         
+
                   ↓
-┌─────────────────────────────────────────┐
-│      Preview Dialog (Selection)         │
-│                                         │
-│  [📂 Add Single] [📁 Browse Parent]    │
-│                                         │
-│  Tree View:                             │
-│   📁 Folder1 (5 XML files)             │
-│      📄 file1.xml                       │
-│      📄 file2.xml                       │
-│                                         │
-│  Status: Selected: 1 folder(s)          │
-│                                         │
-│  [✅ Confirm Selection] ← Click to     │
-│                           transfer!     │
-└─────────────────────────────────────────┘
+
+      Preview Dialog (Selection)         
+                                         
+  [ Add Single] [ Browse Parent]    
+                                         
+  Tree View:                             
+    Folder1 (5 XML files)             
+       file1.xml                       
+       file2.xml                       
+                                         
+  Status: Selected: 1 folder(s)          
+                                         
+  [ Confirm Selection] ← Click to     
+                           transfer!     
+
                   ↓
-┌─────────────────────────────────────────┐
-│         Main GUI Window                 │
-│                                         │
-│  Listbox:                               │
-│   • /path/to/Folder1                   │
-│                                         │
-│  ✅ 1 folders selected                 │
-│                                         │
-│  [1️⃣ Single Export] [2️⃣ Multi Export] │
-└─────────────────────────────────────────┘
+
+         Main GUI Window                 
+                                         
+  Listbox:                               
+   • /path/to/Folder1                   
+                                         
+   1 folders selected                 
+                                         
+  [1⃣ Single Export] [2⃣ Multi Export] 
+
 ```
 
 ---
@@ -164,4 +164,4 @@
 3. **Confirm Button** = Transfer selections to main GUI
 4. **Main GUI** = Final list for export
 
-**You must click "✅ Confirm Selection" to transfer folders from preview to main GUI!**
+**You must click " Confirm Selection" to transfer folders from preview to main GUI!**

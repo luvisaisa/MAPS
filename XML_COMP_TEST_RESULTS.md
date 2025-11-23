@@ -10,9 +10,9 @@ The XML-COMP.zip contains LIDC-IDRI XML files organized in 3 folders:
 
 ```
 /Users/isa/Desktop/XML-COMP/
-├── 157/     11 XML files
-├── 185/    232 XML files
-└── 186/    232 XML files
+ 157/     11 XML files
+ 185/    232 XML files
+ 186/    232 XML files
 Total: 475 XML files
 ```
 

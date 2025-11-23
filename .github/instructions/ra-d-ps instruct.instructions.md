@@ -35,7 +35,7 @@ reminder: be quota-aware. do not default to the heaviest model unless required. 
 ## canonical workflows (build, run, validate)
 always do these in order to avoid failures.
 
-⚠️ CRITICAL: REAL TESTS REQUIREMENT ⚠️
+ CRITICAL: REAL TESTS REQUIREMENT 
 BEFORE making ANY code changes, ALWAYS run real tests to validate current state:
   pytest -q                                    # run ALL tests
   python3 tests/test_foundation_validation.py  # schema-agnostic foundation validation

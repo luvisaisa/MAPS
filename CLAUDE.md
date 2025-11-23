@@ -7,7 +7,7 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Project Overview](#project-overview)
 2. [Repository Structure](#repository-structure)
@@ -22,34 +22,34 @@
 
 ---
 
-## 📋 Project Overview
+## Project Overview
 
 ### Purpose
 
-RA-D-PS is a **schema-agnostic radiology data processing system** that parses, analyzes, and exports medical imaging XML data from various radiology systems. The project has evolved from a specific NYT XML parser into a flexible, profile-based data ingestion system.
+RA-D-PS is a schema-agnostic radiology data processing system that parses, analyzes, and exports medical imaging XML data from various radiology systems. The project has evolved from a specific NYT XML parser into a flexible, profile-based data ingestion system.
 
 ### Key Capabilities
 
-- **Multi-format XML parsing** (NYT, LIDC-IDRI, custom formats)
-- **Profile-based mapping system** for schema-agnostic data ingestion
-- **GUI application** (Tkinter) for non-technical users
-- **Multiple export formats** (Excel, SQLite, PostgreSQL)
-- **Keyword extraction** from XML and PDF documents
-- **Batch processing** with progress tracking
-- **Database integration** for analytics and reporting
-- **PYLIDC adapter** for LIDC-IDRI dataset integration
+- Multi-format XML parsing (NYT, LIDC-IDRI, custom formats)
+- Profile-based mapping system for schema-agnostic data ingestion
+- GUI application (Tkinter) for non-technical users
+- Multiple export formats (Excel, SQLite, PostgreSQL)
+- Keyword extraction from XML and PDF documents
+- Batch processing with progress tracking
+- Database integration for analytics and reporting
+- PYLIDC adapter for LIDC-IDRI dataset integration
 
 ### Current Development Status
 
-- ✅ **Foundation Complete**: Core parsing, GUI, Excel/SQLite export
-- ✅ **Schema-agnostic system**: Profile-based architecture implemented
-- ✅ **PostgreSQL integration**: Database schema and models ready
-- 🚧 **Active Development**: Generic XML parser, REST API (FastAPI)
-- 📋 **Planned**: Web interface, advanced analytics, ML integration
+- **Complete**: Core parsing, GUI, Excel/SQLite export
+- **Complete**: Profile-based architecture implemented
+- **Complete**: Database schema and models ready
+- **In Progress**: Generic XML parser, REST API (FastAPI)
+- **Planned**: Web interface, advanced analytics, ML integration
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 RA-D-PS/
@@ -153,7 +153,7 @@ RA-D-PS/
 
 ---
 
-## 🏗️ Architecture & Design
+## Architecture & Design
 
 ### Architectural Principles
 
@@ -227,7 +227,7 @@ Profiles define how to map source data to canonical schema:
 
 ---
 
-## 🔧 Development Setup
+## Development Setup
 
 ### Prerequisites
 
@@ -307,7 +307,7 @@ make docker-logs
 # Stop services
 make docker-down
 
-# Reset database (⚠️ deletes all data)
+# Reset database (WARNING: deletes all data)
 make db-reset
 ```
 
@@ -344,7 +344,7 @@ LOG_FILE=./logs/ra_d_ps.log
 
 ---
 
-## 📐 Code Conventions
+## Code Conventions
 
 ### Python Style
 
@@ -516,7 +516,7 @@ class DocumentMetadata(BaseModel):
 
 ---
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 ### Test Structure
 
@@ -638,7 +638,7 @@ def sample_profile():
 
 ---
 
-## 🔄 Common Workflows
+## Common Workflows
 
 ### 1. Adding a New Parser
 
@@ -776,7 +776,7 @@ make db-status
 # Open database shell
 make db-shell
 
-# Reset database (⚠️ deletes all data)
+# Reset database (WARNING: deletes all data)
 make db-reset
 ```
 
@@ -862,7 +862,7 @@ git push -u origin claude/feature-description
 
 ---
 
-## 🔑 Key Components Reference
+## Key Components Reference
 
 ### Core Parser (`src/ra_d_ps/parser.py`)
 
@@ -993,7 +993,7 @@ for scan in scans:
 
 ---
 
-## 🤖 AI Assistant Guidelines
+## AI Assistant Guidelines
 
 ### When Working on This Codebase
 
@@ -1016,17 +1016,17 @@ for scan in scans:
 
 ### Common Pitfalls to Avoid
 
-1. ❌ **Don't break imports**: The package uses absolute imports from `src.ra_d_ps`
-2. ❌ **Don't remove legacy code**: Wrap it with new interfaces instead
-3. ❌ **Don't hardcode paths**: Use `Path` objects and configuration
-4. ❌ **Don't skip validation**: Always validate user inputs and external data
-5. ❌ **Don't ignore errors**: Proper error handling and logging required
-6. ❌ **Don't modify Pydantic models carelessly**: Schema changes affect database
+1. **Breaking imports**: The package uses absolute imports from `src.ra_d_ps`
+2. **Removing legacy code**: Wrap it with new interfaces instead
+3. **Hardcoded paths**: Use `Path` objects and configuration
+4. **Skipping validation**: Always validate user inputs and external data
+5. **Ignoring errors**: Proper error handling and logging required
+6. **Modifying Pydantic models carelessly**: Schema changes affect database
 
 ### Making Changes Safely
 
 ```python
-# ✅ Good: Add new functionality alongside old
+# Good: Add new functionality alongside old
 class XMLParser(BaseParser):
     def parse(self, file_path: str) -> CanonicalDocument:
         # New implementation
@@ -1039,8 +1039,8 @@ class LegacyRadiologyParser(BaseParser):
         legacy_result = parse_radiology_sample(file_path)
         return self._convert_to_canonical(legacy_result)
 
-# ❌ Bad: Replace existing functionality directly
-# Don't modify parse_radiology_sample() directly
+# Bad: Replace existing functionality directly
+# Do not modify parse_radiology_sample() directly
 ```
 
 ### Testing Guidelines for AI
@@ -1065,7 +1065,6 @@ When adding new features:
 cat > migrations/002_add_new_feature.sql << 'EOF'
 -- Migration: Add new feature
 -- Date: 2025-11-21
--- Author: Claude
 
 BEGIN;
 
@@ -1111,7 +1110,7 @@ Before submitting changes:
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Import Errors
 
@@ -1209,7 +1208,7 @@ if not is_valid:
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
 
 ### Documentation Files
 
@@ -1244,7 +1243,7 @@ if not is_valid:
 
 ---
 
-## 🎯 Quick Command Reference
+## Quick Command Reference
 
 ```bash
 # Setup
@@ -1255,7 +1254,7 @@ make install            # Install package in editable mode
 make db-up              # Start PostgreSQL
 make db-down            # Stop PostgreSQL
 make db-migrate         # Apply migrations
-make db-reset           # Reset database (⚠️ deletes data)
+make db-reset           # Reset database (WARNING: deletes data)
 make db-shell           # Open PostgreSQL shell
 make pgadmin            # Start pgAdmin UI
 
@@ -1279,28 +1278,28 @@ make docker-logs        # View container logs
 
 ---
 
-## 📝 Changelog
+## Changelog
 
 ### Version 1.0.0 (November 2025)
-- ✅ Repository organization complete
-- ✅ Schema-agnostic foundation implemented
-- ✅ PostgreSQL integration ready
-- ✅ Profile system operational
-- ✅ Canonical schema defined
-- ✅ CI/CD pipeline configured
-- ✅ Comprehensive documentation added
+- Repository organization complete
+- Schema-agnostic foundation implemented
+- PostgreSQL integration ready
+- Profile system operational
+- Canonical schema defined
+- CI/CD pipeline configured
+- Comprehensive documentation added
 
 ### Previous Milestones
-- ✅ Core XML parsing engine
-- ✅ GUI application (Tkinter)
-- ✅ Excel/SQLite export
-- ✅ Multi-folder processing
-- ✅ PYLIDC adapter
-- ✅ Keyword extraction system
+- Core XML parsing engine
+- GUI application (Tkinter)
+- Excel/SQLite export
+- Multi-folder processing
+- PYLIDC adapter
+- Keyword extraction system
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 **For AI Assistants**: When making contributions:
 1. Create feature branch from `main`
@@ -1313,13 +1312,13 @@ make docker-logs        # View container logs
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
 ---
 
-## 👥 Authors
+## Authors
 
 - **Isa Lucia Schlichting** - Original author and maintainer
 - **RA-D-PS Team** - Development team
@@ -1332,4 +1331,4 @@ This project is licensed under the MIT License.
 
 ---
 
-*This document is maintained for AI assistants (like Claude Code) to understand the codebase structure, conventions, and workflows. Keep it updated as the project evolves.*
+This document serves as a reference for AI assistants to understand the codebase structure, conventions, and workflows.

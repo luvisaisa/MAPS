@@ -22,16 +22,16 @@
 
 ```
 ra-d-ps/
-├── src/ra_d_ps/          # Main package
-│   ├── core.py           # XML parsing logic
-│   ├── exporters.py      # Excel/file export
-│   ├── gui.py            # GUI components
-│   ├── database.py       # SQLite operations
-│   ├── config.py         # Configuration
-│   └── utils.py          # Utilities
-├── tests/                # Test suite
-├── docs/                 # Documentation
-└── cli.py               # Command-line interface
+ src/ra_d_ps/          # Main package
+    core.py           # XML parsing logic
+    exporters.py      # Excel/file export
+    gui.py            # GUI components
+    database.py       # SQLite operations
+    config.py         # Configuration
+    utils.py          # Utilities
+ tests/                # Test suite
+ docs/                 # Documentation
+ cli.py               # Command-line interface
 ```
 
 ## Module Overview

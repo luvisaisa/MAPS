@@ -2,12 +2,12 @@
 
 ## Major Changes Implemented
 
-### 🔄 **Updated "Export to Excel" Button**
+### Updated "Export to Excel" Button
 - **Before**: Used old formatting system with separate RA-D-PS button
 - **After**: Single "Export to Excel" button now uses RA-D-PS format exclusively
 - **Benefits**: Cleaner interface, consistent output format
 
-### 📁 **Enhanced Folder Processing Modes**
+### Enhanced Folder Processing Modes
 Now offers **three distinct processing modes**:
 
 #### 1. **Single Folder Mode**
@@ -25,12 +25,12 @@ Now offers **three distinct processing modes**:
 - Each folder gets its own auto-named Excel file
 - Best for independent processing of multiple datasets
 
-### 🎯 **Smart Output Folder Detection**
+### Smart Output Folder Detection
 - **Folder Selection**: Auto-saves Excel to the source folder
 - **Individual Files**: Asks user to select output folder
 - **Multiple Folders**: Uses appropriate folder for each mode
 
-### ✨ **RA-D-PS Format Features** (Applied to ALL exports)
+### RA-D-PS Format Features (Applied to ALL exports)
 - **Dynamic radiologist blocks**: Adapts to any number of radiologists
 - **Spacer columns**: Visual separation between data sections
 - **Auto-naming**: `{folder}_RA-D-PS_{YYYY-MM-DD_HHMMSS}.xlsx`
@@ -51,18 +51,18 @@ Now offers **three distinct processing modes**:
 
 ### Folder Processing Dialog
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                  Select Processing Mode                     │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  [Single Folder]    [Multiple Folders]    [Multiple Folders]│
-│  (All files in     (One Excel, sheets    (Separate Excel   │
-│   one Excel)        per folder)           per folder)       │
-│                                                             │
-│ Single: One folder → One Excel                             │
-│ Multiple+Sheets: Multiple folders → One Excel with sheets  │
-│ Multiple+Files: Multiple folders → Separate Excel per folder│
-└─────────────────────────────────────────────────────────────┘
+
+                  Select Processing Mode                     
+
+                                                             
+  [Single Folder]    [Multiple Folders]    [Multiple Folders]
+  (All files in     (One Excel, sheets    (Separate Excel   
+   one Excel)        per folder)           per folder)       
+                                                             
+ Single: One folder → One Excel                             
+ Multiple+Sheets: Multiple folders → One Excel with sheets  
+ Multiple+Files: Multiple folders → Separate Excel per folder
+
 ```
 
 ## Technical Implementation
@@ -111,12 +111,12 @@ Radiologist_2_Subtlety | ... | [spacer] |
 - All configuration and validation features retained
 
 ## Testing Verification
-- ✅ All three folder processing modes functional
-- ✅ RA-D-PS export working with real XML data
-- ✅ Auto-naming and versioning operational
-- ✅ GUI integration seamless
-- ✅ Error handling and progress feedback working
-- ✅ Multi-sheet Excel creation functional
+-  All three folder processing modes functional
+-  RA-D-PS export working with real XML data
+-  Auto-naming and versioning operational
+-  GUI integration seamless
+-  Error handling and progress feedback working
+-  Multi-sheet Excel creation functional
 
 ## Usage Examples
 
@@ -140,4 +140,4 @@ Radiologist_2_Subtlety | ... | [spacer] |
 3. Add all folders to process
 4. Each folder gets its own Excel file with auto-naming
 
-Your XML parser now provides a complete, professional-grade solution for radiology data processing with maximum flexibility and ease of use! 🚀
+Your XML parser now provides a complete, professional-grade solution for radiology data processing with maximum flexibility and ease of use! 

@@ -17,48 +17,48 @@ Implement a comprehensive keyword extraction system that:
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                   Keyword Extraction Pipeline                │
-└─────────────────────────────────────────────────────────────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-          ▼                ▼                ▼
-    ┌─────────┐      ┌─────────┐    ┌────────────┐
-    │   XML   │      │   PDF   │    │  Research  │
-    │ Parser  │      │ Parser  │    │   Papers   │
-    └─────────┘      └─────────┘    └────────────┘
-          │                │                │
-          └────────────────┼────────────────┘
-                           │
-                           ▼
-              ┌──────────────────────┐
-              │  Keyword Normalizer  │
-              │  - Synonyms          │
-              │  - Abbreviations     │
-              │  - Medical terms     │
-              └──────────────────────┘
-                           │
-                           ▼
-              ┌──────────────────────┐
-              │  PostgreSQL Storage  │
-              │  - keywords table    │
-              │  - keyword_index     │
-              │  - keyword_sources   │
-              └──────────────────────┘
-                           │
-                           ▼
-              ┌──────────────────────┐
-              │   Search & Ranking   │
-              │  - TF-IDF scoring    │
-              │  - Boolean queries   │
-              │  - Highlighting      │
-              └──────────────────────┘
+
+                   Keyword Extraction Pipeline                
+
+                           
+          
+                                          
+                                          
+              
+       XML            PDF         Research  
+     Parser         Parser         Papers   
+              
+                                          
+          
+                           
+                           
+              
+                Keyword Normalizer  
+                - Synonyms          
+                - Abbreviations     
+                - Medical terms     
+              
+                           
+                           
+              
+                PostgreSQL Storage  
+                - keywords table    
+                - keyword_index     
+                - keyword_sources   
+              
+                           
+                           
+              
+                 Search & Ranking   
+                - TF-IDF scoring    
+                - Boolean queries   
+                - Highlighting      
+              
 ```
 
 ## Implementation Phases
 
-### Phase 1: Database Schema (Day 1) ✅ CURRENT
+### Phase 1: Database Schema (Day 1)  CURRENT
 **Goal:** Design PostgreSQL schema for keyword storage
 
 #### Tables
@@ -532,13 +532,13 @@ def test_full_keyword_pipeline():
 
 ## Success Criteria
 
-✅ Keyword extraction works for all 5 parse case formats  
-✅ PDF parsing extracts abstract and metadata keywords  
-✅ Medical term normalization handles common synonyms  
-✅ Search returns relevant results ranked by TF-IDF  
-✅ All tests passing (unit + integration)  
-✅ Performance: <50ms extraction per XML file  
-✅ Database queries: <10ms for keyword search
+ Keyword extraction works for all 5 parse case formats  
+ PDF parsing extracts abstract and metadata keywords  
+ Medical term normalization handles common synonyms  
+ Search returns relevant results ranked by TF-IDF  
+ All tests passing (unit + integration)  
+ Performance: <50ms extraction per XML file  
+ Database queries: <10ms for keyword search
 
 ## Next Steps
 

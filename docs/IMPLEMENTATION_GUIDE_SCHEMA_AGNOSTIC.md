@@ -7,7 +7,7 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Overview & Architecture](#overview--architecture)
 2. [Implementation Phases](#implementation-phases)
@@ -19,7 +19,7 @@
 
 ---
 
-## 🎯 Overview & Architecture
+## Overview & Architecture
 
 ### Current State
 - **Existing System:** Radiology XML parser (`parser.py`) with hardcoded LIDC-IDRI format logic
@@ -38,30 +38,26 @@
 
 ### Key Design Principles
 
-1. **Separation of Concerns:**
-   - Parsing logic separate from mapping logic
+1. **Separation of Concerns:** - Parsing logic separate from mapping logic
    - Mapping logic separate from storage logic
    - Profile definitions external to code
 
-2. **Backward Compatibility:**
-   - Existing radiology XML parsing must continue to work
+2. **Backward Compatibility:** - Existing radiology XML parsing must continue to work
    - Excel export format (RA-D-PS) must be preserved
    - Existing tests must pass
 
-3. **Extensibility:**
-   - New file formats added by creating profiles only
+3. **Extensibility:** - New file formats added by creating profiles only
    - No code changes required for new XML variants
    - Future support for JSON, CSV, PDF, Word docs
 
 ---
 
-## ✅ Completed Components
+## Completed Components
 
-### Phase 1: PostgreSQL Database Schema ✅
+### Phase 1: PostgreSQL Database Schema 
 - **File:** `/migrations/001_initial_schema.sql`
 - **Status:** Complete
-- **Contents:**
-  - `documents` table (metadata)
+- **Contents:** - `documents` table (metadata)
   - `document_content` table (JSONB canonical data)
   - `profiles` table (mapping profiles)
   - `ingestion_logs` table (audit trail)
@@ -72,11 +68,10 @@
 
 **Next Action:** Apply migration to PostgreSQL instance
 
-### Phase 2: Canonical Schema ✅
+### Phase 2: Canonical Schema 
 - **File:** `/src/ra_d_ps/schemas/canonical.py`
 - **Status:** Complete
-- **Contents:**
-  - `CanonicalDocument` base model
+- **Contents:** - `CanonicalDocument` base model
   - `RadiologyCanonicalDocument` specialized model
   - `InvoiceCanonicalDocument` example extension
   - `DocumentMetadata`, `ExtractedEntities`, `ExtractionMetadata` models
@@ -84,33 +79,30 @@
 
 **Next Action:** Import in existing parser for gradual migration
 
-### Phase 3: Profile System ✅
+### Phase 3: Profile System 
 - **File:** `/src/ra_d_ps/schemas/profile.py`
 - **Status:** Complete
-- **Contents:**
-  - `Profile` main model
+- **Contents:** - `Profile` main model
   - `FieldMapping`, `Transformation`, `ValidationRules` models
   - `EntityExtractionConfig` for structured data extraction
   - Profile validation logic
 
 **Next Action:** Create ProfileManager and LIDC-IDRI profile
 
-### Phase 3.5: Profile Manager ✅
+### Phase 3.5: Profile Manager 
 - **File:** `/src/ra_d_ps/profile_manager.py`
 - **Status:** Complete
-- **Contents:**
-  - `ProfileManager` class for loading, saving, validating profiles
+- **Contents:** - `ProfileManager` class for loading, saving, validating profiles
   - File system and database storage support
   - Profile caching and inheritance
   - Singleton pattern for global access
 
 **Next Action:** Create first profile for existing LIDC-IDRI format
 
-### Infrastructure ✅
+### Infrastructure 
 - **Files:** `docker-compose.yml`, `Dockerfile`, `configs/.env.example`
 - **Status:** Complete
-- **Contents:**
-  - PostgreSQL 16 container with health checks
+- **Contents:** - PostgreSQL 16 container with health checks
   - pgAdmin for database management
   - FastAPI application container (ready for Phase 9)
   - Volume management for data persistence
@@ -120,10 +112,10 @@
 
 ---
 
-## 📅 Implementation Phases
+## Implementation Phases
 
 ### Phase 4: Create LIDC-IDRI Radiology Profile (PRIORITY)
-**Status:** 🔴 NOT STARTED  
+**Status:** NOT STARTED  
 **Estimated Time:** 4-6 hours  
 **Dependencies:** Phases 1-3 complete
 
@@ -284,7 +276,7 @@ assert is_valid, f"Profile validation failed: {errors}"
 ---
 
 ### Phase 5: Generic XML Parser Core (CRITICAL PATH)
-**Status:** 🔴 NOT STARTED  
+**Status:** NOT STARTED  
 **Estimated Time:** 12-16 hours  
 **Dependencies:** Phase 4 complete
 
@@ -728,7 +720,7 @@ def test_xml_parser_with_lidc_profile():
 ---
 
 ### Phase 6: Parser Factory & Extensibility
-**Status:** 🔴 NOT STARTED  
+**Status:** NOT STARTED  
 **Estimated Time:** 4 hours
 
 **Create:** `/src/ra_d_ps/parsers/factory.py`
@@ -796,7 +788,7 @@ ParserFactory.register_parser(FileType.XML, XMLParser)
 
 ---
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 ### Unit Tests
 ```bash
@@ -820,7 +812,7 @@ pytest tests/test_excel_export.py -v
 
 ---
 
-## 🚀 Quick Start Commands
+## Quick Start Commands
 
 ### 1. Setup Environment
 ```bash
@@ -850,12 +842,11 @@ print(f'Profile manager initialized with {len(manager.list_profiles())} profiles
 
 ---
 
-## ❗ Critical Notes for Copilot
+## Critical Notes for Copilot
 
 1. **Preserve Existing Functionality:** Never break the existing radiology XML parsing. The new system must coexist.
 
-2. **Follow Naming Conventions:** 
-   - Use lowercase with underscores for files: `xml_parser.py`
+2. **Follow Naming Conventions:** - Use lowercase with underscores for files: `xml_parser.py`
    - Use PascalCase for classes: `XMLParser`
    - Use lowercase for functions: `parse_radiology_sample`
 
@@ -871,15 +862,13 @@ print(f'Profile manager initialized with {len(manager.list_profiles())} profiles
 
 ---
 
-## 📞 Next Steps for Implementation
+## Next Steps for Implementation
 
-**Immediate Priority (Next 2 weeks):**
-
-1. ✅ **Phase 4:** Create LIDC-IDRI profile (2 days)
-2. ✅ **Phase 5:** Implement generic XML parser (4 days)
-3. ✅ **Phase 6:** Create parser factory (1 day)
-4. ✅ **Testing:** Validate end-to-end with sample XML files (2 days)
-5. ✅ **Phase 7:** PostgreSQL repository layer (3 days)
+**Immediate Priority (Next 2 weeks):** 1.  **Phase 4:** Create LIDC-IDRI profile (2 days)
+2.  **Phase 5:** Implement generic XML parser (4 days)
+3.  **Phase 6:** Create parser factory (1 day)
+4.  **Testing:** Validate end-to-end with sample XML files (2 days)
+5.  **Phase 7:** PostgreSQL repository layer (3 days)
 
 **Questions to Resolve:**
 - [ ] Do you want to maintain SQLite alongside PostgreSQL during migration?

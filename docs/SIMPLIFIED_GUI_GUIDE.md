@@ -6,7 +6,7 @@ The GUI has been simplified to provide a cleaner, more intuitive interface with 
 ## New Interface Layout
 
 ### 1. Folder Selection Section
-**Button:** `📂 Select Folders`
+**Button:** ` Select Folders`
 - Click to select multiple folders containing XML files
 - A dialog will open allowing you to select folders one by one
 - Click "Cancel" when done selecting folders
@@ -17,14 +17,14 @@ Shows all folders you have selected for processing. Each folder name is displaye
 
 ### 3. Export Options (Main Section)
 
-#### Button 1: `1️⃣ SINGLE EXPORT` (Green)
+#### Button 1: `1⃣ SINGLE EXPORT` (Green)
 **Purpose:** Combine all selected folders into ONE Excel file with multiple sheets
 - Creates a single `.xlsx` file
 - Each folder becomes a separate sheet in the Excel file
 - All data is consolidated in one place for easy comparison
 - Ideal for: Comparative analysis, overview reports, single-file distribution
 
-#### Button 2: `2️⃣ MULTI EXPORT` (Blue)
+#### Button 2: `2⃣ MULTI EXPORT` (Blue)
 **Purpose:** Export each folder as an INDIVIDUAL Excel file
 - Creates separate `.xlsx` files for each folder
 - Each folder gets its own dedicated Excel file
@@ -43,12 +43,12 @@ Located at the bottom of the GUI, explains the difference between the two export
 ## Workflow
 
 ### Standard Workflow
-1. Click "📂 Select Folders"
+1. Click " Select Folders"
 2. Choose folders one by one (click Cancel when done)
 3. Review selected folders in the listbox
 4. Choose export mode:
-   - Click "1️⃣ SINGLE EXPORT" for combined output
-   - Click "2️⃣ MULTI EXPORT" for separate outputs
+   - Click "1⃣ SINGLE EXPORT" for combined output
+   - Click "2⃣ MULTI EXPORT" for separate outputs
 5. Select output location when prompted
 6. Wait for processing to complete
 
@@ -59,7 +59,7 @@ Located at the bottom of the GUI, explains the difference between the two export
 
 **Steps:**
 1. Select all 4 folders
-2. Click "1️⃣ SINGLE EXPORT"
+2. Click "1⃣ SINGLE EXPORT"
 3. Choose output location
 4. Result: One Excel file with 4 sheets (one per radiologist)
 
@@ -68,7 +68,7 @@ Located at the bottom of the GUI, explains the difference between the two export
 
 **Steps:**
 1. Select all 4 folders
-2. Click "2️⃣ MULTI EXPORT"
+2. Click "2⃣ MULTI EXPORT"
 3. Choose output directory
 4. Result: 4 separate Excel files (one per radiologist)
 
@@ -92,19 +92,19 @@ Both export buttons validate that folders are selected before processing:
 
 ### Old GUI (8 Buttons)
 ```
-❌ Complex layout with 4 sections
-❌ 8 different buttons (confusing options)
-❌ Separate file vs folder selection
-❌ Multiple paths to achieve same goal
+ Complex layout with 4 sections
+ 8 different buttons (confusing options)
+ Separate file vs folder selection
+ Multiple paths to achieve same goal
 ```
 
 ### New GUI (2 Buttons)
 ```
-✅ Clean layout with clear sections
-✅ 2 intuitive export options
-✅ Single folder selection method
-✅ Clear visual hierarchy with color coding
-✅ Explanatory legend at bottom
+ Clean layout with clear sections
+ 2 intuitive export options
+ Single folder selection method
+ Clear visual hierarchy with color coding
+ Explanatory legend at bottom
 ```
 
 ## Color Coding
@@ -133,7 +133,7 @@ Potential improvements (not yet implemented):
 
 ### "No Folders" Warning
 **Problem:** Export button shows warning about no folders selected  
-**Solution:** Click "📂 Select Folders" first and select at least one folder
+**Solution:** Click " Select Folders" first and select at least one folder
 
 ### Empty Listbox After Selection
 **Problem:** Selected folders don't appear in listbox  
@@ -145,7 +145,7 @@ Potential improvements (not yet implemented):
 
 ### Can't Select More Folders
 **Problem:** Need to add more folders after initial selection  
-**Solution:** Click "Clear Selection" then "📂 Select Folders" to start fresh
+**Solution:** Click "Clear Selection" then " Select Folders" to start fresh
 
 ## Support
 For issues, bugs, or feature requests:

@@ -51,10 +51,10 @@ preview_window.update()
 ```
 
 **Benefits:**
-- ✅ Shows "watch" cursor while scanning
-- ✅ Skips folders with permission errors instead of crashing
-- ✅ Handles corrupted or inaccessible folders gracefully
-- ✅ Updates UI immediately after scan completes
+-  Shows "watch" cursor while scanning
+-  Skips folders with permission errors instead of crashing
+-  Handles corrupted or inaccessible folders gracefully
+-  Updates UI immediately after scan completes
 
 #### Added Subfolder Count Display:
 ```python
@@ -89,16 +89,16 @@ def _update_file_list(self):
     if count == 0:
         self.folder_count_label.config(text="No folders selected", fg="#666")
     elif count == 1:
-        self.folder_count_label.config(text="✅ 1 folder selected", fg="#4CAF50")
+        self.folder_count_label.config(text=" 1 folder selected", fg="#4CAF50")
     else:
-        self.folder_count_label.config(text=f"✅ {count} folders selected", fg="#4CAF50")
+        self.folder_count_label.config(text=f" {count} folders selected", fg="#4CAF50")
 ```
 
 **Benefits:**
-- ✅ Clear visual indicator below listbox
-- ✅ Green checkmark when folders are selected
-- ✅ Gray text when nothing selected
-- ✅ Shows exact count of selected folders
+-  Clear visual indicator below listbox
+-  Green checkmark when folders are selected
+-  Gray text when nothing selected
+-  Shows exact count of selected folders
 
 ---
 
@@ -106,44 +106,44 @@ def _update_file_list(self):
 
 ### Main GUI Window - Before Fix:
 ```
-┌─────────────────────────────────┐
-│ 📋 Selected Folders             │
-│ ┌─────────────────────────────┐ │
-│ │ 157                         │ │
-│ │ 185                         │ │
-│ │ 186                         │ │
-│ └─────────────────────────────┘ │
-│                                 │  ← No indicator here
-│ ⚡ Export Options               │
-└─────────────────────────────────┘
+
+  Selected Folders             
+  
+  157                          
+  185                          
+  186                          
+  
+                                   ← No indicator here
+  Export Options               
+
 ```
 
 ### Main GUI Window - After Fix:
 ```
-┌─────────────────────────────────┐
-│ 📋 Selected Folders             │
-│ ┌─────────────────────────────┐ │
-│ │ 157                         │ │
-│ │ 185                         │ │
-│ │ 186                         │ │
-│ └─────────────────────────────┘ │
-│ ✅ 3 folders selected          │  ← NEW: Clear indicator
-│                                 │
-│ ⚡ Export Options               │
-└─────────────────────────────────┘
+
+  Selected Folders             
+  
+  157                          
+  185                          
+  186                          
+  
+  3 folders selected            ← NEW: Clear indicator
+                                 
+  Export Options               
+
 ```
 
 ### Checkbox Dialog - After Fix:
 ```
-┌─────────────────────────────────┐
-│ Select subfolders from: parent  │
-│ Found 4 subfolder(s)            │  ← NEW: Shows count
-│                                 │
-│ ☑ 157 (28 XML files)           │
-│ ☑ 185 (30 XML files)           │
-│ ☑ 186 (30 XML files)           │
-│ ☐ empty (0 XML files)          │
-└─────────────────────────────────┘
+
+ Select subfolders from: parent  
+ Found 4 subfolder(s)              ← NEW: Shows count
+                                 
+  157 (28 XML files)           
+  185 (30 XML files)           
+  186 (30 XML files)           
+  empty (0 XML files)          
+
 ```
 
 ---
@@ -170,9 +170,9 @@ def _update_file_list(self):
 - [ ] Start with no folders selected
 - [ ] Verify status shows: "No folders selected" (gray)
 - [ ] Add 1 folder
-- [ ] Verify status shows: "✅ 1 folder selected" (green)
+- [ ] Verify status shows: " 1 folder selected" (green)
 - [ ] Add 2 more folders
-- [ ] Verify status shows: "✅ 3 folders selected" (green)
+- [ ] Verify status shows: " 3 folders selected" (green)
 - [ ] Clear selection
 - [ ] Verify status returns to: "No folders selected" (gray)
 
@@ -186,7 +186,7 @@ def _update_file_list(self):
 ```bash
 python3 -m pytest tests/test_simplified_gui.py -v
 ```
-**Result:** ✅ 3/3 tests passed
+**Result:** 3/3 tests passed
 
 ---
 
@@ -253,10 +253,10 @@ python3 -m pytest tests/test_simplified_gui.py -v
 ## Summary
 
 ### Problems Solved:
-1. ✅ **No more freezing** - Visual feedback and error handling
-2. ✅ **Clear selection visibility** - Count indicator in main GUI
-3. ✅ **Better user experience** - Always know what's happening
-4. ✅ **Robust error handling** - Skips problem folders gracefully
+1.  **No more freezing** - Visual feedback and error handling
+2.  **Clear selection visibility** - Count indicator in main GUI
+3.  **Better user experience** - Always know what's happening
+4.  **Robust error handling** - Skips problem folders gracefully
 
 ### User Benefits:
 - **Confidence:** Always see what's selected
@@ -264,7 +264,7 @@ python3 -m pytest tests/test_simplified_gui.py -v
 - **Reliability:** Doesn't crash on problem folders
 - **Clarity:** Exact count of selected folders
 
-### All Tests Passing: ✅
+### All Tests Passing: 
 - Syntax valid
 - Imports successful  
 - 3/3 unit tests passing
@@ -286,8 +286,8 @@ Try this workflow:
 6. Check 2-3 folders
 7. Click "Add Checked Folders"
 8. Look for:
-   - "✅ 3 folders selected" below listbox
+   - " 3 folders selected" below listbox
    - Folder names in listbox
    - Green color on status
 
-Should work smoothly now! 🎉
+Should work smoothly now! 

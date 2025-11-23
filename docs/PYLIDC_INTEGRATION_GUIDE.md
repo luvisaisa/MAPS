@@ -7,44 +7,44 @@ This guide explains how to integrate the [pylidc library](https://pylidc.github.
 ## Why PyLIDC Integration?
 
 **Benefits:**
-- ✅ **Direct DICOM Access**: Query LIDC-IDRI dataset without XML parsing
-- ✅ **Rich API**: Object-oriented interface with computed properties (volume, diameter, surface area)
-- ✅ **Advanced Features**: Annotation clustering, consensus calculation, 3D visualization
-- ✅ **Schema Compatibility**: Seamlessly integrates with RA-D-PS canonical schema
-- ✅ **Unified Workflow**: Process both XML and DICOM data in same pipeline
+-  **Direct DICOM Access**: Query LIDC-IDRI dataset without XML parsing
+-  **Rich API**: Object-oriented interface with computed properties (volume, diameter, surface area)
+-  **Advanced Features**: Annotation clustering, consensus calculation, 3D visualization
+-  **Schema Compatibility**: Seamlessly integrates with RA-D-PS canonical schema
+-  **Unified Workflow**: Process both XML and DICOM data in same pipeline
 
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                     RA-D-PS System                              │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────┐        ┌──────────────────────────────┐     │
-│  │ PyLIDC       │───────▶│  PyLIDCAdapter               │     │
-│  │ ORM          │        │  - scan_to_canonical()       │     │
-│  │              │        │  - annotation_to_entity()    │     │
-│  │ - Scan       │        │  - cluster_to_nodule()       │     │
-│  │ - Annotation │        └──────────┬───────────────────┘     │
-│  │ - Contour    │                   │                         │
-│  └──────────────┘                   │                         │
-│                                     ▼                         │
-│              ┌───────────────────────────────────────┐        │
-│              │  Canonical Schema                     │        │
-│              │  - RadiologyCanonicalDocument         │        │
-│              │  - DocumentMetadata                   │        │
-│              │  - ExtractedEntities                  │        │
-│              └───────────┬───────────────────────────┘        │
-│                          │                                    │
-│                          ▼                                    │
-│      ┌──────────────────────────────────────────────┐        │
-│      │  Storage & Export                            │        │
-│      │  - PostgreSQL Repository                     │        │
-│      │  - Excel Export                              │        │
-│      │  - REST API                                  │        │
-│      └──────────────────────────────────────────────┘        │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
+
+                     RA-D-PS System                              
+
+                                                                 
+               
+   PyLIDC         PyLIDCAdapter                    
+   ORM                    - scan_to_canonical()            
+                          - annotation_to_entity()         
+   - Scan                 - cluster_to_nodule()            
+   - Annotation              
+   - Contour                                                
+                                              
+                                                              
+                      
+                Canonical Schema                             
+                - RadiologyCanonicalDocument                 
+                - DocumentMetadata                           
+                - ExtractedEntities                          
+                      
+                                                              
+                                                              
+              
+        Storage & Export                                    
+        - PostgreSQL Repository                             
+        - Excel Export                                      
+        - REST API                                          
+              
+                                                               
+
 ```
 
 ## Installation
@@ -116,9 +116,7 @@ print(f"Modality: {canonical_doc.modality}")
 
 ### PyLIDC Data Model
 
-**Key Classes:**
-
-1. **Scan** - Represents a CT scan
+**Key Classes:** 1. **Scan** - Represents a CT scan
    - `patient_id`: Patient identifier (e.g., "LIDC-IDRI-0001")
    - `study_instance_uid`: DICOM Study UID
    - `series_instance_uid`: DICOM Series UID
@@ -370,9 +368,9 @@ XML Files → Parser → RA-D-PS Format → Excel/SQLite
 
 ### After (Unified):
 ```
-┌─ XML Files ──→ Parser ─┐
-│                        ├──→ Canonical Schema ──→ Repository ──→ Export
-└─ PyLIDC DB ──→ Adapter ┘
+ XML Files → Parser 
+                        → Canonical Schema → Repository → Export
+ PyLIDC DB → Adapter 
 ```
 
 ### Key Benefits:
@@ -397,12 +395,12 @@ Expected output:
 PyLIDC Integration Examples for RA-D-PS
 ======================================================================
 
-✅ PyLIDC database configured: 1018 scans available
+ PyLIDC database configured: 1018 scans available
 
 ======================================================================
 EXAMPLE 1: Basic Scan Conversion
 ======================================================================
-✅ Found scan: LIDC-IDRI-0001
+ Found scan: LIDC-IDRI-0001
    Study UID: 1.3.6.1.4.1.14519.5.2.1.6279.6001...
    ...
 ```
@@ -414,13 +412,13 @@ EXAMPLE 1: Basic Scan Conversion
 ```python
 import pylidc as pl
 
-# ✅ GOOD: Use specific filters
+#  GOOD: Use specific filters
 scans = pl.query(pl.Scan).filter(
     pl.Scan.slice_thickness <= 1.0,
     pl.Scan.contrast_used == False
 ).limit(100)
 
-# ❌ BAD: Query all scans then filter
+#  BAD: Query all scans then filter
 scans = pl.query(pl.Scan).all()
 filtered = [s for s in scans if s.slice_thickness <= 1.0]
 ```
@@ -490,14 +488,14 @@ pip install numpy>=1.21.0
 
 ## Next Steps
 
-1. ✅ Install pylidc and configure database
-2. ✅ Run example script to validate integration
+1.  Install pylidc and configure database
+2.  Run example script to validate integration
 3. ⏳ Integrate with Phase 7 (Repository Layer) for PostgreSQL storage
 4. ⏳ Add pylidc support to Phase 9 (REST API)
 5. ⏳ Create unified query interface for XML + pylidc data
 
 ---
 
-**Status**: ✅ PyLIDC adapter implemented and tested with Python 3.9.6  
+**Status**:  PyLIDC adapter implemented and tested with Python 3.9.6  
 **Date**: January 2025  
 **Version**: 1.0.0
