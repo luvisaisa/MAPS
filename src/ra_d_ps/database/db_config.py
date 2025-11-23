@@ -4,8 +4,10 @@ Supports both local PostgreSQL and Supabase cloud deployments
 Environment-based configuration with defaults
 """
 
+from __future__ import annotations
+
 import os
-from typing import Optional, Literal
+from typing import Optional, Literal, Union
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
@@ -238,7 +240,7 @@ class DatabaseConfig(BaseModel):
 
         return cls(**config_dict)
 
-    def get_active_config(self) -> PostgreSQLConfig | SupabaseConfig:
+    def get_active_config(self) -> Union[PostgreSQLConfig, SupabaseConfig]:
         """Get the currently active database configuration"""
         if self.backend == "postgresql":
             if not self.postgresql:
