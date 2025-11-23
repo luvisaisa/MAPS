@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Upload } from './pages/Upload';
 import { Profiles } from './pages/Profiles';
 import { History } from './pages/History';
+import { Stats } from './pages/Stats';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/profiles" element={<Profiles />} />
                 <Route path="/history" element={<History />} />
+                <Route path="/stats" element={<Stats />} />
                 <Route path="/documents" element={<div className="p-8">Documents (Coming Soon)</div>} />
                 <Route path="/export" element={<div className="p-8">Export (Coming Soon)</div>} />
               </Routes>
