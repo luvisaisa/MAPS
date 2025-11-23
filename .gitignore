@@ -63,3 +63,4 @@ dist/
 *.pkg
 *.pyz
 *.dylib
+.venv/
