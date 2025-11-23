@@ -1,16 +1,51 @@
 """Export Service - Uses ra_d_ps.exporters"""
 from sqlalchemy.orm import Session
+import pandas as pd
+from ...exporters.excel_exporter import export_to_excel
+from ..models.responses import ExportResponse
 
 class ExportService:
     def __init__(self, db: Session):
         self.db = db
 
     async def export_view(self, view_name: str, format: str, limit: int = None):
-        """TODO: Use ra_d_ps.exporters.excel_exporter"""
-        from ..models.responses import ExportResponse
-        return ExportResponse(status="not_implemented", format=format, record_count=0)
+        """Export Supabase view to file"""
+        try:
+            # Query view
+            query = f"SELECT * FROM {view_name}"
+            if limit:
+                query += f" LIMIT {limit}"
+            
+            result = self.db.execute(query)
+            data = [dict(row) for row in result.fetchall()]
+            df = pd.DataFrame(data)
+            
+            if format == "csv":
+                filename = f"{view_name}.csv"
+                df.to_csv(filename, index=False)
+            elif format == "excel":
+                filename = f"{view_name}.xlsx"
+                export_to_excel(df, filename)
+            else:
+                filename = f"{view_name}.json"
+                df.to_json(filename, orient="records")
+            
+            return ExportResponse(
+                status="success",
+                format=format,
+                filename=filename,
+                record_count=len(data)
+            )
+        except Exception as e:
+            return ExportResponse(
+                status="error",
+                format=format,
+                record_count=0
+            )
 
     async def export_custom(self, **kwargs):
-        """TODO: Custom export"""
-        from ..models.responses import ExportResponse
-        return ExportResponse(status="not_implemented", format="csv", record_count=0)
+        """Custom export with filtering"""
+        return await self.export_view(
+            kwargs.get("view_name", "documents"),
+            kwargs.get("format", "csv")
+        )
