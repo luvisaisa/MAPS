@@ -1,6 +1,6 @@
 # Schema-Agnostic Refactoring: Implementation Summary
 
-**Project:** RA-D-PS (Radiology Annotation Data Processing System)  
+**Project:** MAPS (Medical Imaging Processing Suite)  
 **Date:** October 18, 2025  
 **Status:** Foundation Complete, Ready for Phase 4 Implementation  
 
@@ -39,7 +39,7 @@ Transform the existing LIDC-IDRI-specific XML parser into a **schema-agnostic, p
 - Comprehensive audit logging
 
 ### 2. Canonical Schema (Pydantic Models)
-**File:** `/src/ra_d_ps/schemas/canonical.py`
+**File:** `/src/maps/schemas/canonical.py`
 
 **Models Created:**
 - `CanonicalDocument`: Base schema for all document types
@@ -59,7 +59,7 @@ Transform the existing LIDC-IDRI-specific XML parser into a **schema-agnostic, p
 - Utility functions for serialization and merging
 
 ### 3. Profile System
-**File:** `/src/ra_d_ps/schemas/profile.py`
+**File:** `/src/maps/schemas/profile.py`
 
 **Models Created:**
 - `Profile`: Main profile definition
@@ -78,7 +78,7 @@ Transform the existing LIDC-IDRI-specific XML parser into a **schema-agnostic, p
 - Conditional logic
 
 ### 4. Profile Manager
-**File:** `/src/ra_d_ps/profile_manager.py`
+**File:** `/src/maps/profile_manager.py`
 
 **Capabilities:**
 - Load profiles from JSON files or database
@@ -158,8 +158,8 @@ Added:
 **Estimated Time:** 12-16 hours
 
 **Tasks:**
-1. Create `BaseParser` abstract class (`/src/ra_d_ps/parsers/base.py`)
-2. Implement `XMLParser` class (`/src/ra_d_ps/parsers/xml_parser.py`)
+1. Create `BaseParser` abstract class (`/src/maps/parsers/base.py`)
+2. Implement `XMLParser` class (`/src/maps/parsers/xml_parser.py`)
 3. Implement XPath extraction with namespace handling
 4. Build transformation engine
 5. Implement entity extraction
@@ -177,7 +177,7 @@ Added:
 **Estimated Time:** 4 hours
 
 **Tasks:**
-1. Create `ParserFactory` class (`/src/ra_d_ps/parsers/factory.py`)
+1. Create `ParserFactory` class (`/src/maps/parsers/factory.py`)
 2. Implement parser registration system
 3. Create stubs for JSON, CSV, PDF parsers
 4. Add parser detection logic
@@ -334,7 +334,7 @@ pytest tests/integration/test_profile_inheritance.py -v  # Profile merging
 ### Backward Compatibility Tests
 ```bash
 # Ensure existing functionality still works
-pytest tests/test_ra_d_ps_export.py -v
+pytest tests/test_maps_export.py -v
 pytest tests/test_excel_export.py -v
 pytest tests/test_radiology_database.py -v
 ```
@@ -373,15 +373,15 @@ psql -h localhost -U ra_d_ps_user -d ra_d_ps_db \
 
 ### 4. Verify Schema
 ```bash
-psql -h localhost -U ra_d_ps_user -d ra_d_ps_db -c "\dt"
+psql -h localhost -U maps_user -d maps_db -c "\dt"
 # Should show: documents, document_content, profiles, ingestion_logs, etc.
 ```
 
 ### 5. Test Profile Manager
 ```python
 python3 << 'EOF'
-from src.ra_d_ps.profile_manager import get_profile_manager
-from src.ra_d_ps.schemas.profile import Profile, FieldMapping, FileType, DataType
+from src.maps.profile_manager import get_profile_manager
+from src.maps.schemas.profile import Profile, FieldMapping, FileType, DataType
 
 manager = get_profile_manager()
 
@@ -452,17 +452,17 @@ pytest tests/test_profile_manager.py -v     # Specific test
 | Component | File Path | Status |
 |-----------|-----------|--------|
 | Database Schema | `/migrations/001_initial_schema.sql` |  Complete |
-| Canonical Schema | `/src/ra_d_ps/schemas/canonical.py` |  Complete |
-| Profile Schema | `/src/ra_d_ps/schemas/profile.py` |  Complete |
-| Profile Manager | `/src/ra_d_ps/profile_manager.py` |  Complete |
+| Canonical Schema | `/src/maps/schemas/canonical.py` |  Complete |
+| Profile Schema | `/src/maps/schemas/profile.py` |  Complete |
+| Profile Manager | `/src/maps/profile_manager.py` |  Complete |
 | Implementation Guide | `/docs/IMPLEMENTATION_GUIDE_SCHEMA_AGNOSTIC.md` |  Complete |
 | Docker Compose | `/docker-compose.yml` |  Complete |
 | Dockerfile | `/Dockerfile` |  Complete |
 | Env Template | `/configs/.env.example` |  Complete |
 | Requirements | `/requirements.txt` |  Updated |
-| Base Parser | `/src/ra_d_ps/parsers/base.py` |  To Do |
-| XML Parser | `/src/ra_d_ps/parsers/xml_parser.py` |  To Do |
-| Parser Factory | `/src/ra_d_ps/parsers/factory.py` |  To Do |
+| Base Parser | `/src/maps/parsers/base.py` |  To Do |
+| XML Parser | `/src/maps/parsers/xml_parser.py` |  To Do |
+| Parser Factory | `/src/maps/parsers/factory.py` |  To Do |
 | LIDC Profile | `/profiles/lidc_idri_standard.json` |  To Do |
 
 ---

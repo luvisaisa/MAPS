@@ -1,4 +1,4 @@
-# RA-D-PS Schema-Agnostic Refactoring Implementation Guide
+# MAPS Schema-Agnostic Refactoring Implementation Guide
 
 **Version:** 1.0  
 **Target Architecture:** Profile-based normalization system with PostgreSQL  
@@ -24,7 +24,7 @@
 ### Current State
 - **Existing System:** Radiology XML parser (`parser.py`) with hardcoded LIDC-IDRI format logic
 - **Database:** SQLite-based storage (`database.py`, `radiology_database.py`)
-- **Export:** Excel (RA-D-PS format) and SQLite
+- **Export:** Excel (MAPS format) and SQLite
 - **GUI:** Tkinter-based interface for file selection and processing
 
 ### Target State
@@ -43,7 +43,7 @@
    - Profile definitions external to code
 
 2. **Backward Compatibility:** - Existing radiology XML parsing must continue to work
-   - Excel export format (RA-D-PS) must be preserved
+   - Excel export format (MAPS) must be preserved
    - Existing tests must pass
 
 3. **Extensibility:** - New file formats added by creating profiles only

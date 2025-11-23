@@ -1,10 +1,10 @@
-# Updated XML Parser - RA-D-PS Integration Summary
+# Updated XML Parser - MAPS Integration Summary
 
 ## Major Changes Implemented
 
 ### Updated "Export to Excel" Button
-- **Before**: Used old formatting system with separate RA-D-PS button
-- **After**: Single "Export to Excel" button now uses RA-D-PS format exclusively
+- **Before**: Used old formatting system with separate MAPS button
+- **After**: Single "Export to Excel" button now uses MAPS format exclusively
 - **Benefits**: Cleaner interface, consistent output format
 
 ### Enhanced Folder Processing Modes
@@ -30,10 +30,10 @@ Now offers **three distinct processing modes**:
 - **Individual Files**: Asks user to select output folder
 - **Multiple Folders**: Uses appropriate folder for each mode
 
-### RA-D-PS Format Features (Applied to ALL exports)
+### MAPS Format Features (Applied to ALL exports)
 - **Dynamic radiologist blocks**: Adapts to any number of radiologists
 - **Spacer columns**: Visual separation between data sections
-- **Auto-naming**: `{folder}_RA-D-PS_{YYYY-MM-DD_HHMMSS}.xlsx`
+- **Auto-naming**: `{folder}_MAPS_{YYYY-MM-DD_HHMMSS}.xlsx`
 - **Versioning**: Automatic _v2, _v3, etc. to prevent overwrites
 - **Conditional formatting**: Alternating blue/white row striping
 - **Optimized columns**: Auto-sized with wider Reason columns
@@ -45,7 +45,7 @@ Now offers **three distinct processing modes**:
 [Select XML Files]
 [Select Folders] ← Opens processing mode dialog
 [Select Excel to Append]
-[Export to Excel] ← Now uses RA-D-PS format
+[Export to Excel] ← Now uses MAPS format
 [Export to SQLite]
 ```
 

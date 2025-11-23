@@ -216,7 +216,7 @@ Complete the stub in xml_parser.py:
 Complete _to_legacy_format() in legacy_radiology.py:
 - Map all canonical fields to DataFrame columns
 - Preserve exact column structure from original parser
-- Maintain RA-D-PS Excel format compatibility
+- Maintain MAPS Excel format compatibility
 
 ## Dependencies & Environment
 

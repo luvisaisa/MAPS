@@ -1,7 +1,7 @@
-# RA-D-PS Excel Export Feature
+# MAPS Excel Export Feature
 
 ## Overview
-The RA-D-PS (Radiologist-Aggregated Dynamic-Presentation Sheets) export feature provides a new Excel output format that organizes radiologist data in dynamic blocks with automatic naming and versioning.
+The MAPS (Medical Imaging Processing Suite) export feature provides a new Excel output format that organizes radiologist data in dynamic blocks with automatic naming and versioning.
 
 ## Key Features
 
@@ -12,7 +12,7 @@ The RA-D-PS (Radiologist-Aggregated Dynamic-Presentation Sheets) export feature 
 
 ### 2. Auto-Naming & Versioning
 - Derives filename from source folder name + timestamp
-- Format: `{folder_name}_RA-D-PS_{YYYY-MM-DD_HHMMSS}.xlsx`
+- Format: `{folder_name}_MAPS_{YYYY-MM-DD_HHMMSS}.xlsx`
 - Automatic versioning (_v2, _v3, etc.) prevents overwrites
 
 ### 3. Enhanced Formatting
@@ -31,20 +31,20 @@ file # | Study UID | [spacer] | NoduleID | [spacer] | Radiologist_1_Subtlety | R
 
 ### GUI Interface
 1. Select XML files using "Select XML Files" or "Select Folders"
-2. Click the new "Export RA-D-PS" button
+2. Click the new "Export MAPS" button
 3. Choose output folder
 4. File automatically saved with timestamp
 
 ### Programmatic Usage
 
 ```python
-from XMLPARSE import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format, export_excel
+from XMLPARSE import parse_radiology_sample, convert_parsed_data_to_maps_format, export_excel
 
 # Parse XML file(s)
 main_df, unblinded_df = parse_radiology_sample("path/to/file.xml")
 
-# Convert to RA-D-PS format
-records = convert_parsed_data_to_ra_d_ps_format((main_df, unblinded_df))
+# Convert to MAPS format
+records = convert_parsed_data_to_maps_format((main_df, unblinded_df))
 
 # Export to Excel
 output_path = export_excel(records, "output/folder", sheet="data")

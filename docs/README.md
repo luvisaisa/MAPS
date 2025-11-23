@@ -5,7 +5,7 @@
 - [Installation Guide](INSTALLATION.md) - Detailed installation instructions
 
 ## User Guides
-- [RA-D-PS Export Guide](RA_D_PS_EXPORT_GUIDE.md) - How to export data in RA-D-PS format
+- [MAPS Export Guide](RA_D_PS_EXPORT_GUIDE.md) - How to export data in MAPS format
 - [Excel vs SQLite Guide](EXCEL_vs_SQLITE_GUIDE.md) - Choosing output formats
 - [Integration Guide](INTEGRATION_GUIDE.md) - Integrating with other systems
 
@@ -21,7 +21,7 @@
 ## Project Structure
 
 ```
-ra-d-ps/
+maps/
  src/ra_d_ps/          # Main package
     core.py           # XML parsing logic
     exporters.py      # Excel/file export

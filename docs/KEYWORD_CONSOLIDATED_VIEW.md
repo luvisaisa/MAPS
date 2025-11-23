@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Consolidated Keyword View** (`v_keyword_consolidated`) provides a comprehensive, unified view of all keyword data in the RA-D-PS system, combining:
+The **Consolidated Keyword View** (`v_keyword_consolidated`) provides a comprehensive, unified view of all keyword data in the MAPS system, combining:
 
 - Core keyword metadata (text, category, definition, references)
 - Statistical information (frequency, document count, TF-IDF scores)

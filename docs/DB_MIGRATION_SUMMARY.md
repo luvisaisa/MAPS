@@ -8,7 +8,7 @@
 
 ## Overview
 
-Successfully migrated RA-D-PS structure detector from hardcoded parse case logic to pure database-driven detection using PostgreSQL. All parse case definitions, detection criteria, and field mappings are now stored in the database with no fallback logic.
+Successfully migrated MAPS structure detector from hardcoded parse case logic to pure database-driven detection using PostgreSQL. All parse case definitions, detection criteria, and field mappings are now stored in the database with no fallback logic.
 
 ---
 

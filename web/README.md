@@ -1,10 +1,10 @@
-# RA-D-PS Web Interface
+# MAPS Web Interface
 
-modern react-based web interface for the radiology annotation data processing system (ra-d-ps).
+modern react-based web interface for the medical imaging processing suite (maps).
 
 ## overview
 
-this web interface provides a user-friendly frontend for uploading, processing, and managing radiology xml data. it connects to the fastapi backend and offers functionality equivalent to the tkinter gui with enhanced usability and modern design.
+this web interface provides a user-friendly frontend for uploading, processing, and managing medical imaging xml data. it connects to the fastapi backend and offers functionality equivalent to the tkinter gui with enhanced usability and modern design.
 
 ## features
 

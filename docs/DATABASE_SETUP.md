@@ -1,4 +1,4 @@
-# PostgreSQL Database Setup for RA-D-PS Parse Case Management
+# PostgreSQL Database Setup for MAPS Parse Case Management
 
 This directory contains PostgreSQL database infrastructure for managing XML parse cases dynamically.
 

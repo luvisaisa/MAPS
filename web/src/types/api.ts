@@ -1,4 +1,4 @@
-// API Response Types for RA-D-PS
+// API Response Types for MAPS (Medical Annotation Processing System)
 
 export interface APIResponse<T = unknown> {
   success: boolean;
@@ -148,4 +148,192 @@ export interface APIError {
   detail?: string;
   path?: string;
   status_code?: number;
+}
+
+// Keyword Types
+export interface Keyword {
+  id: string;
+  term: string;
+  canonical_term: string;
+  category?: string;
+  frequency: number;
+  confidence?: number;
+  source?: string;
+  created_at?: string;
+}
+
+export interface KeywordSearchResult {
+  keyword: Keyword;
+  score: number;
+  matches: string[];
+}
+
+export interface KeywordDirectory {
+  categories: Record<string, Keyword[]>;
+  total_keywords: number;
+  total_categories: number;
+}
+
+// Analytics Types
+export interface ParseCaseDistribution {
+  parse_case: string;
+  count: number;
+  percentage: number;
+}
+
+export interface KeywordStats {
+  total_keywords: number;
+  unique_terms: number;
+  top_keywords: Array<{ term: string; count: number }>;
+  categories: Record<string, number>;
+}
+
+export interface InterRaterReliability {
+  fleiss_kappa?: number;
+  cohens_kappa?: number;
+  agreement_percentage: number;
+  disagreement_details: Record<string, number>;
+}
+
+export interface DataCompleteness {
+  total_records: number;
+  complete_records: number;
+  completeness_percentage: number;
+  missing_fields: Record<string, number>;
+}
+
+// 3D Visualization Types
+export interface Nodule3DData {
+  nodule_id: string;
+  coordinates: Array<{ x: number; y: number; z: number }>;
+  contours: Array<Array<{ x: number; y: number }>>;
+  slice_indices: number[];
+  volume: number;
+  diameter: number;
+}
+
+export interface VisualizationMetadata {
+  scan_id: string;
+  patient_id?: string;
+  slice_thickness: number;
+  pixel_spacing: number[];
+  image_position: number[];
+}
+
+// PYLIDC Types
+export interface PYLIDCScan {
+  scan_id: string;
+  patient_id: string;
+  series_instance_uid: string;
+  slice_count: number;
+  slice_thickness: number;
+  pixel_spacing: number[];
+}
+
+export interface PYLIDCAnnotation {
+  annotation_id: string;
+  nodule_id: string;
+  radiologist_id: string;
+  subtlety: number;
+  internalStructure: number;
+  calcification: number;
+  sphericity: number;
+  margin: number;
+  lobulation: number;
+  spiculation: number;
+  texture: number;
+  malignancy: number;
+}
+
+// View Types (Supabase)
+export interface KeywordConsolidatedView {
+  document_id: string;
+  keywords: string[];
+  categories: string[];
+  keyword_count: number;
+}
+
+export interface AnnotationView {
+  annotation_id: string;
+  scan_id: string;
+  radiologist_id: string;
+  characteristics: Record<string, number>;
+  created_at: string;
+}
+
+// Search Types
+export interface SearchQuery {
+  query: string;
+  filters?: SearchFilters;
+  limit?: number;
+  offset?: number;
+}
+
+export interface SearchFilters {
+  parse_case?: string[];
+  date_from?: string;
+  date_to?: string;
+  keywords?: string[];
+  has_keywords?: boolean;
+}
+
+export interface SearchResult {
+  document_id: string;
+  title: string;
+  snippet: string;
+  score: number;
+  highlights: string[];
+  metadata: Record<string, unknown>;
+}
+
+export interface SearchResponse {
+  results: SearchResult[];
+  total: number;
+  query: string;
+  took_ms: number;
+}
+
+// Parse Case Types
+export interface ParseCase {
+  name: string;
+  description: string;
+  pattern: string;
+  priority: number;
+  count?: number;
+}
+
+// Database Types
+export interface DatabaseStats {
+  table_name: string;
+  row_count: number;
+  size_bytes: number;
+  last_updated?: string;
+}
+
+export interface DatabaseHealth {
+  status: 'healthy' | 'degraded' | 'down';
+  connection_pool: {
+    active: number;
+    idle: number;
+    max: number;
+  };
+  response_time_ms: number;
+}
+
+// WebSocket Types
+export interface WSMessage<T = unknown> {
+  type: 'progress' | 'status' | 'error' | 'complete';
+  job_id?: string;
+  data: T;
+  timestamp: string;
+}
+
+export interface JobProgressUpdate {
+  job_id: string;
+  current: number;
+  total: number;
+  percentage: number;
+  current_file?: string;
+  status: ProcessingJob['status'];
+  message?: string;
 }

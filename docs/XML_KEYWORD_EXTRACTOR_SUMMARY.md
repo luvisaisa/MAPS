@@ -252,10 +252,10 @@ WHERE ks.keyword_id = keyword_stats.keyword_id;
 
 ## Integration with Existing System
 
-### RA-D-PS Compatibility
+### MAPS Compatibility
 -  Uses existing PostgreSQL schema (keyword_* tables)
 -  Integrates with KeywordRepository
--  Follows RA-D-PS naming conventions
+-  Follows MAPS naming conventions
 -  Compatible with XML-COMP dataset structure
 -  Namespace-aware XML parsing (handles LIDC formats)
 

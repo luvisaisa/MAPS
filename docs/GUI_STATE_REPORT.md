@@ -1,4 +1,4 @@
-# GUI State Report - RA-D-PS
+# GUI State Report - MAPS
 **Generated:** October 11, 2025  
 **Version:** Current (Post-Refactoring)
 
@@ -13,7 +13,7 @@ The GUI has been successfully refactored from `parser.py` to `gui.py` with all f
 ## Architecture
 
 ### Window Configuration
-- **Title:** "RA-D-PS: Radiology XML Data Processing System"
+- **Title:** "MAPS: Medical Imaging Processing Suite"
 - **Size:** 600x650 pixels (resizable)
 - **Minimum Size:** 550x600 pixels
 - **Background:** `#d7e3fc` (light blue)

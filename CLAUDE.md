@@ -83,7 +83,7 @@ Adhering to these standards ensures consistency, professionalism, and long-term 
 
 ### Purpose
 
-RA-D-PS is a schema-agnostic radiology data processing system that parses, analyzes, and exports medical imaging XML data from various radiology systems. The project has evolved from a specific NYT XML parser into a flexible, profile-based data ingestion system.
+MAPS (Medical Imaging Processing Suite) is a schema-agnostic medical imaging data processing system that parses, analyzes, and exports medical imaging XML data from various radiology systems. The project has evolved from a specific NYT XML parser into a flexible, profile-based data ingestion system.
 
 ### Key Capabilities
 
@@ -110,7 +110,7 @@ RA-D-PS is a schema-agnostic radiology data processing system that parses, analy
 
 ```
 MAPS/
-├── src/ra_d_ps/              # Main source code package
+├── src/maps/                 # Main source code package
 │   ├── __init__.py           # Package initialization and public API
 │   ├── parser.py             # Core parsing logic (legacy)
 │   ├── gui.py                # Tkinter GUI application
@@ -321,7 +321,7 @@ docker-compose up -d postgres
 make db-migrate
 
 # 8. Launch GUI
-python -m src.ra_d_ps.gui
+python -m src.maps.gui
 # OR
 make gui
 ```
@@ -341,12 +341,12 @@ black src/ tests/ --line-length 100
 make lint
 # OR
 flake8 src/ tests/ --max-line-length 100
-mypy src/ra_d_ps/
+mypy src/maps/
 
 # Run tests with coverage
 make test-coverage
 # OR
-pytest --cov=src/ra_d_ps --cov-report=html --cov-report=term
+pytest --cov=src/maps --cov-report=html --cov-report=term
 ```
 
 ### Docker Setup
@@ -462,16 +462,16 @@ from pydantic import BaseModel, Field
 from sqlalchemy import Column, String
 
 # Local imports (absolute from src root)
-from ra_d_ps.parsers.base import BaseParser
-from ra_d_ps.schemas.canonical import RadiologyCanonicalDocument
-from ra_d_ps.database.models import DocumentModel
+from maps.parsers.base import BaseParser
+from maps.schemas.canonical import RadiologyCanonicalDocument
+from maps.database.models import DocumentModel
 ```
 
 ### Error Handling
 
 ```python
 # Use specific exceptions
-from ra_d_ps.exceptions import ParsingError, ValidationError
+from maps.exceptions import ParsingError, ValidationError
 
 # Provide context in error messages
 try:
@@ -627,8 +627,8 @@ pytest tests/ -k "not integration"
 ```python
 import pytest
 from pathlib import Path
-from ra_d_ps.parsers.xml_parser import XMLParser
-from ra_d_ps.schemas.canonical import RadiologyCanonicalDocument
+from maps.parsers.xml_parser import XMLParser
+from maps.schemas.canonical import RadiologyCanonicalDocument
 
 class TestXMLParser:
     """Test suite for XMLParser."""
@@ -719,7 +719,7 @@ EOF
 
 # 3. Create tests
 cat > tests/test_json_parser.py << 'EOF'
-from ra_d_ps.parsers.json_parser import JSONParser
+from maps.parsers.json_parser import JSONParser
 
 def test_json_parser():
     # Test implementation
@@ -758,7 +758,7 @@ EOF
 
 # 2. Validate profile
 python -c "
-from ra_d_ps.profile_manager import get_profile_manager
+from maps.profile_manager import get_profile_manager
 manager = get_profile_manager()
 profile = manager.import_profile('profiles/my_custom_format.json')
 is_valid, errors = manager.validate_profile(profile)
@@ -768,7 +768,7 @@ print(f'Errors: {errors}')
 
 # 3. Test with sample data
 python -c "
-from ra_d_ps.parsers.xml_parser import XMLParser
+from maps.parsers.xml_parser import XMLParser
 parser = XMLParser(profile_name='my_custom_format')
 result = parser.parse('path/to/sample.xml')
 print(result)
@@ -782,13 +782,13 @@ print(result)
 make gui
 
 # Method 2: Using Python module
-python -m src.ra_d_ps.gui
+python -m src.maps.gui
 
 # Method 3: Using launch script
 python scripts/launch_gui.py
 
 # Method 4: Direct import
-python -c "from ra_d_ps import NYTXMLGuiApp; NYTXMLGuiApp().run()"
+python -c "from maps import NYTXMLGuiApp; NYTXMLGuiApp().run()"
 ```
 
 ### 4. Batch Processing XML Files
@@ -796,7 +796,7 @@ python -c "from ra_d_ps import NYTXMLGuiApp; NYTXMLGuiApp().run()"
 ```bash
 # Using Python API
 python << 'EOF'
-from ra_d_ps import parse_multiple
+from maps import parse_multiple
 from pathlib import Path
 
 xml_files = list(Path("data/xml").glob("*.xml"))
@@ -1176,7 +1176,7 @@ Before submitting changes:
 pip install -e .
 
 # Or add to PYTHONPATH
-export PYTHONPATH="${PYTHONPATH}:/path/to/RA-D-PS/src"
+export PYTHONPATH="${PYTHONPATH}:/path/to/MAPS/src"
 ```
 
 **Problem**: `ImportError: cannot import name 'parse_radiology_sample'`

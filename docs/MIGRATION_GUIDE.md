@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide explains how to manage database migrations for the RA-D-PS system using the automated migration runner.
+This guide explains how to manage database migrations for the MAPS system using the automated migration runner.
 
 ## Migration Script
 

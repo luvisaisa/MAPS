@@ -1,8 +1,8 @@
-# PyLIDC Integration Guide for RA-D-PS
+# PyLIDC Integration Guide for MAPS
 
 ## Overview
 
-This guide explains how to integrate the [pylidc library](https://pylidc.github.io/) with the RA-D-PS schema-agnostic system. The pylidc library provides an Object-Relational Mapping (ORM) interface to the LIDC-IDRI (Lung Image Database Consortium and Image Database Resource Initiative) dataset.
+This guide explains how to integrate the [pylidc library](https://pylidc.github.io/) with the MAPS schema-agnostic system. The pylidc library provides an Object-Relational Mapping (ORM) interface to the LIDC-IDRI (Lung Image Database Consortium and Image Database Resource Initiative) dataset.
 
 ## Why PyLIDC Integration?
 
@@ -10,14 +10,14 @@ This guide explains how to integrate the [pylidc library](https://pylidc.github.
 -  **Direct DICOM Access**: Query LIDC-IDRI dataset without XML parsing
 -  **Rich API**: Object-oriented interface with computed properties (volume, diameter, surface area)
 -  **Advanced Features**: Annotation clustering, consensus calculation, 3D visualization
--  **Schema Compatibility**: Seamlessly integrates with RA-D-PS canonical schema
+-  **Schema Compatibility**: Seamlessly integrates with MAPS canonical schema
 -  **Unified Workflow**: Process both XML and DICOM data in same pipeline
 
 ## Architecture
 
 ```
 
-                     RA-D-PS System                              
+                      MAPS System                              
 
                                                                  
                
@@ -232,7 +232,7 @@ doc_id = repo.create(canonical_doc)
 print(f"Stored document: {doc_id}")
 ```
 
-### Workflow 5: Export to Excel (RA-D-PS Format)
+### Workflow 5: Export to Excel (MAPS Format)
 
 ```python
 import pylidc as pl
@@ -242,7 +242,7 @@ from src.ra_d_ps.parser import export_excel  # Existing function
 # Convert scans
 canonical_docs = query_and_convert(limit=5)
 
-# Convert to RA-D-PS records format
+# Convert to MAPS records format
 records = []
 for doc in canonical_docs:
     for nodule in doc.nodules:
@@ -359,11 +359,11 @@ ct_vol, seg_mask = ann.uniform_cubic_resample(side_length=50)
 print(f"Resampled to: {ct_vol.shape}")
 ```
 
-## Integration with Existing RA-D-PS Workflow
+## Integration with Existing MAPS Workflow
 
 ### Before (XML Only):
 ```
-XML Files → Parser → RA-D-PS Format → Excel/SQLite
+XML Files → Parser → MAPS Format → Excel/SQLite
 ```
 
 ### After (Unified):
@@ -392,7 +392,7 @@ python examples/pylidc_integration.py
 Expected output:
 ```
 ======================================================================
-PyLIDC Integration Examples for RA-D-PS
+PyLIDC Integration Examples for MAPS
 ======================================================================
 
  PyLIDC database configured: 1018 scans available
@@ -482,7 +482,7 @@ pip install numpy>=1.21.0
 
 - **PyLIDC Documentation**: https://pylidc.github.io/
 - **LIDC-IDRI Dataset**: https://wiki.cancerimagingarchive.net/display/Public/LIDC-IDRI
-- **RA-D-PS Canonical Schema**: See `src/ra_d_ps/schemas/canonical.py`
+- **MAPS Canonical Schema**: See `src/maps/schemas/canonical.py`
 - **Adapter Implementation**: See `src/ra_d_ps/adapters/pylidc_adapter.py`
 - **Examples**: See `examples/pylidc_integration.py`
 

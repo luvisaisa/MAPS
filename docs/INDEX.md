@@ -1,11 +1,11 @@
-# RA-D-PS Documentation Index
+# MAPS Documentation Index
 
 **Last Updated:** 2025-11-23
 **Project Version:** 1.0.0
 
 ## Quick Start
 
-Start here if you're new to RA-D-PS:
+Start here if you're new to MAPS:
 
 - **[Main README](../README.md)** - Project overview and features
 - **[Quick Start Guide](QUICKSTART_SCHEMA_AGNOSTIC.md)** - Get started in 5 minutes
@@ -65,7 +65,7 @@ Development roadmaps and phase documentation:
 
 ## Export & Integration
 
-- [RA-D-PS Export Guide](RA_D_PS_EXPORT_GUIDE.md) - Export formats
+- [MAPS Export Guide](RA_D_PS_EXPORT_GUIDE.md) - Export formats
 - [Excel Exporter Extraction](EXCEL_EXPORTER_EXTRACTION.md) - Excel specifics
 
 ## Archived Documentation

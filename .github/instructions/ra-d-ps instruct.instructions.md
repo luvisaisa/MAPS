@@ -3,13 +3,13 @@ applyTo: '**'
 ---
 Provide project context and coding guidelines that AI should follow when generating code, answering questions, or reviewing changes.
 
-# Coding and Contribution Guidelines for RA-D-PS Repository
+# Coding and Contribution Guidelines for MAPS Repository
 
 ## purpose
 onboard coding agents to this repository so they can implement changes quickly without breaking ci or validation. prefer correctness and reproducibility over speed. only search the repo if information below is incomplete or proven wrong.
 
 ## repository overview
-this repository provides tools to parse, validate, and export radiology annotation data (lidc/idri-style xmls) into analyzable outputs including excel dashboards, sqlite exports, and statistical utilities. it supports psychophysics and radiomics research workflows.
+this repository provides tools to parse, validate, and export medical imaging annotation data (lidc/idri-style xmls) into analyzable outputs including excel dashboards, sqlite exports, and statistical utilities. it supports psychophysics and radiomics research workflows.
 project type: research + data engineering toolkit
 languages/runtimes: python 3.12+, shell scripts for setup and ops
 tooling: pandas, openpyxl, pytest, black/ruff/mypy, optional tkinter gui for development
@@ -119,7 +119,7 @@ prefer fixtures/fakes over brittle mocks
 provide a single command: pytest -q
 if external services are implied, create stubs or contract tests, never call live apis unless explicitly allowed
 
-## ra-d-ps repo special notes
+## maps repo special notes
 xml batches vary in element order and optional fields, parser must be order-agnostic and tolerant
 radiologist attributes such as confidence, subtlety, obscuration, reason must be exported as column-grouped blocks with spacer columns between radiologists in excel
 outputs must preserve raw annotations and derived difficulty metrics

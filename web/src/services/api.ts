@@ -11,6 +11,27 @@ import type {
   PaginationParams,
   JobFilters,
   CanonicalDocument,
+  Keyword,
+  KeywordSearchResult,
+  KeywordDirectory,
+  KeywordStats,
+  ParseCaseDistribution,
+  InterRaterReliability,
+  DataCompleteness,
+  Nodule3DData,
+  VisualizationMetadata,
+  PYLIDCScan,
+  PYLIDCAnnotation,
+  KeywordConsolidatedView,
+  AnnotationView,
+  SearchQuery,
+  SearchResponse,
+  SearchFilters,
+  ParseCase,
+  DatabaseStats,
+  DatabaseHealth,
+  WSMessage,
+  JobProgressUpdate,
 } from '../types/api';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -163,6 +184,203 @@ class APIClient {
       params: { date_from: dateFrom, date_to: dateTo },
     });
     return response.data;
+  }
+
+  async getAnalyticsSummary() {
+    const response = await this.client.get('/api/v1/analytics/summary');
+    return response.data;
+  }
+
+  async getParseCaseDistribution(): Promise<ParseCaseDistribution[]> {
+    const response = await this.client.get<ParseCaseDistribution[]>('/api/v1/analytics/parse-cases');
+    return response.data;
+  }
+
+  async getKeywordStats(): Promise<KeywordStats> {
+    const response = await this.client.get<KeywordStats>('/api/v1/analytics/keywords');
+    return response.data;
+  }
+
+  async getInterRaterReliability(): Promise<InterRaterReliability> {
+    const response = await this.client.get<InterRaterReliability>('/api/v1/analytics/inter-rater');
+    return response.data;
+  }
+
+  async getDataCompleteness(): Promise<DataCompleteness> {
+    const response = await this.client.get<DataCompleteness>('/api/v1/analytics/completeness');
+    return response.data;
+  }
+
+  // Keywords
+  async getKeywords(params?: { limit?: number; offset?: number; category?: string }): Promise<Keyword[]> {
+    const response = await this.client.get<Keyword[]>('/api/v1/keywords', { params });
+    return response.data;
+  }
+
+  async getKeyword(keywordId: string): Promise<Keyword> {
+    const response = await this.client.get<Keyword>(`/api/v1/keywords/${keywordId}`);
+    return response.data;
+  }
+
+  async searchKeywords(query: string, limit: number = 100): Promise<KeywordSearchResult[]> {
+    const response = await this.client.get<KeywordSearchResult[]>('/api/v1/keywords/search', {
+      params: { query, limit },
+    });
+    return response.data;
+  }
+
+  async getKeywordDirectory(): Promise<KeywordDirectory> {
+    const response = await this.client.get<KeywordDirectory>('/api/v1/keywords/directory');
+    return response.data;
+  }
+
+  async normalizeKeyword(term: string) {
+    const response = await this.client.post('/api/v1/keywords/normalize', { term });
+    return response.data;
+  }
+
+  // 3D Visualization
+  async get3DNoduleData(noduleId: string): Promise<Nodule3DData> {
+    const response = await this.client.get<Nodule3DData>(`/api/v1/3d/nodule/${noduleId}`);
+    return response.data;
+  }
+
+  async get3DVisualizationMetadata(scanId: string): Promise<VisualizationMetadata> {
+    const response = await this.client.get<VisualizationMetadata>(`/api/v1/3d/scan/${scanId}/metadata`);
+    return response.data;
+  }
+
+  async generateVolumeRendering(scanId: string, options?: Record<string, unknown>) {
+    const response = await this.client.post(`/api/v1/3d/scan/${scanId}/render`, options);
+    return response.data;
+  }
+
+  // PYLIDC Integration
+  async getPYLIDCScans(params?: PaginationParams): Promise<PaginatedResponse<PYLIDCScan>> {
+    const response = await this.client.get<PaginatedResponse<PYLIDCScan>>('/api/v1/pylidc/scans', { params });
+    return response.data;
+  }
+
+  async getPYLIDCScan(scanId: string): Promise<PYLIDCScan> {
+    const response = await this.client.get<PYLIDCScan>(`/api/v1/pylidc/scans/${scanId}`);
+    return response.data;
+  }
+
+  async importPYLIDCScan(scanId: string) {
+    const response = await this.client.post(`/api/v1/pylidc/import/${scanId}`);
+    return response.data;
+  }
+
+  async getPYLIDCAnnotations(scanId: string): Promise<PYLIDCAnnotation[]> {
+    const response = await this.client.get<PYLIDCAnnotation[]>(`/api/v1/pylidc/scans/${scanId}/annotations`);
+    return response.data;
+  }
+
+  // Views (Supabase)
+  async getKeywordConsolidatedView(params?: PaginationParams): Promise<PaginatedResponse<KeywordConsolidatedView>> {
+    const response = await this.client.get<PaginatedResponse<KeywordConsolidatedView>>('/api/v1/views/keywords-consolidated', { params });
+    return response.data;
+  }
+
+  async getAnnotationView(params?: PaginationParams): Promise<PaginatedResponse<AnnotationView>> {
+    const response = await this.client.get<PaginatedResponse<AnnotationView>>('/api/v1/views/annotations', { params });
+    return response.data;
+  }
+
+  async getViewMetadata(viewName: string) {
+    const response = await this.client.get(`/api/v1/views/${viewName}/metadata`);
+    return response.data;
+  }
+
+  // Search
+  async search(searchQuery: SearchQuery): Promise<SearchResponse> {
+    const response = await this.client.post<SearchResponse>('/api/v1/search', searchQuery);
+    return response.data;
+  }
+
+  async advancedSearch(query: string, filters?: SearchFilters): Promise<SearchResponse> {
+    const response = await this.client.post<SearchResponse>('/api/v1/search/advanced', { query, filters });
+    return response.data;
+  }
+
+  async searchByKeywords(keywords: string[]): Promise<SearchResponse> {
+    const response = await this.client.post<SearchResponse>('/api/v1/search/keywords', { keywords });
+    return response.data;
+  }
+
+  // Parse Cases
+  async getParseCases(): Promise<ParseCase[]> {
+    const response = await this.client.get<ParseCase[]>('/api/v1/parse-cases');
+    return response.data;
+  }
+
+  async getParseCase(name: string): Promise<ParseCase> {
+    const response = await this.client.get<ParseCase>(`/api/v1/parse-cases/${name}`);
+    return response.data;
+  }
+
+  async createParseCase(parseCase: ParseCase): Promise<APIResponse<ParseCase>> {
+    const response = await this.client.post<APIResponse<ParseCase>>('/api/v1/parse-cases', parseCase);
+    return response.data;
+  }
+
+  // Database Operations
+  async getDatabaseStats(): Promise<DatabaseStats[]> {
+    const response = await this.client.get<DatabaseStats[]>('/api/v1/db/stats');
+    return response.data;
+  }
+
+  async getDatabaseHealth(): Promise<DatabaseHealth> {
+    const response = await this.client.get<DatabaseHealth>('/api/v1/db/health');
+    return response.data;
+  }
+
+  async vacuumDatabase() {
+    const response = await this.client.post('/api/v1/db/vacuum');
+    return response.data;
+  }
+
+  async resetDatabase(confirm: boolean = false) {
+    if (!confirm) {
+      throw new Error('Database reset requires explicit confirmation');
+    }
+    const response = await this.client.post('/api/v1/db/reset', { confirm });
+    return response.data;
+  }
+
+  // WebSocket Connection (for real-time updates)
+  connectWebSocket(jobId: string, onMessage: (message: WSMessage) => void): WebSocket {
+    const wsUrl = this.client.defaults.baseURL?.replace('http', 'ws') || 'ws://localhost:8000';
+    const ws = new WebSocket(`${wsUrl}/api/v1/batch/jobs/${jobId}/ws`);
+    
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data) as WSMessage;
+      onMessage(message);
+    };
+    
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    
+    return ws;
+  }
+
+  // Server-Sent Events (alternative to WebSocket)
+  subscribeToJobProgress(jobId: string, onProgress: (update: JobProgressUpdate) => void): EventSource {
+    const sseUrl = `${this.client.defaults.baseURL}/api/v1/batch/jobs/${jobId}/progress`;
+    const eventSource = new EventSource(sseUrl);
+    
+    eventSource.onmessage = (event) => {
+      const update = JSON.parse(event.data) as JobProgressUpdate;
+      onProgress(update);
+    };
+    
+    eventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+      eventSource.close();
+    };
+    
+    return eventSource;
   }
 }
 
