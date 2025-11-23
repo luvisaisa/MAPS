@@ -1,0 +1,107 @@
+[
+  {
+    "file_id": "db69228a-cb0a-4cc2-af4b-eed67d7b31d9",
+    "filename": "LIDC-IDRI-0066.xml",
+    "extension": "xml",
+    "file_size_bytes": 336,
+    "import_timestamp": "2025-11-22T08:37:03.765965+00:00",
+    "raw_content_hash": "52f58544e484bd189129e6551d78543a3b31f03f4da8e5eb63c0b534d9e9de32",
+    "processing_status": "complete",
+    "processing_error": null,
+    "metadata": {
+      "source": "LIDC-IDRI",
+      "modality": "CT",
+      "study_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.143774983852765282237869625332",
+      "patient_id": "LIDC-IDRI-0066",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.430109407146633213496148200410",
+      "pixel_spacing": "0.63671875",
+      "slice_spacing": 0.5,
+      "num_annotations": 11,
+      "slice_thickness": 0.6
+    }
+  },
+  {
+    "file_id": "656d293c-3f6a-4105-ac05-14ec817e4c15",
+    "filename": "LIDC-IDRI-0140.xml",
+    "extension": "xml",
+    "file_size_bytes": 336,
+    "import_timestamp": "2025-11-22T08:37:07.148371+00:00",
+    "raw_content_hash": "e534214fec2484957507a1f3785d8a41040fb43164ec86073b7aee5db2a181bd",
+    "processing_status": "complete",
+    "processing_error": null,
+    "metadata": {
+      "source": "LIDC-IDRI",
+      "modality": "CT",
+      "study_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.850568285181410483219385441815",
+      "patient_id": "LIDC-IDRI-0140",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.139258777898746693365877042411",
+      "pixel_spacing": "0.513671875",
+      "slice_spacing": 0.5,
+      "num_annotations": 4,
+      "slice_thickness": 0.6
+    }
+  },
+  {
+    "file_id": "41e7f1d8-e1dc-49eb-b4f2-5bbc1f090bd6",
+    "filename": "LIDC-IDRI-0297.xml",
+    "extension": "xml",
+    "file_size_bytes": 351,
+    "import_timestamp": "2025-11-22T08:37:08.388471+00:00",
+    "raw_content_hash": "64ddd4d0f0e4246fdbc887a9d85acbedbaf8a8f49fe21bb76eb0a9151e9641e8",
+    "processing_status": "complete",
+    "processing_error": null,
+    "metadata": {
+      "source": "LIDC-IDRI",
+      "modality": "CT",
+      "study_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.164156833754689412076055510609",
+      "patient_id": "LIDC-IDRI-0297",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.428038562098395445838061018440",
+      "pixel_spacing": "0.55078125",
+      "slice_spacing": 0.7000000000000455,
+      "num_annotations": 3,
+      "slice_thickness": 0.75
+    }
+  },
+  {
+    "file_id": "495f3358-571f-453a-acfd-b0726d2c517d",
+    "filename": "LIDC-IDRI-0298.xml",
+    "extension": "xml",
+    "file_size_bytes": 336,
+    "import_timestamp": "2025-11-22T08:37:09.710614+00:00",
+    "raw_content_hash": "ab4de785edbc756355d1d81c8ed06f260ac52323f64ec7f560e06ad50182624c",
+    "processing_status": "complete",
+    "processing_error": null,
+    "metadata": {
+      "source": "LIDC-IDRI",
+      "modality": "CT",
+      "study_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.135045503670480596826162811572",
+      "patient_id": "LIDC-IDRI-0298",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.326057189095429101398977448288",
+      "pixel_spacing": "0.64453125",
+      "slice_spacing": 1.0,
+      "num_annotations": 24,
+      "slice_thickness": 1.0
+    }
+  },
+  {
+    "file_id": "b67fa73a-3287-4a98-870a-7b0830a2b330",
+    "filename": "LIDC-IDRI-0300.xml",
+    "extension": "xml",
+    "file_size_bytes": 335,
+    "import_timestamp": "2025-11-22T08:37:16.420762+00:00",
+    "raw_content_hash": "a73a0e20a95826f0a24388f20dfec71c05b2afa81c9e1963d17eb47e29e152ad",
+    "processing_status": "complete",
+    "processing_error": null,
+    "metadata": {
+      "source": "LIDC-IDRI",
+      "modality": "CT",
+      "study_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.165017330457520545748655969705",
+      "patient_id": "LIDC-IDRI-0300",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.6279.6001.324290109423920971676288828329",
+      "pixel_spacing": "0.6640625",
+      "slice_spacing": 1.0,
+      "num_annotations": 15,
+      "slice_thickness": 1.0
+    }
+  }
+]
