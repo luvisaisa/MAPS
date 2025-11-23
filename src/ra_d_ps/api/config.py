@@ -16,7 +16,7 @@ class Settings(BaseModel):
     # API Settings
     API_TITLE: str = "MAPS API"
     API_VERSION: str = "1.0.0"
-    API_DESCRIPTION: str = "Radiology XML Data Processing System REST API"
+    API_DESCRIPTION: str = "Medical Annotation Processing System - FastAPI Backend with Real-time Updates"
 
     # Server Settings
     HOST: str = "0.0.0.0"

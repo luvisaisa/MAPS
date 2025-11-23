@@ -8,12 +8,30 @@ this web interface provides a user-friendly frontend for uploading, processing, 
 
 ## features
 
-- **file upload & processing**: drag-and-drop xml file upload with batch processing
-- **profile management**: create, edit, and manage parsing profiles
-- **processing history**: view and filter processing jobs with real-time status
-- **export options**: download results in excel, json, or csv formats
-- **dashboard analytics**: view processing statistics and trends
+### core functionality
+- **file upload & processing**: drag-and-drop xml/json file upload with batch processing
+- **profile management**: create, edit, and manage parsing profiles for different data formats
+- **processing history**: view and filter processing jobs with pagination
+- **export options**: download results in excel, json, csv, or sqlite formats
+- **dashboard analytics**: view processing statistics, trends, and insights
+
+### real-time features
+- **live progress tracking**: websocket and sse support for real-time job updates
+- **supabase realtime**: automatic ui updates when database changes occur
+- **job notifications**: instant feedback on processing status
+
+### advanced features
+- **keyword extraction**: automated medical terminology extraction and normalization
+- **keyword search**: semantic search across extracted keywords with filtering
+- **3d visualization**: interactive nodule visualization from lidc/idri data
+- **pylidc integration**: seamless integration with pylidc library for lung ct analysis
+- **analytics dashboard**: parse case distribution, inter-rater reliability, data completeness
+- **advanced search**: full-text search with filters across all processed documents
+
+### design
 - **responsive design**: works on desktop, tablet, and mobile devices
+- **modern ui**: built with tailwind css for clean, professional interface
+- **accessibility**: wcag 2.1 compliant components
 
 ## technology stack
 

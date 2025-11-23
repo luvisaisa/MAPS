@@ -7,14 +7,18 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">M</span>
+              <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+                <img 
+                  src="/logo.gif" 
+                  alt="MAPS Logo" 
+                  className="w-8 h-8 object-cover"
+                />
               </div>
               <h1 className="text-xl font-semibold text-gray-900">
                 MAPS
               </h1>
             </Link>
-            <span className="text-sm text-gray-500">Medical Annotation Processing Suite</span>
+            <span className="text-sm text-gray-500">Medical Annotation Processing System</span>
           </div>
 
           <div className="flex items-center space-x-4">

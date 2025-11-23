@@ -1,8 +1,10 @@
-# MAPS - Medical Annotation Processing Suite
+# MAPS - Medical Annotation Processing System
 
 ## Overview
 
-MAPS (Medical Annotation Processing Suite) is a comprehensive Python-based application designed to parse, analyze, and export medical imaging annotation data from various medical imaging systems. Built specifically for handling complex medical imaging session data with multiple observer readings, nodule annotations, and coordinate mappings.
+**MAPS (Medical Annotation Processing System)** is a comprehensive Python-based application designed to parse, analyze, and export medical imaging annotation data from various medical imaging systems. Built specifically for handling complex medical imaging session data with multiple observer readings, nodule annotations, and coordinate mappings.
+
+MAPS combines a powerful FastAPI backend with a modern React web interface, providing real-time updates, advanced analytics, keyword extraction, and seamless Supabase integration for scalable data management.
 
 ## Purpose
 
@@ -665,6 +667,25 @@ python main.py
 - Verify export formats work correctly
 - Check error handling with malformed data
 - Performance test with large datasets
+
+**📚 Testing Documentation:**
+- [Testing Guide](docs/TESTING_GUIDE.md) - Comprehensive testing documentation
+- [Quick Reference](docs/TEST_QUICKSTART.md) - Quick commands and tips
+
+**Run Tests:**
+```bash
+# Web tests
+cd web/ && npm test
+
+# Python tests  
+pytest -v
+
+# Coverage reports
+npm run test:coverage  # web
+pytest --cov=src --cov-report=html  # python
+```
+
+**CI/CD:** Tests run automatically on push/PR via GitHub Actions (`.github/workflows/test.yml`)
 
 ## License
 
