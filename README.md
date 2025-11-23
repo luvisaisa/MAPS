@@ -2,23 +2,30 @@
 
 ## Overview
 
-**MAPS (Medical Annotation Processing System)** is a comprehensive Python-based application designed to parse, analyze, and export medical imaging annotation data from various medical imaging systems. Built specifically for handling complex medical imaging session data with multiple observer readings, nodule annotations, and coordinate mappings.
+**MAPS (Medical Annotation Processing System)** is a comprehensive Python-based application designed to parse, analyze, and export medical imaging annotation data from various medical imaging systems and file formats. Built specifically for handling complex medical imaging session data with multiple observer readings, nodule annotations, coordinate mappings, and research literature.
 
-MAPS combines a powerful FastAPI backend with a modern React web interface, providing real-time updates, advanced analytics, keyword extraction, and seamless Supabase integration for scalable data management.
+MAPS combines a powerful FastAPI backend with a modern React web interface, supporting **XML, JSON, PDF, and ZIP files**, providing real-time updates, advanced analytics, keyword extraction, and seamless Supabase integration for scalable data management.
 
 ## Purpose
 
 This system was developed to address the challenges of processing heterogeneous medical annotation data formats, providing researchers and medical professionals with tools to:
 
-- Parse XML files from different medical imaging systems (LIDC and other formats)
+### File Format Support
+- **XML**: Parse LIDC-IDRI and other medical imaging annotations
+- **JSON**: Process structured annotation data
+- **PDF**: Extract keywords from research papers and documentation
+- **ZIP**: Batch process entire datasets with automatic extraction
+- **Folders**: Recursive directory processing with multi-file support
+
+### Core Capabilities
 - Extract observer readings, confidence scores, and nodule characteristics
 - Handle multi-session observer reviews and unblinded readings
 - Export data to standardized Excel templates and SQLite databases
-- **NEW: Import PYLIDC data directly to Supabase PostgreSQL**
-- **NEW: Schema-agnostic parsing with automatic parse case detection**
-- **NEW: Automatic keyword extraction from medical documents**
+- **Import PYLIDC data directly to Supabase PostgreSQL**
+- **Schema-agnostic parsing with automatic parse case detection**
+- **Automatic keyword extraction from medical documents and PDFs**
 - Perform advanced analytics on radiologist agreement and data quality
-- Process large batches of files efficiently with progress tracking
+- Process up to 1000 files per batch with real-time progress tracking
 
 ## 🆕 Supabase Integration (NEW!)
 
