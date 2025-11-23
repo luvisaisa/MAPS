@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { renderWithProviders, screen, waitFor } from '../../test/test-utils';
+import { renderWithProviders, screen, waitFor } from '../test/test-utils';
 import { Dashboard } from './Dashboard';
-import { apiClient } from '../../services/api';
+import { apiClient } from '../services/api';
 
 vi.mock('../../services/api');
 

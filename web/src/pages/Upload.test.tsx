@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { renderWithProviders, screen, waitFor, userEvent } from '../../test/test-utils';
+import { renderWithProviders, screen, waitFor } from '../test/test-utils';
 import { Upload } from './Upload';
-import { apiClient } from '../../services/api';
+import { apiClient } from '../services/api';
 
 vi.mock('../../services/api');
 
@@ -38,8 +38,6 @@ describe('Upload Page', () => {
   });
 
   it('uploads files successfully', async () => {
-    const user = userEvent.setup();
-    
     vi.mocked(apiClient.getProfiles).mockResolvedValue([
       { profile_name: 'LIDC', file_type: 'xml', description: '', mappings: [], validation_rules: { required_fields: [] } },
     ]);

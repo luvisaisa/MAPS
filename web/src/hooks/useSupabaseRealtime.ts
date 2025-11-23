@@ -77,16 +77,16 @@ export function useSupabaseRealtime<T = any>({
     unsubscribe();
 
     try {
-      let subscription = client
+      const subscription = client
         .channel(`${table}_changes`)
         .on(
-          'postgres_changes',
+          'postgres_changes' as any,
           {
             event: event,
             schema: 'public',
             table: table,
             filter: filter,
-          },
+          } as any,
           (payload: any) => {
             setData({
               eventType: payload.eventType,

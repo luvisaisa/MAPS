@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Header } from './Header';
 import { BrowserRouter } from 'react-router-dom';
@@ -45,8 +45,8 @@ describe('Header', () => {
     renderWithRouter(<Header />);
     
     // simulate mobile view
-    global.innerWidth = 500;
-    global.dispatchEvent(new Event('resize'));
+    window.innerWidth = 500;
+    window.dispatchEvent(new Event('resize'));
     
     // mobile menu button should appear
     const mobileMenuButton = screen.queryByRole('button', { name: /menu/i });
