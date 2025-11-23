@@ -31,5 +31,18 @@ httpx>=0.25.0  # For testing FastAPI endpoints
 # Optional dependencies for specific data sources
 pylidc>=0.2.3  # For LIDC-IDRI dataset integration
 
+# 3D contour processing and visualization (for LIDC analysis system)
+scipy>=1.11.0                # STAPLE consensus algorithm, spatial functions
+scikit-image>=0.21.0         # Contour processing, marching cubes
+trimesh>=3.23.0              # Mesh generation from contours (STL/OBJ export)
+plotly>=5.17.0               # Interactive 3D visualization (web-based)
+SimpleITK>=2.3.0             # Medical image processing toolkit
+
+# Statistical analysis (for inter-rater reliability)
+pingouin>=0.5.3              # Inter-rater reliability (ICC, Fleiss kappa)
+
+# Optional advanced visualization
+# pyvista>=0.42.0            # Advanced 3D rendering (desktop, requires VTK)
+
 # Optional GUI dependencies (usually included with Python)
 # tkinter  # Usually bundled with Python
