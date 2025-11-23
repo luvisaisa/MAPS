@@ -18,7 +18,6 @@ This system was developed to address the challenges of processing heterogeneous 
 - Perform advanced analytics on radiologist agreement and data quality
 - Process large batches of files efficiently with progress tracking
 
-<<<<<<< HEAD
 ## 🆕 Supabase Integration (NEW!)
 
 **Import radiology data from PYLIDC to Supabase PostgreSQL with automatic parse case detection and keyword extraction.**
@@ -247,10 +246,7 @@ occurrences = pd.read_sql(query, engine)
 
 **📖 Complete Documentation**: [Analysis and Export System Guide](docs/ANALYSIS_AND_EXPORT_GUIDE.md)
 
-## 🏗️ Architecture Overview
-=======
 ## Architecture Overview
->>>>>>> origin/claude/revise-comments-documentation-014ABV1LMzcxnRpFWrNoPD7Y
 
 ### Core Components
 
