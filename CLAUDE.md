@@ -9,16 +9,73 @@
 
 ## Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Repository Structure](#repository-structure)
-3. [Architecture & Design](#architecture--design)
-4. [Development Setup](#development-setup)
-5. [Code Conventions](#code-conventions)
-6. [Testing Strategy](#testing-strategy)
-7. [Common Workflows](#common-workflows)
-8. [Key Components Reference](#key-components-reference)
-9. [AI Assistant Guidelines](#ai-assistant-guidelines)
-10. [Troubleshooting](#troubleshooting)
+1. [Documentation Style Requirements](#documentation-style-requirements)
+2. [Project Overview](#project-overview)
+3. [Repository Structure](#repository-structure)
+4. [Architecture & Design](#architecture--design)
+5. [Development Setup](#development-setup)
+6. [Code Conventions](#code-conventions)
+7. [Testing Strategy](#testing-strategy)
+8. [Common Workflows](#common-workflows)
+9. [Key Components Reference](#key-components-reference)
+10. [AI Assistant Guidelines](#ai-assistant-guidelines)
+11. [Troubleshooting](#troubleshooting)
+
+---
+
+## Documentation Style Requirements
+
+All documentation generated for this project must follow the standards outlined below:
+
+### 1. No Emojis or Decorative Glyphs
+
+All text must remain professional, clean, and appropriate for technical documentation.
+
+### 2. No AI-Style Phrasing or Meta-Commentary
+
+Documentation should never include statements that reveal or imply it was produced by an automated system. Avoid expressions such as "As an AI," "This model suggests," "Here is your request," or any language that addresses the reader in a conversational or assistant-like tone.
+
+### 3. Authoritative, Concise Writing
+
+Documentation should be written as if authored by the project maintainer. Use clear, direct technical prose suitable for engineers, collaborators, and future contributors.
+
+### 4. Consistent Formatting
+
+Follow the existing structure and conventions in this repository:
+- Use standard Markdown headings
+- Use bullet points or numbered lists where appropriate
+- Keep explanations focused, with no filler language
+- Include code blocks only when necessary
+
+### 5. No Informal or Conversational Language
+
+Do not greet the reader, thank the reader, or reference the act of writing. Provide information, not commentary.
+
+### 6. Self-Contained, Implementation-Focused Content
+
+Documentation should describe:
+- What a component does
+- How to use it
+- How it integrates with the system
+- Any assumptions, constraints, or edge cases
+
+It should not contain personal opinions, anecdotes, or speculative notes.
+
+### 7. No Unnecessary Qualifiers
+
+Avoid phrases like "simply," "just," "easily," and other softeners. Keep sentences neutral and technical.
+
+### Scope of Application
+
+These rules apply to:
+- All project documentation
+- Migrations and SQL comments
+- Code comments
+- Architecture notes
+- API descriptions
+- Internal developer guides
+
+Adhering to these standards ensures consistency, professionalism, and long-term maintainability across all written materials in the project.
 
 ---
 
