@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: pylidc
+Version: 0.2.3
+Summary: A library for working with the LIDC dataset.
+Home-page: https://github.com/pylidc/pylidc
+Author: Matt Hancock
+Author-email: not.matt.hancock@gmail.com
+License: MIT
+Keywords: pylidc LIDC lung sql research
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Healthcare Industry
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Topic :: Database
+Classifier: Topic :: Scientific/Engineering :: Medical Science Apps.
+Classifier: Topic :: Scientific/Engineering :: Visualization
+License-File: LICENSE
+Requires-Dist: sqlalchemy (>=1.1.5)
+Requires-Dist: numpy (>=1.12.0)
+Requires-Dist: scipy (>=0.18.1)
+Requires-Dist: matplotlib (>=2.0.0)
+Requires-Dist: pydicom (>=1.0.0)
+Requires-Dist: scikit-image (>=0.13)
+
+UNKNOWN
+
