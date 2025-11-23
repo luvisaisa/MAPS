@@ -15,30 +15,91 @@ export default function PYLIDC() {
   const [importing, setImporting] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   
-  // Filter states
+  // Filter states - Basic
   const [patientIdFilter, setPatientIdFilter] = useState('');
   const [minSlices, setMinSlices] = useState<number | undefined>();
   const [maxSlices, setMaxSlices] = useState<number | undefined>();
   const [minThickness, setMinThickness] = useState<number | undefined>();
   const [maxThickness, setMaxThickness] = useState<number | undefined>();
+
+  // Filter states - Scan Quality
+  const [minSpacing, setMinSpacing] = useState<number | undefined>();
+  const [maxSpacing, setMaxSpacing] = useState<number | undefined>();
+  const [contrastUsed, setContrastUsed] = useState<boolean | undefined>();
   const [hasNodules, setHasNodules] = useState<boolean | undefined>();
+  const [minAnnotations, setMinAnnotations] = useState<number | undefined>();
+  const [maxAnnotations, setMaxAnnotations] = useState<number | undefined>();
+
+  // Filter states - Morphological Features (1-5 scale)
+  const [minSubtlety, setMinSubtlety] = useState<number | undefined>();
+  const [maxSubtlety, setMaxSubtlety] = useState<number | undefined>();
+  const [minSphericity, setMinSphericity] = useState<number | undefined>();
+  const [maxSphericity, setMaxSphericity] = useState<number | undefined>();
+  const [minMargin, setMinMargin] = useState<number | undefined>();
+  const [maxMargin, setMaxMargin] = useState<number | undefined>();
+  const [minLobulation, setMinLobulation] = useState<number | undefined>();
+  const [maxLobulation, setMaxLobulation] = useState<number | undefined>();
+  const [minSpiculation, setMinSpiculation] = useState<number | undefined>();
+  const [maxSpiculation, setMaxSpiculation] = useState<number | undefined>();
+
+  // Filter states - Clinical Assessment
+  const [minMalignancy, setMinMalignancy] = useState<number | undefined>();
+  const [maxMalignancy, setMaxMalignancy] = useState<number | undefined>();
+
+  // Filter states - Internal Structure
+  const [minTexture, setMinTexture] = useState<number | undefined>();
+  const [maxTexture, setMaxTexture] = useState<number | undefined>();
+  const [calcification, setCalcification] = useState<number | undefined>();
+
+  // Filter states - Nodule Size
+  const [minDiameter, setMinDiameter] = useState<number | undefined>();
+  const [maxDiameter, setMaxDiameter] = useState<number | undefined>();
+
+  // UI states
   const [sortBy, setSortBy] = useState<'scan_id' | 'patient_id' | 'slice_count' | 'slice_thickness'>('scan_id');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['basic']));
   
   const queryClient = useQueryClient();
 
   // Fetch PYLIDC scans
   const { data: scansData, isLoading, error } = useQuery({
-    queryKey: ['pylidc-scans', page, searchQuery, patientIdFilter, minSlices, maxSlices, minThickness, maxThickness, hasNodules, sortBy, sortOrder],
-    queryFn: () => apiClient.getPYLIDCScans({ 
-      page, 
+    queryKey: ['pylidc-scans', page, searchQuery, patientIdFilter, minSlices, maxSlices, minThickness, maxThickness,
+      minSpacing, maxSpacing, contrastUsed, hasNodules, minAnnotations, maxAnnotations,
+      minSubtlety, maxSubtlety, minSphericity, maxSphericity, minMargin, maxMargin,
+      minLobulation, maxLobulation, minSpiculation, maxSpiculation, minMalignancy, maxMalignancy,
+      minTexture, maxTexture, calcification, minDiameter, maxDiameter, sortBy, sortOrder],
+    queryFn: () => apiClient.getPYLIDCScans({
+      page,
       page_size: 30,
       patient_id: patientIdFilter || undefined,
       min_slices: minSlices,
       max_slices: maxSlices,
       min_thickness: minThickness,
       max_thickness: maxThickness,
+      min_spacing: minSpacing,
+      max_spacing: maxSpacing,
+      contrast_used: contrastUsed,
       has_nodules: hasNodules,
+      min_annotations: minAnnotations,
+      max_annotations: maxAnnotations,
+      min_subtlety: minSubtlety,
+      max_subtlety: maxSubtlety,
+      min_sphericity: minSphericity,
+      max_sphericity: maxSphericity,
+      min_margin: minMargin,
+      max_margin: maxMargin,
+      min_lobulation: minLobulation,
+      max_lobulation: maxLobulation,
+      min_spiculation: minSpiculation,
+      max_spiculation: maxSpiculation,
+      min_malignancy: minMalignancy,
+      max_malignancy: maxMalignancy,
+      min_texture: minTexture,
+      max_texture: maxTexture,
+      calcification: calcification,
+      min_diameter: minDiameter,
+      max_diameter: maxDiameter,
     }),
     retry: false,
   });
@@ -127,9 +188,103 @@ export default function PYLIDC() {
     setMaxSlices(undefined);
     setMinThickness(undefined);
     setMaxThickness(undefined);
+    setMinSpacing(undefined);
+    setMaxSpacing(undefined);
+    setContrastUsed(undefined);
     setHasNodules(undefined);
+    setMinAnnotations(undefined);
+    setMaxAnnotations(undefined);
+    setMinSubtlety(undefined);
+    setMaxSubtlety(undefined);
+    setMinSphericity(undefined);
+    setMaxSphericity(undefined);
+    setMinMargin(undefined);
+    setMaxMargin(undefined);
+    setMinLobulation(undefined);
+    setMaxLobulation(undefined);
+    setMinSpiculation(undefined);
+    setMaxSpiculation(undefined);
+    setMinMalignancy(undefined);
+    setMaxMalignancy(undefined);
+    setMinTexture(undefined);
+    setMaxTexture(undefined);
+    setCalcification(undefined);
+    setMinDiameter(undefined);
+    setMaxDiameter(undefined);
     setSortBy('scan_id');
     setSortOrder('asc');
+  };
+
+  // Helper to count active filters
+  const getActiveFiltersCount = () => {
+    let count = 0;
+    if (patientIdFilter) count++;
+    if (minSlices !== undefined || maxSlices !== undefined) count++;
+    if (minThickness !== undefined || maxThickness !== undefined) count++;
+    if (minSpacing !== undefined || maxSpacing !== undefined) count++;
+    if (contrastUsed !== undefined) count++;
+    if (hasNodules !== undefined) count++;
+    if (minAnnotations !== undefined || maxAnnotations !== undefined) count++;
+    if (minSubtlety !== undefined || maxSubtlety !== undefined) count++;
+    if (minSphericity !== undefined || maxSphericity !== undefined) count++;
+    if (minMargin !== undefined || maxMargin !== undefined) count++;
+    if (minLobulation !== undefined || maxLobulation !== undefined) count++;
+    if (minSpiculation !== undefined || maxSpiculation !== undefined) count++;
+    if (minMalignancy !== undefined || maxMalignancy !== undefined) count++;
+    if (minTexture !== undefined || maxTexture !== undefined) count++;
+    if (calcification !== undefined) count++;
+    if (minDiameter !== undefined || maxDiameter !== undefined) count++;
+    return count;
+  };
+
+  // Helper to toggle section expansion
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(section)) {
+        newSet.delete(section);
+      } else {
+        newSet.add(section);
+      }
+      return newSet;
+    });
+  };
+
+  // Filter presets
+  const applyPreset = (presetName: string) => {
+    clearFilters();
+    setShowFilters(true);
+
+    switch (presetName) {
+      case 'suspicious':
+        // High malignancy with spiculation
+        setMinMalignancy(4);
+        setMinSpiculation(3);
+        setHasNodules(true);
+        break;
+      case 'ground-glass':
+        // Ground-glass opacities (low texture, low malignancy)
+        setMaxTexture(2);
+        setMaxMalignancy(2);
+        setHasNodules(true);
+        break;
+      case 'high-quality':
+        // High quality scans (thin slices with contrast)
+        setMaxThickness(1.5);
+        setContrastUsed(true);
+        setMinSlices(100);
+        break;
+      case 'calcified':
+        // Scans with calcified nodules
+        setCalcification(1); // Start with popcorn, user can change
+        setHasNodules(true);
+        break;
+      case 'large-nodules':
+        // Large nodules (>10mm)
+        setMinDiameter(10);
+        setHasNodules(true);
+        break;
+    }
   };
 
   return (
@@ -150,6 +305,45 @@ export default function PYLIDC() {
           <div className="flex-1 text-sm text-blue-800">
             <p className="font-medium mb-1">About PYLIDC Integration</p>
             <p>Import CT scans and annotations from the LIDC-IDRI dataset. Each scan includes multiple radiologist annotations with nodule characteristics.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter Presets */}
+      <div className="bg-white p-4 rounded-lg shadow mb-4">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-gray-700">Quick Filters:</span>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => applyPreset('suspicious')}
+              className="px-3 py-1 text-sm bg-red-50 text-red-700 border border-red-200 rounded-md hover:bg-red-100 transition-colors"
+            >
+              Suspicious Nodules
+            </button>
+            <button
+              onClick={() => applyPreset('ground-glass')}
+              className="px-3 py-1 text-sm bg-yellow-50 text-yellow-700 border border-yellow-200 rounded-md hover:bg-yellow-100 transition-colors"
+            >
+              Ground-Glass Opacities
+            </button>
+            <button
+              onClick={() => applyPreset('high-quality')}
+              className="px-3 py-1 text-sm bg-green-50 text-green-700 border border-green-200 rounded-md hover:bg-green-100 transition-colors"
+            >
+              High-Quality Scans
+            </button>
+            <button
+              onClick={() => applyPreset('calcified')}
+              className="px-3 py-1 text-sm bg-purple-50 text-purple-700 border border-purple-200 rounded-md hover:bg-purple-100 transition-colors"
+            >
+              Calcified Nodules
+            </button>
+            <button
+              onClick={() => applyPreset('large-nodules')}
+              className="px-3 py-1 text-sm bg-blue-50 text-blue-700 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors"
+            >
+              Large Nodules (>10mm)
+            </button>
           </div>
         </div>
       </div>
@@ -181,6 +375,11 @@ export default function PYLIDC() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                   </svg>
                   Filters
+                  {getActiveFiltersCount() > 0 && (
+                    <span className="bg-blue-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                      {getActiveFiltersCount()}
+                    </span>
+                  )}
                 </span>
               </button>
               <button
@@ -273,6 +472,280 @@ export default function PYLIDC() {
                   </select>
                 </div>
 
+                {/* Slice Spacing Range */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Slice Spacing (mm)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      step="0.1"
+                      placeholder="Min"
+                      value={minSpacing || ''}
+                      onChange={(e) => setMinSpacing(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      step="0.1"
+                      placeholder="Max"
+                      value={maxSpacing || ''}
+                      onChange={(e) => setMaxSpacing(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Contrast Used */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Contrast Used</label>
+                  <select
+                    value={contrastUsed === undefined ? '' : contrastUsed ? 'yes' : 'no'}
+                    onChange={(e) => setContrastUsed(e.target.value === '' ? undefined : e.target.value === 'yes')}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                  >
+                    <option value="">All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+
+                {/* Annotation Count */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Annotation Count</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      placeholder="Min"
+                      value={minAnnotations || ''}
+                      onChange={(e) => setMinAnnotations(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max"
+                      value={maxAnnotations || ''}
+                      onChange={(e) => setMaxAnnotations(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Malignancy */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Malignancy (1-5)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Min"
+                      value={minMalignancy || ''}
+                      onChange={(e) => setMinMalignancy(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Max"
+                      value={maxMalignancy || ''}
+                      onChange={(e) => setMaxMalignancy(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Subtlety */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Subtlety (1-5)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Min"
+                      value={minSubtlety || ''}
+                      onChange={(e) => setMinSubtlety(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Max"
+                      value={maxSubtlety || ''}
+                      onChange={(e) => setMaxSubtlety(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Sphericity */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Sphericity (1-5)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Min"
+                      value={minSphericity || ''}
+                      onChange={(e) => setMinSphericity(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Max"
+                      value={maxSphericity || ''}
+                      onChange={(e) => setMaxSphericity(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Margin */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Margin (1-5)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Min"
+                      value={minMargin || ''}
+                      onChange={(e) => setMinMargin(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Max"
+                      value={maxMargin || ''}
+                      onChange={(e) => setMaxMargin(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Lobulation */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Lobulation (1-5)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Min"
+                      value={minLobulation || ''}
+                      onChange={(e) => setMinLobulation(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Max"
+                      value={maxLobulation || ''}
+                      onChange={(e) => setMaxLobulation(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Spiculation */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Spiculation (1-5)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Min"
+                      value={minSpiculation || ''}
+                      onChange={(e) => setMinSpiculation(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Max"
+                      value={maxSpiculation || ''}
+                      onChange={(e) => setMaxSpiculation(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Texture */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Texture (1-5)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Min"
+                      value={minTexture || ''}
+                      onChange={(e) => setMinTexture(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      placeholder="Max"
+                      value={maxTexture || ''}
+                      onChange={(e) => setMaxTexture(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Calcification */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Calcification Type</label>
+                  <select
+                    value={calcification || ''}
+                    onChange={(e) => setCalcification(e.target.value ? Number(e.target.value) : undefined)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                  >
+                    <option value="">All</option>
+                    <option value="1">1 - Popcorn</option>
+                    <option value="2">2 - Laminated</option>
+                    <option value="3">3 - Solid</option>
+                    <option value="4">4 - Non-central</option>
+                    <option value="5">5 - Central</option>
+                    <option value="6">6 - Absent</option>
+                  </select>
+                </div>
+
+                {/* Diameter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Nodule Diameter (mm)</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      step="0.1"
+                      placeholder="Min"
+                      value={minDiameter || ''}
+                      onChange={(e) => setMinDiameter(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                    <input
+                      type="number"
+                      step="0.1"
+                      placeholder="Max"
+                      value={maxDiameter || ''}
+                      onChange={(e) => setMaxDiameter(e.target.value ? Number(e.target.value) : undefined)}
+                      className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  </div>
+                </div>
+
                 {/* Sort By */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
@@ -345,13 +818,16 @@ export default function PYLIDC() {
                   try {
                     const selectedScanData = sortedScans.filter(s => selectedScans.includes(s.scan_id));
                     const csv = [
-                      ['Scan ID', 'Patient ID', 'Series UID', 'Slice Count', 'Slice Thickness'],
+                      ['Scan ID', 'Patient ID', 'Series UID', 'Slice Count', 'Slice Thickness', 'Contrast Used', 'Annotations', 'Has Nodules'],
                       ...selectedScanData.map(s => [
                         s.scan_id,
                         s.patient_id,
                         s.series_instance_uid,
                         s.slice_count.toString(),
-                        s.slice_thickness.toFixed(2)
+                        s.slice_thickness.toFixed(2),
+                        s.contrast_used ? 'Yes' : 'No',
+                        s.annotation_count.toString(),
+                        s.has_nodules ? 'Yes' : 'No'
                       ])
                     ].map(row => row.join(',')).join('\n');
                     
@@ -419,12 +895,21 @@ export default function PYLIDC() {
         </div>
       ) : sortedScans.length === 0 ? (
         <div className="bg-white p-8 rounded-lg shadow text-center text-gray-600">
-          {searchQuery || patientIdFilter || minSlices || maxSlices || minThickness || maxThickness || hasNodules !== undefined
-            ? 'No scans found matching your filters.' 
+          {searchQuery || getActiveFiltersCount() > 0
+            ? 'No scans found matching your filters.'
             : 'No scans available.'}
         </div>
       ) : (
         <>
+          {/* Total Results Count */}
+          {getActiveFiltersCount() > 0 && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+              <p className="text-sm text-blue-800">
+                <span className="font-semibold">{scansData?.total || 0} scan(s)</span> match your filter criteria
+              </p>
+            </div>
+          )}
+
           {/* Stats Summary */}
           <div className="bg-white p-4 rounded-lg shadow mb-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -496,6 +981,12 @@ export default function PYLIDC() {
                       Thickness {sortBy === 'slice_thickness' && (sortOrder === 'asc' ? '↑' : '↓')}
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Contrast
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Annotations
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -535,6 +1026,24 @@ export default function PYLIDC() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">
                           {scan.slice_thickness.toFixed(2)}mm
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm">
+                          {scan.contrast_used ? (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">Yes</span>
+                          ) : (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">No</span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {scan.annotation_count > 0 ? (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">{scan.annotation_count}</span>
+                          ) : (
+                            <span className="text-gray-400">0</span>
+                          )}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
