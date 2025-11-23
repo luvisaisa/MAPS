@@ -2,12 +2,12 @@
 
 ## Major Changes Implemented
 
-### Updated "Export to Excel" Button
+### **Updated "Export to Excel" Button**
 - **Before**: Used old formatting system with separate RA-D-PS button
 - **After**: Single "Export to Excel" button now uses RA-D-PS format exclusively
 - **Benefits**: Cleaner interface, consistent output format
 
-### Enhanced Folder Processing Modes
+### **Enhanced Folder Processing Modes**
 Now offers **three distinct processing modes**:
 
 #### 1. **Single Folder Mode**
@@ -25,12 +25,12 @@ Now offers **three distinct processing modes**:
 - Each folder gets its own auto-named Excel file
 - Best for independent processing of multiple datasets
 
-### Smart Output Folder Detection
+### **Smart Output Folder Detection**
 - **Folder Selection**: Auto-saves Excel to the source folder
 - **Individual Files**: Asks user to select output folder
 - **Multiple Folders**: Uses appropriate folder for each mode
 
-### RA-D-PS Format Features (Applied to ALL exports)
+### **RA-D-PS Format Features** (Applied to ALL exports)
 - **Dynamic radiologist blocks**: Adapts to any number of radiologists
 - **Spacer columns**: Visual separation between data sections
 - **Auto-naming**: `{folder}_RA-D-PS_{YYYY-MM-DD_HHMMSS}.xlsx`

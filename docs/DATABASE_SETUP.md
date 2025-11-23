@@ -6,10 +6,10 @@ This directory contains PostgreSQL database infrastructure for managing XML pars
 
 ```
 PostgreSQL Database
-├── parse_cases                    # Parse case definitions
-├── parse_case_profiles            # Profile configurations  
-├── parse_case_detection_history   # Audit trail
-└── parse_case_statistics          # Usage metrics
+ parse_cases                    # Parse case definitions
+ parse_case_profiles            # Profile configurations  
+ parse_case_detection_history   # Audit trail
+ parse_case_statistics          # Usage metrics
 ```
 
 ## Prerequisites

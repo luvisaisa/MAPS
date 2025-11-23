@@ -6,7 +6,7 @@
 
 ---
 
-## 🎯 Objective
+## Objective
 
 Transform the existing LIDC-IDRI-specific XML parser into a **schema-agnostic, profile-based data ingestion system** that can:
 
@@ -18,7 +18,7 @@ Transform the existing LIDC-IDRI-specific XML parser into a **schema-agnostic, p
 
 ---
 
-## ✅ Completed Components
+## Completed Components
 
 ### 1. PostgreSQL Database Schema
 **File:** `/migrations/001_initial_schema.sql`
@@ -137,7 +137,7 @@ Added:
 
 ---
 
-## 🚧 Next Steps (Ready to Implement)
+## Next Steps (Ready to Implement)
 
 ### Phase 4: Create LIDC-IDRI Profile (PRIORITY)
 **Estimated Time:** 4-6 hours
@@ -184,80 +184,80 @@ Added:
 
 ---
 
-## 📊 Architecture Diagram
+## Architecture Diagram
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Data Ingestion Flow                      │
-└─────────────────────────────────────────────────────────────┘
+
+                     Data Ingestion Flow                      
+
 
    Source Files (XML, JSON, CSV, PDF)
-            │
-            ├─────────────────────────────────────┐
-            │                                     │
-            ▼                                     ▼
-   ┌────────────────┐                   ┌─────────────────┐
-   │ Profile Manager│                   │ ParserFactory   │
-   │ ┌────────────┐ │                   │ ┌─────────────┐ │
-   │ │ LIDC-IDRI  │ │                   │ │ XMLParser   │ │
-   │ │ Profile    │ │◄──────Provides────┤ │             │ │
-   │ └────────────┘ │      Profile      │ └─────────────┘ │
-   │ ┌────────────┐ │                   │ ┌─────────────┐ │
-   │ │ Invoice    │ │                   │ │ JSONParser  │ │
-   │ │ Profile    │ │                   │ │   (stub)    │ │
-   │ └────────────┘ │                   │ └─────────────┘ │
-   └────────────────┘                   └─────────────────┘
-            │                                     │
-            └─────────────────┬───────────────────┘
-                              │
-                              ▼
-                  ┌───────────────────────┐
-                  │  Ingestion           │
-                  │  Orchestrator        │
-                  │  ┌────────────────┐  │
-                  │  │1. Detect format│  │
-                  │  │2. Load profile │  │
-                  │  │3. Parse file   │  │
-                  │  │4. Validate     │  │
-                  │  │5. Store        │  │
-                  │  └────────────────┘  │
-                  └───────────────────────┘
-                              │
-                              ▼
-                  ┌───────────────────────┐
-                  │ Canonical Document    │
-                  │ ┌───────────────────┐ │
-                  │ │ document_metadata │ │
-                  │ │ fields            │ │
-                  │ │ entities          │ │
-                  │ │ extraction_meta   │ │
-                  │ └───────────────────┘ │
-                  └───────────────────────┘
-                              │
-                    ┌─────────┴─────────┐
-                    ▼                   ▼
-          ┌─────────────────┐   ┌──────────────┐
-          │   PostgreSQL    │   │  REST API    │
-          │ ┌─────────────┐ │   │ (FastAPI)    │
-          │ │  documents  │ │   │ ┌──────────┐ │
-          │ │  content    │ │   │ │/documents│ │
-          │ │  profiles   │ │   │ │/search   │ │
-          │ │  logs       │ │   │ │/profiles │ │
-          │ └─────────────┘ │   │ └──────────┘ │
-          └─────────────────┘   └──────────────┘
-                    │                   │
-                    └─────────┬─────────┘
-                              ▼
-                     ┌─────────────────┐
-                     │   GUI / WebUI   │
-                     │  (Non-technical │
-                     │      users)     │
-                     └─────────────────┘
+            
+            
+                                                 
+                                                 
+                      
+    Profile Manager                    ParserFactory   
+                          
+     LIDC-IDRI                        XMLParser    
+     Profile     Provides               
+           Profile        
+                          
+     Invoice                          JSONParser   
+     Profile                            (stub)     
+                          
+                      
+                                                 
+            
+                              
+                              
+                  
+                    Ingestion           
+                    Orchestrator        
+                      
+                    1. Detect format  
+                    2. Load profile   
+                    3. Parse file     
+                    4. Validate       
+                    5. Store          
+                      
+                  
+                              
+                              
+                  
+                   Canonical Document    
+                    
+                    document_metadata  
+                    fields             
+                    entities           
+                    extraction_meta    
+                    
+                  
+                              
+                    
+                                       
+             
+             PostgreSQL         REST API    
+                (FastAPI)    
+             documents        
+             content         /documents 
+             profiles        /search    
+             logs            /profiles  
+                 
+             
+                                       
+                    
+                              
+                     
+                        GUI / WebUI   
+                       (Non-technical 
+                           users)     
+                     
 ```
 
 ---
 
-## 🔑 Key Design Decisions
+## Key Design Decisions
 
 ### 1. Profile-Based Mapping (Not Code-Based)
 **Rationale:** Separating mapping logic from code allows non-developers to add new formats by creating JSON profiles, dramatically reducing maintenance burden.
@@ -286,7 +286,7 @@ Added:
 
 ---
 
-## 📋 Implementation Checklist
+## Implementation Checklist
 
 ### Immediate (This Week)
 - [ ] Start PostgreSQL container: `docker-compose up -d postgres`
@@ -313,7 +313,7 @@ Added:
 
 ---
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 ### Unit Tests (Per Component)
 ```bash
@@ -347,7 +347,7 @@ pytest tests/performance/test_query_performance.py -v    # DB queries
 
 ---
 
-## 🚀 Quick Start for Development
+## Quick Start for Development
 
 ### 1. Environment Setup
 ```bash
@@ -421,7 +421,7 @@ pytest tests/test_profile_manager.py -v     # Specific test
 
 ---
 
-## 📞 Support and Next Steps
+## Support and Next Steps
 
 ### Questions to Address
 1. **Database Choice:** Confirmed PostgreSQL for flexibility and full-text search
@@ -430,13 +430,13 @@ pytest tests/test_profile_manager.py -v     # Specific test
 4. **Authentication:** To be determined based on deployment context
 
 ### Resources Created
-1. ✅ Complete PostgreSQL schema with migrations
-2. ✅ Pydantic canonical schema models
-3. ✅ Profile system with validation
-4. ✅ ProfileManager with caching and inheritance
-5. ✅ Docker infrastructure for local development
-6. ✅ Comprehensive implementation guide
-7. ✅ Updated requirements with all dependencies
+1.  Complete PostgreSQL schema with migrations
+2.  Pydantic canonical schema models
+3.  Profile system with validation
+4.  ProfileManager with caching and inheritance
+5.  Docker infrastructure for local development
+6.  Comprehensive implementation guide
+7.  Updated requirements with all dependencies
 
 ### What Copilot Should Do Next
 1. **Phase 4:** Create the LIDC-IDRI profile by analyzing existing `parser.py`
@@ -447,26 +447,24 @@ pytest tests/test_profile_manager.py -v     # Specific test
 
 ---
 
-## 📚 File Reference
+## File Reference
 
 | Component | File Path | Status |
 |-----------|-----------|--------|
-| Database Schema | `/migrations/001_initial_schema.sql` | ✅ Complete |
-| Canonical Schema | `/src/ra_d_ps/schemas/canonical.py` | ✅ Complete |
-| Profile Schema | `/src/ra_d_ps/schemas/profile.py` | ✅ Complete |
-| Profile Manager | `/src/ra_d_ps/profile_manager.py` | ✅ Complete |
-| Implementation Guide | `/docs/IMPLEMENTATION_GUIDE_SCHEMA_AGNOSTIC.md` | ✅ Complete |
-| Docker Compose | `/docker-compose.yml` | ✅ Complete |
-| Dockerfile | `/Dockerfile` | ✅ Complete |
-| Env Template | `/configs/.env.example` | ✅ Complete |
-| Requirements | `/requirements.txt` | ✅ Updated |
-| Base Parser | `/src/ra_d_ps/parsers/base.py` | 🔴 To Do |
-| XML Parser | `/src/ra_d_ps/parsers/xml_parser.py` | 🔴 To Do |
-| Parser Factory | `/src/ra_d_ps/parsers/factory.py` | 🔴 To Do |
-| LIDC Profile | `/profiles/lidc_idri_standard.json` | 🔴 To Do |
+| Database Schema | `/migrations/001_initial_schema.sql` |  Complete |
+| Canonical Schema | `/src/ra_d_ps/schemas/canonical.py` |  Complete |
+| Profile Schema | `/src/ra_d_ps/schemas/profile.py` |  Complete |
+| Profile Manager | `/src/ra_d_ps/profile_manager.py` |  Complete |
+| Implementation Guide | `/docs/IMPLEMENTATION_GUIDE_SCHEMA_AGNOSTIC.md` |  Complete |
+| Docker Compose | `/docker-compose.yml` |  Complete |
+| Dockerfile | `/Dockerfile` |  Complete |
+| Env Template | `/configs/.env.example` |  Complete |
+| Requirements | `/requirements.txt` |  Updated |
+| Base Parser | `/src/ra_d_ps/parsers/base.py` |  To Do |
+| XML Parser | `/src/ra_d_ps/parsers/xml_parser.py` |  To Do |
+| Parser Factory | `/src/ra_d_ps/parsers/factory.py` |  To Do |
+| LIDC Profile | `/profiles/lidc_idri_standard.json` |  To Do |
 
 ---
 
-**This summary provides a complete overview of the schema-agnostic refactoring foundation. All core components are in place and ready for Phase 4 implementation.**
-
-**Next Action:** Begin Phase 4 by creating the LIDC-IDRI profile JSON file.
+**This summary provides a complete overview of the schema-agnostic refactoring foundation. All core components are in place and ready for Phase 4 implementation.** **Next Action:** Begin Phase 4 by creating the LIDC-IDRI profile JSON file.

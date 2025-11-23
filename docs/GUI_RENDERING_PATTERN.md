@@ -2,16 +2,14 @@
 
 ## The Golden Rule
 
-**ALWAYS render the window BEFORE adding dynamic content**
-
-```python
-# ❌ WRONG - Text won't show
+**ALWAYS render the window BEFORE adding dynamic content** ```python
+#  WRONG - Text won't show
 progress_window = tk.Toplevel()
 progress_text = tk.Text(progress_window)
 progress_text.pack()
 progress_text.insert(tk.END, "Hello")  # ← Window not rendered yet!
 
-# ✅ CORRECT - Text will show
+#  CORRECT - Text will show
 progress_window = tk.Toplevel()
 progress_text = tk.Text(progress_window)
 progress_text.pack()
@@ -136,14 +134,14 @@ progress_text.config(yscrollcommand=scrollbar.set)
 progress_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-# ✅ CRITICAL: Force render BEFORE processing
+#  CRITICAL: Force render BEFORE processing
 progress_window.update_idletasks()
 progress_window.update()
 
 def log_message(msg):
     progress_text.insert(tk.END, f"{msg}\n")
     progress_text.see(tk.END)
-    progress_text.update_idletasks()  # ✅ Force text to show
+    progress_text.update_idletasks()  #  Force text to show
     progress_window.update()
 ```
 
@@ -153,7 +151,7 @@ for i, path in enumerate(self.files):
     basename = os.path.basename(path)
     self.listbox.insert(tk.END, basename)
 
-# ✅ Force listbox to refresh and show new items
+#  Force listbox to refresh and show new items
 self.listbox.update_idletasks()
 self.listbox.update()
 ```
@@ -163,12 +161,12 @@ self.listbox.update()
 Calling `update()` frequently can slow down the UI, especially in tight loops. For better performance:
 
 ```python
-# ❌ Too many updates
+#  Too many updates
 for i in range(10000):
     listbox.insert(tk.END, f"Item {i}")
     listbox.update()  # Called 10,000 times!
 
-# ✅ Batch updates
+#  Batch updates
 for i in range(10000):
     listbox.insert(tk.END, f"Item {i}")
     if i % 100 == 0:  # Update every 100 items

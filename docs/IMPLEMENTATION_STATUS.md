@@ -3,27 +3,27 @@
 ## Summary
 I simplified the approach after initial complexity caused syntax errors. Here's what actually works now:
 
-## Current Implementation ✅
+## Current Implementation 
 
 ### Folder Selection Method
-- **"📂 Add Single Folder"** button
+- **" Add Single Folder"** button
 - Opens standard file dialog
 - User selects one folder at a time
 - Each folder is added to the tree view
 - Cross-platform compatible (Mac/Windows/Linux)
 
-### Tree View Preview ✅
+### Tree View Preview 
 - Shows collapsible folder structure
-- Displays XML file count per folder: `📁 185 (30 XML files)`
+- Displays XML file count per folder: ` 185 (30 XML files)`
 - Click to expand and see individual XML files
 - Fully functional with scrollbars
 
-### Help Window ✅  
+### Help Window   
 - Clear descriptions of Single vs Multi export
 - Examples showing the difference
 - Matches what user requested
 
-## What Was Attempted But Removed ❌
+## What Was Attempted But Removed 
 
 ### AppleScript Multi-Select (Removed)
 - **Why removed:** Platform-specific, caused syntax errors
@@ -56,16 +56,14 @@ I simplified the approach after initial complexity caused syntax errors. Here's 
 
 ## My Recommendation
 
-**Implement Option 1 (Parent Folder with Checkboxes):**
-
-```
+**Implement Option 1 (Parent Folder with Checkboxes):** ```
 [Browse for Parent Folder] 
    ↓
 Shows dialog with all subfolders:
-☑ 157 (28 XML files)
-☑ 185 (30 XML files)  
-☑ 186 (30 XML files)
-☐ other_folder (0 XML files)
+ 157 (28 XML files)
+ 185 (30 XML files)  
+ 186 (30 XML files)
+ other_folder (0 XML files)
    ↓
 User checks desired folders
    ↓

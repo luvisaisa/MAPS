@@ -1,6 +1,6 @@
 # Developer Documentation - NYT XML Parser
 
-## 🏗️ Architecture Deep Dive
+## Architecture Deep Dive
 
 ### Code Organization
 
@@ -8,15 +8,15 @@ The NYT XML Parser follows a modular architecture designed for maintainability a
 
 ```
 Architecture Layers:
-┌─────────────────────────────────────┐
-│           User Interface            │  ← Tkinter GUI (XMLPARSE.py)
-├─────────────────────────────────────┤
-│         Business Logic             │  ← Parsing & Processing
-├─────────────────────────────────────┤
-│        Data Access Layer          │  ← Database Operations
-├─────────────────────────────────────┤
-│         Utility Layer              │  ← File I/O, Validation
-└─────────────────────────────────────┘
+
+           User Interface              ← Tkinter GUI (XMLPARSE.py)
+
+         Business Logic               ← Parsing & Processing
+
+        Data Access Layer            ← Database Operations
+
+         Utility Layer                ← File I/O, Validation
+
 ```
 
 ### Class Hierarchy
@@ -59,7 +59,7 @@ class RadiologyDatabase:
     """
 ```
 
-## 🔧 Core Algorithms
+## Core Algorithms
 
 ### 1. XML Structure Detection
 
@@ -99,7 +99,7 @@ XML File → Parse Root → Check Namespace → Analyze Sessions → Count Attri
 - **LIDC_*_Session**: LIDC format with session count
 - **Error States**: Various error conditions
 
-### 2. Multi-Folder Processing Algorithm ⭐
+### 2. Multi-Folder Processing Algorithm 
 
 This is the most complex and important algorithm in the system:
 
@@ -134,7 +134,7 @@ Multiple Folders → Parse All → Combine Data → Quality Check → Template T
 - **Combined Output**: Single Excel file with multiple sheets instead of separate files
 - **Template Integration**: Automatic application of Radiologist 1-4 format
 
-### 3. Template Format Transformation ⭐
+### 3. Template Format Transformation 
 
 Converts radiologist-per-row data to template format with repeating columns:
 
@@ -187,7 +187,7 @@ def _check_for_na_rows(self, all_data, folder_name):
 - **Critical Fields**: Essential medical data presence
 - **User Choice**: Continue/cancel options for quality issues
 
-## 🗃️ Database Schema
+## Database Schema
 
 ### Core Tables
 
@@ -269,7 +269,7 @@ def get_quality_report(self):
     """
 ```
 
-## 🎨 UI/UX Design Patterns
+## UI/UX Design Patterns
 
 ### Color Scheme
 ```python
@@ -301,7 +301,7 @@ CODE_FONT = ("Consolas", 9)               # Logs and code display
 - **Color Coding**: Consistent color meaning across interface
 - **Progress Feedback**: Always show progress for long operations
 
-## 🚀 Performance Optimization
+## Performance Optimization
 
 ### Memory Management Strategies
 
@@ -377,7 +377,7 @@ for parse_case, rows in case_rows.items():
         # Apply to entire row at once
 ```
 
-## 🔍 Error Handling Architecture
+## Error Handling Architecture
 
 ### Exception Hierarchy
 ```python
@@ -437,7 +437,7 @@ def log_message(message, level="INFO"):
     log_entry = f"[{timestamp}] {prefix} {message}\n"
 ```
 
-## 🔄 Workflow State Management
+## Workflow State Management
 
 ### Processing States
 ```python
@@ -455,7 +455,7 @@ class ProcessingState:
 ```
 IDLE → SCANNING → PARSING → VALIDATING → EXPORTING → COMPLETED
   ↓       ↓          ↓           ↓           ↓           ↓
-ERROR ←─ERROR ←────ERROR ←─────ERROR ←────ERROR    (final state)
+ERROR ←ERROR ←ERROR ←ERROR ←ERROR    (final state)
 ```
 
 ### Progress Tracking
@@ -468,7 +468,7 @@ def update_progress(current, total, current_task=""):
     progress_label.config(text=f"Step {current} of {total}: {current_task}")
 ```
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 ### Unit Tests (Planned)
 ```python
@@ -516,7 +516,7 @@ def test_missing_data_scenarios():
     """Test handling of various missing data patterns"""
 ```
 
-## 📦 Deployment Configuration
+## Deployment Configuration
 
 ### Environment Setup
 ```python
@@ -553,20 +553,20 @@ a = Analysis(['main.py'],
              excludes=[])
 ```
 
-## 🔮 Future Architecture Considerations
+## Future Architecture Considerations
 
 ### Microservices Potential
 ```
 Future Architecture:
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│     GUI     │    │   Parser    │    │  Database   │
-│   Service   │ ←→ │   Service   │ ←→ │   Service   │
-└─────────────┘    └─────────────┘    └─────────────┘
+        
+     GUI            Parser          Database   
+   Service    ←→    Service    ←→    Service   
+        
        ↕                   ↕                   ↕
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Config    │    │   Export    │    │ Analytics   │
-│   Service   │    │   Service   │    │   Service   │
-└─────────────┘    └─────────────┘    └─────────────┘
+        
+   Config           Export         Analytics   
+   Service          Service          Service   
+        
 ```
 
 ### API Design (Planned)
@@ -592,7 +592,7 @@ def get_job_status(job_id):
 - **Container Support**: Docker deployment
 - **Database Scaling**: PostgreSQL option for large datasets
 
-## 📋 Code Style Guidelines
+## Code Style Guidelines
 
 ### Python Standards
 - **PEP 8**: Standard Python style guide compliance

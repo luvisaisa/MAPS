@@ -42,15 +42,15 @@ Successfully replaced the existing RA-D-PS (Radiologist-Aggregated Dynamic-Prese
 2. `test_v4_simple.py` - Simple end-to-end validation
 
 ### All Tests Passed:
-✓ Basic export functionality
-✓ Force blocks parameter
-✓ Custom blue color configuration
-✓ Dynamic radiologist block generation
-✓ Auto-naming with timestamps
-✓ Versioning for duplicate names
-✓ Solid blue spacer columns
-✓ Conditional formatting row striping
-✓ Auto-sizing columns
+ Basic export functionality
+ Force blocks parameter
+ Custom blue color configuration
+ Dynamic radiologist block generation
+ Auto-naming with timestamps
+ Versioning for duplicate names
+ Solid blue spacer columns
+ Conditional formatting row striping
+ Auto-sizing columns
 
 ## Integration Status
 

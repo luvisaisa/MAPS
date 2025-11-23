@@ -1,6 +1,6 @@
 # API Documentation - NYT XML Parser
 
-## 📋 Core Module APIs
+## Core Module APIs
 
 ### XMLPARSE.py - Main Application Module
 
@@ -51,7 +51,7 @@ def select_multiple_folders_for_separate_files(self) -> None:
 ```python
 def _process_multiple_folders(self, folders: List[str]) -> None:
     """
-    ⭐ CORE FEATURE: Process multiple folders with combined output.
+     CORE FEATURE: Process multiple folders with combined output.
     
     Args:
         folders: List of folder paths to process
@@ -109,7 +109,7 @@ def export_to_sqlite(self) -> None:
 ```python
 def _transform_to_template_format(self, all_data: List[Dict]) -> List[Dict]:
     """
-    ⭐ CORE FEATURE: Transform data to template format.
+     CORE FEATURE: Transform data to template format.
     
     Args:
         all_data: List of dictionaries in radiologist-per-row format
@@ -328,7 +328,7 @@ class RadiologyDatabase:
         """
 ```
 
-## 🔧 Utility Functions
+## Utility Functions
 
 ### File Operations
 ```python
@@ -372,7 +372,7 @@ def get_expected_attributes_for_case(parse_case: str) -> Dict[str, List[str]]:
     """
 ```
 
-## 📊 Data Structures
+## Data Structures
 
 ### Input Data Format
 ```python
@@ -444,7 +444,7 @@ def create_compact_rating(session_data: XMLSessionData) -> str:
     return " | ".join(ratings) if ratings else ""
 ```
 
-## 🗄️ Database Schema Reference
+## Database Schema Reference
 
 ### Sessions Table
 ```sql
@@ -517,7 +517,7 @@ CREATE TABLE batches (
 );
 ```
 
-## 🎨 UI Component APIs
+## UI Component APIs
 
 ### Progress Dialog
 ```python
@@ -580,7 +580,7 @@ def create_export_choice_dialog(parent: tk.Widget, folder_name: str) -> Dict[str
     """
 ```
 
-## 🔄 Event System
+## Event System
 
 ### Processing Events
 ```python
@@ -611,7 +611,7 @@ ProcessingEvents = {
 }
 ```
 
-## 📈 Performance APIs
+## Performance APIs
 
 ### Memory Management
 ```python
@@ -657,7 +657,7 @@ def benchmark_processing(files: List[str]) -> Dict[str, Any]:
     """
 ```
 
-## 🔒 Security & Validation APIs
+## Security & Validation APIs
 
 ### Data Sanitization
 ```python
@@ -694,7 +694,7 @@ def validate_xml_structure(xml_content: str) -> Dict[str, Any]:
     """
 ```
 
-## 🚀 Extension Points
+## Extension Points
 
 ### Custom Parse Case Handlers
 ```python

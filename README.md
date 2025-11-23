@@ -1,10 +1,10 @@
 # NYT XML Parser - Radiology Data Processing System
 
-## 📋 Overview
+## Overview
 
 The NYT XML Parser is a comprehensive Python-based application designed to parse, analyze, and export radiology XML data from various medical imaging systems. Built specifically for handling complex radiology session data with multiple radiologist readings, nodule annotations, and coordinate mappings.
 
-## 🎯 Purpose
+## Purpose
 
 This system was developed to address the challenges of processing heterogeneous XML radiology data formats, providing researchers and medical professionals with tools to:
 
@@ -18,6 +18,7 @@ This system was developed to address the challenges of processing heterogeneous 
 - Perform advanced analytics on radiologist agreement and data quality
 - Process large batches of files efficiently with progress tracking
 
+<<<<<<< HEAD
 ## 🆕 Supabase Integration (NEW!)
 
 **Import radiology data from PYLIDC to Supabase PostgreSQL with automatic parse case detection and keyword extraction.**
@@ -247,17 +248,20 @@ occurrences = pd.read_sql(query, engine)
 **📖 Complete Documentation**: [Analysis and Export System Guide](docs/ANALYSIS_AND_EXPORT_GUIDE.md)
 
 ## 🏗️ Architecture Overview
+=======
+## Architecture Overview
+>>>>>>> origin/claude/revise-comments-documentation-014ABV1LMzcxnRpFWrNoPD7Y
 
 ### Core Components
 
 ```
 NYT XML Parser/
-├── main.py                     # Application entry point
-├── XMLPARSE.py                 # Core GUI application and parsing engine
-├── radiology_database.py       # SQLite database operations and analytics
-├── config.py                   # Configuration management
-├── enhanced_logging.py         # Advanced logging system
-└── performance_config.py       # Performance optimization settings
+ main.py                     # Application entry point
+ XMLPARSE.py                 # Core GUI application and parsing engine
+ radiology_database.py       # SQLite database operations and analytics
+ config.py                   # Configuration management
+ enhanced_logging.py         # Advanced logging system
+ performance_config.py       # Performance optimization settings
 ```
 
 ### Data Flow Architecture
@@ -269,7 +273,7 @@ Multi-format  Structure    Quality Checks   Template     Excel/SQLite
 Detection     Analysis     Missing Values   Formatting   + Analytics
 ```
 
-## 🔧 Technical Stack
+## Technical Stack
 
 - **Language**: Python 3.8+
 - **GUI Framework**: Tkinter (custom-styled)
@@ -279,7 +283,7 @@ Detection     Analysis     Missing Values   Formatting   + Analytics
 - **XML Processing**: ElementTree
 - **File Operations**: Cross-platform file handling
 
-## 📁 Project Structure
+## Project Structure
 
 ### Main Application (`main.py`)
 - Entry point for the GUI application
@@ -321,7 +325,7 @@ The heart of the application containing:
 - **Quality reporting**: Data completeness and consistency checks
 - **Excel integration**: Database-to-Excel export with formatting
 
-## 🚀 Features
+## Features
 
 ### 1. XML Parsing Capabilities
 
@@ -366,7 +370,7 @@ Detection_Error         - Structure analysis failure
 - Per-folder statistics and reporting
 - Error isolation (continue on failure)
 
-#### Multi-Folder Processing ⭐ **NEW FEATURE**
+#### Multi-Folder Processing **New Feature:**
 - **Combined Output**: Single Excel file with multiple sheets
 - **Folder Organization**: Separate sheet per source folder
 - **Template Format**: Radiologist 1-4 repeating column structure
@@ -384,13 +388,13 @@ Detection_Error         - Structure analysis failure
 - **Missing value highlighting**: Orange highlighting for MISSING values
 - **Auto-formatting**: Column width adjustment and alignment
 
-##### Template Format ⭐ **NEW FEATURE**
+##### Template Format **New Feature:**
 - **Radiologist Columns**: Repeating "Radiologist 1", "Radiologist 2", "Radiologist 3", "Radiologist 4"
 - **Compact Ratings**: Format like "Conf:5 | Sub:3 | Obs:2 | Reason:1"
 - **Color Coordination**: Each radiologist column gets unique color scheme
 - **Comprehensive Headers**: FileID, NoduleID, ParseCase, SessionType, coordinates, metadata
 
-##### Multi-Folder Excel ⭐ **NEW FEATURE**
+##### Multi-Folder Excel **New Feature:**
 - **Combined Sheet**: "All Combined" with data from all folders
 - **Individual Sheets**: One sheet per source folder
 - **Consistent Formatting**: Template format across all sheets
@@ -449,7 +453,7 @@ quality_issues  - Data quality problem tracking
 - **File Management**: Easy file/folder selection and management
 - **Export Options**: Clear choice between Excel and SQLite formats
 
-#### Progress Tracking ⭐ **ENHANCED FEATURE**
+#### Progress Tracking **Enhanced Feature:**
 - **Live Progress Bars**: Visual progress indication
 - **Real-time Logging**: Timestamped activity log with color coding
 - **File-by-file Updates**: Individual file processing status
@@ -482,9 +486,9 @@ quality_issues  - Data quality problem tracking
 - **Cancellation Options**: User can interrupt long operations
 - **Resource Monitoring**: Memory and performance tracking
 
-## 🔄 Development Roadmap
+## Development Roadmap
 
-### Completed Features ✅
+### Completed Features
 
 1. **Core XML Parsing Engine** - Multi-format XML processing
 2. **GUI Application** - Complete Tkinter interface
@@ -496,7 +500,7 @@ quality_issues  - Data quality problem tracking
 8. **Progress Tracking** - Real-time processing feedback
 9. **Error Handling** - Robust error management and recovery
 
-### Current Development 🚧
+### Current Development
 
 #### Database GUI Project (In Planning)
 A separate application for database analysis and visualization:
@@ -507,7 +511,7 @@ A separate application for database analysis and visualization:
 - **Export Tools**: Advanced export options from database
 - **Comparison Tools**: Compare multiple databases
 
-### Future Enhancements 🔮
+### Future Enhancements
 
 #### Phase 1: Enhanced Analytics
 - **Statistical Analysis**: Advanced inter-rater reliability metrics
@@ -533,7 +537,7 @@ A separate application for database analysis and visualization:
 - **Automated Quality Assessment**: AI-powered data quality scoring
 - **Predictive Analytics**: Forecast processing outcomes
 
-## 📊 Technical Specifications
+## Technical Specifications
 
 ### System Requirements
 - **Python**: 3.8 or higher
@@ -566,7 +570,7 @@ sqlite3 (built-in)
 xml.etree.ElementTree (built-in)
 ```
 
-## 🛠️ Installation & Setup
+## Installation & Setup
 
 ### Quick Start
 ```bash
@@ -597,7 +601,7 @@ python -m pytest tests/
 python main.py
 ```
 
-## 📝 Usage Examples
+## Usage Examples
 
 ### Basic File Processing
 1. Launch application: `python main.py`
@@ -625,7 +629,7 @@ python main.py
 3. Query database directly using SQL tools
 4. Future: Use Database GUI for advanced analysis
 
-## 🐛 Known Issues & Limitations
+## Known Issues & Limitations
 
 ### Current Limitations
 - **Single-threaded Processing**: No parallel processing yet
@@ -645,7 +649,7 @@ python main.py
 - **File Errors**: Check XML validity before processing
 - **Performance**: Use local storage for better performance
 
-## 🤝 Contributing
+## Contributing
 
 ### Development Guidelines
 - Follow PEP 8 Python style guidelines
@@ -666,18 +670,18 @@ python main.py
 - Check error handling with malformed data
 - Performance test with large datasets
 
-## 📄 License
+## License
 
 This project was created by **Isa Lucia Schlichting** at **HFAN NYIT** for radiology data processing and analysis.
 
-## 🔗 Project Links
+## Project Links
 
 - **Repository**: NYTXMLPARSE (GitHub)
 - **Author**: luvisaisa
 - **Created**: 2025
 - **Language**: Python
 
-## 📞 Support
+## Support
 
 For issues, questions, or contributions:
 - Create an issue in the GitHub repository
