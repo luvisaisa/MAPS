@@ -900,21 +900,18 @@ autoflake --remove-all-unused-imports --check src/
 ### 8. Git Workflow
 
 ```bash
-# Create feature branch
-git checkout -b feature/new-parser
+# Work directly on the designated branch (provided in task context)
+# DO NOT create new feature branches
 
-# Make changes and commit
+# Make changes and commit with clear, descriptive messages
 git add .
 git commit -m "feat: add JSON parser implementation"
 
-# Push to remote
-git push -u origin feature/new-parser
+# Force push to the designated branch when needed
+git push -f -u origin <designated-branch-name>
 
-# Create pull request (using GitHub CLI if available)
-gh pr create --title "Add JSON parser" --body "Implements JSON parsing support"
-
-# Or push to specific branch (for Claude Code)
-git push -u origin claude/feature-description
+# Note: The designated branch is specified in the task context
+# For Claude Code sessions, this will be a branch starting with 'claude/'
 ```
 
 ---
@@ -1359,13 +1356,13 @@ make docker-logs        # View container logs
 ## Contributing
 
 **For AI Assistants**: When making contributions:
-1. Create feature branch from `main`
+1. Work directly on the designated branch specified in task context (DO NOT create new feature branches)
 2. Make changes following this guide
 3. Run tests: `pytest -q`
 4. Run linters: `make lint`
 5. Update documentation
-6. Push to branch with `claude/` prefix for Claude Code
-7. Create detailed commit messages
+6. Commit with clear, descriptive messages
+7. Force push to the designated branch when complete: `git push -f -u origin <branch-name>`
 
 ---
 
