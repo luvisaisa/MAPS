@@ -1,0 +1,182 @@
+name: MAPS Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  web-tests:
+    name: Web Frontend Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run linter
+        run: npm run lint
+      
+      - name: Run type check
+        run: npm run type-check
+      
+      - name: Run tests
+        run: npm run test:run
+      
+      - name: Generate coverage
+        run: npm run test:coverage
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./web/coverage/lcov.info
+          flags: web
+          token: ${{ secrets.CODECOV_TOKEN }}
+      
+      - name: Archive coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-coverage
+          path: web/coverage/
+
+  python-tests:
+    name: Python Backend Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-asyncio
+      
+      - name: Run linter (ruff)
+        run: |
+          pip install ruff
+          ruff check src/ tests/
+      
+      - name: Run type checker (mypy)
+        run: |
+          pip install mypy
+          mypy src/ --ignore-missing-imports
+      
+      - name: Run tests
+        run: pytest --cov=src --cov-report=xml --cov-report=term-missing -v
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          flags: python
+          token: ${{ secrets.CODECOV_TOKEN }}
+      
+      - name: Archive test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-${{ matrix.python-version }}-coverage
+          path: htmlcov/
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [web-tests, python-tests]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-api.txt
+          pip install pytest
+      
+      - name: Install Node dependencies
+        working-directory: ./web
+        run: npm ci
+      
+      - name: Run integration tests
+        run: pytest tests/test_integration_workflows.py -v
+      
+      - name: Build web frontend
+        working-directory: ./web
+        run: npm run build
+      
+      - name: Verify build artifacts
+        working-directory: ./web
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed: dist/ directory not found"
+            exit 1
+          fi
+          echo "Build successful: dist/ directory exists"
+
+  test-report:
+    name: Test Report Summary
+    runs-on: ubuntu-latest
+    needs: [web-tests, python-tests, integration-tests]
+    if: always()
+    
+    steps:
+      - name: Download web coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: web-coverage
+          path: web-coverage/
+      
+      - name: Download python coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: python-3.12-coverage
+          path: python-coverage/
+      
+      - name: Generate summary
+        run: |
+          echo "# Test Suite Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Web Tests: ${{ needs.web-tests.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Python Tests: ${{ needs.python-tests.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Integration Tests: ${{ needs.integration-tests.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Coverage reports available in artifacts." >> $GITHUB_STEP_SUMMARY

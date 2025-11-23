@@ -13,6 +13,9 @@
 - [Developer Guide](DEVELOPER_GUIDE.md) - Contributing and development setup
 - [API Reference](API_REFERENCE.md) - Complete API documentation
 - [Performance Guide](PERFORMANCE_README.md) - Performance optimization
+- **[Testing Guide](TESTING_GUIDE.md)** - Comprehensive testing documentation ⭐ NEW
+- **[Test Quick Reference](TEST_QUICKSTART.md)** - Quick testing commands ⭐ NEW
+- **[Testing Suite Summary](TESTING_SUITE_SUMMARY.md)** - Implementation overview ⭐ NEW
 
 ## Architecture
 - [Project Structure](#project-structure)
