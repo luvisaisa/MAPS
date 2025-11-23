@@ -20,23 +20,27 @@ from .models import Base
 class Keyword(Base):
     """Core keyword model"""
     __tablename__ = 'keywords'
-    
+
     keyword_id = Column(Integer, primary_key=True, autoincrement=True)
     keyword_text = Column(String(255), nullable=False, unique=True)
     normalized_form = Column(String(255))
     category = Column(String(100))  # 'anatomy', 'characteristic', 'diagnosis', 'metadata', 'research'
     description = Column(Text)
+    definition = Column(Text)  # Formal medical/technical definition
+    source_refs = Column(Text)  # Semicolon-separated reference IDs (e.g., "1;13;25")
+    is_standard = Column(Integer, default=0)  # Boolean: 1 if from standard vocabulary, 0 otherwise
+    vocabulary_source = Column(String(100))  # e.g., 'RadLex', 'LOINC', 'Lung-RADS', 'custom'
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
+
     # Relationships
     sources = relationship("KeywordSource", back_populates="keyword", cascade="all, delete-orphan")
     statistics = relationship("KeywordStatistics", back_populates="keyword", uselist=False, cascade="all, delete-orphan")
     synonyms = relationship("KeywordSynonym", back_populates="canonical_keyword", cascade="all, delete-orphan")
-    
+
     def __repr__(self):
         return f"<Keyword(id={self.keyword_id}, text='{self.keyword_text}', category='{self.category}')>"
-    
+
     def to_dict(self):
         """Convert to dictionary for API responses"""
         return {
@@ -45,6 +49,10 @@ class Keyword(Base):
             'normalized_form': self.normalized_form,
             'category': self.category,
             'description': self.description,
+            'definition': self.definition,
+            'source_refs': self.source_refs,
+            'is_standard': bool(self.is_standard),
+            'vocabulary_source': self.vocabulary_source,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }

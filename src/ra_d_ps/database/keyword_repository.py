@@ -85,20 +85,26 @@ class KeywordRepository:
     # KEYWORD CRUD OPERATIONS
     # =========================================================================
     
-    def add_keyword(self, keyword_text: str, category: str = None, 
-                   normalized_form: str = None, description: str = None) -> Keyword:
+    def add_keyword(self, keyword_text: str, category: str = None,
+                   normalized_form: str = None, description: str = None,
+                   definition: str = None, source_refs: str = None,
+                   is_standard: bool = False, vocabulary_source: str = None) -> Keyword:
         """
         Add a new keyword to the database.
-        
+
         Args:
             keyword_text: The keyword text (unique)
             category: Category ('anatomy', 'characteristic', 'diagnosis', 'metadata', 'research')
             normalized_form: Canonical/normalized version
-            description: Optional description
-            
+            description: Optional description (internal notes)
+            definition: Formal medical/technical definition
+            source_refs: Semicolon-separated reference IDs (e.g., "1;13;25")
+            is_standard: Whether keyword is from a standardized vocabulary
+            vocabulary_source: Source vocabulary name (e.g., 'RadLex', 'LOINC', 'custom')
+
         Returns:
             Keyword object
-            
+
         Raises:
             IntegrityError: If keyword already exists (duplicate keyword_text)
             SQLAlchemyError: If database operation fails
@@ -109,17 +115,21 @@ class KeywordRepository:
                 keyword_text=keyword_text,
                 category=category,
                 normalized_form=normalized_form or keyword_text.lower(),
-                description=description
+                description=description,
+                definition=definition,
+                source_refs=source_refs,
+                is_standard=1 if is_standard else 0,
+                vocabulary_source=vocabulary_source
             )
             session.add(keyword)
             session.commit()
             session.refresh(keyword)
-            
+
             # Initialize statistics entry
             stats = KeywordStatistics(keyword_id=keyword.keyword_id)
             session.add(stats)
             session.commit()
-            
+
             logger.debug(f"Added keyword: {keyword_text} (id={keyword.keyword_id})")
             return keyword
         except IntegrityError:

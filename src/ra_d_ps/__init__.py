@@ -17,7 +17,11 @@ from .parser import (
 )
 
 # Import GUI from separate module
-from .gui import NYTXMLGuiApp
+try:
+    from .gui import NYTXMLGuiApp
+except (ImportError, AttributeError):
+    # GUI might be commented out or unavailable
+    NYTXMLGuiApp = None
 
 # Import database functionality
 try:

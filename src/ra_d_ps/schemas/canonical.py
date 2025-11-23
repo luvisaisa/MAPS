@@ -126,7 +126,7 @@ class DocumentMetadata(BaseModel):
         """Accept dates as strings, date objects, or datetime objects"""
         if v is None:
             return None
-        if isinstance(v, (date, datetime)):
+        if isinstance(v, (dt_date, datetime)):
             return v
         # Keep as string if already string - will be validated later
         return v
