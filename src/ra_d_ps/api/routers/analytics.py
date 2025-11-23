@@ -16,6 +16,22 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
+@router.get("/dashboard")
+async def get_dashboard():
+    """Dashboard statistics - aggregated view"""
+    # Return basic stats - will be populated as data is processed
+    return {
+        "total_documents": 0,
+        "total_keywords": 0,
+        "total_parse_cases": 0,
+        "recent_uploads": 0,
+        "processing_jobs": 0,
+        "parse_case_distribution": {},
+        "keyword_trends": [],
+        "processing_trends": []
+    }
+
+
 @router.get("/summary")
 async def get_summary(db: Session = Depends(get_db)):
     """Database overview statistics"""
