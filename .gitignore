@@ -10,6 +10,11 @@ __pycache__/
 *$py.class
 *.so
 
+# Backup files
+*.bak
+*.bak2
+*.bak3
+
 # Virtual environments
 venv/
 env/
@@ -47,6 +52,10 @@ configs/config.json
 # Test output
 test_output/
 temp_files/
+
+# Node.js dependencies
+node_modules/
+package-lock.json
 # Large binary files
 build/
 dist/
