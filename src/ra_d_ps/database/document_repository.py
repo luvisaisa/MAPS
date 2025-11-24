@@ -68,7 +68,7 @@ class DocumentRepository:
         if is_sqlite:
             self.engine = create_engine(
                 connection_string,
-                echo=db_config.postgresql.echo_sql
+                echo=False  # Disable SQL echo for SQLite tests
             )
         else:
             self.engine = create_engine(

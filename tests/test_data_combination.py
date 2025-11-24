@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """
-Test to verify that both main and unblinded radiologist data 
+Test to verify that both main and unblinded radiologist data
 are properly preserved in RA-D-PS conversion
 """
 
 import sys
 import os
 import pandas as pd
+from pathlib import Path
 
-# Add the current directory to path to import XMLPARSE
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from XMLPARSE import convert_parsed_data_to_ra_d_ps_format
+from ra_d_ps.parser import convert_parsed_data_to_ra_d_ps_format
 
 def test_data_combination():
     """Test that both main and unblinded data are preserved"""

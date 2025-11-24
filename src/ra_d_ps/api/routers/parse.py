@@ -46,7 +46,7 @@ async def parse_xml(
             content,
             file.filename,
             profile=request.profile,
-            validate=request.validate,
+            validate=request.validate_data,
             extract_keywords=request.extract_keywords,
             detect_parse_case=request.detect_parse_case,
             insert_to_db=request.insert_to_db
@@ -156,7 +156,7 @@ async def parse_batch(
             files,
             profile=request.profile,
             batch_size=request.batch_size,
-            validate=request.validate,
+            validate=request.validate_data,
             extract_keywords=request.extract_keywords
         )
         return result
@@ -190,7 +190,7 @@ async def parse_preview(
                 content,
                 file.filename,
                 profile=request.profile,
-                validate=request.validate,
+                validate=request.validate_data,
                 extract_keywords=request.extract_keywords,
                 detect_parse_case=request.detect_parse_case,
                 insert_to_db=False

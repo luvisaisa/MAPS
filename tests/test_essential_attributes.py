@@ -8,9 +8,12 @@ Test to verify all essential attributes are being extracted correctly:
 
 import os
 import sys
-sys.path.append('/Users/isa/Desktop/python projects/XML PARSE')
+from pathlib import Path
 
-from XMLPARSE import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+from ra_d_ps.parser import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format
 
 def test_essential_attributes():
     """Test that all essential attributes are being extracted"""

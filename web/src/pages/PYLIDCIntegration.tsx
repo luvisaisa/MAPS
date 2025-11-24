@@ -342,7 +342,7 @@ export default function PYLIDC() {
               onClick={() => applyPreset('large-nodules')}
               className="px-3 py-1 text-sm bg-blue-50 text-blue-700 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors"
             >
-              Large Nodules (>10mm)
+              Large Nodules (&gt;10mm)
             </button>
           </div>
         </div>

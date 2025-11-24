@@ -390,8 +390,8 @@ class InvoiceCanonicalDocument(CanonicalDocument):
     """
     
     invoice_number: Optional[str] = None
-    invoice_date: Annotated[Union[date, str, None], Field(default=None)]
-    due_date: Annotated[Union[date, str, None], Field(default=None)]
+    invoice_date: Annotated[Union[dt_date, str, None], Field(default=None)]
+    due_date: Annotated[Union[dt_date, str, None], Field(default=None)]
     total_amount: Optional[Decimal] = None
     currency: Optional[str] = "USD"
     

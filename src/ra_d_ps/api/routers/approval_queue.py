@@ -257,8 +257,6 @@ async def delete_queue_item(item_id: str):
     Raises:
         404: Item not found
     """
-    global _approval_queue
-
     for i, item in enumerate(_approval_queue):
         if item.id == item_id:
             _approval_queue.pop(i)

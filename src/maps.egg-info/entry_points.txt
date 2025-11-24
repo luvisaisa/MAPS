@@ -1,0 +1,2 @@
+[console_scripts]
+maps = ra_d_ps.parser:main

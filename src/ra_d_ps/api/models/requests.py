@@ -31,7 +31,7 @@ class ParseRequest(BaseModel):
         default=ProfileType.LIDC_IDRI,
         description="Parsing profile to use"
     )
-    validate: bool = Field(
+    validate_data: bool = Field(
         default=True,
         description="Whether to validate against schema"
     )
@@ -62,7 +62,7 @@ class BatchParseRequest(BaseModel):
         le=1000,
         description="Batch size for processing"
     )
-    validate: bool = Field(
+    validate_data: bool = Field(
         default=True,
         description="Whether to validate against schema"
     )

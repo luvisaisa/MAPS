@@ -5,9 +5,12 @@ Test the complete workflow: parse XML and export to RA-D-PS Excel
 
 import os
 import sys
-sys.path.append('/Users/isa/Desktop/python projects/XML PARSE')
+from pathlib import Path
 
-from XMLPARSE import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format, export_excel
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+from ra_d_ps.parser import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format, export_excel
 
 def test_complete_workflow():
     """Test the complete workflow from XML parsing to RA-D-PS Excel export"""
