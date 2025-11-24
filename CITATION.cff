@@ -1,0 +1,42 @@
+# Citation File Format (CFF) for MAPS
+# This file provides citation metadata for the MAPS project
+# GitHub will automatically display a "Cite this repository" button
+
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "MAPS: Medical Annotation Processing System"
+abstract: >
+  A comprehensive Python-based application designed to parse, analyze, and
+  export medical imaging annotation data from various medical imaging systems
+  and file formats. Built specifically for handling complex medical imaging
+  session data with multiple observer readings, nodule annotations, coordinate
+  mappings, and research literature.
+authors:
+  - family-names: Schlichting
+    given-names: "Isa Lucia"
+    orcid: "https://orcid.org/0000-0000-0000-0000"  # Update with your actual ORCID if available
+repository-code: "https://github.com/luvisaisa/MAPS"
+url: "https://github.com/luvisaisa/MAPS"
+license: "Proprietary (Dual License: Academic Free / Commercial Paid)"
+version: "1.0.0"
+date-released: "2025-08-26"
+keywords:
+  - medical imaging
+  - radiology
+  - annotation processing
+  - LIDC-IDRI
+  - medical data analysis
+  - radiomics
+  - inter-rater reliability
+  - XML parsing
+  - schema-agnostic
+  - healthcare informatics
+preferred-citation:
+  type: software
+  title: "MAPS: Medical Annotation Processing System"
+  authors:
+    - family-names: Schlichting
+      given-names: "Isa Lucia"
+  year: 2025
+  url: "https://github.com/luvisaisa/MAPS"

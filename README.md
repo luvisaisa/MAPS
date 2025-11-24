@@ -696,7 +696,42 @@ pytest --cov=src --cov-report=html  # python
 
 ## License
 
-This project was created by **Isa Lucia Schlichting** at **HFAN NYIT** for radiology data processing and analysis.
+**MAPS is proprietary software with dual licensing:**
+
+### 🎓 Academic/Non-Commercial Use (FREE)
+- Free for academic research and education
+- Must cite in publications
+- No commercial use permitted
+- See [LICENSE](LICENSE) for full terms
+
+### 💼 Commercial Use (PAID LICENSE REQUIRED)
+- Required for any for-profit use
+- Includes support and updates
+- Custom pricing based on use case
+- Contact for commercial licensing
+
+**Copyright (c) 2025 Isa Lucia Schlichting. All Rights Reserved.**
+
+### Citation
+
+If you use MAPS in academic research, please cite:
+
+```bibtex
+@software{schlichting2025maps,
+  author = {Schlichting, Isa Lucia},
+  title = {MAPS: Medical Annotation Processing System},
+  year = {2025},
+  publisher = {GitHub},
+  url = {https://github.com/luvisaisa/MAPS}
+}
+```
+
+### Licensing Inquiries
+
+For commercial licensing, enterprise support, or questions:
+- 📧 Email: [Your contact email]
+- 📄 Details: [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md)
+- 💻 Repository: https://github.com/luvisaisa/MAPS
 
 ## Project Links
 

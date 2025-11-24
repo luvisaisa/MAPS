@@ -1,18 +1,81 @@
-MIT License
+MAPS - Medical Annotation Processing System
+PROPRIETARY LICENSE
 
-Copyright (c) 2025
+Copyright (c) 2025 Isa Lucia Schlichting. All Rights Reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+DUAL LICENSING TERMS
+
+This software is available under two separate licenses:
+
+1. ACADEMIC/NON-COMMERCIAL LICENSE (FREE)
+2. COMMERCIAL LICENSE (PAID)
+
+================================================================================
+OPTION 1: ACADEMIC/NON-COMMERCIAL LICENSE
+================================================================================
+
+Permission is hereby granted, free of charge, to academic institutions,
+educational organizations, and non-profit research entities to use this
+software for NON-COMMERCIAL purposes only, subject to the following conditions:
+
+PERMITTED USES:
+- Academic research and education
+- Non-profit research projects
+- Personal learning and study
+- Open-source non-commercial projects
+
+CONDITIONS:
+1. This copyright notice must be retained in all copies
+2. Citation required in all publications using this software (see CITATION.cff)
+3. Modifications must be shared back to the original author
+4. No commercial use of any kind is permitted under this license
+
+PROHIBITED USES:
+- Any commercial or for-profit use
+- Integration into commercial products or services
+- Use by commercial entities or for-profit organizations
+- Consulting or contract work using this software
+- Cloud/SaaS offerings based on this software
+
+================================================================================
+OPTION 2: COMMERCIAL LICENSE
+================================================================================
+
+For ANY commercial use, including but not limited to:
+- Use within for-profit companies or organizations
+- Integration into commercial products or services
+- Consulting, contracting, or paid services
+- SaaS, cloud hosting, or managed services
+- Pharmaceutical, medical device, or healthcare companies
+- Commercial research and development
+
+A separate COMMERCIAL LICENSE must be obtained from the copyright holder.
+
+Contact for commercial licensing:
+- Email: [Your contact email]
+- Repository: https://github.com/luvisaisa/MAPS
+
+Commercial license fees apply based on use case and organization size.
+See COMMERCIAL_LICENSE.md for pricing and terms.
+
+================================================================================
+WARRANTY DISCLAIMER
+================================================================================
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+AUTHOR OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+================================================================================
+ENFORCEMENT
+================================================================================
+
+Unauthorized commercial use constitutes copyright infringement and will be
+subject to legal action. The author reserves all rights not explicitly granted
+herein.
+
+For questions about licensing, contact: [Your contact email]
