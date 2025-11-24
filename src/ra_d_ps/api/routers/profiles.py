@@ -9,7 +9,7 @@ from typing import List, Optional
 import logging
 
 from ...profile_manager import ProfileManager, get_profile_manager
-from ...schemas.profile import Profile, profile_to_dict
+from ...schemas.profile import Profile, profile_to_dict, dict_to_profile
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -118,8 +118,11 @@ async def create_profile(
             "transformations": request.transformations or {}
         }
 
-        # Validate and save
-        is_valid, errors = profile_manager.validate_profile_dict(profile_data)
+        # Convert to Profile object
+        profile = dict_to_profile(profile_data)
+
+        # Validate profile
+        is_valid, errors = profile_manager.validate_profile(profile)
         if not is_valid:
             raise HTTPException(
                 status_code=400,
@@ -127,7 +130,7 @@ async def create_profile(
             )
 
         # Save profile
-        success = profile_manager.save_profile_dict(profile_data)
+        success = profile_manager.save_profile(profile)
         if not success:
             raise HTTPException(status_code=500, detail="Failed to save profile")
 
