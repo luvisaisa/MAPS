@@ -11,6 +11,7 @@ import subprocess
 import traceback
 import xml.etree.ElementTree as ET
 from collections import defaultdict
+from typing import List, Dict, Tuple, Optional, Union, Any
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from openpyxl.utils import get_column_letter
@@ -28,7 +29,7 @@ except ImportError:
     SQLITE_AVAILABLE = False
     print("⚠️ SQLite database features unavailable - install required packages or check sqlite_database.py")
 
-def open_file_cross_platform(file_path):
+def open_file_cross_platform(file_path: str) -> None:
     """Open a file using the default system application across different platforms"""
     try:
         if platform.system() == "Darwin":  # macOS
@@ -165,7 +166,8 @@ def _set_column_widths(ws, cols: list):
             else:
                 ws.column_dimensions[get_column_letter(i)].width = 12
 
-def export_excel(records, folder_path, sheet="radiology_data", blue_argb="FFCCE5FF", force_blocks=None):
+def export_excel(records: List[Dict[str, Any]], folder_path: str, sheet: str = "radiology_data",
+                 blue_argb: str = "FFCCE5FF", force_blocks: Optional[int] = None) -> str:
     """
     Export records to Excel with dynamic radiologist blocks, spacer columns (solid blue fill),
     alternating row striping via conditional formatting, and true auto-sizing.
@@ -262,7 +264,7 @@ def export_excel(records, folder_path, sheet="radiology_data", blue_argb="FFCCE5
 
 # -------- End MAPS Excel Exporter --------
 
-def convert_parsed_data_to_maps_format(dataframes):
+def convert_parsed_data_to_maps_format(dataframes: Dict[str, pd.DataFrame]) -> List[Dict[str, Any]]:
     """
     Convert parsed XML DataFrames to MAPS format records.
     
@@ -359,7 +361,7 @@ def convert_parsed_data_to_maps_format(dataframes):
     return records
 
 # function to parse a single radiology xml file
-def get_expected_attributes_for_case(parse_case):
+def get_expected_attributes_for_case(parse_case: str) -> Dict[str, List[str]]:
     """define what attributes should be expected for each parse case"""
     expected_attrs = {
         "Complete_Attributes": {
@@ -428,7 +430,7 @@ def get_expected_attributes_for_case(parse_case):
     
     return expected_attrs.get(parse_case, default_expected)
 
-def parse_radiology_sample(file_path):
+def parse_radiology_sample(file_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     parse a single radiology xml file and extract nodule/roi data
     
@@ -762,7 +764,7 @@ def parse_radiology_sample(file_path):
     print(f"    📊 Main data rows: {len(data_rows)}")
     print(f"    📊 Unblinded data rows: {len(unblinded_data_rows)}")
     return pd.DataFrame(data_rows), pd.DataFrame(unblinded_data_rows)
-def parse_multiple(files):
+def parse_multiple(files: List[str]) -> Tuple[Dict[str, pd.DataFrame], Dict[str, pd.DataFrame]]:
     """
     parse multiple files with memory optimization and batch processing
     
@@ -843,7 +845,7 @@ def parse_multiple(files):
     return case_data, case_unblinded_data
 
 
-def detect_parse_case(file_path):
+def detect_parse_case(file_path: str) -> str:
     """
     Detect the structure/case of an XML file for appropriate parsing strategy
     """
