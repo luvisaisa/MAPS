@@ -194,9 +194,9 @@ This software may be subject to export control regulations. Users are responsibl
 **Repository:** https://github.com/luvisaisa/MAPS  
 
 **For:**
-- Licensing inquiries: [Your contact email]
-- Copyright questions: [Your contact email]
-- Partnership opportunities: [Your contact email]
+- Licensing inquiries: isa.lucia.sch@outlook.com
+- Copyright questions: isa.lucia.sch@outlook.com
+- Partnership opportunities: isa.lucia.sch@outlook.com
 
 ---
 

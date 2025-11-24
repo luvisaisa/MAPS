@@ -143,8 +143,7 @@ Simply use the software under the MIT License and cite appropriately.
 
 **Contact:**
 - **Author:** Isa Lucia Schlichting
-- **Institution:** HFAN NYIT
-- **Email:** [Your contact email]
+- **Email:** isa.lucia.sch@outlook.com
 - **GitHub:** [@luvisaisa](https://github.com/luvisaisa)
 
 **Purchasing Process:**

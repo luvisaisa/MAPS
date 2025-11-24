@@ -729,7 +729,7 @@ If you use MAPS in academic research, please cite:
 ### Licensing Inquiries
 
 For commercial licensing, enterprise support, or questions:
-- 📧 Email: [Your contact email]
+- 📧 Email: isa.lucia.sch@outlook.com
 - 📄 Details: [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md)
 - 💻 Repository: https://github.com/luvisaisa/MAPS
 
