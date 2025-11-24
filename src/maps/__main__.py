@@ -4,13 +4,13 @@ entry point for running MAPS gui as a module
 usage: python -m src.maps
 """
 import tkinter as tk
-from .gui import NYTXMLGuiApp
+from .gui import MAPSGuiApp
 
 
 def main():
     """launch the gui application"""
     root = tk.Tk()
-    app = NYTXMLGuiApp(root)
+    app = MAPSGuiApp(root)
     root.mainloop()
 
 

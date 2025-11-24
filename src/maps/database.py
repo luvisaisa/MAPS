@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Tuple
 import pandas as pd
 
-class RadiologyDatabase:
+class MAPSDatabase:
     """
     SQLite database manager for radiology XML parsing results
     Implements normalized schema with nodule-centric design
@@ -453,7 +453,7 @@ class RadiologyDatabase:
 # Example usage and testing
 if __name__ == "__main__":
     # Test the database with sample data
-    with RadiologyDatabase("test_radiology.db") as db:
+    with MAPSDatabase("test_radiology.db") as db:
         
         # Sample data structure (matches your current parsing output)
         sample_data = [

@@ -15,15 +15,15 @@ pytestmark = pytest.mark.skip(reason="GUI is currently disabled for maintenance"
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 try:
-    from maps.gui import NYTXMLGuiApp
+    from maps.gui import MAPSGuiApp
 except (ImportError, AttributeError):
-    NYTXMLGuiApp = None
+    MAPSGuiApp = None
 
 
 def test_simplified_gui_structure():
     """test that the simplified gui has the correct structure"""
     root = tk.Tk()
-    app = NYTXMLGuiApp(root)
+    app = MAPSGuiApp(root)
     
     # verify the app has the required attributes
     assert hasattr(app, 'selected_folder_paths'), "app should have selected_folder_paths attribute"
@@ -43,7 +43,7 @@ def test_simplified_gui_structure():
 def test_export_button_validation():
     """test that export buttons show warning when no folders selected"""
     root = tk.Tk()
-    app = NYTXMLGuiApp(root)
+    app = MAPSGuiApp(root)
     
     # intercept messagebox to verify warning is shown
     warning_shown = []
@@ -74,7 +74,7 @@ def test_export_button_validation():
 def test_folder_selection_integration():
     """test that folder selection properly updates the listbox and storage"""
     root = tk.Tk()
-    app = NYTXMLGuiApp(root)
+    app = MAPSGuiApp(root)
     
     # simulate folder selection by directly setting the storage
     test_folders = [

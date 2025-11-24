@@ -14,11 +14,11 @@ from openpyxl.styles import PatternFill
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 try:
-    from maps.gui import NYTXMLGuiApp
+    from maps.gui import MAPSGuiApp
 except ImportError:
     # Fallback to old import for backward compatibility
     try:
-        from XMLPARSE import NYTXMLGuiApp
+        from XMLPARSE import MAPSGuiApp
     except ImportError as e:
         print(f"Import error: {e}")
         print("Make sure the ra_d_ps package is installed or XMLPARSE.py is available.")
@@ -64,7 +64,7 @@ def main() -> None:
     x = (screen_width // 2) - (window_width // 2)
     y = (screen_height // 2) - (window_height // 2)
     root.geometry(f"{window_width}x{window_height}+{x}+{y}")
-    NYTXMLGuiApp(root)
+    MAPSGuiApp(root)
     root.mainloop()
 
 

@@ -18,7 +18,7 @@ def main():
         parse_multiple,
         export_excel,
         convert_parsed_data_to_maps_format,
-        NYTXMLGuiApp
+        MAPSGuiApp
     )
 
     parser = argparse.ArgumentParser(
@@ -49,7 +49,7 @@ def main():
     if args.command == "gui" or args.command is None:
         # Launch GUI
         root = tk.Tk()
-        NYTXMLGuiApp(root)  # App manages itself, no need to store reference
+        MAPSGuiApp(root)  # App manages itself, no need to store reference
         root.mainloop()
 
     elif args.command == "parse":

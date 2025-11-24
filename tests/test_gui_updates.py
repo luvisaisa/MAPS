@@ -16,16 +16,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 try:
-    from maps.gui import NYTXMLGuiApp
+    from maps.gui import MAPSGuiApp
 except (ImportError, AttributeError):
-    NYTXMLGuiApp = None
+    MAPSGuiApp = None
 
 def test_signature_popup():
     """Test the updated signature popup"""
     print("🧪 Testing signature popup changes...")
     
     root = tk.Tk()
-    app = NYTXMLGuiApp(root)
+    app = MAPSGuiApp(root)
     
     # Manually trigger the signature to test it
     print("✅ Creating signature popup (should show logo + 'Created by: Isa Lucia Schlichting' only)")

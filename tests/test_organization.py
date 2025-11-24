@@ -46,7 +46,7 @@ class TestFunctionality(unittest.TestCase):
                 parse_multiple,
                 export_excel,
                 convert_parsed_data_to_maps_format,
-                NYTXMLGuiApp
+                MAPSGuiApp
             )
             # If we reach here, imports succeeded
         except ImportError as e:

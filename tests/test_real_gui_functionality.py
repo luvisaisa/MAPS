@@ -19,9 +19,9 @@ pytestmark = pytest.mark.skip(reason="GUI is currently disabled for maintenance"
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 try:
-    from maps.gui import NYTXMLGuiApp
+    from maps.gui import MAPSGuiApp
 except (ImportError, AttributeError):
-    NYTXMLGuiApp = None
+    MAPSGuiApp = None
 
 
 def create_test_xml(filename):
@@ -78,7 +78,7 @@ def test_real_gui_functionality():
         root.withdraw()  # Hide window for testing
         
         try:
-            app = NYTXMLGuiApp(root)
+            app = MAPSGuiApp(root)
             print("✅ GUI created successfully")
             
             # Test 1: File selection functionality
@@ -177,7 +177,7 @@ def test_gui_import_and_structure():
     
     try:
         # Test import
-        from maps.gui import NYTXMLGuiApp
+        from maps.gui import MAPSGuiApp
         print("✅ GUI import successful")
         
         # Test class attributes
@@ -189,7 +189,7 @@ def test_gui_import_and_structure():
         
         missing_methods = []
         for method in required_methods:
-            if not hasattr(NYTXMLGuiApp, method):
+            if not hasattr(MAPSGuiApp, method):
                 missing_methods.append(method)
         
         if missing_methods:

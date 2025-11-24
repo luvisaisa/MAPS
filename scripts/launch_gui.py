@@ -10,7 +10,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import tkinter as tk
-from maps.gui import NYTXMLGuiApp
+from maps.gui import MAPSGuiApp
 
 
 def main():
@@ -29,7 +29,7 @@ def main():
     print("="*60 + "\n")
     
     root = tk.Tk()
-    app = NYTXMLGuiApp(root)
+    app = MAPSGuiApp(root)
     root.mainloop()
     
     print("\ngui closed successfully ✅")

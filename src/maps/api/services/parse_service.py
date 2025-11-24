@@ -295,7 +295,7 @@ class ParseService:
             return {
                 "profiles": [
                     {"name": "lidc_idri_standard", "description": "LIDC-IDRI standard format"},
-                    {"name": "nyt_standard", "description": "NYT XML format"}
+                    {"name": "maps_standard", "description": "NYT XML format"}
                 ],
                 "error": str(e)
             }

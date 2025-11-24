@@ -55,7 +55,7 @@ def database_example():
         
         # Create database and insert data
         print("Creating database and inserting data...")
-        with RadiologyDatabase(db_path) as db:
+        with MAPSDatabase(db_path) as db:
             batch_id = db.insert_batch_data(all_parsed_data)
             print(f"Data inserted with batch ID: {batch_id}")
             

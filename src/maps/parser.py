@@ -920,6 +920,6 @@ def detect_parse_case(file_path):
 if __name__ == "__main__":
     # This allows the module to be run directly for testing
     root = tk.Tk()
-    # NYTXMLGuiApp is undefined; replace with a placeholder or comment
-    # app = NYTXMLGuiApp(root)
+    # MAPSGuiApp is undefined; replace with a placeholder or comment
+    # app = MAPSGuiApp(root)
     # root.mainloop()

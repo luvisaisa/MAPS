@@ -62,7 +62,7 @@ except ImportError:
 #         subprocess.call(['xdg-open', path])
 
 
-# class NYTXMLGuiApp:
+# class MAPSGuiApp:
 #     """
 #     main gui application for xml parsing and excel export
 #     provides file/folder selection, parsing, and formatted excel output
@@ -1388,7 +1388,7 @@ if False:  # disabled GUI block
                         progress_window.update()
                         
                         try:
-                            with RadiologyDatabase(db_path) as db:
+                            with MAPSDatabase(db_path) as db:
                                 batch_id = db.insert_batch_data(all_data)
                                 log_message(f"Database batch inserted: {batch_id}", "SUCCESS")
                                 
@@ -1418,7 +1418,7 @@ if False:  # disabled GUI block
                         progress_window.update()
                         
                         try:
-                            with RadiologyDatabase(db_path) as db:
+                            with MAPSDatabase(db_path) as db:
                                 batch_id = db.insert_batch_data(all_data)
                                 
                                 # Generate Excel analysis alongside database
@@ -1629,7 +1629,7 @@ if False:  # disabled GUI block
             self.master.title("MAPS - Creating database...")
             
             # Create database and insert data
-            with RadiologyDatabase(db_path) as db:
+            with MAPSDatabase(db_path) as db:
                 batch_id = db.insert_batch_data(all_parsed_data)
                 
                 # Generate analysis report

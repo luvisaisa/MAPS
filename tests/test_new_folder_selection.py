@@ -15,9 +15,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import tkinter as tk
 try:
-    from maps.gui import NYTXMLGuiApp
+    from maps.gui import MAPSGuiApp
 except (ImportError, AttributeError):
-    NYTXMLGuiApp = None
+    MAPSGuiApp = None
 
 
 def test_new_folder_selection():
@@ -49,7 +49,7 @@ def test_new_folder_selection():
     print("="*70 + "\n")
     
     root = tk.Tk()
-    app = NYTXMLGuiApp(root)
+    app = MAPSGuiApp(root)
     root.mainloop()
     
     print("\n✅ testing complete")

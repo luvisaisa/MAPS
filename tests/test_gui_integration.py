@@ -15,9 +15,9 @@ pytestmark = pytest.mark.skip(reason="GUI is currently disabled for maintenance"
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 try:
-    from maps.gui import NYTXMLGuiApp
+    from maps.gui import MAPSGuiApp
 except (ImportError, AttributeError):
-    NYTXMLGuiApp = None
+    MAPSGuiApp = None
 
 def test_gui_buttons():
     """Test that the GUI has the new MAPS export button"""
@@ -31,7 +31,7 @@ def test_gui_buttons():
         root.withdraw()  # Hide the window
         
         # Create the app
-        app = NYTXMLGuiApp(root)
+        app = MAPSGuiApp(root)
         
         print("✅ GUI app created successfully")
         

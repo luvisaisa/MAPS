@@ -47,10 +47,10 @@ except ImportError as e:
 
 # Import GUI from separate module
 try:
-    from .gui import NYTXMLGuiApp
+    from .gui import MAPSGuiApp
 except (ImportError, AttributeError):
     # GUI might be commented out or unavailable
-    NYTXMLGuiApp = None
+    MAPSGuiApp = None
 
 # Import database functionality
 try:
@@ -80,7 +80,7 @@ __all__ = [
     'parse_multiple', 
     'export_excel',
     'convert_parsed_data_to_maps_format',
-    'NYTXMLGuiApp',
+    'MAPSGuiApp',
     'RadiologyDatabase',
     'open_file_cross_platform',
     'detect_parse_case',

@@ -11,7 +11,7 @@ from enum import Enum
 
 class ProfileType(str, Enum):
     """Supported parsing profiles"""
-    NYT_STANDARD = "nyt_standard"
+    MAPS_STANDARD = "maps_standard"
     LIDC_IDRI = "lidc_idri_standard"
     CUSTOM = "custom"
 
