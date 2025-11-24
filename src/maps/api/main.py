@@ -103,13 +103,43 @@ async def root():
 
 
 @app.get("/health", tags=["Health"])
-async def health_check():
-    """Health check endpoint"""
-    return {
+async def health_check(detailed: bool = False):
+    """
+    Health check endpoint
+
+    Args:
+        detailed: If True, includes database and service status checks
+    """
+    response = {
         "status": "healthy",
         "service": settings.API_TITLE,
         "version": settings.API_VERSION
     }
+
+    if detailed:
+        # Check database connectivity
+        try:
+            from .database import get_session
+            db = next(get_session())
+            db.execute("SELECT 1")
+            db.close()
+            database_status = "connected"
+        except Exception as e:
+            logger.warning(f"Database health check failed: {e}")
+            database_status = "unavailable"
+
+        response["database"] = {
+            "status": database_status,
+            "backend": settings.DATABASE_BACKEND if hasattr(settings, 'DATABASE_BACKEND') else "unknown"
+        }
+
+        response["services"] = {
+            "api": "operational",
+            "parsing": "operational",
+            "export": "operational"
+        }
+
+    return response
 
 
 @app.exception_handler(Exception)

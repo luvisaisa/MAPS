@@ -24,6 +24,7 @@ async def get_dashboard():
         "total_documents": 0,
         "total_keywords": 0,
         "total_parse_cases": 0,
+        "total_jobs": 0,
         "recent_uploads": 0,
         "processing_jobs": 0,
         "parse_case_distribution": {},

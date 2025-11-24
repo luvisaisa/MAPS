@@ -11,7 +11,7 @@ class AnalyticsService:
 
     def get_parse_case_distribution(self):
         """TODO: Parse case distribution"""
-        return {}
+        return []
 
     def get_keyword_stats(self):
         """TODO: Keyword statistics"""
