@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from maps import parse_multiple
-from maps.database import RadiologyDatabase
+from maps.sqlite_database import RadiologyDatabase
 
 
 def database_example():

@@ -26,7 +26,7 @@ try:
     SQLITE_AVAILABLE = True
 except ImportError:
     SQLITE_AVAILABLE = False
-    print("⚠️ SQLite database features unavailable - install required packages or check radiology_database.py")
+    print("⚠️ SQLite database features unavailable - install required packages or check sqlite_database.py")
 
 def open_file_cross_platform(file_path):
     """Open a file using the default system application across different platforms"""

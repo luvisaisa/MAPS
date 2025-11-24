@@ -5,12 +5,12 @@ This module provides various export formats for processed radiology data,
 including Excel, SQLite, and other output formats.
 """
 
-from .excel_exporter import ExcelExporter, RADPSExcelFormatter
+from .excel_exporter import ExcelExporter, MAPSExcelFormatter
 from .base import BaseExporter, ExportError
 
 __all__ = [
     'ExcelExporter',
-    'RADPSExcelFormatter',
+    'MAPSExcelFormatter',
     'BaseExporter',
     'ExportError',
 ]

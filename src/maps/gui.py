@@ -43,7 +43,7 @@ try:
     SQLITE_AVAILABLE = True
 except ImportError:
     SQLITE_AVAILABLE = False
-    print("SQLite support not available - radiology_database.py not found")
+    print("SQLite support not available - sqlite_database.py not found")
 
 
 ## GUI code commented out for maintenance
@@ -1581,7 +1581,7 @@ if False:  # disabled GUI block
     def export_to_sqlite(self):
         """Export parsed data to SQLite database with analysis capabilities"""
         if not SQLITE_AVAILABLE:
-            messagebox.showerror("SQLite Unavailable", "SQLite database features are not available.\nPlease check that radiology_database.py is present.")
+            messagebox.showerror("SQLite Unavailable", "SQLite database features are not available.\nPlease check that sqlite_database.py is present.")
             return
             
         if not self.files:

@@ -9,11 +9,11 @@ from pathlib import Path
 import tempfile
 import shutil
 
-from src.maps.exporters.excel_exporter import RADPSExcelFormatter, TemplateExcelFormatter
+from src.maps.exporters.excel_exporter import MAPSExcelFormatter, TemplateExcelFormatter
 from src.maps.exporters.base import ExportError
 
 
-class TestRADPSExcelFormatter:
+class TestMAPSExcelFormatter:
     """Test MAPS format Excel exporter."""
     
     @pytest.fixture
@@ -66,7 +66,7 @@ class TestRADPSExcelFormatter:
     
     def test_export_basic(self, sample_records, temp_dir):
         """Test basic MAPS export."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         output_path = exporter.export(sample_records, temp_dir)
         
         assert output_path.exists()
@@ -75,30 +75,30 @@ class TestRADPSExcelFormatter:
     
     def test_validate_data_valid(self, sample_records):
         """Test data validation with valid data."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         assert exporter.validate_data(sample_records)
     
     def test_validate_data_invalid(self):
         """Test data validation with invalid data."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         assert not exporter.validate_data("not a list")
         assert not exporter.validate_data([123, 456])
     
     def test_get_R_max(self, sample_records):
         """Test radiologist count detection."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         R_max = exporter._get_R_max(sample_records)
         assert R_max == 2  # Max radiologists in sample data
     
     def test_get_R_max_forced(self, sample_records):
         """Test forced radiologist count."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         R_max = exporter._get_R_max(sample_records, force_blocks=4)
         assert R_max == 4
     
     def test_build_columns(self):
         """Test column structure building."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         cols = exporter._build_columns(2)
         
         # Should have: file #, Study UID, spacer, NoduleID, spacer,
@@ -111,13 +111,13 @@ class TestRADPSExcelFormatter:
     
     def test_export_empty_records(self, temp_dir):
         """Test export with empty records list."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         with pytest.raises(ExportError, match="No records to export"):
             exporter.export([], temp_dir)
     
     def test_auto_versioning(self, sample_records, temp_dir):
         """Test auto-versioning when file exists."""
-        exporter = RADPSExcelFormatter()
+        exporter = MAPSExcelFormatter()
         
         # Create first file
         path1 = exporter.export(sample_records, temp_dir)

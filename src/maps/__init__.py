@@ -54,7 +54,7 @@ except (ImportError, AttributeError):
 
 # Import database functionality
 try:
-    from .database import RadiologyDatabase
+    from .sqlite_database import RadiologyDatabase
 except ImportError:
     # Database might not be available in all environments
     RadiologyDatabase = None

@@ -63,7 +63,7 @@ class ExcelExporter(BaseExporter):
         Returns:
             Path to exported file
         """
-        raise NotImplementedError("Use specialized subclass (RADPSExcelFormatter, etc.)")
+        raise NotImplementedError("Use specialized subclass (MAPSExcelFormatter, etc.)")
     
     def validate_data(self, data: Any) -> bool:
         """Validate data format for Excel export."""
@@ -148,7 +148,7 @@ class ExcelExporter(BaseExporter):
                     ws.cell(row=row_idx, column=col_idx).fill = blue_fill
 
 
-class RADPSExcelFormatter(ExcelExporter):
+class MAPSExcelFormatter(ExcelExporter):
     """
     MAPS format Excel exporter with radiologist blocks and spacers.
     
@@ -463,4 +463,4 @@ class TemplateExcelFormatter(ExcelExporter):
         )
 
 
-__all__ = ['ExcelExporter', 'RADPSExcelFormatter', 'TemplateExcelFormatter']
+__all__ = ['ExcelExporter', 'MAPSExcelFormatter', 'TemplateExcelFormatter']
