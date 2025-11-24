@@ -4,9 +4,10 @@ Keywords Router
 Endpoints for keyword management and search.
 """
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Body
+from fastapi import APIRouter, Depends, HTTPException, Query, Body, UploadFile, File
 from sqlalchemy.orm import Session
 from typing import Optional, List
+from pydantic import BaseModel
 import logging
 
 from ..models.responses import KeywordResponse
@@ -15,6 +16,19 @@ from ..services.keyword_service import KeywordService
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+
+class KeywordDefinitionUpdate(BaseModel):
+    """Update keyword definition"""
+    definition: str
+    source_refs: Optional[str] = None
+    vocabulary_source: Optional[str] = None
+
+
+class KeywordAliasCreate(BaseModel):
+    """Create keyword alias/synonym"""
+    alias: str
+    synonym_type: str = "variant"
 
 
 @router.get("/", response_model=List[KeywordResponse])
@@ -86,3 +100,54 @@ async def extract_keywords(
     """Extract keywords from text"""
     service = KeywordService(db)
     return service.extract(text)
+
+
+@router.post("/definitions/import")
+async def import_keyword_definitions(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db)
+):
+    """Bulk import keyword definitions from CSV"""
+    if not file.filename.endswith('.csv'):
+        raise HTTPException(status_code=400, detail="File must be CSV format")
+    service = KeywordService(db)
+    result = await service.import_definitions_csv(file)
+    return result
+
+
+@router.put("/{keyword_id}/definition")
+async def update_keyword_definition(
+    keyword_id: str,
+    update: KeywordDefinitionUpdate,
+    db: Session = Depends(get_db)
+):
+    """Update keyword definition"""
+    service = KeywordService(db)
+    result = service.update_definition(keyword_id, update.dict())
+    if not result:
+        raise HTTPException(status_code=404, detail=f"Keyword {keyword_id} not found")
+    return result
+
+
+@router.get("/{keyword_id}/citations")
+async def get_keyword_citations(keyword_id: str, db: Session = Depends(get_db)):
+    """Get citations for keyword definition"""
+    service = KeywordService(db)
+    result = service.get_citations(keyword_id)
+    if not result:
+        raise HTTPException(status_code=404, detail=f"Keyword {keyword_id} not found")
+    return result
+
+
+@router.post("/{keyword_id}/aliases")
+async def add_keyword_alias(
+    keyword_id: str,
+    alias_data: KeywordAliasCreate,
+    db: Session = Depends(get_db)
+):
+    """Add synonym/alias to keyword"""
+    service = KeywordService(db)
+    result = service.add_alias(keyword_id, alias_data.alias, alias_data.synonym_type)
+    if not result:
+        raise HTTPException(status_code=404, detail=f"Keyword {keyword_id} not found")
+    return result
