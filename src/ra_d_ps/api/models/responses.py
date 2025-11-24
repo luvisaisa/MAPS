@@ -61,6 +61,8 @@ class ParseResponse(BaseModel):
     status: str
     document_id: Optional[str] = None
     parse_case: Optional[str] = None
+    confidence: Optional[float] = Field(None, ge=0.0, le=1.0, description="Detection confidence score")
+    queue_item_id: Optional[str] = Field(None, description="Approval queue item ID if pending review")
     keywords_extracted: Optional[int] = None
     processing_time_ms: Optional[float] = None
     errors: Optional[List[str]] = None
