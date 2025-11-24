@@ -290,6 +290,16 @@ class Document(Base):
     source_system = Column(String(255))
     batch_id = Column(UUIDCompat)
 
+    # Parse case detection (NEW - from migration 016)
+    parse_case = Column(String(255), index=True)
+    detection_confidence = Column(Numeric(5, 4))
+    keywords_count = Column(Integer, default=0)
+    parsed_at = Column(DateTime(timezone=True))
+    parsed_content_preview = Column(Text)
+    document_title = Column(String(500))
+    document_date = Column(Date)
+    content_hash = Column(String(64))
+
     # Audit fields
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
@@ -313,6 +323,12 @@ class Document(Base):
         Index('idx_documents_ingestion_timestamp', 'ingestion_timestamp', postgresql_ops={'ingestion_timestamp': 'DESC'}),
         Index('idx_documents_batch_id', 'batch_id'),
         Index('idx_documents_file_hash', 'file_hash'),
+        Index('idx_documents_parse_case', 'parse_case'),
+        Index('idx_documents_detection_confidence', 'detection_confidence'),
+        Index('idx_documents_keywords_count', 'keywords_count'),
+        Index('idx_documents_parsed_at', 'parsed_at', postgresql_ops={'parsed_at': 'DESC'}),
+        Index('idx_documents_document_date', 'document_date', postgresql_ops={'document_date': 'DESC'}),
+        Index('idx_documents_content_hash', 'content_hash'),
     )
 
     def __repr__(self):
@@ -337,6 +353,14 @@ class Document(Base):
             'original_format_version': self.original_format_version,
             'source_system': self.source_system,
             'batch_id': str(self.batch_id) if self.batch_id else None,
+            'parse_case': self.parse_case,
+            'detection_confidence': float(self.detection_confidence) if self.detection_confidence else None,
+            'keywords_count': self.keywords_count,
+            'parsed_at': self.parsed_at.isoformat() if self.parsed_at else None,
+            'parsed_content_preview': self.parsed_content_preview,
+            'document_title': self.document_title,
+            'document_date': self.document_date.isoformat() if self.document_date else None,
+            'content_hash': self.content_hash,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
         }

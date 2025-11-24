@@ -113,7 +113,7 @@ class XMLStructureDetector(BaseStructureDetector):
 
     def detect_structure(self, file_path: str) -> Dict:
         """
-        Detect XML structure and parse case (BaseStructureDetector interface).
+        Detect XML structure and parse case with detailed field analysis.
 
         Args:
             file_path: Path to XML file
@@ -124,24 +124,162 @@ class XMLStructureDetector(BaseStructureDetector):
                 "parse_case": "case_name",
                 "confidence": 0.95,
                 "format_version": "XML",
-                "detected_fields": [...]
+                "detected_fields": [...],
+                "expected_attributes": [...],
+                "detected_attributes": [...],
+                "missing_attributes": [...],
+                "field_analysis": [...],
+                "confidence_breakdown": {...}
             }
         """
+        from ..detectors.parse_case_schemas import get_expected_attributes, validate_parse_case
+        import xml.etree.ElementTree as ET
+
         # Use existing detect_structure_type method
         parse_case = self.detect_structure_type(file_path, record_detection=True)
 
-        # Get confidence based on match strength
-        # (existing method returns case name, assume high confidence if matched)
-        confidence = 0.95 if parse_case and parse_case != "unknown" else 0.5
+        # Base confidence based on detection
+        base_confidence = 0.95 if parse_case and parse_case != "unknown" else 0.5
+
+        # Get expected attributes for this parse case
+        expected_attributes = []
+        detected_attributes = []
+        missing_attributes = []
+        field_analysis = []
+
+        if validate_parse_case(parse_case):
+            try:
+                expected_attributes = get_expected_attributes(parse_case)
+
+                # Parse XML to check for attributes
+                tree = ET.parse(file_path)
+                root = tree.getroot()
+
+                # Analyze each expected attribute
+                for attr in expected_attributes:
+                    xpath = attr["xpath"]
+                    name = attr["name"]
+                    required = attr["required"]
+
+                    # Try to find the element
+                    found = False
+                    value_sample = None
+
+                    try:
+                        # Simple XPath evaluation (limited support)
+                        if xpath.startswith("count("):
+                            # Handle count() function
+                            path = xpath.replace("count(", "").replace(")", "")
+                            elements = root.findall(path.replace("//", "./"))
+                            found = len(elements) > 0
+                            value_sample = len(elements) if found else 0
+                        else:
+                            # Regular path
+                            elements = root.findall(xpath.replace("//", "./").replace("/ResponseHeader", "."))
+                            if elements:
+                                found = True
+                                value_sample = elements[0].text if elements[0].text else "[element]"
+
+                        # Build field analysis entry
+                        field_entry = {
+                            "field": name,
+                            "expected": required,
+                            "found": found,
+                            "confidence": 1.0 if found else 0.0,
+                            "xpath": xpath,
+                            "value_sample": str(value_sample)[:100] if value_sample else None,
+                            "data_type": attr.get("data_type", "string"),
+                            "description": attr.get("description", "")
+                        }
+                        field_analysis.append(field_entry)
+
+                        # Add to detected or missing lists
+                        if found:
+                            detected_attributes.append({
+                                "name": name,
+                                "xpath": xpath,
+                                "value": str(value_sample)[:100] if value_sample else None,
+                                "found": True
+                            })
+                        else:
+                            missing_attributes.append({
+                                "name": name,
+                                "xpath": xpath,
+                                "required": required,
+                                "found": False
+                            })
+
+                    except Exception as e:
+                        logger.debug(f"Error analyzing attribute {name}: {e}")
+                        field_analysis.append({
+                            "field": name,
+                            "expected": required,
+                            "found": False,
+                            "confidence": 0.0,
+                            "xpath": xpath,
+                            "error": str(e)
+                        })
+                        missing_attributes.append({
+                            "name": name,
+                            "xpath": xpath,
+                            "required": required,
+                            "found": False
+                        })
+
+                # Calculate match-based confidence
+                total_expected = len(expected_attributes)
+                total_detected = len(detected_attributes)
+                match_percentage = (total_detected / total_expected * 100) if total_expected > 0 else 0
+
+                # Adjust confidence based on match percentage
+                # High confidence if >= 80% of attributes found
+                if match_percentage >= 80:
+                    confidence = 0.9
+                elif match_percentage >= 60:
+                    confidence = 0.75
+                elif match_percentage >= 40:
+                    confidence = 0.6
+                else:
+                    confidence = 0.4
+
+                confidence_breakdown = {
+                    "base_confidence": base_confidence,
+                    "match_percentage": match_percentage,
+                    "total_expected": total_expected,
+                    "total_detected": total_detected,
+                    "total_missing": total_expected - total_detected,
+                    "final_confidence": confidence
+                }
+
+            except Exception as e:
+                logger.error(f"Error performing detailed analysis: {e}")
+                confidence = base_confidence
+                confidence_breakdown = {
+                    "base_confidence": base_confidence,
+                    "error": str(e)
+                }
+
+        else:
+            confidence = base_confidence
+            confidence_breakdown = {
+                "base_confidence": base_confidence,
+                "note": "Parse case not in schema registry"
+            }
 
         return {
             "parse_case": parse_case,
             "confidence": confidence,
             "format_version": "XML",
-            "detected_fields": [],  # Could be enhanced to list actual fields found
+            "detected_fields": [attr["name"] for attr in detected_attributes],
+            "expected_attributes": expected_attributes,
+            "detected_attributes": detected_attributes,
+            "missing_attributes": missing_attributes,
+            "field_analysis": field_analysis,
+            "confidence_breakdown": confidence_breakdown,
             "metadata": {
                 "detector": "XMLStructureDetector",
-                "file_type": "XML"
+                "file_type": "XML",
+                "method": "attribute_matching"
             }
         }
 
