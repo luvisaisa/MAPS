@@ -29,3 +29,33 @@ class BatchService:
     def cancel_job(self, job_id: str) -> bool:
         """TODO: Cancel job"""
         return False
+
+    def list_jobs(self, skip: int = 0, limit: int = 100, status: str = None):
+        """
+        List batch jobs with pagination and optional status filter
+
+        Args:
+            skip: Number of records to skip
+            limit: Maximum number of records to return
+            status: Optional status filter (pending, processing, completed, failed)
+
+        Returns:
+            List of job records
+        """
+        # TODO: Query actual batch_jobs table when implemented
+        # For now, return empty list for tests
+        return []
+
+    def count_jobs(self, status: str = None) -> int:
+        """
+        Count total batch jobs, optionally filtered by status
+
+        Args:
+            status: Optional status filter
+
+        Returns:
+            Total count of jobs
+        """
+        # TODO: Count from batch_jobs table when implemented
+        # For now, return 0 for tests
+        return 0

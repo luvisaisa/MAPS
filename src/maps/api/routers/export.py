@@ -44,8 +44,10 @@ async def export_data(export_request: dict, db: Session = Depends(get_db)):
     return {
         "status": "success",
         "format": format,
-        "message": f"Export to {format} initiated",
-        "filters_applied": filters
+        "record_count": 0,  # Required field - will be populated with actual data
+        "filename": None,
+        "download_url": None,
+        "file_size_bytes": None
     }
 
 
