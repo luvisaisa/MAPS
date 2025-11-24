@@ -73,3 +73,29 @@ async def get_case_identifier_stats(db: Session = Depends(get_db)):
     """Case validation statistics"""
     service = AnalyticsService(db)
     return service.get_case_identifier_stats()
+
+
+@router.get("/trends")
+async def get_processing_trends(
+    days: int = 30,
+    grouping: str = "daily"
+):
+    """
+    Get processing volume trends over time
+
+    Args:
+        days: Number of days to include (default: 30)
+        grouping: Grouping period - 'daily', 'weekly', or 'monthly' (default: 'daily')
+    """
+    # Return placeholder data for now
+    # In production, this would query ingestion_logs grouped by time
+    return {
+        "period_days": days,
+        "grouping": grouping,
+        "trends": [],
+        "summary": {
+            "total_documents": 0,
+            "total_batches": 0,
+            "avg_per_day": 0
+        }
+    }

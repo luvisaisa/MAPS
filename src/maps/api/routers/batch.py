@@ -32,6 +32,27 @@ async def create_batch_job(
     return await service.create_job(file_paths, profile=profile)
 
 
+@router.get("/jobs")
+async def list_jobs(
+    skip: int = 0,
+    limit: int = 100,
+    status: str = None,
+    db: Session = Depends(get_db)
+):
+    """List batch processing jobs with pagination"""
+    service = BatchService(db)
+    jobs = service.list_jobs(skip=skip, limit=limit, status=status)
+    total = service.count_jobs(status=status)
+    
+    return {
+        "items": jobs,
+        "total": total,
+        "page": skip // limit + 1,
+        "page_size": limit,
+        "total_pages": (total + limit - 1) // limit
+    }
+
+
 @router.get("/{job_id}", response_model=BatchJobResponse)
 async def get_batch_status(job_id: str, db: Session = Depends(get_db)):
     """Check batch job status"""
@@ -57,27 +78,6 @@ async def cancel_batch_job(job_id: str, db: Session = Depends(get_db)):
     if not success:
         raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
     return {"status": "cancelled", "job_id": job_id}
-
-
-@router.get("/jobs")
-async def list_jobs(
-    skip: int = 0,
-    limit: int = 100,
-    status: str = None,
-    db: Session = Depends(get_db)
-):
-    """List batch processing jobs with pagination"""
-    service = BatchService(db)
-    jobs = service.list_jobs(skip=skip, limit=limit, status=status)
-    total = service.count_jobs(status=status)
-    
-    return {
-        "items": jobs,
-        "total": total,
-        "page": skip // limit + 1,
-        "page_size": limit,
-        "total_pages": (total + limit - 1) // limit
-    }
 
 
 @router.websocket("/jobs/{job_id}/ws")

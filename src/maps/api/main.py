@@ -58,6 +58,31 @@ app.add_middleware(
 if settings.ENABLE_RESPONSE_COMPRESSION:
     app.add_middleware(GZipMiddleware, minimum_size=1000)  # Compress responses > 1KB
 
+
+# Add file size limit middleware for uploads
+@app.middleware("http")
+async def limit_upload_size(request: Request, call_next):
+    """Limit upload file size to prevent memory issues"""
+    max_upload_size = 10 * 1024 * 1024  # 10MB
+
+    if request.method in ["POST", "PUT"]:
+        content_type = request.headers.get("content-type", "")
+        if "multipart/form-data" in content_type or "application/octet-stream" in content_type:
+            content_length = request.headers.get("content-length")
+            if content_length and int(content_length) > max_upload_size:
+                return JSONResponse(
+                    status_code=413,
+                    content={
+                        "error": "File too large",
+                        "detail": f"Maximum upload size is {max_upload_size // (1024*1024)}MB",
+                        "max_size_bytes": max_upload_size
+                    }
+                )
+
+    response = await call_next(request)
+    return response
+
+
 # Include routers
 app.include_router(profiles.router, prefix="/api/v1/profiles", tags=["Profiles"])
 app.include_router(approval_queue.router, prefix="/api/v1/approval-queue", tags=["Approval Queue"])

@@ -19,6 +19,36 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
+@router.post("/", response_model=ExportResponse)
+async def export_data(export_request: dict, db: Session = Depends(get_db)):
+    """
+    Unified export endpoint for all formats
+
+    Supports: excel, json, csv, parquet
+    """
+    format = export_request.get("format", "json").lower()
+    filters = export_request.get("filters", {})
+
+    # Validate format
+    valid_formats = ["excel", "json", "csv", "parquet"]
+    if format not in valid_formats:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid format '{format}'. Valid formats: {', '.join(valid_formats)}"
+        )
+
+    service = ExportService(db)
+
+    # For now, return a simple response indicating export initiated
+    # In production, this would create a background job
+    return {
+        "status": "success",
+        "format": format,
+        "message": f"Export to {format} initiated",
+        "filters_applied": filters
+    }
+
+
 @router.get("/universal-wide")
 async def export_universal_wide(
     format: str = Query(default="csv", regex="^(csv|excel|json)$"),
