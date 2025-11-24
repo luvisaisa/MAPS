@@ -112,8 +112,6 @@ export default function PYLIDC() {
   });
 
   // Prefetch next page for instant navigation
-  const queryClient = useQueryClient();
-  
   useEffect(() => {
     if (page < (scansData?.total_pages || 1)) {
       queryClient.prefetchQuery({
