@@ -1,5 +1,5 @@
 """
-Main entry point for the RA-D-PS XML parsing application.
+Main entry point for the MAPS XML parsing application.
 
 This module provides a GUI interface for parsing and processing radiology XML files.
 """
@@ -14,7 +14,7 @@ from openpyxl.styles import PatternFill
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 try:
-    from ra_d_ps.gui import NYTXMLGuiApp
+    from maps.gui import NYTXMLGuiApp
 except ImportError:
     # Fallback to old import for backward compatibility
     try:

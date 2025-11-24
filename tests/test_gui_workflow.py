@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple GUI test to demonstrate working XML parsing and RA-D-PS export
+Simple GUI test to demonstrate working XML parsing and MAPS export
 Uses real XML files from /Users/isa/Desktop/XML files parse
 """
 
@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from ra_d_ps.parser import parse_multiple, convert_parsed_data_to_ra_d_ps_format, export_excel
+from maps.parser import parse_multiple, convert_parsed_data_to_maps_format, export_excel
 
 # Path to real XML test files
 REAL_XML_DIR = "/Users/isa/Desktop/XML files parse"
@@ -114,25 +114,25 @@ def test_gui_workflow():
             print("⚠️  No data extracted from any files")
             return
         
-        # Step 2: Convert to RA-D-PS format
-        print("\n2️⃣ Converting to RA-D-PS format...")
+        # Step 2: Convert to MAPS format
+        print("\n2️⃣ Converting to MAPS format...")
         
         # Combine all data
         all_records = []
         for parse_case, df in case_data.items():
             if not df.empty:
-                records = convert_parsed_data_to_ra_d_ps_format(df)
+                records = convert_parsed_data_to_maps_format(df)
                 all_records.extend(records)
         
         for parse_case, df in case_unblinded_data.items():
             if not df.empty:
-                records = convert_parsed_data_to_ra_d_ps_format(df)
+                records = convert_parsed_data_to_maps_format(df)
                 all_records.extend(records)
         
-        print(f"✅ Converted {len(all_records)} records to RA-D-PS format")
+        print(f"✅ Converted {len(all_records)} records to MAPS format")
         
         # Step 3: Export to Excel
-        print("\n3️⃣ Exporting to RA-D-PS Excel...")
+        print("\n3️⃣ Exporting to MAPS Excel...")
         output_dir = "/Users/isa/Desktop/python projects/XML PARSE/test_gui_workflow"
         os.makedirs(output_dir, exist_ok=True)
         
@@ -150,7 +150,7 @@ def test_gui_workflow():
         root = tk.Tk()
         root.withdraw()  # Hide main window
         messagebox.showinfo("Success!", 
-                           f"XML parsing and RA-D-PS export successful!\n\n"
+                           f"XML parsing and MAPS export successful!\n\n"
                            f"Folders processed: {folder_count}\n"
                            f"Total files parsed: {len(xml_files)}\n"
                            f"Avg per folder: {avg_files_per_folder:.1f}\n"
@@ -199,23 +199,23 @@ def test_gui_workflow_with_mock_data():
             print(f"✅ Parsed {len(case_unblinded_data)} unblinded data entries")
             print(f"   Total rows: {total_parsed + total_unblinded}")
             
-            # Step 2: Convert to RA-D-PS format
-            print("\n2️⃣ Converting to RA-D-PS format...")
+            # Step 2: Convert to MAPS format
+            print("\n2️⃣ Converting to MAPS format...")
             all_records = []
             for parse_case, df in case_data.items():
                 if not df.empty:
-                    records = convert_parsed_data_to_ra_d_ps_format(df)
+                    records = convert_parsed_data_to_maps_format(df)
                     all_records.extend(records)
             
             for parse_case, df in case_unblinded_data.items():
                 if not df.empty:
-                    records = convert_parsed_data_to_ra_d_ps_format(df)
+                    records = convert_parsed_data_to_maps_format(df)
                     all_records.extend(records)
             
-            print(f"✅ Converted {len(all_records)} records to RA-D-PS format")
+            print(f"✅ Converted {len(all_records)} records to MAPS format")
             
             # Step 3: Export to Excel
-            print("\n3️⃣ Exporting to RA-D-PS Excel...")
+            print("\n3️⃣ Exporting to MAPS Excel...")
             output_file = export_excel(all_records, temp_dir, sheet="test_workflow")
             print(f"✅ Excel export successful!")
             print(f"   Output file: {output_file}")

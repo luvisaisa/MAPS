@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple GUI test for the RA-D-PS parser
+Simple GUI test for the MAPS parser
 Tests that the GUI can start and display correctly
 """
 
@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 pytestmark = pytest.mark.skip(reason="GUI is currently disabled for maintenance")
 
 try:
-    from ra_d_ps.gui import NYTXMLGuiApp
+    from maps.gui import NYTXMLGuiApp
 except (ImportError, AttributeError):
     NYTXMLGuiApp = None
 

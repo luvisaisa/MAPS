@@ -22,7 +22,7 @@ def test_quick():
     
     # Test 1: Single file
     print("\n1️⃣  Testing single file...")
-    from src.ra_d_ps.parser import parse_radiology_sample
+    from src.maps.parser import parse_radiology_sample
     
     xml_path = "/Users/isa/Desktop/XML-COMP/157/158.xml"
     start = time.time()
@@ -37,7 +37,7 @@ def test_quick():
     
     # Test 2: Batch folder
     print("\n2️⃣  Testing folder batch (157 - 11 files)...")
-    from src.ra_d_ps.parser import parse_multiple
+    from src.maps.parser import parse_multiple
     
     folder = "/Users/isa/Desktop/XML-COMP/157"
     xml_files = sorted([os.path.join(folder, f) for f in os.listdir(folder) if f.endswith('.xml')])

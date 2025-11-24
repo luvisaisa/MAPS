@@ -9,16 +9,16 @@ from pathlib import Path
 import tempfile
 import shutil
 
-from src.ra_d_ps.exporters.excel_exporter import RADPSExcelFormatter, TemplateExcelFormatter
-from src.ra_d_ps.exporters.base import ExportError
+from src.maps.exporters.excel_exporter import RADPSExcelFormatter, TemplateExcelFormatter
+from src.maps.exporters.base import ExportError
 
 
 class TestRADPSExcelFormatter:
-    """Test RA-D-PS format Excel exporter."""
+    """Test MAPS format Excel exporter."""
     
     @pytest.fixture
     def sample_records(self):
-        """Sample RA-D-PS format records."""
+        """Sample MAPS format records."""
         return [
             {
                 "file_number": "001",
@@ -65,13 +65,13 @@ class TestRADPSExcelFormatter:
         shutil.rmtree(temp_path)
     
     def test_export_basic(self, sample_records, temp_dir):
-        """Test basic RA-D-PS export."""
+        """Test basic MAPS export."""
         exporter = RADPSExcelFormatter()
         output_path = exporter.export(sample_records, temp_dir)
         
         assert output_path.exists()
         assert output_path.suffix == '.xlsx'
-        assert 'RA-D-PS' in output_path.name
+        assert 'MAPS' in output_path.name
     
     def test_validate_data_valid(self, sample_records):
         """Test data validation with valid data."""

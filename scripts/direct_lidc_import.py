@@ -8,7 +8,7 @@ sys.path.insert(0, 'src')
 
 import hashlib
 import json
-from ra_d_ps.supabase import supabase
+from maps.supabase import supabase
 
 try:
     import pylidc as pl

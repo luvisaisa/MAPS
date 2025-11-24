@@ -7,7 +7,7 @@ Launches the FastAPI server with WebSocket support for real-time updates.
 """
 
 import uvicorn
-from src.ra_d_ps.api.config import settings
+from src.maps.api.config import settings
 
 if __name__ == "__main__":
     print(f"Starting {settings.API_TITLE} v{settings.API_VERSION}")
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     print(f"ReDoc: http://{settings.HOST}:{settings.PORT}/redoc")
 
     uvicorn.run(
-        "src.ra_d_ps.api.main:app",
+        "src.maps.api.main:app",
         host=settings.HOST,
         port=settings.PORT,
         reload=settings.RELOAD,

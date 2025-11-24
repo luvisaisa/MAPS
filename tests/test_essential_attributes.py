@@ -13,7 +13,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps.parser import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format
+from maps.parser import parse_radiology_sample, convert_parsed_data_to_maps_format
 
 def test_essential_attributes():
     """Test that all essential attributes are being extracted"""
@@ -54,11 +54,11 @@ def test_essential_attributes():
             print(f"     StudyInstanceUID: {str(row.get('StudyInstanceUID', 'N/A'))[:30]}...")
             print()
     
-    # Step 3: Test RA-D-PS conversion
-    print("3️⃣ Testing RA-D-PS conversion...")
-    records = convert_parsed_data_to_ra_d_ps_format((main_df, unblinded_df))
+    # Step 3: Test MAPS conversion
+    print("3️⃣ Testing MAPS conversion...")
+    records = convert_parsed_data_to_maps_format((main_df, unblinded_df))
     
-    print(f"📊 Generated {len(records)} RA-D-PS records")
+    print(f"📊 Generated {len(records)} MAPS records")
     
     for i, record in enumerate(records):
         print(f"\n📋 Record {i+1}:")

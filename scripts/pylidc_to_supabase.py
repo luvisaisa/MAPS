@@ -43,9 +43,9 @@ except ImportError:
     print("⚠️  pylidc not installed. Install with: pip install pylidc")
     sys.exit(1)
 
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
-from ra_d_ps.database.document_repository import DocumentRepository
-from ra_d_ps.database.db_config import db_config
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.document_repository import DocumentRepository
+from maps.database.db_config import db_config
 
 # Configure logging
 logging.basicConfig(

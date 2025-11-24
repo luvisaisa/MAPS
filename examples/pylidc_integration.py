@@ -1,8 +1,8 @@
 """
-PyLIDC Integration Examples for RA-D-PS
+PyLIDC Integration Examples for MAPS
 
 This script demonstrates various ways to integrate pylidc with the
-schema-agnostic RA-D-PS system.
+schema-agnostic MAPS system.
 
 Prerequisites:
     1. Install pylidc: pip install pylidc
@@ -27,9 +27,9 @@ except ImportError:
     PYLIDC_AVAILABLE = False
     sys.exit(1)
 
-from src.ra_d_ps.adapters import PyLIDCAdapter
-from src.ra_d_ps.adapters.pylidc_adapter import query_and_convert, scan_to_canonical
-from src.ra_d_ps.schemas.canonical import canonical_to_dict
+from src.maps.adapters import PyLIDCAdapter
+from src.maps.adapters.pylidc_adapter import query_and_convert, scan_to_canonical
+from src.maps.schemas.canonical import canonical_to_dict
 import json
 
 
@@ -239,7 +239,7 @@ def example_6_clustered_nodules():
 
 
 def example_7_integration_with_existing_system():
-    """Example 7: Integrate with existing RA-D-PS parser."""
+    """Example 7: Integrate with existing MAPS parser."""
     print("\n" + "="*70)
     print("EXAMPLE 7: Integration with Existing System")
     print("="*70)
@@ -276,7 +276,7 @@ def example_7_integration_with_existing_system():
 def main():
     """Run all examples."""
     print("\n" + "="*70)
-    print("PyLIDC Integration Examples for RA-D-PS")
+    print("PyLIDC Integration Examples for MAPS")
     print("="*70)
     
     if not PYLIDC_AVAILABLE:

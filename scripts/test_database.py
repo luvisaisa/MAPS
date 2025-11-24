@@ -14,7 +14,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 print("=" * 70)
-print("RA-D-PS Database Infrastructure Test")
+print("MAPS Database Infrastructure Test")
 print("=" * 70)
 
 # Test 1: Check if PostgreSQL dependencies are installed
@@ -64,7 +64,7 @@ else:
 # Test 3: Import database modules
 print("\n🔧 Test 3: Testing database module imports...")
 try:
-    from src.ra_d_ps.database.models import Base, ParseCase, ParseCaseProfile
+    from src.maps.database.models import Base, ParseCase, ParseCaseProfile
     print("   ✅ Database models imported successfully")
     print(f"      - ParseCase model")
     print(f"      - ParseCaseProfile model")
@@ -76,7 +76,7 @@ except ImportError as e:
     sys.exit(1)
 
 try:
-    from src.ra_d_ps.database.db_config import db_config, PostgreSQLConfig
+    from src.maps.database.db_config import db_config, PostgreSQLConfig
     print("   ✅ Database configuration imported")
     print(f"      Host: {db_config.postgresql.host}")
     print(f"      Port: {db_config.postgresql.port}")
@@ -88,7 +88,7 @@ except ImportError as e:
     sys.exit(1)
 
 try:
-    from src.ra_d_ps.database.parse_case_repository import ParseCaseRepository
+    from src.maps.database.parse_case_repository import ParseCaseRepository
     print("   ✅ ParseCaseRepository imported")
 except ImportError as e:
     print(f"   ❌ Failed to import repository")

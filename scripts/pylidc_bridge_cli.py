@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps.pylidc_supabase_bridge import PyLIDCSupabaseBridge
+from maps.pylidc_supabase_bridge import PyLIDCSupabaseBridge
 
 
 def main():

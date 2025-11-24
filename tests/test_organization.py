@@ -42,10 +42,10 @@ class TestFunctionality(unittest.TestCase):
         # Test that functions can be imported without raising ImportError
         try:
             # pylint: disable=import-outside-toplevel,unused-import
-            from ra_d_ps import (
+            from maps import (
                 parse_multiple,
                 export_excel,
-                convert_parsed_data_to_ra_d_ps_format,
+                convert_parsed_data_to_maps_format,
                 NYTXMLGuiApp
             )
             # If we reach here, imports succeeded

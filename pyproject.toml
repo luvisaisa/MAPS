@@ -48,7 +48,7 @@ Repository = "https://github.com/luvisaisa/MAPS"
 Documentation = "https://github.com/luvisaisa/MAPS/tree/main/docs"
 
 [project.scripts]
-maps = "ra_d_ps.parser:main"
+maps = "maps.parser:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

@@ -5,7 +5,7 @@ This module handles all Excel formatting and export operations, extracting
 629+ lines of formatting logic from gui.py into a reusable, testable module.
 
 Supports:
-- RA-D-PS format with radiologist blocks
+- MAPS format with radiologist blocks
 - Template format with color coding
 - Multi-sheet exports
 - Auto-versioning and naming

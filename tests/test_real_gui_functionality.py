@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Real functional test for RA-D-PS GUI
+Real functional test for MAPS GUI
 Tests actual button functionality and user workflows
 """
 
@@ -19,7 +19,7 @@ pytestmark = pytest.mark.skip(reason="GUI is currently disabled for maintenance"
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 try:
-    from ra_d_ps.gui import NYTXMLGuiApp
+    from maps.gui import NYTXMLGuiApp
 except (ImportError, AttributeError):
     NYTXMLGuiApp = None
 
@@ -151,7 +151,7 @@ def test_real_gui_functionality():
             print("\n🖼️ Testing window properties...")
             title = root.title()
             print(f"📝 Window title: '{title}'")
-            assert "RA-D-PS" in title, f"Title should contain 'RA-D-PS', got '{title}'"
+            assert "MAPS" in title, f"Title should contain 'MAPS', got '{title}'"
             
             min_size = root.minsize()
             print(f"📏 Minimum size: {min_size}")
@@ -177,7 +177,7 @@ def test_gui_import_and_structure():
     
     try:
         # Test import
-        from ra_d_ps.gui import NYTXMLGuiApp
+        from maps.gui import NYTXMLGuiApp
         print("✅ GUI import successful")
         
         # Test class attributes

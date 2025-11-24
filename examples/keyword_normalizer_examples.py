@@ -2,7 +2,7 @@
 """
 KeywordNormalizer Usage Examples
 
-Quick reference for medical keyword normalization in RA-D-PS.
+Quick reference for medical keyword normalization in MAPS.
 """
 
 import sys
@@ -11,8 +11,8 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 
 def example_1_basic_normalization():

@@ -7,7 +7,7 @@ Extends DocumentRepository to integrate:
 - Schema-agnostic case identification
 
 Usage:
-    from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
+    from maps.database.enhanced_document_repository import EnhancedDocumentRepository
 
     repo = EnhancedDocumentRepository()
 

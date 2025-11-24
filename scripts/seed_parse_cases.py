@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Parse Case Seeding Script for RA-D-PS
+Parse Case Seeding Script for MAPS
 Populates PostgreSQL database with all known parse case definitions
 """
 
@@ -14,7 +14,7 @@ import json
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.ra_d_ps.database import ParseCaseRepository
+from src.maps.database import ParseCaseRepository
 
 logging.basicConfig(
     level=logging.INFO,
@@ -452,7 +452,7 @@ def verify_seeding(repo: ParseCaseRepository):
     
     # Fetch fresh data from database
     with repo.get_session() as session:
-        from src.ra_d_ps.database.models import ParseCase
+        from src.maps.database.models import ParseCase
         from sqlalchemy import select
         
         # Query all parse cases
@@ -518,7 +518,7 @@ def main():
     args = parser.parse_args()
     
     print("\n" + "=" * 70)
-    print("RA-D-PS Parse Case Seeding Script")
+    print("MAPS Parse Case Seeding Script")
     print("=" * 70)
     print(f"\nMode: {'Verify Only' if args.verify_only else 'Seed'}")
     print(f"Overwrite: {'Yes' if args.overwrite else 'No'}")

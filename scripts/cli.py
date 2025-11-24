@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Command-line interface for RA-D-PS
+Command-line interface for MAPS
 """
 import argparse
 import sys
@@ -14,17 +14,17 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 def main():
     """Main CLI entry point"""
     # pylint: disable=import-outside-toplevel
-    from ra_d_ps import (
+    from maps import (
         parse_multiple,
         export_excel,
-        convert_parsed_data_to_ra_d_ps_format,
+        convert_parsed_data_to_maps_format,
         NYTXMLGuiApp
     )
 
     parser = argparse.ArgumentParser(
-        description="RA-D-PS: Radiology XML Data Processing System"
+        description="MAPS: Radiology XML Data Processing System"
     )
-    parser.add_argument("--version", action="version", version="RA-D-PS 1.0.0")
+    parser.add_argument("--version", action="version", version="MAPS 1.0.0")
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
@@ -39,8 +39,8 @@ def main():
     )
     parse_parser.add_argument(
         "--format",
-        choices=["ra-d-ps", "standard"],
-        default="ra-d-ps",
+        choices=["maps", "standard"],
+        default="maps",
         help="Output format"
     )
 
@@ -58,8 +58,8 @@ def main():
             print(f"Parsing XML files from {args.input_dir}...")
             data = parse_multiple(args.input_dir)
 
-            if args.format == "ra-d-ps":
-                formatted_data = convert_parsed_data_to_ra_d_ps_format(data)
+            if args.format == "maps":
+                formatted_data = convert_parsed_data_to_maps_format(data)
             else:
                 formatted_data = data
 

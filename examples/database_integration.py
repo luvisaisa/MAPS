@@ -10,8 +10,8 @@ from pathlib import Path
 # Add the src directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps import parse_multiple
-from ra_d_ps.radiology_database import RadiologyDatabase
+from maps import parse_multiple
+from maps.radiology_database import RadiologyDatabase
 
 
 def database_example():

@@ -6,12 +6,12 @@ without the GUI.
 """
 
 from pathlib import Path
-from src.ra_d_ps.exporters import RADPSExcelFormatter, TemplateExcelFormatter
+from src.maps.exporters import RADPSExcelFormatter, TemplateExcelFormatter
 
 
 def example_radps_export():
-    """Example: Export data in RA-D-PS format"""
-    print("📊 RA-D-PS Excel Export Example")
+    """Example: Export data in MAPS format"""
+    print("📊 MAPS Excel Export Example")
     print("=" * 50)
     
     # Sample data (would come from parser in real usage)
@@ -67,7 +67,7 @@ def example_radps_export():
         }
     ]
     
-    # Export to RA-D-PS format
+    # Export to MAPS format
     output_folder = Path.home() / "Desktop"
     exporter = RADPSExcelFormatter()
     
@@ -218,7 +218,7 @@ def example_forced_radiologist_blocks():
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("RA-D-PS Excel Exporter Examples")
+    print("MAPS Excel Exporter Examples")
     print("="*50)
     
     try:

@@ -12,13 +12,13 @@ def _lazy_import_parser():
         parse_radiology_sample,
         parse_multiple,
         export_excel,
-        convert_parsed_data_to_ra_d_ps_format,
+        convert_parsed_data_to_maps_format,
         open_file_cross_platform,
         detect_parse_case,
         get_expected_attributes_for_case
     )
     return (parse_radiology_sample, parse_multiple, export_excel,
-            convert_parsed_data_to_ra_d_ps_format, open_file_cross_platform,
+            convert_parsed_data_to_maps_format, open_file_cross_platform,
             detect_parse_case, get_expected_attributes_for_case)
 
 # Try to import parser functions, but don't fail if tkinter unavailable
@@ -27,7 +27,7 @@ try:
         parse_radiology_sample,
         parse_multiple,
         export_excel,
-        convert_parsed_data_to_ra_d_ps_format,
+        convert_parsed_data_to_maps_format,
         open_file_cross_platform,
         detect_parse_case,
         get_expected_attributes_for_case
@@ -38,7 +38,7 @@ except ImportError as e:
         parse_radiology_sample = None
         parse_multiple = None
         export_excel = None
-        convert_parsed_data_to_ra_d_ps_format = None
+        convert_parsed_data_to_maps_format = None
         open_file_cross_platform = None
         detect_parse_case = None
         get_expected_attributes_for_case = None
@@ -79,7 +79,7 @@ __all__ = [
     'parse_radiology_sample',
     'parse_multiple', 
     'export_excel',
-    'convert_parsed_data_to_ra_d_ps_format',
+    'convert_parsed_data_to_maps_format',
     'NYTXMLGuiApp',
     'RadiologyDatabase',
     'open_file_cross_platform',

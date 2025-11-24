@@ -10,12 +10,12 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.database.keyword_repository import KeywordRepository
 from sqlalchemy import text
 
 def main():
     print("=" * 80)
-    print("RA-D-PS DATABASE INSPECTION")
+    print("MAPS DATABASE INSPECTION")
     print("=" * 80)
     print()
     

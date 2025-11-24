@@ -35,6 +35,13 @@ import type {
   QueueItem,
   QueueStats,
   ApprovalRequest,
+  DetectionDetails,
+  ParseCaseSchema,
+  DocumentSummary,
+  DocumentDetail,
+  DocumentsStats,
+  DocumentSearchResult,
+  BatchReviewResult,
 } from '../types/api';
 import * as mockData from './mockData';
 
@@ -536,6 +543,89 @@ class APIClient {
 
   async reprocessQueueItem(itemId: string): Promise<APIResponse> {
     const response = await this.client.post<APIResponse>(`/api/v1/approval-queue/${itemId}/reprocess`);
+    return response.data;
+  }
+
+  // Detection Details Management
+  async getDetectionByQueueItem(queueItemId: string) {
+    const response = await this.client.get(`/api/v1/detection-details/queue-item/${queueItemId}`);
+    return response.data;
+  }
+
+  async getDetectionByDocument(documentId: string) {
+    const response = await this.client.get(`/api/v1/detection-details/document/${documentId}`);
+    return response.data;
+  }
+
+  async listParseCases(): Promise<string[]> {
+    const response = await this.client.get<string[]>('/api/v1/detection-details/parse-cases');
+    return response.data;
+  }
+
+  async getParseCaseSchema(parseCase: string) {
+    const response = await this.client.get(`/api/v1/detection-details/parse-cases/${parseCase}/schema`);
+    return response.data;
+  }
+
+  async getDetectionStats() {
+    const response = await this.client.get('/api/v1/detection-details/stats');
+    return response.data;
+  }
+
+  // Documents Management
+  async getDocuments(params?: {
+    status?: 'pending' | 'processing' | 'completed' | 'failed';
+    parse_case?: string;
+    file_type?: string;
+    search?: string;
+    date_from?: string;
+    date_to?: string;
+    limit?: number;
+    offset?: number;
+  }) {
+    const response = await this.client.get('/api/v1/documents', { params });
+    return response.data;
+  }
+
+  async getDocumentsStats() {
+    const response = await this.client.get('/api/v1/documents/stats');
+    return response.data;
+  }
+
+  async getDocument(documentId: string) {
+    const response = await this.client.get(`/api/v1/documents/${documentId}`);
+    return response.data;
+  }
+
+  async deleteDocument(documentId: string): Promise<APIResponse> {
+    const response = await this.client.delete<APIResponse>(`/api/v1/documents/${documentId}`);
+    return response.data;
+  }
+
+  async searchDocuments(query: string, filters?: {
+    parse_case_filter?: string;
+    status_filter?: string;
+    limit?: number;
+  }) {
+    const response = await this.client.post('/api/v1/documents/search', null, {
+      params: { query, ...filters }
+    });
+    return response.data;
+  }
+
+  async exportDocument(documentId: string, format: 'json' | 'csv' = 'json') {
+    const response = await this.client.get(`/api/v1/documents/${documentId}/export`, {
+      params: { format },
+      responseType: 'blob'
+    });
+    return response.data;
+  }
+
+  async batchExportDocuments(documentIds: string[], format: 'json' | 'csv' = 'json') {
+    const response = await this.client.post('/api/v1/documents/batch-export', null, {
+      params: { document_ids: documentIds, format },
+      responseType: 'blob'
+    });
     return response.data;
   }
 

@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import tkinter as tk
 try:
-    from ra_d_ps.gui import NYTXMLGuiApp
+    from maps.gui import NYTXMLGuiApp
 except (ImportError, AttributeError):
     NYTXMLGuiApp = None
 

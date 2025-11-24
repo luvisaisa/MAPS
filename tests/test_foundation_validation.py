@@ -21,7 +21,7 @@ def test_imports():
     print("🧪 Testing imports...")
     
     try:
-        from src.ra_d_ps.schemas.canonical import (
+        from src.maps.schemas.canonical import (
             CanonicalDocument,
             RadiologyCanonicalDocument,
             DocumentMetadata,
@@ -35,7 +35,7 @@ def test_imports():
         return False
     
     try:
-        from src.ra_d_ps.schemas.profile import (
+        from src.maps.schemas.profile import (
             Profile,
             FieldMapping,
             DataType,
@@ -49,7 +49,7 @@ def test_imports():
         return False
     
     try:
-        from src.ra_d_ps.profile_manager import ProfileManager, get_profile_manager
+        from src.maps.profile_manager import ProfileManager, get_profile_manager
         print("  ✅ Profile manager imports successfully")
     except Exception as e:
         print(f"  ❌ Profile manager import failed: {e}")
@@ -62,7 +62,7 @@ def test_canonical_schema():
     """Test canonical schema creation and validation"""
     print("\n🧪 Testing canonical schema...")
     
-    from src.ra_d_ps.schemas.canonical import (
+    from src.maps.schemas.canonical import (
         CanonicalDocument,
         RadiologyCanonicalDocument,
         DocumentMetadata,
@@ -154,7 +154,7 @@ def test_profile_schema():
     """Test profile schema creation and validation"""
     print("\n🧪 Testing profile schema...")
     
-    from src.ra_d_ps.schemas.profile import (
+    from src.maps.schemas.profile import (
         Profile,
         FieldMapping,
         DataType,
@@ -232,8 +232,8 @@ def test_profile_manager():
     """Test profile manager functionality"""
     print("\n🧪 Testing profile manager...")
     
-    from src.ra_d_ps.profile_manager import ProfileManager, get_profile_manager
-    from src.ra_d_ps.schemas.profile import (
+    from src.maps.profile_manager import ProfileManager, get_profile_manager
+    from src.maps.schemas.profile import (
         Profile,
         FieldMapping,
         DataType,

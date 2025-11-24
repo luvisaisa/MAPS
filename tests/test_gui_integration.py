@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GUI Integration Test for RA-D-PS Parser
+GUI Integration Test for MAPS Parser
 """
 
 import pytest
@@ -15,12 +15,12 @@ pytestmark = pytest.mark.skip(reason="GUI is currently disabled for maintenance"
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 try:
-    from ra_d_ps.gui import NYTXMLGuiApp
+    from maps.gui import NYTXMLGuiApp
 except (ImportError, AttributeError):
     NYTXMLGuiApp = None
 
 def test_gui_buttons():
-    """Test that the GUI has the new RA-D-PS export button"""
+    """Test that the GUI has the new MAPS export button"""
     
     print("🧪 TESTING GUI INTEGRATION")
     print("=" * 40)
@@ -64,7 +64,7 @@ def test_gui_buttons():
         
         # Try importing the export functions to verify they exist
         try:
-            from ra_d_ps.parser import convert_parsed_data_to_ra_d_ps_format, export_excel
+            from maps.parser import convert_parsed_data_to_maps_format, export_excel
             print("✅ Export functions imported successfully")
         except ImportError as e:
             print(f"❌ Failed to import export functions: {e}")

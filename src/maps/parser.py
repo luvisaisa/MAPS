@@ -262,7 +262,7 @@ def export_excel(records, folder_path, sheet="radiology_data", blue_argb="FFCCE5
 
 # -------- End MAPS Excel Exporter --------
 
-def convert_parsed_data_to_ra_d_ps_format(dataframes):
+def convert_parsed_data_to_maps_format(dataframes):
     """
     Convert parsed XML DataFrames to MAPS format records.
     
@@ -279,7 +279,7 @@ def convert_parsed_data_to_ra_d_ps_format(dataframes):
     if isinstance(dataframes, tuple):
         # Single file result: (main_df, unblinded_df)
         main_df, unblinded_df = dataframes
-        print(f"🔄 Converting RA-D-PS format...")
+        print(f"🔄 Converting MAPS format...")
         print(f"  📊 Main DataFrame: {len(main_df)} rows")
         print(f"  📊 Unblinded DataFrame: {len(unblinded_df)} rows")
         
@@ -289,12 +289,12 @@ def convert_parsed_data_to_ra_d_ps_format(dataframes):
         dfs_to_process = [combined_df] if not combined_df.empty else []
     elif isinstance(dataframes, dict):
         # Multiple files result: {parse_case: df}
-        print(f"🔄 Converting multiple DataFrames to RA-D-PS format...")
+        print(f"🔄 Converting multiple DataFrames to MAPS format...")
         dfs_to_process = [df for df in dataframes.values() if not df.empty]
         print(f"  📊 Processing {len(dfs_to_process)} DataFrames")
     elif isinstance(dataframes, pd.DataFrame):
         # Single DataFrame
-        print(f"🔄 Converting single DataFrame to RA-D-PS format...")
+        print(f"🔄 Converting single DataFrame to MAPS format...")
         dfs_to_process = [dataframes] if not dataframes.empty else []
     else:
         print(f"⚠️  Unknown dataframes format: {type(dataframes)}")

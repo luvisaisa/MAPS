@@ -14,9 +14,9 @@ from datetime import datetime, date
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps.database.document_repository import DocumentRepository
-from ra_d_ps.database.models import Document, DocumentContent
-from ra_d_ps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
+from maps.database.document_repository import DocumentRepository
+from maps.database.models import Document, DocumentContent
+from maps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
 
 
 @pytest.fixture

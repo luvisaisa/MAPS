@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 try:
-    from ra_d_ps.gui import NYTXMLGuiApp
+    from maps.gui import NYTXMLGuiApp
 except (ImportError, AttributeError):
     NYTXMLGuiApp = None
 

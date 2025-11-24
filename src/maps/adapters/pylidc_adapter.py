@@ -6,7 +6,7 @@ Supports direct integration with the pylidc library for LIDC-IDRI dataset proces
 
 Usage:
     import pylidc as pl
-    from src.ra_d_ps.adapters import PyLIDCAdapter
+    from src.maps.adapters import PyLIDCAdapter
     
     # Query a scan using pylidc
     scan = pl.query(pl.Scan).first()

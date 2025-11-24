@@ -7,7 +7,7 @@ Run after deploying views and importing LIDC data.
 
 import sys
 sys.path.insert(0, 'src')
-from ra_d_ps.analysis_exporter import AnalysisExporter
+from maps.analysis_exporter import AnalysisExporter
 from datetime import datetime
 
 def demo_analysis_system():

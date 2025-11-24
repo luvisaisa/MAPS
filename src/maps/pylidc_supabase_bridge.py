@@ -15,8 +15,8 @@ except ImportError:
     PYLIDC_AVAILABLE = False
     pl = None
 
-from ra_d_ps.supabase import supabase
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.supabase import supabase
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 
 logger = logging.getLogger(__name__)
 

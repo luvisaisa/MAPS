@@ -1,5 +1,5 @@
 [MASTER]
-# Ensure pylint can resolve 'src.ra_d_ps.*' imports when run from repo root
+# Ensure pylint can resolve 'src.maps.*' imports when run from repo root
 init-hook='import sys, os; repo=os.path.dirname(__file__); src=os.path.join(repo, "src");
     sys.path.insert(0, repo); sys.path.insert(0, src)'
 

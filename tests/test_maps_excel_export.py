@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test RA-D-PS Excel export with both main and unblinded data
+Test MAPS Excel export with both main and unblinded data
 """
 
 import sys
@@ -13,11 +13,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from XMLPARSE import export_excel
 
 def test_excel_export():
-    """Test Excel export with RA-D-PS records containing both main and unblinded data"""
+    """Test Excel export with MAPS records containing both main and unblinded data"""
     
-    print("🧪 Testing RA-D-PS Excel export...")
+    print("🧪 Testing MAPS Excel export...")
     
-    # Create sample RA-D-PS records with both main and unblinded radiologist data
+    # Create sample MAPS records with both main and unblinded radiologist data
     ra_d_ps_records = [
         {
             "file_number": "sample_file_1",

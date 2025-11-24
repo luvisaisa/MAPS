@@ -1,7 +1,7 @@
 """
 Tests for PyLIDC Adapter
 
-Tests the integration between pylidc library and RA-D-PS canonical schema.
+Tests the integration between pylidc library and MAPS canonical schema.
 Tests use mock pylidc objects since actual LIDC database may not be available.
 """
 
@@ -21,8 +21,8 @@ except ImportError:
 
 
 # Always import our adapter
-from src.ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
-from src.ra_d_ps.schemas.canonical import EntityType
+from src.maps.adapters.pylidc_adapter import PyLIDCAdapter
+from src.maps.schemas.canonical import EntityType
 
 
 class TestPyLIDCAdapter:
@@ -89,7 +89,7 @@ class TestPyLIDCAdapter:
     def test_adapter_requires_pylidc(self):
         """Test that adapter raises error when pylidc not available."""
         # This test only runs when pylidc is NOT installed
-        with patch('src.ra_d_ps.adapters.pylidc_adapter.PYLIDC_AVAILABLE', False):
+        with patch('src.maps.adapters.pylidc_adapter.PYLIDC_AVAILABLE', False):
             with pytest.raises(ImportError, match="pylidc library is not installed"):
                 PyLIDCAdapter()
     
@@ -239,10 +239,10 @@ class TestPyLIDCAdapter:
 class TestPyLIDCConvenienceFunctions:
     """Test convenience functions for quick access."""
     
-    @patch('src.ra_d_ps.adapters.pylidc_adapter.pl')
+    @patch('src.maps.adapters.pylidc_adapter.pl')
     def test_scan_to_canonical_function(self, mock_pl):
         """Test scan_to_canonical convenience function."""
-        from src.ra_d_ps.adapters.pylidc_adapter import scan_to_canonical
+        from src.maps.adapters.pylidc_adapter import scan_to_canonical
         
         # Create mock scan
         mock_scan = Mock()
@@ -327,7 +327,7 @@ class TestPyLIDCAdapterEdgeCases:
 def test_import_without_pylidc():
     """Test that module can be imported even without pylidc."""
     # This should not raise an error
-    from src.ra_d_ps.adapters import pylidc_adapter
+    from src.maps.adapters import pylidc_adapter
     
     assert hasattr(pylidc_adapter, 'PyLIDCAdapter')
     assert hasattr(pylidc_adapter, 'PYLIDC_AVAILABLE')

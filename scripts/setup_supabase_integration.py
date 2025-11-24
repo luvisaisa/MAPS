@@ -23,9 +23,9 @@ import argparse
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps.database.document_repository import DocumentRepository
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
-from ra_d_ps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
+from maps.database.document_repository import DocumentRepository
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
 from datetime import datetime
 
 
@@ -280,7 +280,7 @@ def test_pylidc_integration():
 
     try:
         import pylidc as pl
-        from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+        from maps.adapters.pylidc_adapter import PyLIDCAdapter
 
         print("🔍 Querying PYLIDC database...")
         scan = pl.query(pl.Scan).first()
@@ -337,7 +337,7 @@ def test_pylidc_integration():
 def main():
     """Main execution"""
     parser = argparse.ArgumentParser(
-        description="Setup and verify Supabase integration for RA-D-PS"
+        description="Setup and verify Supabase integration for MAPS"
     )
     parser.add_argument(
         '--check', action='store_true',

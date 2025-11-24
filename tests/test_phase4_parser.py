@@ -17,7 +17,7 @@ def test_new_parser_architecture():
     # Test 1: Import new modules
     print("\n1. Testing imports...")
     try:
-        from src.ra_d_ps.parsers import BaseParser, XMLParser, LegacyRadiologyParser
+        from src.maps.parsers import BaseParser, XMLParser, LegacyRadiologyParser
         print("   SUCCESS: All parser modules import correctly")
     except Exception as e:
         print(f"   FAILED: Import error - {e}")
@@ -57,8 +57,8 @@ def test_new_parser_architecture():
     # Test 4: Test XMLParser directly with canonical output
     print("\n4. Testing XMLParser with canonical schema...")
     try:
-        from src.ra_d_ps.parsers.xml_parser import XMLParser
-        from src.ra_d_ps.schemas.profile import (
+        from src.maps.parsers.xml_parser import XMLParser
+        from src.maps.schemas.profile import (
             Profile, FieldMapping, FileType, ValidationRules, EntityExtractionConfig
         )
         

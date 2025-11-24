@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test script for the RA-D-PS Excel exporter
+Test script for the MAPS Excel exporter
 """
 
 import sys
@@ -10,9 +10,9 @@ sys.path.append('.')
 from XMLPARSE import export_excel
 
 def test_ra_d_ps_export():
-    """Test the RA-D-PS Excel export functionality"""
+    """Test the MAPS Excel export functionality"""
     
-    print("🧪 TESTING RA-D-PS EXCEL EXPORT")
+    print("🧪 TESTING MAPS EXCEL EXPORT")
     print("=" * 50)
     
     # Test data with different radiologist configurations

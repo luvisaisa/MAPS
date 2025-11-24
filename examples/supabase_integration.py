@@ -20,8 +20,8 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps.database.document_repository import DocumentRepository
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.document_repository import DocumentRepository
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 
 
 def example_1_basic_insertion():

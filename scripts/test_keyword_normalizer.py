@@ -22,7 +22,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
+from src.maps.keyword_normalizer import KeywordNormalizer
 
 
 def print_section(title):

@@ -27,8 +27,8 @@ import traceback
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.ra_d_ps.structure_detector import XMLStructureDetector
-from src.ra_d_ps.parser import parse_radiology_sample
+from src.maps.structure_detector import XMLStructureDetector
+from src.maps.parser import parse_radiology_sample
 
 
 class ValidationReport:

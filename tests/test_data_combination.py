@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test to verify that both main and unblinded radiologist data
-are properly preserved in RA-D-PS conversion
+are properly preserved in MAPS conversion
 """
 
 import sys
@@ -12,12 +12,12 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps.parser import convert_parsed_data_to_ra_d_ps_format
+from maps.parser import convert_parsed_data_to_maps_format
 
 def test_data_combination():
     """Test that both main and unblinded data are preserved"""
     
-    print("🧪 Testing RA-D-PS data combination...")
+    print("🧪 Testing MAPS data combination...")
     
     # Create mock main DataFrame (normal radiologists)
     main_data = {
@@ -58,11 +58,11 @@ def test_data_combination():
     print(f"    Radiologists: {unblinded_df['Radiologist'].unique()}")
     
     # Test conversion with tuple format (main, unblinded)
-    print("\n🔄 Testing RA-D-PS conversion...")
+    print("\n🔄 Testing MAPS conversion...")
     dataframes = (main_df, unblinded_df)
     
     try:
-        records = convert_parsed_data_to_ra_d_ps_format(dataframes)
+        records = convert_parsed_data_to_maps_format(dataframes)
         
         print(f"\n✅ Conversion successful! Generated {len(records)} records")
         

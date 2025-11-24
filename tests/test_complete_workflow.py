@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test the complete workflow: parse XML and export to RA-D-PS Excel
+Test the complete workflow: parse XML and export to MAPS Excel
 """
 
 import os
@@ -10,10 +10,10 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps.parser import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format, export_excel
+from maps.parser import parse_radiology_sample, convert_parsed_data_to_maps_format, export_excel
 
 def test_complete_workflow():
-    """Test the complete workflow from XML parsing to RA-D-PS Excel export"""
+    """Test the complete workflow from XML parsing to MAPS Excel export"""
     xml_file = "/Users/isa/Desktop/XML TEST FILES/generated_cases_001_050/001.xml"
     output_dir = "/Users/isa/Desktop/python projects/XML PARSE/test_complete_workflow"
     
@@ -28,10 +28,10 @@ def test_complete_workflow():
         print(f"✅ Parsed successfully!")
         print(f"   Main: {len(main_df)} rows, Unblinded: {len(unblinded_df)} rows")
         
-        # Step 2: Convert to RA-D-PS format
-        print("\n2️⃣ Converting to RA-D-PS format...")
+        # Step 2: Convert to MAPS format
+        print("\n2️⃣ Converting to MAPS format...")
         # The convert function expects the tuple format from parse_radiology_sample
-        ra_d_ps_records = convert_parsed_data_to_ra_d_ps_format((main_df, unblinded_df))
+        ra_d_ps_records = convert_parsed_data_to_maps_format((main_df, unblinded_df))
         print(f"✅ Converted successfully!")
         print(f"   Generated {len(ra_d_ps_records)} records")
         
@@ -46,7 +46,7 @@ def test_complete_workflow():
                 print(f"     Radiologist {rad_id}: Subtlety={rad_data['subtlety']}, Confidence={rad_data['confidence']}")
         
         # Step 3: Export to Excel
-        print("\n3️⃣ Exporting to RA-D-PS Excel...")
+        print("\n3️⃣ Exporting to MAPS Excel...")
         os.makedirs(output_dir, exist_ok=True)
         
         output_file = export_excel(ra_d_ps_records, output_dir, sheet="workflow_test")

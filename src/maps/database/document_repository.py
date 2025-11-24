@@ -5,8 +5,8 @@ Repository pattern for managing document ingestion and retrieval.
 Supports PYLIDC data import and canonical document storage in Supabase/PostgreSQL.
 
 Usage:
-    from ra_d_ps.database.document_repository import DocumentRepository
-    from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+    from maps.database.document_repository import DocumentRepository
+    from maps.adapters.pylidc_adapter import PyLIDCAdapter
     import pylidc as pl
 
     # Initialize repository with Supabase connection

@@ -7,7 +7,7 @@ sys.path.insert(0, 'src')
 
 import re
 from collections import Counter
-from ra_d_ps.supabase import supabase
+from maps.supabase import supabase
 
 # Medical/radiological terms to look for
 MEDICAL_KEYWORDS = {

@@ -19,8 +19,8 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Set, Tuple
 from collections import defaultdict
 
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 
 @dataclass

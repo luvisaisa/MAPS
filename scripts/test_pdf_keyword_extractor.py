@@ -19,13 +19,13 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.ra_d_ps.pdf_keyword_extractor import (
+from src.maps.pdf_keyword_extractor import (
     PDFKeywordExtractor,
     PDFMetadata,
     ExtractedPDFKeyword
 )
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 
 def test_1_metadata_extraction():

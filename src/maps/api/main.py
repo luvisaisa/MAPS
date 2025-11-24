@@ -25,7 +25,8 @@ from .routers import (
     batch,
     search,
     profiles,
-    approval_queue
+    approval_queue,
+    detection_details
 )
 
 # Configure logging
@@ -60,6 +61,7 @@ if settings.ENABLE_RESPONSE_COMPRESSION:
 # Include routers
 app.include_router(profiles.router, prefix="/api/v1/profiles", tags=["Profiles"])
 app.include_router(approval_queue.router, prefix="/api/v1/approval-queue", tags=["Approval Queue"])
+app.include_router(detection_details.router, prefix="/api/v1/detection-details", tags=["Detection Details"])
 app.include_router(parse_cases.router, prefix="/api/v1/parse-cases", tags=["Parse Cases"])
 app.include_router(parse.router, prefix="/api/v1/parse", tags=["Parsing"])
 app.include_router(pylidc.router, prefix="/api/v1/pylidc", tags=["PYLIDC"])

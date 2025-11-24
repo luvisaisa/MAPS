@@ -33,6 +33,8 @@ class QueueItem(BaseModel):
     reviewed_by: Optional[str] = None
     reviewed_at: Optional[datetime] = None
     notes: Optional[str] = None
+    # Detection details (NEW)
+    detection_details: Optional[dict] = None
 
 
 class ApprovalRequest(BaseModel):
@@ -363,7 +365,8 @@ def add_to_queue(
     detected_parse_case: str,
     confidence: float,
     file_type: str,
-    file_size: int
+    file_size: int,
+    detection_details: Optional[dict] = None
 ) -> QueueItem:
     """
     Add item to approval queue if confidence is below threshold.
@@ -374,6 +377,7 @@ def add_to_queue(
         confidence: Confidence score
         file_type: File type
         file_size: File size in bytes
+        detection_details: Optional detailed detection analysis
 
     Returns:
         Queue item if added, None if auto-approved
@@ -395,7 +399,8 @@ def add_to_queue(
         file_type=file_type,
         file_size=file_size,
         uploaded_at=datetime.now(),
-        status="pending"
+        status="pending",
+        detection_details=detection_details
     )
 
     _approval_queue.append(item)

@@ -10,7 +10,7 @@ from pathlib import Path
 # Add the src directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format, export_excel
+from maps import parse_radiology_sample, convert_parsed_data_to_maps_format, export_excel
 
 
 def basic_parsing_example():
@@ -30,10 +30,10 @@ def basic_parsing_example():
         
         print(f"Parsed {len(main_df)} main records and {len(unblinded_df)} unblinded records")
         
-        # Convert to RA-D-PS format
-        ra_d_ps_records = convert_parsed_data_to_ra_d_ps_format((main_df, unblinded_df))
+        # Convert to MAPS format
+        ra_d_ps_records = convert_parsed_data_to_maps_format((main_df, unblinded_df))
         
-        print(f"Converted to {len(ra_d_ps_records)} RA-D-PS records")
+        print(f"Converted to {len(ra_d_ps_records)} MAPS records")
         
         # Export to Excel
         if ra_d_ps_records:

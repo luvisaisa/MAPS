@@ -356,6 +356,7 @@ export interface QueueItem {
   reviewed_by?: string;
   reviewed_at?: string;
   notes?: string;
+  detection_details?: Partial<DetectionDetails>;  // Embedded detection details
 }
 
 export interface QueueStats {
@@ -373,4 +374,148 @@ export interface ApprovalRequest {
   parse_case?: string;
   notes?: string;
   reviewed_by?: string;
+}
+
+export interface BatchReviewResult {
+  total: number;
+  success: number;
+  failed: number;
+  results: Array<{
+    item_id: string;
+    status: 'success' | 'error';
+    action?: string;
+    error?: string;
+  }>;
+}
+
+// Detection Details Types
+export interface AttributeDefinition {
+  name: string;
+  xpath: string;
+  data_type: string;
+  required: boolean;
+  description: string;
+}
+
+export interface DetectedAttribute {
+  name: string;
+  xpath: string;
+  value: string | null;
+  found: boolean;
+}
+
+export interface MissingAttribute {
+  name: string;
+  xpath: string;
+  required: boolean;
+  found: boolean;
+}
+
+export interface FieldAnalysis {
+  field: string;
+  expected: boolean;
+  found: boolean;
+  confidence: number;
+  xpath: string;
+  value_sample?: string | null;
+  data_type?: string;
+  description?: string;
+  error?: string;
+}
+
+export interface ConfidenceBreakdown {
+  base_confidence: number;
+  match_percentage?: number;
+  total_expected?: number;
+  total_detected?: number;
+  total_missing?: number;
+  final_confidence: number;
+  note?: string;
+  error?: string;
+}
+
+export interface DetectionDetails {
+  id: string;
+  queue_item_id?: string;
+  document_id?: string;
+  parse_case: string;
+  confidence: number;
+  expected_attributes: AttributeDefinition[];
+  detected_attributes: DetectedAttribute[];
+  missing_attributes: MissingAttribute[];
+  match_percentage: number;
+  total_expected: number;
+  total_detected: number;
+  field_analysis: FieldAnalysis[];
+  detector_type: string;
+  detector_version?: string;
+  detection_method?: string;
+  confidence_breakdown: ConfidenceBreakdown;
+  detected_at: string;
+}
+
+export interface ParseCaseSchema {
+  parse_case: string;
+  total_attributes: number;
+  required_attributes: number;
+  optional_attributes: number;
+  attribute_names: string[];
+  required_attribute_names: string[];
+  attributes: AttributeDefinition[];
+}
+
+// Documents Types
+export interface DocumentSummary {
+  id: string;
+  filename: string;
+  document_title?: string;
+  parse_case?: string;
+  confidence?: number;
+  file_type: string;
+  file_size_bytes?: number;
+  keywords_count: number;
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+  uploaded_at: string;
+  parsed_at?: string;
+  document_date?: string;
+  uploaded_by?: string;
+  content_preview?: string;
+}
+
+export interface DocumentDetail {
+  id: string;
+  filename: string;
+  file_path: string;
+  document_title?: string;
+  file_type: string;
+  file_size_bytes?: number;
+  parse_case?: string;
+  confidence?: number;
+  keywords_count: number;
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+  error_message?: string;
+  processing_duration_ms?: number;
+  uploaded_at: string;
+  parsed_at?: string;
+  document_date?: string;
+  uploaded_by?: string;
+  canonical_data?: Record<string, unknown>;
+  tags?: string[];
+  detection_details?: DetectionDetails;
+}
+
+export interface DocumentsStats {
+  total_documents: number;
+  by_status: Record<string, number>;
+  by_parse_case: Record<string, number>;
+  by_file_type: Record<string, number>;
+}
+
+export interface DocumentSearchResult {
+  document_id: string;
+  filename: string;
+  parse_case?: string;
+  confidence?: number;
+  status: string;
+  relevance: number;
 }

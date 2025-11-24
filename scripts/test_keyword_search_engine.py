@@ -22,14 +22,14 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.ra_d_ps.keyword_search_engine import (
+from src.maps.keyword_search_engine import (
     KeywordSearchEngine,
     QueryParser,
     SearchResult,
     SearchResponse
 )
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 
 def test_1_query_parser():

@@ -11,10 +11,10 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.ra_d_ps.pdf_keyword_extractor import PDFKeywordExtractor
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
-from src.ra_d_ps.keyword_search_engine import KeywordSearchEngine
+from src.maps.pdf_keyword_extractor import PDFKeywordExtractor
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_search_engine import KeywordSearchEngine
 
 def main():
     pdf_path = "/Users/isa/Desktop/research/perinodular radiomics lit review/3-Beig.etal-Perinodular-and-Intranodular Radiomic Features-.pdf"

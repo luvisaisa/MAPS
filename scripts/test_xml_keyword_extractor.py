@@ -21,8 +21,8 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.ra_d_ps.xml_keyword_extractor import XMLKeywordExtractor
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.xml_keyword_extractor import XMLKeywordExtractor
+from src.maps.database.keyword_repository import KeywordRepository
 
 
 def print_section(title):

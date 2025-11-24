@@ -23,7 +23,7 @@ def test_health():
 
 def manually_add_test_items():
     """Add test items directly to the queue via Python"""
-    from src.ra_d_ps.api.routers.approval_queue import add_to_queue
+    from src.maps.api.routers.approval_queue import add_to_queue
 
     print("\n📝 Adding test items to queue...")
 

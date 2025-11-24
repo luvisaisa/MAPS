@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 entry point for running MAPS gui as a module
-usage: python -m src.ra_d_ps
+usage: python -m src.maps
 """
 import tkinter as tk
 from .gui import NYTXMLGuiApp

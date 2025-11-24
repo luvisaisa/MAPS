@@ -12,7 +12,7 @@ import time
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.ra_d_ps.structure_detector import XMLStructureDetector
+from src.maps.structure_detector import XMLStructureDetector
 
 logging.basicConfig(
     level=logging.INFO,

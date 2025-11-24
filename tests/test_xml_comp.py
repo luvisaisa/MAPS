@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test script for XML-COMP.zip dataset
-Tests the RA-D-PS parser against real LIDC-IDRI XML files
+Tests the MAPS parser against real LIDC-IDRI XML files
 """
 import os
 import sys
@@ -13,7 +13,7 @@ import traceback
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
-from src.ra_d_ps.parser import parse_radiology_sample, parse_multiple, detect_parse_case
+from src.maps.parser import parse_radiology_sample, parse_multiple, detect_parse_case
 
 def test_single_file():
     """Test parsing a single XML file"""
@@ -185,7 +185,7 @@ def test_export_excel():
     folder_path = "/Users/isa/Desktop/XML-COMP/157"
     
     try:
-        from src.ra_d_ps.parser import export_excel
+        from src.maps.parser import export_excel
         
         print(f"\n📁 Processing folder: {folder_path}")
         
@@ -212,7 +212,7 @@ def test_export_excel():
         # Let's check what export_excel expects
         
         # Actually, let's try a simpler approach - just save the dataframe directly
-        output_filename = f"157_RA-D-PS_{time.strftime('%Y-%m-%d_%H%M%S')}.xlsx"
+        output_filename = f"157_MAPS_{time.strftime('%Y-%m-%d_%H%M%S')}.xlsx"
         output_path = os.path.join(folder_path, output_filename)
         
         all_data.to_excel(output_path, index=False)
@@ -234,7 +234,7 @@ def test_export_excel():
 
 def main():
     """Run all tests"""
-    print("🧪 RA-D-PS XML Parser Test Suite")
+    print("🧪 MAPS XML Parser Test Suite")
     print(f"📦 Testing XML-COMP.zip dataset")
     print(f"🕐 {time.strftime('%Y-%m-%d %H:%M:%S')}")
     print()

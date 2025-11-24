@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Database Setup Script for RA-D-PS Parse Case Management
+Database Setup Script for MAPS Parse Case Management
 Creates tables and optionally seeds with initial data
 """
 
@@ -13,7 +13,7 @@ from sqlalchemy import text
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.ra_d_ps.database import ParseCaseRepository, db_config
+from src.maps.database import ParseCaseRepository, db_config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -27,7 +27,7 @@ def setup_database():
     Setup PostgreSQL database for parse case management
     """
     print("=" * 60)
-    print("RA-D-PS Parse Case Database Setup")
+    print("MAPS Parse Case Database Setup")
     print("=" * 60)
     
     # Display configuration
@@ -132,7 +132,7 @@ def test_connection():
 if __name__ == "__main__":
     import argparse
     
-    parser = argparse.ArgumentParser(description="RA-D-PS Database Setup")
+    parser = argparse.ArgumentParser(description="MAPS Database Setup")
     parser.add_argument(
         'action',
         choices=['setup', 'reset', 'test'],

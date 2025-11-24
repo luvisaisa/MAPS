@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Database Migration Runner for RA-D-PS
+Database Migration Runner for MAPS
 
 Automatically applies SQL migrations in order and tracks applied migrations.
 Supports both local PostgreSQL and Supabase.
@@ -408,7 +408,7 @@ class MigrationRunner:
 def main():
     """Main execution"""
     parser = argparse.ArgumentParser(
-        description="RA-D-PS Database Migration Runner",
+        description="MAPS Database Migration Runner",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

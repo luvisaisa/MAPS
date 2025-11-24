@@ -18,7 +18,7 @@ from pathlib import Path
 from .parser import (
     parse_multiple, 
     parse_radiology_sample, 
-    convert_parsed_data_to_ra_d_ps_format, 
+    convert_parsed_data_to_maps_format, 
     export_excel,
     detect_parse_case,
     open_file_cross_platform,
@@ -941,20 +941,20 @@ if False:  # disabled GUI block
                         log_message(f"   ❌ No data parsed from {folder_name}")
                         continue
                     
-                    # Convert to RA-D-PS format
+                    # Convert to MAPS format
                     combined_dataframes = {}
                     combined_dataframes.update(case_data)
                     combined_dataframes.update(case_unblinded_data)
                     
-                    ra_d_ps_records = convert_parsed_data_to_ra_d_ps_format(combined_dataframes)
+                    ra_d_ps_records = convert_parsed_data_to_maps_format(combined_dataframes)
                     
                     if not ra_d_ps_records:
-                        log_message(f"   ❌ No RA-D-PS records generated from {folder_name}")
+                        log_message(f"   ❌ No MAPS records generated from {folder_name}")
                         continue
                     
                     folder_record_count = len(ra_d_ps_records)
                     total_records += folder_record_count
-                    log_message(f"   ✅ Generated {folder_record_count} RA-D-PS records")
+                    log_message(f"   ✅ Generated {folder_record_count} MAPS records")
                     
                     # Create worksheet for this folder
                     sanitized_name = re.sub(r"[^A-Za-z0-9_\-]+", "_", folder_name)[:31]  # Excel sheet name limit
@@ -1355,7 +1355,7 @@ if False:  # disabled GUI block
                                 if case_data_list:
                                     combined_dataframes[case] = pd.DataFrame(case_data_list)
                             
-                            maps_records = convert_parsed_data_to_ra_d_ps_format(combined_dataframes)
+                            maps_records = convert_parsed_data_to_maps_format(combined_dataframes)
                             
                             if maps_records:
                                 # Use the folder itself as the output directory for auto-naming
@@ -1921,7 +1921,7 @@ if False:  # disabled GUI block
         print(f"✅ Template Excel created: {excel_path}")
 
     def export_ra_d_ps_excel(self):
-        """Export data using the new RA-D-PS format with auto-naming and versioning"""
+        """Export data using the new MAPS format with auto-naming and versioning"""
         if not self.files:
             messagebox.showinfo("No files", "Please select XML files to parse.")
             return
@@ -1939,7 +1939,7 @@ if False:  # disabled GUI block
         # If not from folder selection or mixed folders, ask user
         if folder_path is None:
             folder_path = filedialog.askdirectory(
-                title="Select folder to save RA-D-PS Excel file"
+                title="Select folder to save MAPS Excel file"
             )
             if not folder_path:
                 return
@@ -1968,14 +1968,14 @@ if False:  # disabled GUI block
                 
                 print(f"  📊 Case '{case}': main={len(main_df)} rows, unblinded={len(unblinded_df)} rows")
                 
-                # Combine as tuple for RA-D-PS conversion
+                # Combine as tuple for MAPS conversion
                 combined_case_data[case] = (main_df, unblinded_df)
             
-            # Convert each case to RA-D-PS format
+            # Convert each case to MAPS format
             all_ra_d_ps_records = []
             for case, (main_df, unblinded_df) in combined_case_data.items():
-                print(f"🔄 Converting case '{case}' to RA-D-PS...")
-                case_records = convert_parsed_data_to_ra_d_ps_format((main_df, unblinded_df))
+                print(f"🔄 Converting case '{case}' to MAPS...")
+                case_records = convert_parsed_data_to_maps_format((main_df, unblinded_df))
                 all_ra_d_ps_records.extend(case_records)
                 print(f"  ✅ Generated {len(case_records)} records for case '{case}'")
             
@@ -2213,10 +2213,10 @@ if False:  # disabled GUI block
         scrollbar = tk.Scrollbar(text_frame, orient=tk.VERTICAL, command=text_widget.yview)
         text_widget.configure(yscrollcommand=scrollbar.set)
         
-        help_content = """RA-D-PS: Radiology XML Data Processing System
+        help_content = """MAPS: Radiology XML Data Processing System
 
 🔍 OVERVIEW
-RA-D-PS is a comprehensive tool for parsing and processing radiology XML files (LIDC/IDRI format) into analyzable Excel and SQLite outputs.
+MAPS is a comprehensive tool for parsing and processing radiology XML files (LIDC/IDRI format) into analyzable Excel and SQLite outputs.
 
 📁 FOLDER SELECTION
 Click "📂 Select Folders" to open the folder browser:

@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 # import after path setup
-from ra_d_ps.api.main import app  # noqa: E402
+from maps.api.main import app  # noqa: E402
 
 client = TestClient(app)
 

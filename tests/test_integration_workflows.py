@@ -56,7 +56,7 @@ class TestXMLParsingWorkflow:
     def test_parse_xml_to_dataframe(self, sample_xml_file):
         """Test parsing XML file to pandas DataFrame"""
         try:
-            from ra_d_ps.parser import parse_radiology_sample
+            from maps.parser import parse_radiology_sample
             
             main_df, unblinded_df = parse_radiology_sample(sample_xml_file)
             
@@ -71,8 +71,8 @@ class TestXMLParsingWorkflow:
     def test_parse_xml_to_excel(self, sample_xml_file):
         """Test parsing XML and exporting to Excel"""
         try:
-            from ra_d_ps.parser import parse_radiology_sample
-            from ra_d_ps.exporters.excel_exporter import export_excel
+            from maps.parser import parse_radiology_sample
+            from maps.exporters.excel_exporter import export_excel
             
             main_df, unblinded_df = parse_radiology_sample(sample_xml_file)
             
@@ -89,7 +89,7 @@ class TestXMLParsingWorkflow:
     def test_parse_multiple_xmls(self):
         """Test parsing multiple XML files in batch"""
         try:
-            from ra_d_ps.parser import parse_multiple
+            from maps.parser import parse_multiple
             
             # create multiple temp XML files
             xml_files = []
@@ -124,7 +124,7 @@ class TestDatabaseIntegration:
     def test_document_repository_create_and_read(self):
         """Test creating and reading documents from repository"""
         try:
-            from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
+            from maps.database.enhanced_document_repository import EnhancedDocumentRepository
             
             repo = EnhancedDocumentRepository()
             
@@ -153,7 +153,7 @@ class TestDatabaseIntegration:
     def test_keyword_extraction_and_storage(self):
         """Test extracting keywords and storing in database"""
         try:
-            from ra_d_ps.xml_keyword_extractor import XMLKeywordExtractor
+            from maps.xml_keyword_extractor import XMLKeywordExtractor
             
             extractor = XMLKeywordExtractor()
             
@@ -192,8 +192,8 @@ class TestExportWorkflows:
     def test_export_to_multiple_formats(self):
         """Test exporting data to different formats"""
         try:
-            from ra_d_ps.parser import parse_radiology_sample
-            from ra_d_ps.exporters.excel_exporter import export_excel
+            from maps.parser import parse_radiology_sample
+            from maps.exporters.excel_exporter import export_excel
             import pandas as pd
             
             # create sample dataframe
@@ -272,7 +272,7 @@ class TestPYLIDCIntegration:
         """Test PYLIDC adapter functionality"""
         try:
             import pylidc as pl
-            from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+            from maps.adapters.pylidc_adapter import PyLIDCAdapter
             
             adapter = PyLIDCAdapter()
             

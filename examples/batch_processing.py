@@ -10,8 +10,8 @@ from pathlib import Path
 # Add the src directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ra_d_ps import parse_multiple, convert_parsed_data_to_ra_d_ps_format, export_excel
-from ra_d_ps.batch_processor import BatchProcessor
+from maps import parse_multiple, convert_parsed_data_to_maps_format, export_excel
+from maps.batch_processor import BatchProcessor
 
 
 def batch_processing_example():
@@ -56,11 +56,11 @@ def batch_processing_example():
         combined_data.update(case_data)
         combined_data.update(case_unblinded_data)
         
-        # Convert to RA-D-PS format
-        print("Converting to RA-D-PS format...")
-        ra_d_ps_records = convert_parsed_data_to_ra_d_ps_format(combined_data)
+        # Convert to MAPS format
+        print("Converting to MAPS format...")
+        ra_d_ps_records = convert_parsed_data_to_maps_format(combined_data)
         
-        print(f"Converted to {len(ra_d_ps_records)} RA-D-PS records")
+        print(f"Converted to {len(ra_d_ps_records)} MAPS records")
         
         # Export to Excel
         if ra_d_ps_records:

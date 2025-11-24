@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
-Integration test for RA-D-PS export with real XML parsing
+Integration test for MAPS export with real XML parsing
 """
 
 import sys
 import os
 sys.path.append('.')
 
-from XMLPARSE import parse_radiology_sample, convert_parsed_data_to_ra_d_ps_format, export_excel
+from XMLPARSE import parse_radiology_sample, convert_parsed_data_to_maps_format, export_excel
 
 def test_full_integration():
-    """Test the complete workflow from XML parsing to RA-D-PS export"""
+    """Test the complete workflow from XML parsing to MAPS export"""
     
-    print("🧪 TESTING FULL RA-D-PS INTEGRATION")
+    print("🧪 TESTING FULL MAPS INTEGRATION")
     print("=" * 60)
     
     # Test with a real XML file if available
@@ -29,11 +29,11 @@ def test_full_integration():
             print(f"   • Main DataFrame: {len(main_df)} rows")
             print(f"   • Unblinded DataFrame: {len(unblinded_df)} rows")
             
-            # Step 2: Convert to RA-D-PS format
-            print("2️⃣ Converting to RA-D-PS format...")
-            ra_d_ps_records = convert_parsed_data_to_ra_d_ps_format((main_df, unblinded_df))
+            # Step 2: Convert to MAPS format
+            print("2️⃣ Converting to MAPS format...")
+            ra_d_ps_records = convert_parsed_data_to_maps_format((main_df, unblinded_df))
             
-            print(f"   • RA-D-PS records: {len(ra_d_ps_records)}")
+            print(f"   • MAPS records: {len(ra_d_ps_records)}")
             
             # Show sample record structure
             if ra_d_ps_records:
@@ -43,7 +43,7 @@ def test_full_integration():
                     print(f"   • Radiologists in sample: {list(sample['radiologists'].keys())}")
             
             # Step 3: Export to Excel
-            print("3️⃣ Exporting to RA-D-PS Excel...")
+            print("3️⃣ Exporting to MAPS Excel...")
             output_folder = "/Users/isa/Desktop/python projects/XML PARSE"
             output_path = export_excel(ra_d_ps_records, output_folder, sheet="integration_test")
             
@@ -57,7 +57,7 @@ def test_full_integration():
             print(f"\n✨ INTEGRATION TEST RESULTS:")
             print(f"  ✓ XML parsing successful")
             print(f"  ✓ Data conversion successful")
-            print(f"  ✓ RA-D-PS export successful")
+            print(f"  ✓ MAPS export successful")
             print(f"  ✓ Auto-naming with timestamp")
             print(f"  ✓ File saved and verified")
             
@@ -109,7 +109,7 @@ def test_full_integration():
         demo_unblinded_df = pd.DataFrame()  # Empty for demo
         
         # Test conversion and export
-        ra_d_ps_records = convert_parsed_data_to_ra_d_ps_format((demo_main_df, demo_unblinded_df))
+        ra_d_ps_records = convert_parsed_data_to_maps_format((demo_main_df, demo_unblinded_df))
         output_folder = "/Users/isa/Desktop/python projects/XML PARSE"
         output_path = export_excel(ra_d_ps_records, output_folder, sheet="demo_test")
         

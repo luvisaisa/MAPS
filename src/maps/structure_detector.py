@@ -26,8 +26,8 @@ logger = logging.getLogger(__name__)
 
 # Optional database support
 try:
-    from src.ra_d_ps.database import ParseCaseRepository
-    from src.ra_d_ps.database.models import ParseCase
+    from src.maps.database import ParseCaseRepository
+    from src.maps.database.models import ParseCase
     DATABASE_AVAILABLE = True
 except ImportError:
     logger.error("Database module not available. Pure DB-driven detection requires database module.")
