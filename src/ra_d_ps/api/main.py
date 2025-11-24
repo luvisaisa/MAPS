@@ -6,6 +6,7 @@ Main FastAPI application with all routers and middleware.
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 import logging
 
@@ -51,6 +52,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add response compression for large payloads
+if settings.ENABLE_RESPONSE_COMPRESSION:
+    app.add_middleware(GZipMiddleware, minimum_size=1000)  # Compress responses > 1KB
 
 # Include routers
 app.include_router(profiles.router, prefix="/api/v1/profiles", tags=["Profiles"])
