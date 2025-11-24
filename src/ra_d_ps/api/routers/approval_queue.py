@@ -315,6 +315,48 @@ async def batch_review(
     }
 
 
+@router.post("/add-test-item")
+async def add_test_item(
+    filename: str = "test_file.xml",
+    parse_case: str = "LIDC_Single_Session",
+    confidence: float = 0.5,
+    file_type: str = "XML",
+    file_size: int = 50000
+):
+    """
+    Add a test item to the approval queue (for testing/development only).
+
+    Args:
+        filename: Test filename
+        parse_case: Detected parse case
+        confidence: Confidence score (0.0-1.0)
+        file_type: File type
+        file_size: File size in bytes
+
+    Returns:
+        Created queue item or auto-approval message
+    """
+    item = add_to_queue(
+        filename=filename,
+        detected_parse_case=parse_case,
+        confidence=confidence,
+        file_type=file_type,
+        file_size=file_size
+    )
+
+    if item:
+        return {
+            "status": "queued",
+            "item": item.dict(),
+            "message": f"Item added to queue with ID {item.id}"
+        }
+    else:
+        return {
+            "status": "auto_approved",
+            "message": f"File auto-approved (confidence {confidence} >= {DEFAULT_CONFIDENCE_THRESHOLD})"
+        }
+
+
 # Helper function to add items to queue (called from parse detection)
 def add_to_queue(
     filename: str,
