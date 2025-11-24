@@ -20,13 +20,18 @@ from datetime import datetime
 # Lazy imports to avoid tkinter dependency at module level
 def _get_parser_functions():
     """Lazy import of parser functions to avoid tkinter dependency"""
-    from ...parser import parse_radiology_sample, detect_parse_case
-    return parse_radiology_sample, detect_parse_case
+    from ...parser import parse_radiology_sample
+    return parse_radiology_sample
 
 def _get_pdf_extractor():
     """Lazy import of PDF extractor"""
     from ...pdf_keyword_extractor import PDFKeywordExtractor
     return PDFKeywordExtractor
+
+def _get_detector_factory():
+    """Lazy import of detector factory"""
+    from ...detectors.factory import get_detector_factory
+    return get_detector_factory()
 
 
 class ParseService:
@@ -56,13 +61,35 @@ class ParseService:
 
             try:
                 # Use existing parse_radiology_sample function
-                parse_func, detect_func = _get_parser_functions()
+                parse_func = _get_parser_functions()
                 main_df, unblinded_df = parse_func(tmp_path)
 
-                # Detect parse case if requested
+                # Detect parse case if requested using new detector factory
                 detected_parse_case = None
+                confidence = None
+                queue_item_id = None
+
                 if detect_parse_case:
-                    detected_parse_case = detect_func(tmp_path)
+                    detector_factory = _get_detector_factory()
+                    detector = detector_factory.get_detector(tmp_path)
+
+                    if detector:
+                        detection_result = detector.detect_structure(tmp_path)
+                        detected_parse_case = detection_result.get("parse_case")
+                        confidence = detection_result.get("confidence", 1.0)
+
+                        # Add to approval queue if confidence is low
+                        from ..routers.approval_queue import add_to_queue
+                        queue_item = add_to_queue(
+                            filename=filename,
+                            detected_parse_case=detected_parse_case,
+                            confidence=confidence,
+                            file_type="XML",
+                            file_size=len(content)
+                        )
+
+                        if queue_item:
+                            queue_item_id = queue_item.id
 
                 # TODO: Insert to database if requested
                 document_id = None
@@ -79,9 +106,11 @@ class ParseService:
                 processing_time = (time.time() - start_time) * 1000
 
                 return ParseResponse(
-                    status="success",
+                    status="success" if not queue_item_id else "pending_approval",
                     document_id=document_id,
                     parse_case=detected_parse_case,
+                    confidence=confidence,
+                    queue_item_id=queue_item_id,
                     keywords_extracted=keywords_count,
                     processing_time_ms=processing_time,
                     errors=None
