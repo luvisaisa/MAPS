@@ -78,10 +78,24 @@ except ImportError as e:
 try:
     from src.maps.database.db_config import db_config, PostgreSQLConfig
     print("   ✅ Database configuration imported")
-    print(f"      Host: {db_config.postgresql.host}")
-    print(f"      Port: {db_config.postgresql.port}")
-    print(f"      Database: {db_config.postgresql.database}")
-    print(f"      User: {db_config.postgresql.user}")
+    print(f"      Backend: {db_config.backend}")
+
+    # Get the active configuration based on backend type
+    active_config = db_config.get_active_config()
+    if active_config:
+        # Handle different attribute names for different backends
+        if db_config.backend == "supabase":
+            print(f"      Host: {active_config.db_host}")
+            print(f"      Port: {active_config.db_port}")
+            print(f"      Database: {active_config.db_name}")
+            print(f"      User: {active_config.db_user}")
+        else:  # postgresql
+            print(f"      Host: {active_config.host}")
+            print(f"      Port: {active_config.port}")
+            print(f"      Database: {active_config.database}")
+            print(f"      User: {active_config.user}")
+    else:
+        print("      ⚠️  No active database configuration found")
 except ImportError as e:
     print(f"   ❌ Failed to import database config")
     print(f"      Error: {e}")
