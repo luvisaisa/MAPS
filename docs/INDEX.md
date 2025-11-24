@@ -116,10 +116,10 @@ Historical documentation for reference:
 **Total Documentation Files:** 161 markdown files
 
 **Organization:**
-- ✅ Core guides: Well-maintained
-- ✅ Feature docs: Comprehensive
-- ⚠️  Archived: Historical reference
-- 🔄 In Progress: REST API documentation (pending implementation)
+-  Core guides: Well-maintained
+-  Feature docs: Comprehensive
+-   Archived: Historical reference
+-  In Progress: REST API documentation (pending implementation)
 
 ## Contributing to Documentation
 

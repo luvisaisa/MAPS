@@ -28,18 +28,18 @@ This document outlines the implementation roadmap for transforming MAPS into a c
 
 **Files to Create**:
 ```
-src/ra_d_ps/extractors/
-├── __init__.py
-├── base.py              # BaseKeywordExtractor abstract class
-├── factory.py           # KeywordExtractorFactory for auto-selection
-├── xml_keyword_extractor.py    # Moved from root, refactored
-└── pdf_keyword_extractor.py    # Moved from root, refactored
+src/maps/extractors/
+ __init__.py
+ base.py              # BaseKeywordExtractor abstract class
+ factory.py           # KeywordExtractorFactory for auto-selection
+ xml_keyword_extractor.py    # Moved from root, refactored
+ pdf_keyword_extractor.py    # Moved from root, refactored
 
-src/ra_d_ps/detectors/
-├── __init__.py
-├── base.py              # BaseStructureDetector abstract class
-├── factory.py           # DetectorFactory for auto-selection
-└── xml_structure_detector.py   # Refactored from structure_detector.py
+src/maps/detectors/
+ __init__.py
+ base.py              # BaseStructureDetector abstract class
+ factory.py           # DetectorFactory for auto-selection
+ xml_structure_detector.py   # Refactored from structure_detector.py
 ```
 
 **BaseKeywordExtractor Interface**:
@@ -137,14 +137,14 @@ class KeywordExtractorFactory:
 ### Task 1.2: Refactor Existing Extractors
 
 **XML Keyword Extractor** (`extractors/xml_keyword_extractor.py`):
-- Move from `src/ra_d_ps/xml_keyword_extractor.py` to `src/ra_d_ps/extractors/`
+- Move from `src/maps/xml_keyword_extractor.py` to `src/maps/extractors/`
 - Inherit from `BaseKeywordExtractor`
 - Implement required methods: `can_extract()`, `extract_keywords()`, `get_supported_categories()`
 - Keep all existing functionality (LIDC characteristics, anatomical terms, etc.)
 - Update imports throughout codebase
 
 **PDF Keyword Extractor** (`extractors/pdf_keyword_extractor.py`):
-- Move from `src/ra_d_ps/pdf_keyword_extractor.py` to `src/ra_d_ps/extractors/`
+- Move from `src/maps/pdf_keyword_extractor.py` to `src/maps/extractors/`
 - Inherit from `BaseKeywordExtractor`
 - Implement required methods
 - Keep approval queue functionality for candidate keywords
@@ -152,7 +152,7 @@ class KeywordExtractorFactory:
 
 ### Task 1.3: Keyword Definition Management API
 
-**New API Endpoints** (`src/ra_d_ps/api/routers/keywords.py`):
+**New API Endpoints** (`src/maps/api/routers/keywords.py`):
 
 ```python
 @router.post("/definitions/import")
@@ -223,9 +223,9 @@ async def add_keyword_alias(
 
 ### Task 2.1: Refactor Structure Detector
 
-**Existing File**: `src/ra_d_ps/structure_detector.py`
+**Existing File**: `src/maps/structure_detector.py`
 
-**Refactor to**: `src/ra_d_ps/detectors/xml_structure_detector.py`
+**Refactor to**: `src/maps/detectors/xml_structure_detector.py`
 
 **Changes**:
 - Inherit from `BaseStructureDetector`
@@ -491,7 +491,7 @@ MAPS uses abstract base classes and factory patterns to make adding new file for
 ## Adding a New File Format (e.g., CSV)
 
 ### Step 1: Create Parser
-Implement `BaseParser` in `src/ra_d_ps/parsers/csv_parser.py`:
+Implement `BaseParser` in `src/maps/parsers/csv_parser.py`:
 
 \`\`\`python
 from .base import BaseParser
@@ -511,7 +511,7 @@ class CSVParser(BaseParser):
 \`\`\`
 
 ### Step 2: Create Keyword Extractor
-Implement `BaseKeywordExtractor` in `src/ra_d_ps/extractors/csv_keyword_extractor.py`:
+Implement `BaseKeywordExtractor` in `src/maps/extractors/csv_keyword_extractor.py`:
 
 \`\`\`python
 from .base import BaseKeywordExtractor, ExtractedKeyword
@@ -529,7 +529,7 @@ class CSVKeywordExtractor(BaseKeywordExtractor):
 \`\`\`
 
 ### Step 3: Create Structure Detector
-Implement `BaseStructureDetector` in `src/ra_d_ps/detectors/csv_structure_detector.py`:
+Implement `BaseStructureDetector` in `src/maps/detectors/csv_structure_detector.py`:
 
 \`\`\`python
 from .base import BaseStructureDetector
@@ -553,8 +553,8 @@ No code changes needed! Factories auto-discover implementations.
 
 Or manually register:
 \`\`\`python
-from ra_d_ps.extractors.factory import KeywordExtractorFactory
-from ra_d_ps.extractors.csv_keyword_extractor import CSVKeywordExtractor
+from maps.extractors.factory import KeywordExtractorFactory
+from maps.extractors.csv_keyword_extractor import CSVKeywordExtractor
 
 factory = KeywordExtractorFactory()
 factory.register_extractor(CSVKeywordExtractor())
@@ -585,7 +585,7 @@ Done! No modifications to existing code required.
 ## Adding ML Models (Future)
 
 ### Step 1: Create Model Class
-Implement `BaseMLModel` in `src/ra_d_ps/ml/keyword_extractor_model.py`
+Implement `BaseMLModel` in `src/maps/ml/keyword_extractor_model.py`
 
 ### Step 2: Train Model
 Use existing keyword_sources table as training data
@@ -605,7 +605,7 @@ See ML IMPLEMENTATION PLAN in PART 2 for details.
 
 **Create Stub Files**:
 
-**CSV Parser** (`src/ra_d_ps/parsers/csv_parser.py`):
+**CSV Parser** (`src/maps/parsers/csv_parser.py`):
 ```python
 """
 CSV Parser Implementation
@@ -624,7 +624,7 @@ class CSVParser(BaseParser):
     pass
 ```
 
-**JSON Parser** (`src/ra_d_ps/parsers/json_parser.py`):
+**JSON Parser** (`src/maps/parsers/json_parser.py`):
 ```python
 """
 JSON Parser Implementation
@@ -643,7 +643,7 @@ class JSONParser(BaseParser):
     pass
 ```
 
-**ML Base Model** (`src/ra_d_ps/ml/base_model.py`):
+**ML Base Model** (`src/maps/ml/base_model.py`):
 ```python
 """
 Base ML Model Interface
@@ -727,14 +727,14 @@ See PART 2 of IMPLEMENTATION_ROADMAP.md for schema details.
 ## WEEK 1 DELIVERABLES CHECKLIST
 
 ### Code
-- [ ] `src/ra_d_ps/extractors/base.py` - BaseKeywordExtractor
-- [ ] `src/ra_d_ps/extractors/factory.py` - KeywordExtractorFactory
-- [ ] `src/ra_d_ps/extractors/xml_keyword_extractor.py` - Refactored
-- [ ] `src/ra_d_ps/extractors/pdf_keyword_extractor.py` - Refactored
-- [ ] `src/ra_d_ps/detectors/base.py` - BaseStructureDetector
-- [ ] `src/ra_d_ps/detectors/factory.py` - DetectorFactory
-- [ ] `src/ra_d_ps/detectors/xml_structure_detector.py` - Refactored
-- [ ] `src/ra_d_ps/api/routers/keywords.py` - Definition endpoints added
+- [ ] `src/maps/extractors/base.py` - BaseKeywordExtractor
+- [ ] `src/maps/extractors/factory.py` - KeywordExtractorFactory
+- [ ] `src/maps/extractors/xml_keyword_extractor.py` - Refactored
+- [ ] `src/maps/extractors/pdf_keyword_extractor.py` - Refactored
+- [ ] `src/maps/detectors/base.py` - BaseStructureDetector
+- [ ] `src/maps/detectors/factory.py` - DetectorFactory
+- [ ] `src/maps/detectors/xml_structure_detector.py` - Refactored
+- [ ] `src/maps/api/routers/keywords.py` - Definition endpoints added
 - [ ] Placeholder files created (CSV, JSON parsers, ML base)
 
 ### Testing
@@ -785,9 +785,9 @@ See PART 2 of IMPLEMENTATION_ROADMAP.md for schema details.
 **Goal**: Support CSV files for lab results, registry data, tabular datasets
 
 **Tasks**:
-1. Implement `CSVParser` in `src/ra_d_ps/parsers/csv_parser.py`
-2. Implement `CSVKeywordExtractor` in `src/ra_d_ps/extractors/csv_keyword_extractor.py`
-3. Implement `CSVStructureDetector` in `src/ra_d_ps/detectors/csv_structure_detector.py`
+1. Implement `CSVParser` in `src/maps/parsers/csv_parser.py`
+2. Implement `CSVKeywordExtractor` in `src/maps/extractors/csv_keyword_extractor.py`
+3. Implement `CSVStructureDetector` in `src/maps/detectors/csv_structure_detector.py`
 4. Create sample profiles (Labcorp CBC, patient demographics, etc.)
 5. Add frontend CSV upload UI
 6. Test end-to-end
@@ -850,7 +850,7 @@ class CSVParser(BaseParser):
 **Goal**: Establish ML infrastructure foundation
 
 **Tasks**:
-1. Create `src/ra_d_ps/ml/` module
+1. Create `src/maps/ml/` module
 2. Implement `BaseMLModel` abstract class
 3. Create ML database schema (migration 015)
 4. Implement model registry
@@ -1350,11 +1350,11 @@ class ContextExplainer:
 ## IMPLEMENTATION PRIORITIES
 
 ### Must-Have (Week 1):
-- ✅ Abstract base classes (foundation)
-- ✅ Keyword extraction working (XML + PDF)
-- ✅ Parse case detection working
-- ✅ Full API integration
-- ✅ Approval queue workflow
+-  Abstract base classes (foundation)
+-  Keyword extraction working (XML + PDF)
+-  Parse case detection working
+-  Full API integration
+-  Approval queue workflow
 
 ### Should-Have (Weeks 2-4):
 - CSV/Excel parsers

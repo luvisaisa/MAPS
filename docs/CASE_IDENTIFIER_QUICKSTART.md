@@ -131,11 +131,11 @@ for (const theme of themes) {
 
 ## Key Insights
 
-✨ **No file type assumptions**: CSV may have narrative notes, PDF may have data tables  
-✨ **Content-based classification**: System analyzes actual content, not file extension  
-✨ **Cross-type keywords are high signal**: Terms appearing in BOTH data and narrative are most important  
-✨ **Numeric associations**: Track which values relate to which concepts  
-✨ **Case patterns emerge automatically**: System finds themes you didn't explicitly search for  
+ **No file type assumptions**: CSV may have narrative notes, PDF may have data tables  
+ **Content-based classification**: System analyzes actual content, not file extension  
+ **Cross-type keywords are high signal**: Terms appearing in BOTH data and narrative are most important  
+ **Numeric associations**: Track which values relate to which concepts  
+ **Case patterns emerge automatically**: System finds themes you didn't explicitly search for  
 
 ## Troubleshooting
 
@@ -195,50 +195,50 @@ ORDER BY confidence_score DESC;
 ## Architecture Diagram
 
 ```
-┌──────────────────────────────────────────┐
-│     CSV  JSON  XML  PDF  DOCX  XLSX     │
-└────────────┬─────────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────────┐
-│      Format-Specific Parsers            │
-│  (CSV→rows, XML→tree, PDF→text blocks)  │
-└────────────┬────────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────────┐
-│       Content Analyzer                  │
-│  Calculate numeric_density,             │
-│  detect prose, infer schema             │
-└────────────┬────────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────────┐
-│     Segment Classifier                  │
-│  >70% numeric → quantitative            │
-│  >70% text → qualitative                │
-│  30-70% → mixed                         │
-└────────────┬────────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────────┐
-│     Keyword Extractor                   │
-│  N-grams, entities, headers             │
-│  Stop word filter, relevance score      │
-└────────────┬────────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────────┐
-│        Supabase Storage                 │
-│  file_imports, segments, keywords       │
-│  With full-text search & GIN indexes    │
-└────────────┬────────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────────┐
-│   Query & Pattern Detection             │
-│  Cross-type search, case clustering     │
-└─────────────────────────────────────────┘
+
+     CSV  JSON  XML  PDF  DOCX  XLSX     
+
+             
+             
+
+      Format-Specific Parsers            
+  (CSV→rows, XML→tree, PDF→text blocks)  
+
+             
+             
+
+       Content Analyzer                  
+  Calculate numeric_density,             
+  detect prose, infer schema             
+
+             
+             
+
+     Segment Classifier                  
+  >70% numeric → quantitative            
+  >70% text → qualitative                
+  30-70% → mixed                         
+
+             
+             
+
+     Keyword Extractor                   
+  N-grams, entities, headers             
+  Stop word filter, relevance score      
+
+             
+             
+
+        Supabase Storage                 
+  file_imports, segments, keywords       
+  With full-text search & GIN indexes    
+
+             
+             
+
+   Query & Pattern Detection             
+  Cross-type search, case clustering     
+
 ```
 
-Start small, iterate quickly! 🚀
+Start small, iterate quickly! 

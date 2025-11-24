@@ -118,7 +118,7 @@ Total: **10 active parse cases** | Parse Case | Priority | Format | Status |
 
 ## Files Modified
 
-- `src/ra_d_ps/structure_detector.py` - Main refactor (pure DB-driven)
+- `src/maps/structure_detector.py` - Main refactor (pure DB-driven)
 - `docs/DB_MIGRATION_SUMMARY.md` - This document
 
 ---
@@ -133,7 +133,7 @@ python3 scripts/seed_parse_cases.py --verify-only
 python3 scripts/test_detection.py
 
 # Test specific XML file
-python3 -m src.ra_d_ps.structure_detector examples/XML-COMP/157/158.xml
+python3 -m src.maps.structure_detector examples/XML-COMP/157/158.xml
 
 # Refresh parse case cache (after DB updates)
 # Use detector.refresh_cache() in code

@@ -5,12 +5,12 @@
 
 ## Integration Summary
 
-Successfully integrated the complete workflow for PDF keyword extraction, text storage, and search functionality across the RA-D-PS system.
+Successfully integrated the complete workflow for PDF keyword extraction, text storage, and search functionality across the MAPS system.
 
 ## Components Integrated
 
 ### 1. PDF Keyword Extractor
-**File:** `src/ra_d_ps/pdf_keyword_extractor.py`
+**File:** `src/maps/pdf_keyword_extractor.py`
 
 **Changes:**
 - Added `_store_keywords_in_db()` method for database persistence
@@ -57,7 +57,7 @@ def _store_keywords_in_db(self, source_file, keywords, metadata):
 ```
 
 ### 2. Keyword Search Engine
-**File:** `src/ra_d_ps/keyword_search_engine.py`
+**File:** `src/maps/keyword_search_engine.py`
 
 **Fixes:**
 - Corrected attribute names: `kw.keyword_text` (was `kw.text`)
@@ -266,9 +266,9 @@ Found 3 results:
 
 ### Example 1: Process Single PDF
 ```python
-from src.ra_d_ps.pdf_keyword_extractor import PDFKeywordExtractor
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.pdf_keyword_extractor import PDFKeywordExtractor
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 normalizer = KeywordNormalizer()
 repo = KeywordRepository()
@@ -286,8 +286,8 @@ print(f"Abstract: {metadata.abstract[:100]}...")
 
 ### Example 2: Search Stored Content
 ```python
-from src.ra_d_ps.keyword_search_engine import KeywordSearchEngine
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_search_engine import KeywordSearchEngine
+from src.maps.database.keyword_repository import KeywordRepository
 
 repo = KeywordRepository()
 search_engine = KeywordSearchEngine(repository=repo)

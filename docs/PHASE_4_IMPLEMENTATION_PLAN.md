@@ -11,7 +11,7 @@ Refactor parser.py into a generic XMLParser class that:
 
 ### New Components
 
-#### 1. Base Parser Interface (`/src/ra_d_ps/parsers/base.py`)
+#### 1. Base Parser Interface (`/src/maps/parsers/base.py`)
 ```python
 class BaseParser(ABC):
     @abstractmethod
@@ -24,7 +24,7 @@ class BaseParser(ABC):
     def can_parse(self, file_path: str) -> bool
 ```
 
-#### 2. Generic XML Parser (`/src/ra_d_ps/parsers/xml_parser.py`)
+#### 2. Generic XML Parser (`/src/maps/parsers/xml_parser.py`)
 ```python
 class XMLParser(BaseParser):
     def __init__(self, profile: Profile):
@@ -42,7 +42,7 @@ class XMLParser(BaseParser):
         # Apply profile-defined transformations
 ```
 
-#### 3. Legacy Wrapper (`/src/ra_d_ps/parsers/legacy_radiology.py`)
+#### 3. Legacy Wrapper (`/src/maps/parsers/legacy_radiology.py`)
 ```python
 class LegacyRadiologyParser:
     """Wrapper for backward compatibility with existing parser.py"""
@@ -59,7 +59,7 @@ class LegacyRadiologyParser:
 ## Implementation Steps
 
 ### Step 1: Create Parser Module Structure
-- Create `/src/ra_d_ps/parsers/` directory
+- Create `/src/maps/parsers/` directory
 - Create `__init__.py`
 - Create `base.py` with BaseParser interface
 
@@ -135,15 +135,15 @@ The XMLParser will consume profiles like:
 
 ### Old API (preserved):
 ```python
-from src.ra_d_ps.parser import parse_radiology_sample
+from src.maps.parser import parse_radiology_sample
 
 main_df, unblinded_df = parse_radiology_sample(file_path)
 ```
 
 ### New API (added):
 ```python
-from src.ra_d_ps.parsers import XMLParser
-from src.ra_d_ps.profile_manager import ProfileManager
+from src.maps.parsers import XMLParser
+from src.maps.profile_manager import ProfileManager
 
 profile = ProfileManager.get_profile("lidc_idri_radiology")
 parser = XMLParser(profile)

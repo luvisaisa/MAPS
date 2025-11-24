@@ -1,12 +1,12 @@
 # Comprehensive Analysis & Export System - Complete
 
-✅ **Status**: Fully implemented and tested  
-📅 **Date**: November 22, 2025  
-🎯 **Purpose**: Easy viewing, filtering, analysis, and export of all case identifier data
+ **Status**: Fully implemented and tested  
+ **Date**: November 22, 2025  
+ **Purpose**: Easy viewing, filtering, analysis, and export of all case identifier data
 
 ---
 
-## 🎉 What Was Added
+##  What Was Added
 
 ### 1. **Database Views** (SQL)
 
@@ -71,7 +71,7 @@ SELECT * FROM refresh_export_table();
 Complete Python class for data export and analysis:
 
 ```python
-from src.ra_d_ps.analysis_exporter import AnalysisExporter
+from src.maps.analysis_exporter import AnalysisExporter
 
 exporter = AnalysisExporter()
 ```
@@ -150,14 +150,14 @@ stats = exporter.refresh_export_table()
 
 ---
 
-## 📋 Complete Files Created/Modified
+##  Complete Files Created/Modified
 
 ### New Files:
 1. **`migrations/003_analysis_views.sql`** (250 lines)
    - SQL for creating all views and functions
    - Run this in Supabase SQL Editor
    
-2. **`src/ra_d_ps/analysis_exporter.py`** (450 lines)
+2. **`src/maps/analysis_exporter.py`** (450 lines)
    - Python utility class for exports
    - Includes example usage in `if __name__ == '__main__'`
    
@@ -176,7 +176,7 @@ stats = exporter.refresh_export_table()
 
 ---
 
-## 🚀 Deployment Steps
+##  Deployment Steps
 
 ### Step 1: Deploy Database Views
 ```bash
@@ -188,7 +188,7 @@ stats = exporter.refresh_export_table()
 
 ### Step 2: Verify Deployment
 ```python
-from src.ra_d_ps.analysis_exporter import AnalysisExporter
+from src.maps.analysis_exporter import AnalysisExporter
 
 exporter = AnalysisExporter()
 exporter.print_summary()
@@ -229,11 +229,11 @@ exporter.export_to_json('./exports/qualitative_high_keywords.json', data=data)
 
 ---
 
-## 📊 Usage Examples
+##  Usage Examples
 
 ### Example 1: Quick Export for Excel Analysis
 ```python
-from src.ra_d_ps.analysis_exporter import AnalysisExporter
+from src.maps.analysis_exporter import AnalysisExporter
 
 exporter = AnalysisExporter()
 exporter.refresh_export_table()  # Get latest data
@@ -301,7 +301,7 @@ exporter.export_by_file_type('pdf')
 
 ---
 
-## 🎯 Performance Guidelines
+##  Performance Guidelines
 
 ### When to Use Each View
 
@@ -333,26 +333,26 @@ SELECT * FROM refresh_export_table();
 
 ---
 
-## 🧪 Testing Results
+##  Testing Results
 
-✅ **Module Import**: Successful  
-✅ **Exporter Initialization**: Successful  
-✅ **Summary Stats**: Working (0 files, 0 segments - no data yet)  
-⚠️ **Master Table**: Not yet deployed (need to run 003_analysis_views.sql)  
-✅ **Python Utility**: Ready to use  
+ **Module Import**: Successful  
+ **Exporter Initialization**: Successful  
+ **Summary Stats**: Working (0 files, 0 segments - no data yet)  
+ **Master Table**: Not yet deployed (need to run 003_analysis_views.sql)  
+ **Python Utility**: Ready to use  
 
 ---
 
-## 📚 Documentation
+##  Documentation
 
 - **Complete Usage Guide**: `docs/ANALYSIS_AND_EXPORT_GUIDE.md`
 - **SQL Migration**: `migrations/003_analysis_views.sql`
-- **Python API**: `src/ra_d_ps/analysis_exporter.py`
+- **Python API**: `src/maps/analysis_exporter.py`
 - **Schema Documentation**: `migrations/002_unified_case_identifier_schema.sql`
 
 ---
 
-## 🔄 Next Steps
+##  Next Steps
 
 1. **Deploy Views**: Run `migrations/003_analysis_views.sql` in Supabase
 2. **Import Data**: Run `python3 scripts/pylidc_bridge_cli.py`
@@ -361,24 +361,24 @@ SELECT * FROM refresh_export_table();
 
 ---
 
-## ✅ System Capabilities
+##  System Capabilities
 
 After deployment, you can:
 
-✅ **Query all data in single view** (master_analysis_table)  
-✅ **Filter by file type, segment type, keyword count, dates, patterns**  
-✅ **Export to CSV for Excel analysis**  
-✅ **Export to JSON for programmatic use**  
-✅ **Get summary statistics** (files, segments, keywords, patterns)  
-✅ **Search by keyword terms**  
-✅ **Find high-relevance content** (by keyword count, relevance scores)  
-✅ **Export by file type** (all XML, all PDFs, etc.)  
-✅ **Track case patterns** (cross-validated, high-confidence)  
-✅ **Fast exports with materialized views** (10x-100x faster)  
+ **Query all data in single view** (master_analysis_table)  
+ **Filter by file type, segment type, keyword count, dates, patterns**  
+ **Export to CSV for Excel analysis**  
+ **Export to JSON for programmatic use**  
+ **Get summary statistics** (files, segments, keywords, patterns)  
+ **Search by keyword terms**  
+ **Find high-relevance content** (by keyword count, relevance scores)  
+ **Export by file type** (all XML, all PDFs, etc.)  
+ **Track case patterns** (cross-validated, high-confidence)  
+ **Fast exports with materialized views** (10x-100x faster)  
 
 ---
 
-## 🎉 Summary
+##  Summary
 
 You now have a **complete analysis and export system** with:
 
@@ -391,4 +391,4 @@ You now have a **complete analysis and export system** with:
 - Flexible filtering by type, keywords, dates, patterns
 - Summary statistics and reporting
 
-**All components tested and ready for deployment!** 🚀
+**All components tested and ready for deployment!** 

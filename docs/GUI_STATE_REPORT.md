@@ -21,7 +21,7 @@ The GUI has been successfully refactored from `parser.py` to `gui.py` with all f
 
 ### File Structure
 ```
-src/ra_d_ps/
+src/maps/
  gui.py (2,566 lines) ← GUI implementation
  parser.py (922 lines) ← Core parsing logic
  database.py          ← Database operations

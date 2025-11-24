@@ -4,7 +4,7 @@ Complete checklist for deploying MAPS to production.
 
 ---
 
-## ✅ Pre-Deployment Checklist
+##  Pre-Deployment Checklist
 
 ### Backend Setup
 
@@ -97,7 +97,7 @@ Complete checklist for deploying MAPS to production.
 
 ---
 
-## 🚀 Deployment Options
+##  Deployment Options
 
 ### Option 1: Docker Deployment (Recommended)
 
@@ -303,7 +303,7 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-#### 5. Set Up SSL (Let's Encrypt)
+#### 5. Set Up SSL (Encrypt)
 
 ```bash
 sudo apt install certbot python3-certbot-nginx -y
@@ -312,7 +312,7 @@ sudo certbot --nginx -d your-domain.com
 
 ---
 
-## 🔒 Security Checklist
+##  Security Checklist
 
 - [ ] **Environment Variables**
   - [ ] No secrets in code
@@ -342,7 +342,7 @@ sudo certbot --nginx -d your-domain.com
 
 ---
 
-## 📊 Monitoring & Logging
+##  Monitoring & Logging
 
 ### Set Up Monitoring
 
@@ -379,7 +379,7 @@ sentry_sdk.init(
 
 ---
 
-## 🔄 CI/CD Pipeline
+##  CI/CD Pipeline
 
 ### GitHub Actions Example
 
@@ -430,7 +430,7 @@ jobs:
 
 ---
 
-## ✅ Post-Deployment Verification
+##  Post-Deployment Verification
 
 ### Smoke Tests
 
@@ -466,7 +466,7 @@ jobs:
 
 ---
 
-## 📈 Performance Optimization
+##  Performance Optimization
 
 - [ ] **Backend**
   - [ ] Enable Redis caching
@@ -487,7 +487,7 @@ jobs:
 
 ---
 
-## 🔧 Maintenance
+##  Maintenance
 
 ### Regular Tasks
 
@@ -508,7 +508,7 @@ jobs:
 
 ---
 
-## 📞 Support & Rollback
+##  Support & Rollback
 
 ### Rollback Plan
 
@@ -533,7 +533,7 @@ vercel rollback  # or your deployment platform
 
 ---
 
-## ✅ Deployment Complete!
+##  Deployment Complete!
 
 Congratulations! MAPS is now deployed to production.
 
@@ -550,4 +550,4 @@ Congratulations! MAPS is now deployed to production.
 
 ---
 
-Built with ❤️ for the medical imaging research community
+Built with  for the medical imaging research community

@@ -67,7 +67,7 @@
 ## Code Changes
 
 ### File Modified:
-`src/ra_d_ps/gui.py`
+`src/maps/gui.py`
 
 ### New Function Added:
 `browse_parent_folder()` - Lines ~230-330
@@ -226,7 +226,7 @@ Export each folder as an individual XLSX file
 ### Memory:
 - Negligible impact
 - Only stores folder paths (strings)
-- XML file scanning is lightweight (just counts, doesn't read content)
+- XML file scanning is lightweight (counts, doesn't read content)
 
 ---
 

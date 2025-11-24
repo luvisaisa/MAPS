@@ -35,37 +35,37 @@ Different radiology systems export XML in different formats:
 ### Data Flow
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    SCHEMA-AGNOSTIC PIPELINE                 │
-└─────────────────────────────────────────────────────────────┘
+
+                    SCHEMA-AGNOSTIC PIPELINE                 
+
 
 XML Source File
     ↓
-┌───────────────────────┐
-│ 1. PARSE CASE         │  ← Detect XML structure type
-│    DETECTION          │    (LIDC v1, v2, custom, etc.)
-└───────────┬───────────┘
+
+ 1. PARSE CASE           ← Detect XML structure type
+    DETECTION              (LIDC v1, v2, custom, etc.)
+
             ↓
-┌───────────────────────┐
-│ 2. PROFILE-BASED      │  ← Map fields using detected profile
-│    PARSING            │    source_path → target_path
-└───────────┬───────────┘
+
+ 2. PROFILE-BASED        ← Map fields using detected profile
+    PARSING                source_path → target_path
+
             ↓
-┌───────────────────────┐
-│ 3. CANONICAL SCHEMA   │  ← Normalized Pydantic model
-│    (Pydantic)         │    RadiologyCanonicalDocument
-└───────────┬───────────┘
+
+ 3. CANONICAL SCHEMA     ← Normalized Pydantic model
+    (Pydantic)             RadiologyCanonicalDocument
+
             ↓
-┌───────────────────────┐
-│ 4. KEYWORD            │  ← Extract medical terms
-│    EXTRACTION         │    anatomy, characteristics, etc.
-└───────────┬───────────┘
+
+ 4. KEYWORD              ← Extract medical terms
+    EXTRACTION             anatomy, characteristics, etc.
+
             ↓
-┌───────────────────────┐
-│ 5. SUPABASE           │  ← Store with metadata
-│    PostgreSQL         │    + parse_case_id
-│                       │    + keywords
-└───────────────────────┘
+
+ 5. SUPABASE             ← Store with metadata
+    PostgreSQL             + parse_case_id
+                           + keywords
+
 ```
 
 ---
@@ -110,7 +110,7 @@ class ParseCase(Base):
 ### Detection Process
 
 ```python
-from ra_d_ps.structure_detector import XMLStructureDetector
+from maps.structure_detector import XMLStructureDetector
 
 detector = XMLStructureDetector()
 
@@ -126,17 +126,17 @@ print(parse_case.characteristic_fields)  # ["subtlety", "malignancy", ...]
 ### Why This Matters
 
 **Without parse case tracking:**
-- ❌ Don't know which XML schema was used
-- ❌ Can't query "all LIDC v2 format documents"
-- ❌ Can't detect when XML format changes
-- ❌ Can't track success rates by format
+-  Don't know which XML schema was used
+-  Can't query "all LIDC v2 format documents"
+-  Can't detect when XML format changes
+-  Can't track success rates by format
 
 **With parse case tracking:**
-- ✅ Know exact schema for each document
-- ✅ Query by format type: `WHERE parse_case_id = '...'`
-- ✅ Detect schema drift automatically
-- ✅ Track parsing success rates per schema
-- ✅ Optimize parsing strategies per schema
+-  Know exact schema for each document
+-  Query by format type: `WHERE parse_case_id = '...'`
+-  Detect schema drift automatically
+-  Track parsing success rates per schema
+-  Optimize parsing strategies per schema
 
 ---
 
@@ -178,7 +178,7 @@ CREATE TABLE parse_case_detection_history (
 ### Enhanced Repository Usage
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
 
 repo = EnhancedDocumentRepository(
     enable_parse_case_tracking=True,  # ← Enable parse case detection
@@ -335,53 +335,53 @@ LIMIT 20;
 
 ```
 documents
-├─ id (UUID)
-├─ source_file_path (TEXT)
-├─ source_system (TEXT)  ← "LIDC-IDRI", "Hospital X"
-├─ parse_case_id (UUID)  ← Links to parse_cases
-├─ status (TEXT)
-└─ created_at (TIMESTAMPTZ)
+ id (UUID)
+ source_file_path (TEXT)
+ source_system (TEXT)  ← "LIDC-IDRI", "Hospital X"
+ parse_case_id (UUID)  ← Links to parse_cases
+ status (TEXT)
+ created_at (TIMESTAMPTZ)
 
 document_content
-├─ id (UUID)
-├─ document_id (UUID) → documents.id
-├─ canonical_data (JSONB)  ← Full canonical document
-├─ searchable_text (TEXT)  ← For full-text search
-├─ tags (TEXT[])
-└─ confidence_score (NUMERIC)
+ id (UUID)
+ document_id (UUID) → documents.id
+ canonical_data (JSONB)  ← Full canonical document
+ searchable_text (TEXT)  ← For full-text search
+ tags (TEXT[])
+ confidence_score (NUMERIC)
 
 parse_cases
-├─ id (UUID)
-├─ name (TEXT)  ← "LIDC_Multi_Session_4"
-├─ format_type (TEXT)  ← "LIDC", "CXR"
-├─ detection_criteria (JSONB)
-├─ field_mappings (JSONB)
-└─ detection_priority (INTEGER)
+ id (UUID)
+ name (TEXT)  ← "LIDC_Multi_Session_4"
+ format_type (TEXT)  ← "LIDC", "CXR"
+ detection_criteria (JSONB)
+ field_mappings (JSONB)
+ detection_priority (INTEGER)
 
 keywords
-├─ keyword_id (SERIAL)
-├─ keyword_text (TEXT)
-├─ normalized_form (TEXT)
-└─ category (TEXT)
+ keyword_id (SERIAL)
+ keyword_text (TEXT)
+ normalized_form (TEXT)
+ category (TEXT)
 
 document_keywords
-├─ document_id (UUID) → documents.id
-├─ keyword_id (INTEGER) → keywords.keyword_id
-├─ frequency (INTEGER)
-└─ tf_idf_score (REAL)
+ document_id (UUID) → documents.id
+ keyword_id (INTEGER) → keywords.keyword_id
+ frequency (INTEGER)
+ tf_idf_score (REAL)
 ```
 
 ### Relationships
 
 ```
-documents ──┬─→ document_content (1:1)
-            ├─→ parse_cases (N:1)
-            └─→ document_keywords (1:N)
+documents → document_content (1:1)
+            → parse_cases (N:1)
+            → document_keywords (1:N)
 
-document_keywords ─→ keywords (N:1)
+document_keywords → keywords (N:1)
 
-parse_cases ──┬─→ parse_case_detection_history (1:N)
-              └─→ parse_case_statistics (1:N)
+parse_cases → parse_case_detection_history (1:N)
+              → parse_case_statistics (1:N)
 ```
 
 ---
@@ -403,7 +403,7 @@ psql "postgresql://postgres:[PASSWORD]@db.[PROJECT].supabase.co:5432/postgres"
 ### 2. Initialize Parse Cases
 
 ```python
-from ra_d_ps.database.parse_case_repository import ParseCaseRepository
+from maps.database.parse_case_repository import ParseCaseRepository
 
 repo = ParseCaseRepository(connection_string=os.getenv("SUPABASE_DB_URL"))
 
@@ -455,8 +455,8 @@ python examples/enhanced_supabase_pipeline.py
 ### Example 1: Import with Full Tracking
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 import pylidc as pl
 
 # Initialize
@@ -561,25 +561,25 @@ SELECT * FROM detect_parse_case_drift();
 ## Benefits
 
 ### Schema Agnostic
-- ✅ No code changes for new XML formats
-- ✅ Automatic format detection
-- ✅ Profile-based field mapping
+-  No code changes for new XML formats
+-  Automatic format detection
+-  Profile-based field mapping
 
 ### Searchable
-- ✅ Automatic keyword extraction
-- ✅ Full-text search with PostgreSQL
-- ✅ TF-IDF relevance scoring
+-  Automatic keyword extraction
+-  Full-text search with PostgreSQL
+-  TF-IDF relevance scoring
 
 ### Trackable
-- ✅ Know which schema was used
-- ✅ Detection history audit trail
-- ✅ Performance metrics per schema
+-  Know which schema was used
+-  Detection history audit trail
+-  Performance metrics per schema
 
 ### Scalable
-- ✅ JSONB for flexible data
-- ✅ GIN indexes for fast queries
-- ✅ Materialized views for analytics
-- ✅ Connection pooling
+-  JSONB for flexible data
+-  GIN indexes for fast queries
+-  Materialized views for analytics
+-  Connection pooling
 
 ---
 

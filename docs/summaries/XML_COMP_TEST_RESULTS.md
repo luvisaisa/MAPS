@@ -33,7 +33,7 @@ Total: 475 XML files
 The parser API works as follows:
 
 ```python
-from src.ra_d_ps.parser import parse_radiology_sample, parse_multiple, detect_parse_case
+from src.maps.parser import parse_radiology_sample, parse_multiple, detect_parse_case
 
 # Single file parsing
 main_df, unblinded_df = parse_radiology_sample(xml_path)
@@ -134,7 +134,7 @@ This is useful for debugging but may be too verbose for production use.
 ### Immediate Actions
 1. Run batch processing on full folder 157 (11 files)
 2. Process sample from folders 185/186 to validate at scale
-3. Generate Excel exports using RA-D-PS format
+3. Generate Excel exports using MAPS format
 4. Validate multi-radiologist data aggregation
 
 ### For Phase 4 Integration
@@ -157,7 +157,7 @@ CONFIRMED WORKING:
 
 READY FOR:
 - Full dataset processing (all 475 files)
-- Excel export in RA-D-PS format
+- Excel export in MAPS format
 - Integration with canonical schema (Phase 4)
 - Profile-based parsing migration (Phase 5)
 

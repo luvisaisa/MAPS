@@ -133,7 +133,7 @@ Successfully extracted keywords and stored text from a real research paper on pe
 ### Database Operations
 - **Keywords Inserted:** 18 unique keywords
 - **Text Blocks Inserted:** 102
-- **Database:** PostgreSQL (ra_d_ps)
+- **Database:** PostgreSQL (maps)
 - **Sectors Used:** - `research_papers` (frequency tracking)
   - `text_storage` (full-text context)
   - `metadata` (abstract)

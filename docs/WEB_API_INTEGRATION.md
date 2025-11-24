@@ -858,7 +858,7 @@ describe('API Client', () => {
 backend cors must allow web interface origin:
 
 ```python
-# src/ra_d_ps/api/main.py
+# src/maps/api/main.py
 from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(

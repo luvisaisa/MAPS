@@ -2,7 +2,7 @@
 
 Comprehensive guide for filtering, viewing, and exporting data from the Case Identifier System.
 
-## 📊 Available Views
+##  Available Views
 
 ### 1. `master_analysis_table` (View)
 **Purpose**: Comprehensive view with all data joined - best for ad-hoc queries and filtering
@@ -146,7 +146,7 @@ WHERE term ILIKE '%malignancy%';
 
 ---
 
-## 🔧 Helper Functions
+##  Helper Functions
 
 ### 1. `filter_analysis_table()`
 **Purpose**: Complex filtering with multiple criteria
@@ -213,7 +213,7 @@ SELECT * FROM get_keyword_contexts('nodule');
 
 ---
 
-## 🐍 Python Export Utilities
+##  Python Export Utilities
 
 ### Installation
 ```bash
@@ -223,7 +223,7 @@ pip install supabase
 
 ### Quick Start
 ```python
-from src.ra_d_ps.analysis_exporter import AnalysisExporter
+from src.maps.analysis_exporter import AnalysisExporter
 
 # Initialize
 exporter = AnalysisExporter()
@@ -326,11 +326,11 @@ exporter.print_summary()
 
 ---
 
-## 📋 Common Workflows
+##  Common Workflows
 
 ### 1. Export All Data for Excel Analysis
 ```python
-from src.ra_d_ps.analysis_exporter import AnalysisExporter
+from src.maps.analysis_exporter import AnalysisExporter
 
 exporter = AnalysisExporter()
 
@@ -395,12 +395,12 @@ exporter.export_by_file_type('xml')
 # Export high-relevance keywords
 exporter.export_high_relevance_keywords(min_relevance=8.0)
 
-print("✅ Analysis report complete - check ./exports directory")
+print(" Analysis report complete - check ./exports directory")
 ```
 
 ---
 
-## 🎯 Quick Reference
+##  Quick Reference
 
 ### Fastest Queries
 ```sql
@@ -433,7 +433,7 @@ exporter.export_to_csv('./data.csv', use_export_table=False, filters={'segment_t
 
 ---
 
-## 🔄 Refresh Strategy
+##  Refresh Strategy
 
 ### When to Refresh `export_ready_table`
 
@@ -456,10 +456,10 @@ SELECT * FROM refresh_export_table();
 
 ---
 
-## 📊 Example: Complete Analysis Pipeline
+##  Example: Complete Analysis Pipeline
 
 ```python
-from src.ra_d_ps.analysis_exporter import AnalysisExporter
+from src.maps.analysis_exporter import AnalysisExporter
 
 # Initialize
 exporter = AnalysisExporter()
@@ -500,13 +500,13 @@ response = exporter.supabase.table('case_patterns').select('*').eq('cross_type_v
 if response.data:
     exporter.export_to_json('./exports/validated_patterns.json', data=response.data)
 
-print("\n✅ Analysis pipeline complete!")
+print("\n Analysis pipeline complete!")
 print("   Check ./exports directory for all files")
 ```
 
 ---
 
-## 🚀 Next Steps
+##  Next Steps
 
 After deploying views:
 
@@ -520,7 +520,7 @@ After deploying views:
 
 3. **Refresh export table**:
    ```python
-   from src.ra_d_ps.analysis_exporter import AnalysisExporter
+   from src.maps.analysis_exporter import AnalysisExporter
    exporter = AnalysisExporter()
    exporter.refresh_export_table()
    ```
@@ -533,9 +533,9 @@ After deploying views:
 
 ---
 
-## 📚 Additional Resources
+##  Additional Resources
 
 - **Schema Documentation**: `migrations/002_unified_case_identifier_schema.sql`
-- **Python API**: `src/ra_d_ps/analysis_exporter.py`
+- **Python API**: `src/maps/analysis_exporter.py`
 - **Case Identifier System**: `docs/CASE_IDENTIFIER_README.md`
 - **PyLIDC Bridge**: `docs/PYLIDC_SUPABASE_BRIDGE.md`

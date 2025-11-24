@@ -99,7 +99,7 @@ print(f"Found {len(scans)} scans")
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters import PyLIDCAdapter
+from src.maps.adapters import PyLIDCAdapter
 
 # Query a scan
 scan = pl.query(pl.Scan).first()
@@ -150,7 +150,7 @@ print(f"Modality: {canonical_doc.modality}")
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters.pylidc_adapter import query_and_convert
+from src.maps.adapters.pylidc_adapter import query_and_convert
 
 # Query scans with specific criteria
 canonical_docs = query_and_convert(
@@ -169,7 +169,7 @@ for doc in canonical_docs:
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters import PyLIDCAdapter
+from src.maps.adapters import PyLIDCAdapter
 
 adapter = PyLIDCAdapter()
 
@@ -193,7 +193,7 @@ for ann in suspicious:
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters import PyLIDCAdapter
+from src.maps.adapters import PyLIDCAdapter
 
 # Get scan with clustered annotations
 scan = pl.query(pl.Scan).first()
@@ -218,8 +218,8 @@ for i, cluster in enumerate(nodule_clusters):
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters.pylidc_adapter import scan_to_canonical
-from src.ra_d_ps.repositories import DocumentRepository  # Phase 7
+from src.maps.adapters.pylidc_adapter import scan_to_canonical
+from src.maps.repositories import DocumentRepository  # Phase 7
 
 # Convert scan
 scan = pl.query(pl.Scan).first()
@@ -236,8 +236,8 @@ print(f"Stored document: {doc_id}")
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters.pylidc_adapter import query_and_convert
-from src.ra_d_ps.parser import export_excel  # Existing function
+from src.maps.adapters.pylidc_adapter import query_and_convert
+from src.maps.parser import export_excel  # Existing function
 
 # Convert scans
 canonical_docs = query_and_convert(limit=5)
@@ -319,7 +319,7 @@ print(f"Found {len(nodules)} unique nodules")
 The adapter automatically calculates consensus metrics:
 
 ```python
-from src.ra_d_ps.adapters import PyLIDCAdapter
+from src.maps.adapters import PyLIDCAdapter
 
 adapter = PyLIDCAdapter()
 scan = pl.query(pl.Scan).first()
@@ -426,7 +426,7 @@ filtered = [s for s in scans if s.slice_thickness <= 1.0]
 ### Batch Processing
 
 ```python
-from src.ra_d_ps.adapters.pylidc_adapter import query_and_convert
+from src.maps.adapters.pylidc_adapter import query_and_convert
 
 # Process in batches
 batch_size = 50
@@ -483,7 +483,7 @@ pip install numpy>=1.21.0
 - **PyLIDC Documentation**: https://pylidc.github.io/
 - **LIDC-IDRI Dataset**: https://wiki.cancerimagingarchive.net/display/Public/LIDC-IDRI
 - **MAPS Canonical Schema**: See `src/maps/schemas/canonical.py`
-- **Adapter Implementation**: See `src/ra_d_ps/adapters/pylidc_adapter.py`
+- **Adapter Implementation**: See `src/maps/adapters/pylidc_adapter.py`
 - **Examples**: See `examples/pylidc_integration.py`
 
 ## Next Steps

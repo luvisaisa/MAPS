@@ -44,7 +44,7 @@ with patch('tkinter.messagebox.showwarning') as mock_warning:  # Expects showwar
 ### The Issue:
 - GUI code calls `messagebox.showinfo()` (informational message)
 - Test expected `messagebox.showwarning()` (warning message)
-- **Both are valid** - the functions ARE working, just using different message types
+- **Both are valid** - the functions ARE working, using different message types
 
 ---
 

@@ -1,24 +1,24 @@
-# 🎉 Supabase Integration Complete!
+#  Supabase Integration Complete!
 
 **Your PYLIDC → Supabase PostgreSQL pipeline is ready to use.**
 
 ---
 
-## ✅ Implementation Status
+##  Implementation Status
 
-### Core Components ✅
-- ✅ **Database Models** - Document & DocumentContent with type compatibility
-- ✅ **Document Repository** - Full CRUD operations with batch support
-- ✅ **Enhanced Repository** - Parse case detection + keyword extraction
-- ✅ **3 Database Migrations** - Complete schema with indexes and views
-- ✅ **ETL Pipeline Script** - CLI tool for importing PYLIDC data
-- ✅ **Setup/Verification Script** - Automated testing and validation
-- ✅ **20 Comprehensive Tests** - All passing ✅
-- ✅ **Complete Documentation** - Quick start + architecture guide
+### Core Components 
+-  **Database Models** - Document & DocumentContent with type compatibility
+-  **Document Repository** - Full CRUD operations with batch support
+-  **Enhanced Repository** - Parse case detection + keyword extraction
+-  **3 Database Migrations** - Complete schema with indexes and views
+-  **ETL Pipeline Script** - CLI tool for importing PYLIDC data
+-  **Setup/Verification Script** - Automated testing and validation
+-  **20 Comprehensive Tests** - All passing 
+-  **Complete Documentation** - Quick start + architecture guide
 
 ---
 
-## 🚀 Quick Start (3 Commands)
+##  Quick Start (3 Commands)
 
 ```bash
 # 1. Configure Supabase connection
@@ -38,61 +38,61 @@ python3 scripts/pylidc_to_supabase.py --limit 10
 
 ---
 
-## 📂 What Was Created
+##  What Was Created
 
 ### New Files
 
 ```
-📁 src/ra_d_ps/database/
-├── ✅ document_repository.py              (459 lines)
-│   └── Full CRUD, batch operations, search
-└── ✅ enhanced_document_repository.py     (New file)
-    └── Parse case + keyword tracking
+ src/maps/database/
+  document_repository.py              (459 lines)
+    Full CRUD, batch operations, search
+  enhanced_document_repository.py     (New file)
+     Parse case + keyword tracking
 
-📁 migrations/
-├── ✅ 001_initial_schema.sql              (Core tables)
-├── ✅ 002_radiology_supabase.sql          (Radiology features)
-└── ✅ 003_document_parse_case_links.sql   (Schema tracking)
+ migrations/
+  001_initial_schema.sql              (Core tables)
+  002_radiology_supabase.sql          (Radiology features)
+  003_document_parse_case_links.sql   (Schema tracking)
 
-📁 scripts/
-├── ✅ pylidc_to_supabase.py               (ETL pipeline CLI)
-└── ✅ setup_supabase_integration.py       (Setup wizard)
+ scripts/
+  pylidc_to_supabase.py               (ETL pipeline CLI)
+  setup_supabase_integration.py       (Setup wizard)
 
-📁 examples/
-├── ✅ supabase_integration.py             (6 examples)
-└── ✅ enhanced_supabase_pipeline.py       (Enhanced features)
+ examples/
+  supabase_integration.py             (6 examples)
+  enhanced_supabase_pipeline.py       (Enhanced features)
 
-📁 tests/
-└── ✅ test_document_repository.py         (20 tests - ALL PASSING)
+ tests/
+  test_document_repository.py         (20 tests - ALL PASSING)
 
-📁 docs/
-├── ✅ QUICKSTART_SUPABASE.md              (5-minute setup)
-├── ✅ SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md   (Complete guide)
-└── ✅ SUPABASE_INTEGRATION_COMPLETE.md    (Implementation summary)
+ docs/
+  QUICKSTART_SUPABASE.md              (5-minute setup)
+  SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md   (Complete guide)
+  SUPABASE_INTEGRATION_COMPLETE.md    (Implementation summary)
 ```
 
 ### Modified Files
 
 ```
-✅ src/ra_d_ps/database/models.py
-   └── Added Document, DocumentContent, type decorators
+ src/maps/database/models.py
+    Added Document, DocumentContent, type decorators
 
-✅ src/ra_d_ps/__init__.py
-   └── Fixed GUI import error
+ src/maps/__init__.py
+    Fixed GUI import error
 
-✅ src/ra_d_ps/schemas/canonical.py
-   └── Fixed date import
+ src/maps/schemas/canonical.py
+    Fixed date import
 
-✅ .env.example
-   └── Added Supabase configuration
+ .env.example
+    Added Supabase configuration
 
-✅ README.md
-   └── Added Supabase integration section
+ README.md
+    Added Supabase integration section
 ```
 
 ---
 
-## 📊 Test Results
+##  Test Results
 
 ```
 ======================== test session starts ========================
@@ -120,17 +120,17 @@ tests/test_document_repository.py::test_repository_initialization PASSED
 ======================== 20 passed in 2.12s ========================
 ```
 
-**✅ All 20 tests passing!**
+** All 20 tests passing!**
 
 ---
 
-## 💻 Usage Examples
+##  Usage Examples
 
 ### Example 1: Basic Import
 
 ```python
-from ra_d_ps.database.document_repository import DocumentRepository
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.document_repository import DocumentRepository
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 import pylidc as pl
 
 # Initialize
@@ -148,7 +148,7 @@ doc, content = repo.insert_canonical_document(
     tags=["LIDC-IDRI", "radiology"]
 )
 
-print(f"✅ Imported: {scan.patient_id}")
+print(f" Imported: {scan.patient_id}")
 print(f"   Document ID: {doc.id}")
 print(f"   Nodules: {len(canonical_doc.nodules)}")
 ```
@@ -156,7 +156,7 @@ print(f"   Nodules: {len(canonical_doc.nodules)}")
 ### Example 2: Enhanced Import (with Parse Case + Keywords)
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
 
 # Initialize with full tracking
 repo = EnhancedDocumentRepository(
@@ -172,7 +172,7 @@ doc, content, parse_case, keywords = repo.insert_canonical_document_enhanced(
     extract_keywords=True
 )
 
-print(f"✅ Imported: {scan.patient_id}")
+print(f" Imported: {scan.patient_id}")
 print(f"   Parse case: {parse_case}")
 print(f"   Keywords extracted: {keywords}")
 ```
@@ -199,31 +199,31 @@ print(f"Top keywords: {stats['top_keywords']}")
 
 ---
 
-## 🎯 Key Features
+##  Key Features
 
-### ✅ Schema-Agnostic Design
+###  Schema-Agnostic Design
 - **Automatic detection** of XML structure patterns
 - **Parse case tracking** - know which schema was used
 - **No code changes** needed for new formats
 
-### ✅ PYLIDC Integration
+###  PYLIDC Integration
 - **Direct import** from LIDC-IDRI dataset
 - **Batch processing** with progress tracking
 - **Preserves all metadata** and annotations
 
-### ✅ Smart Features
+###  Smart Features
 - **Automatic keyword extraction** from documents
 - **Parse case detection** and tracking
 - **Full-text search** across all content
 - **TF-IDF relevance scoring**
 
-### ✅ PostgreSQL Power
+###  PostgreSQL Power
 - **JSONB storage** for flexible schema
 - **GIN indexes** for fast queries
 - **Materialized views** for analytics
 - **Helper functions** for common queries
 
-### ✅ Production Ready
+###  Production Ready
 - **20 comprehensive tests** (all passing)
 - **Error handling** and retry logic
 - **Connection pooling** configured
@@ -232,17 +232,17 @@ print(f"Top keywords: {stats['top_keywords']}")
 
 ---
 
-## 📖 Documentation
+##  Documentation
 
 ### Quick Start
-👉 **[docs/QUICKSTART_SUPABASE.md](docs/QUICKSTART_SUPABASE.md)**
+ **[docs/QUICKSTART_SUPABASE.md](docs/QUICKSTART_SUPABASE.md)**
 - 5-minute setup guide
 - Step-by-step instructions
 - Usage examples
 - Troubleshooting
 
 ### Architecture Guide
-👉 **[docs/SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md](docs/SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md)**
+ **[docs/SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md](docs/SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md)**
 - Complete architecture documentation
 - Data flow diagrams
 - Database schema details
@@ -250,7 +250,7 @@ print(f"Top keywords: {stats['top_keywords']}")
 - Setup guide
 
 ### Implementation Summary
-👉 **[docs/SUPABASE_INTEGRATION_COMPLETE.md](docs/SUPABASE_INTEGRATION_COMPLETE.md)**
+ **[docs/SUPABASE_INTEGRATION_COMPLETE.md](docs/SUPABASE_INTEGRATION_COMPLETE.md)**
 - What was implemented
 - File structure
 - Design decisions
@@ -259,7 +259,7 @@ print(f"Top keywords: {stats['top_keywords']}")
 
 ---
 
-## 🛠️ Available Tools
+##  Available Tools
 
 ### Scripts
 
@@ -299,7 +299,7 @@ python3 examples/enhanced_supabase_pipeline.py
 
 ---
 
-## 🗄️ Database Tables
+##  Database Tables
 
 ### Core Tables
 - **`documents`** - Document metadata and status
@@ -321,12 +321,12 @@ python3 examples/enhanced_supabase_pipeline.py
 
 ---
 
-## 🔄 Complete Data Flow
+##  Complete Data Flow
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                    PYLIDC → Supabase Pipeline                │
-└──────────────────────────────────────────────────────────────┘
+
+                    PYLIDC → Supabase Pipeline                
+
 
 1. PYLIDC Database (LIDC-IDRI CT Scans)
         ↓
@@ -337,26 +337,26 @@ python3 examples/enhanced_supabase_pipeline.py
 4. RadiologyCanonicalDocument (Pydantic validation)
         ↓
 5. EnhancedDocumentRepository
-   ├─→ Parse Case Detection (LIDC_Multi_Session_4)
-   ├─→ Keyword Extraction (malignancy, spiculation, etc.)
-   └─→ Document Storage (JSONB + metadata)
+   → Parse Case Detection (LIDC_Multi_Session_4)
+   → Keyword Extraction (malignancy, spiculation, etc.)
+   → Document Storage (JSONB + metadata)
         ↓
 6. Supabase PostgreSQL
-   ├─→ documents table
-   ├─→ document_content table (JSONB)
-   ├─→ document_keywords junction table
-   └─→ Materialized views
+   → documents table
+   → document_content table (JSONB)
+   → document_keywords junction table
+   → Materialized views
         ↓
 7. Query & Analysis
-   ├─→ Full-text search
-   ├─→ Schema-based queries
-   ├─→ Keyword-based search
-   └─→ Analytics & reporting
+   → Full-text search
+   → Schema-based queries
+   → Keyword-based search
+   → Analytics & reporting
 ```
 
 ---
 
-## ✅ Next Steps
+##  Next Steps
 
 Now that everything is set up, you can:
 
@@ -402,7 +402,7 @@ WHERE k.keyword_text = 'spiculation';
 
 ---
 
-## 🎓 Learn More
+##  Learn More
 
 - **Architecture**: Read [SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md](docs/SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md)
 - **API Details**: Check the repository classes for method documentation
@@ -411,7 +411,7 @@ WHERE k.keyword_text = 'spiculation';
 
 ---
 
-## 🆘 Need Help?
+##  Need Help?
 
 ### Verification
 ```bash
@@ -429,7 +429,7 @@ python3 scripts/setup_supabase_integration.py --full
 **Import fails?**
 - Make sure PYLIDC dataset is downloaded
 - Check migrations are applied
-- Review logs in `logs/ra_d_ps.log`
+- Review logs in `logs/maps.log`
 
 **Tests fail?**
 - Install dependencies: `pip install -r requirements.txt`
@@ -438,19 +438,19 @@ python3 scripts/setup_supabase_integration.py --full
 
 ---
 
-## 🎉 Summary
+##  Summary
 
 You now have a **complete, production-ready pipeline** that can:
 
-✅ Import PYLIDC radiology scans to Supabase PostgreSQL
-✅ Automatically detect and track XML schema types
-✅ Extract medical keywords for full-text search
-✅ Store flexible JSONB data with fast queries
-✅ Scale to thousands of documents
-✅ Query with SQL or Python
-✅ Analyze radiologist readings and nodule characteristics
+ Import PYLIDC radiology scans to Supabase PostgreSQL
+ Automatically detect and track XML schema types
+ Extract medical keywords for full-text search
+ Store flexible JSONB data with fast queries
+ Scale to thousands of documents
+ Query with SQL or Python
+ Analyze radiologist readings and nodule characteristics
 
-**Everything is tested, documented, and ready to use!** 🚀
+**Everything is tested, documented, and ready to use!** 
 
 ---
 

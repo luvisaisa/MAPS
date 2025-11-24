@@ -10,7 +10,7 @@ Successfully implemented a dedicated `text_storage` sector in the KeywordReposit
 ## Implementation Details
 
 ### Database Configuration
-- **Database:** PostgreSQL (ra_d_ps)
+- **Database:** PostgreSQL (maps)
 - **Host:** localhost:5432
 - **Connection:** Default peer authentication (no password required for local development)
 - **Tables Used:** - `keywords` - Keyword definitions and metadata
@@ -104,8 +104,8 @@ python3 scripts/test_text_storage.py
 
 ### PDF Keyword Extractor
 ```python
-from src.ra_d_ps.pdf_keyword_extractor import PDFKeywordExtractor
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.pdf_keyword_extractor import PDFKeywordExtractor
+from src.maps.database.keyword_repository import KeywordRepository
 
 extractor = PDFKeywordExtractor(pdf_path)
 repo = KeywordRepository()
@@ -122,7 +122,7 @@ for keyword, context in extractor.extract_with_context():
 
 ### Search Engine
 ```python
-from src.ra_d_ps.keyword_search_engine import KeywordSearchEngine
+from src.maps.keyword_search_engine import KeywordSearchEngine
 
 engine = KeywordSearchEngine()
 results = engine.search("pulmonary nodule", sectors=["text_storage"])

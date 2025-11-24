@@ -1,6 +1,6 @@
 # Supabase Integration Guide
 
-**RA-D-PS Radiology Data Processing System**
+**MAPS Radiology Data Processing System**
 **Version:** 1.0.0
 **Last Updated:** November 23, 2025
 
@@ -22,7 +22,7 @@
 
 ## Overview
 
-The RA-D-PS system integrates with Supabase to provide:
+The MAPS system integrates with Supabase to provide:
 
 - Cloud-hosted PostgreSQL database
 - Real-time data synchronization
@@ -35,20 +35,20 @@ The RA-D-PS system integrates with Supabase to provide:
 ### Architecture
 
 ```
-RA-D-PS Application
-├── Python Client (supabase-py) → Supabase REST API
-├── SQLAlchemy ORM → PostgreSQL (direct connection)
-└── DocumentRepository → Database operations
+MAPS Application
+ Python Client (supabase-py) → Supabase REST API
+ SQLAlchemy ORM → PostgreSQL (direct connection)
+ DocumentRepository → Database operations
 
 Supabase Platform
-├── PostgreSQL Database
-│   ├── documents table (metadata)
-│   ├── document_content table (JSONB canonical data)
-│   ├── parse_cases table (structure classification)
-│   └── keywords table (extracted keywords)
-├── Authentication (optional)
-├── Storage (optional)
-└── Edge Functions (optional)
+ PostgreSQL Database
+    documents table (metadata)
+    document_content table (JSONB canonical data)
+    parse_cases table (structure classification)
+    keywords table (extracted keywords)
+ Authentication (optional)
+ Storage (optional)
+ Edge Functions (optional)
 ```
 
 ---
@@ -109,9 +109,9 @@ python scripts/setup_supabase_integration.py --check
 
 Expected output:
 ```
-✅ SUPABASE_URL: https://xxxxx.supabase.co
-✅ SUPABASE_KEY: eyJhbGciO...
-✅ SUPABASE_DB_URL: postgresql://postgres:***...
+ SUPABASE_URL: https://xxxxx.supabase.co
+ SUPABASE_KEY: eyJhbGciO...
+ SUPABASE_DB_URL: postgresql://postgres:***...
 ```
 
 ---
@@ -167,7 +167,7 @@ Expected tables:
 ### Initialize Repository
 
 ```python
-from ra_d_ps.database.document_repository import DocumentRepository
+from maps.database.document_repository import DocumentRepository
 
 # Initialize (uses SUPABASE_DB_URL from environment)
 repo = DocumentRepository()
@@ -191,7 +191,7 @@ print(f"Created document ID: {doc.id}")
 ### Insert Canonical Document
 
 ```python
-from ra_d_ps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
+from maps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
 from datetime import datetime
 
 # Create canonical document
@@ -271,7 +271,7 @@ repo.delete_document(doc.id)
 ### Enhanced Repository with Parse Case Tracking
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
 
 # Initialize with enhanced features
 repo = EnhancedDocumentRepository(
@@ -388,7 +388,7 @@ with repo.Session() as session:
 
 ```python
 import pylidc as pl
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 
 # Initialize adapter and repository
 adapter = PyLIDCAdapter()
@@ -434,7 +434,7 @@ python scripts/pylidc_to_supabase.py --limit 100 --verbose
 Returns Supabase REST API client for database, authentication, and storage operations.
 
 ```python
-from ra_d_ps.supabase import get_supabase_client
+from maps.supabase import get_supabase_client
 
 client = get_supabase_client()
 
@@ -448,7 +448,7 @@ documents = response.data
 Returns Supabase client with service role privileges (bypasses RLS).
 
 ```python
-from ra_d_ps.supabase import get_supabase_service_client
+from maps.supabase import get_supabase_service_client
 
 # Use for administrative operations only
 admin_client = get_supabase_service_client()
@@ -459,7 +459,7 @@ admin_client = get_supabase_service_client()
 Checks if Supabase credentials are configured.
 
 ```python
-from ra_d_ps.supabase import is_supabase_available
+from maps.supabase import is_supabase_available
 
 if is_supabase_available():
     print("Supabase is configured")
@@ -574,7 +574,7 @@ Migrations are idempotent. Errors about existing tables/functions can be ignored
 **Solution**:
 1. Use service role client for administrative operations:
    ```python
-   from ra_d_ps.supabase import get_supabase_service_client
+   from maps.supabase import get_supabase_service_client
    admin_client = get_supabase_service_client()
    ```
 2. Or disable RLS for development:
@@ -615,8 +615,8 @@ pip install supabase python-dotenv sqlalchemy psycopg2-binary
 ### Complete Import Pipeline
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 import pylidc as pl
 
 # 1. Initialize components
@@ -661,7 +661,7 @@ print(f"Total documents in database: {stats['total_documents']}")
 ### Real-time Query Dashboard
 
 ```python
-from ra_d_ps.database.document_repository import DocumentRepository
+from maps.database.document_repository import DocumentRepository
 from sqlalchemy import text
 
 repo = DocumentRepository()
@@ -721,4 +721,4 @@ print(f"High malignancy nodules: {len(high_malignancy)}")
 
 **Last Updated:** November 23, 2025
 **Version:** 1.0.0
-**Maintainer:** RA-D-PS Development Team
+**Maintainer:** MAPS Development Team

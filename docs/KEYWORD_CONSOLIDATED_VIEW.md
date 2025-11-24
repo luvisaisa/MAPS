@@ -286,7 +286,7 @@ ORDER BY vocabulary_source, keyword_text;
 ### Example 1: Query Consolidated View
 
 ```python
-from ra_d_ps.database.keyword_repository import KeywordRepository
+from maps.database.keyword_repository import KeywordRepository
 
 # Initialize repository
 repo = KeywordRepository(
@@ -308,7 +308,7 @@ for kw in keywords:
 ### Example 2: Search Keywords
 
 ```python
-from ra_d_ps.database.keyword_repository import KeywordRepository
+from maps.database.keyword_repository import KeywordRepository
 
 repo = KeywordRepository()
 
@@ -324,7 +324,7 @@ for kw in results:
 ### Example 3: Get Keywords by Category
 
 ```python
-from ra_d_ps.database.keyword_repository import KeywordRepository
+from maps.database.keyword_repository import KeywordRepository
 
 repo = KeywordRepository()
 
@@ -522,7 +522,7 @@ python scripts/import_keyword_csv.py data/keywords_radiology_standard.csv --is-s
 
 **Solution:**
 ```python
-from ra_d_ps.database.keyword_repository import KeywordRepository
+from maps.database.keyword_repository import KeywordRepository
 
 repo = KeywordRepository()
 
@@ -545,7 +545,7 @@ SET last_calculated = CURRENT_TIMESTAMP
 WHERE keyword_id = 123;
 
 -- Or use Python API
-from ra_d_ps.database.keyword_repository import KeywordRepository
+from maps.database.keyword_repository import KeywordRepository
 repo = KeywordRepository()
 repo.update_keyword_statistics(keyword_id=123)
 ```
@@ -580,8 +580,8 @@ Planned improvements to the keyword system:
 - **Migration File**: `migrations/002_add_keyword_enhancements.sql`
 - **Import Script**: `scripts/import_keyword_csv.py`
 - **Sample Data**: `data/keywords_radiology_standard.csv`
-- **Python Models**: `src/ra_d_ps/database/keyword_models.py`
-- **Repository**: `src/ra_d_ps/database/keyword_repository.py`
+- **Python Models**: `src/maps/database/keyword_models.py`
+- **Repository**: `src/maps/database/keyword_repository.py`
 
 ---
 

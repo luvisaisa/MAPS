@@ -4,7 +4,7 @@
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - Python 3.8+
 - Supabase account (free tier works)
@@ -12,7 +12,7 @@
 
 ---
 
-## 🚀 Quick Start (5 Minutes)
+##  Quick Start (5 Minutes)
 
 ### Step 1: Create Supabase Project
 
@@ -43,7 +43,7 @@ SUPABASE_KEY=your-anon-key-here
 SUPABASE_DB_URL=postgresql://postgres:your-password@db.project-ref.supabase.co:5432/postgres
 ```
 
-**⚠️ Important**: Replace `your-password` with your actual database password from Supabase dashboard.
+** Important**: Replace `your-password` with your actual database password from Supabase dashboard.
 
 ### Step 3: Install Dependencies
 
@@ -86,11 +86,11 @@ python scripts/setup_supabase_integration.py --full
 
 **Expected output:**
 ```
-✅ Environment: ALL SET
-✅ Database: CONNECTED
-✅ Basic Operations: PASSED
-✅ Enhanced Operations: PASSED
-⚠️  PYLIDC: SKIPPED (optional)
+ Environment: ALL SET
+ Database: CONNECTED
+ Basic Operations: PASSED
+ Enhanced Operations: PASSED
+  PYLIDC: SKIPPED (optional)
 ```
 
 ### Step 6: Import Your First Document
@@ -105,13 +105,13 @@ python examples/supabase_integration.py
 
 ---
 
-## 📖 Usage Examples
+##  Usage Examples
 
 ### Example 1: Basic Document Import
 
 ```python
-from ra_d_ps.database.document_repository import DocumentRepository
-from ra_d_ps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
+from maps.database.document_repository import DocumentRepository
+from maps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
 from datetime import datetime
 
 # Initialize repository (uses SUPABASE_DB_URL from environment)
@@ -152,7 +152,7 @@ doc, content = repo.insert_canonical_document(
     tags=["example", "test"]
 )
 
-print(f"✅ Inserted document: {doc.id}")
+print(f" Inserted document: {doc.id}")
 print(f"   Status: {doc.status}")
 print(f"   Tags: {content.tags}")
 ```
@@ -160,8 +160,8 @@ print(f"   Tags: {content.tags}")
 ### Example 2: Import from PYLIDC with Parse Case Detection
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 import pylidc as pl
 
 # Initialize enhanced repository (with parse case and keyword tracking)
@@ -185,7 +185,7 @@ doc, content, parse_case, keywords = repo.insert_canonical_document_enhanced(
     extract_keywords=True
 )
 
-print(f"✅ Imported: {scan.patient_id}")
+print(f" Imported: {scan.patient_id}")
 print(f"   Parse case: {parse_case}")
 print(f"   Keywords: {keywords}")
 ```
@@ -193,7 +193,7 @@ print(f"   Keywords: {keywords}")
 ### Example 3: Query Documents
 
 ```python
-from ra_d_ps.database.document_repository import DocumentRepository
+from maps.database.document_repository import DocumentRepository
 
 repo = DocumentRepository()
 
@@ -217,8 +217,8 @@ print(f"By status: {stats['by_status']}")
 ### Example 4: Batch Import
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 import pylidc as pl
 
 repo = EnhancedDocumentRepository()
@@ -242,17 +242,17 @@ results = repo.batch_insert_canonical_documents(
     progress_callback=progress
 )
 
-print(f"✅ Imported {len(results)}/{len(scans)} documents")
+print(f" Imported {len(results)}/{len(scans)} documents")
 ```
 
 ---
 
-## 🔍 Querying Data
+##  Querying Data
 
 ### Using Python
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
 
 repo = EnhancedDocumentRepository()
 
@@ -317,7 +317,7 @@ LIMIT 20;
 
 ---
 
-## 📊 Available Tables
+##  Available Tables
 
 ### `documents`
 - **Purpose**: Document metadata and status tracking
@@ -341,7 +341,7 @@ LIMIT 20;
 
 ---
 
-## 🛠️ Utilities
+##  Utilities
 
 ### Check Database Status
 
@@ -371,7 +371,7 @@ python scripts/pylidc_to_supabase.py --filter high_quality --limit 50
 
 ```bash
 # Check import logs
-tail -f logs/ra_d_ps.log
+tail -f logs/maps.log
 
 # Query ingestion logs from database
 psql "$SUPABASE_DB_URL" -c "SELECT * FROM ingestion_logs ORDER BY start_time DESC LIMIT 10;"
@@ -379,7 +379,7 @@ psql "$SUPABASE_DB_URL" -c "SELECT * FROM ingestion_logs ORDER BY start_time DES
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Connection Issues
 
@@ -410,7 +410,7 @@ psql "$SUPABASE_DB_URL" -c "SELECT * FROM ingestion_logs ORDER BY start_time DES
 # Check applied migrations
 psql "$SUPABASE_DB_URL" -c "SELECT * FROM schema_migrations;"
 
-# Reset database (⚠️ DELETES ALL DATA)
+# Reset database ( DELETES ALL DATA)
 psql "$SUPABASE_DB_URL" -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
 # Re-apply migrations
@@ -419,7 +419,7 @@ psql "$SUPABASE_DB_URL" -f migrations/001_initial_schema.sql
 
 ---
 
-## 📚 Next Steps
+##  Next Steps
 
 1. **Import your dataset**: Use `scripts/pylidc_to_supabase.py` to import PYLIDC data
 2. **Explore examples**: Check `examples/` directory for more usage patterns
@@ -429,7 +429,7 @@ psql "$SUPABASE_DB_URL" -f migrations/001_initial_schema.sql
 
 ---
 
-## 🔗 Related Documentation
+##  Related Documentation
 
 - **Complete Guide**: [SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md](SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md)
 - **Implementation Details**: [IMPLEMENTATION_GUIDE_SCHEMA_AGNOSTIC.md](IMPLEMENTATION_GUIDE_SCHEMA_AGNOSTIC.md)
@@ -438,7 +438,7 @@ psql "$SUPABASE_DB_URL" -f migrations/001_initial_schema.sql
 
 ---
 
-## ✅ Quick Validation Checklist
+##  Quick Validation Checklist
 
 - [ ] Supabase project created
 - [ ] Environment variables set in `.env`

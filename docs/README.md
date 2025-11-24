@@ -13,9 +13,9 @@
 - [Developer Guide](DEVELOPER_GUIDE.md) - Contributing and development setup
 - [API Reference](API_REFERENCE.md) - Complete API documentation
 - [Performance Guide](PERFORMANCE_README.md) - Performance optimization
-- **[Testing Guide](TESTING_GUIDE.md)** - Comprehensive testing documentation ⭐ NEW
-- **[Test Quick Reference](TEST_QUICKSTART.md)** - Quick testing commands ⭐ NEW
-- **[Testing Suite Summary](TESTING_SUITE_SUMMARY.md)** - Implementation overview ⭐ NEW
+- **[Testing Guide](TESTING_GUIDE.md)** - Comprehensive testing documentation  NEW
+- **[Test Quick Reference](TEST_QUICKSTART.md)** - Quick testing commands  NEW
+- **[Testing Suite Summary](TESTING_SUITE_SUMMARY.md)** - Implementation overview  NEW
 
 ## Architecture
 - [Project Structure](#project-structure)
@@ -25,7 +25,7 @@
 
 ```
 maps/
- src/ra_d_ps/          # Main package
+ src/maps/          # Main package
     core.py           # XML parsing logic
     exporters.py      # Excel/file export
     gui.py            # GUI components
@@ -39,19 +39,19 @@ maps/
 
 ## Module Overview
 
-### Core (`ra_d_ps.core`)
+### Core (`maps.core`)
 - `parse_radiology_sample()` - Parse single XML file
 - `parse_multiple()` - Parse multiple XML files
 - `detect_parse_case()` - Auto-detect XML format
 
-### Exporters (`ra_d_ps.exporters`)
+### Exporters (`maps.exporters`)
 - `export_excel()` - Export to Excel with formatting
 - `convert_parsed_data_to_ra_d_ps_format()` - Convert to MAPS format
 
-### GUI (`ra_d_ps.gui`)
+### GUI (`maps.gui`)
 - `NYTXMLGuiApp` - Main GUI application
 - Cross-platform file operations
 
-### Database (`ra_d_ps.database`)
+### Database (`maps.database`)
 - `RadiologyDatabase` - SQLite database interface
 - Analytics and querying capabilities

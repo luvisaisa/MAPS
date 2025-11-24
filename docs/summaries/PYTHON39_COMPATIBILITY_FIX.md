@@ -68,7 +68,7 @@ def set_radiology_type(cls, v):
 
 ## Files Modified
 
-### `/src/ra_d_ps/schemas/canonical.py`
+### `/src/maps/schemas/canonical.py`
 **Changes**:
 1. Added `from __future__ import annotations` for forward references
 2. Added `Annotated` to typing imports
@@ -90,7 +90,7 @@ def set_radiology_type(cls, v):
 - Run tests AFTER making changes  
 - Never assume code works without running actual tests
 
-### `.github/instructions/ra-d-ps instruct.instructions.md`
+### `.github/instructions/maps instruct.instructions.md`
 **Changes**: Updated "canonical workflows" section with explicit "CRITICAL: REAL TESTS REQUIREMENT" emphasizing test-driven development.
 
 ## Validation Results
@@ -140,9 +140,9 @@ Results: 6/6 tests passed
 
 With the foundation now validated and Python 3.9 compatible:
 -  PostgreSQL schema (migrations/001_initial_schema.sql)
--  Canonical Pydantic models (src/ra_d_ps/schemas/canonical.py)
--  Profile system (src/ra_d_ps/schemas/profile.py)
--  Profile manager (src/ra_d_ps/profile_manager.py)
+-  Canonical Pydantic models (src/maps/schemas/canonical.py)
+-  Profile system (src/maps/schemas/profile.py)
+-  Profile manager (src/maps/profile_manager.py)
 - ⏳ Phase 4: Generic XML Parser Core (next)
 - ⏳ Phase 5: Ingestion coordinator
 - ⏳ Phase 6-10: Repository layer, API, query builder, etc.

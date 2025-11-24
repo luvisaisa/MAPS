@@ -15,15 +15,15 @@ ANY FILE → Parse → Analyze → Classify → Extract Keywords → Store in Su
 
 ## Key Features
 
-✅ **Unified Import Pipeline**: All file types processed identically  
-✅ **Content-Based Classification**: Segments classified as quantitative (>70% numeric), qualitative (>70% text), or mixed (30-70%)  
-✅ **Intelligent Keyword Extraction**: N-grams, named entities, column headers, categorical values  
-✅ **Stop Word Filtering**: Configurable exclusion with preservation of technical terms  
-✅ **Multi-Factor Relevance Scoring**: TF-IDF × position_weight × cross_type_bonus × numeric_association  
-✅ **Cross-Content Queries**: Find keywords spanning both data and narrative  
-✅ **Case Pattern Detection**: Automatic clustering of co-occurring keywords  
-✅ **Numeric Associations**: Track values linked to each keyword  
-✅ **Supabase Backend**: Full relational querying with RLS policies
+ **Unified Import Pipeline**: All file types processed identically  
+ **Content-Based Classification**: Segments classified as quantitative (>70% numeric), qualitative (>70% text), or mixed (30-70%)  
+ **Intelligent Keyword Extraction**: N-grams, named entities, column headers, categorical values  
+ **Stop Word Filtering**: Configurable exclusion with preservation of technical terms  
+ **Multi-Factor Relevance Scoring**: TF-IDF × position_weight × cross_type_bonus × numeric_association  
+ **Cross-Content Queries**: Find keywords spanning both data and narrative  
+ **Case Pattern Detection**: Automatic clustering of co-occurring keywords  
+ **Numeric Associations**: Track values linked to each keyword  
+ **Supabase Backend**: Full relational querying with RLS policies
 
 ## Database Schema
 

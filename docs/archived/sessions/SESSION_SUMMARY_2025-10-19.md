@@ -61,8 +61,8 @@ Successfully migrated 6 new tables to PostgreSQL:
 - Automatic statistics updates via triggers
 - IDF score caching to avoid recalculation
 
-**Migration File:** `src/ra_d_ps/database/migrations/002_add_keyword_extraction_schema.sql`  
-**Models:** `src/ra_d_ps/database/keyword_models.py`  
+**Migration File:** `src/maps/database/migrations/002_add_keyword_extraction_schema.sql`  
+**Models:** `src/maps/database/keyword_models.py`  
 **Documentation:** `docs/PHASE_5C_KEYWORD_EXTRACTION_PLAN.md`
 
 ---
@@ -71,7 +71,7 @@ Successfully migrated 6 new tables to PostgreSQL:
 
 ### Database Infrastructure
 - **PostgreSQL Version:** 15.14
-- **Database:** ra_d_ps
+- **Database:** maps
 - **Tables:** 16 total (6 new keyword tables)
 - **Indexes:** 29 new indexes for keyword search
 - **Triggers:** 2 automatic update triggers
@@ -96,13 +96,13 @@ Successfully migrated 6 new tables to PostgreSQL:
 ### Phase 5C Continuation (Day 2)
 
 1. **KeywordRepository Implementation** (2-3 hours)
-   - Create `src/ra_d_ps/database/keyword_repository.py`
+   - Create `src/maps/database/keyword_repository.py`
    - Implement 15 CRUD methods (add_keyword, get_keyword, search, etc.)
    - Add session management and error handling
    - Write unit tests
 
 2. **XMLKeywordExtractor** (3-4 hours)
-   - Create `src/ra_d_ps/keyword_extractor.py`
+   - Create `src/maps/keyword_extractor.py`
    - Extract from characteristics (LIDC v2 fields)
    - Extract from diagnostic text (reason field)
    - Extract anatomical terms
@@ -128,13 +128,13 @@ Successfully migrated 6 new tables to PostgreSQL:
 1. `scripts/validate_xml_comp_dataset.py` - Full dataset validation script
 2. `docs/XML_COMP_FULL_VALIDATION.md` - Validation results documentation
 3. `docs/PHASE_5C_KEYWORD_EXTRACTION_PLAN.md` - Implementation plan
-4. `src/ra_d_ps/database/migrations/002_add_keyword_extraction_schema.sql` - Schema migration
-5. `src/ra_d_ps/database/keyword_models.py` - SQLAlchemy models
+4. `src/maps/database/migrations/002_add_keyword_extraction_schema.sql` - Schema migration
+5. `src/maps/database/keyword_models.py` - SQLAlchemy models
 6. `validation_results/xml_comp_validation_20251019_215640.csv` - Detailed results
 7. `validation_results/xml_comp_validation_20251019_215640.txt` - Summary report
 
 ### Modified Files (1)
-1. `src/ra_d_ps/structure_detector.py` - API compatibility fix (detect_structure_type)
+1. `src/maps/structure_detector.py` - API compatibility fix (detect_structure_type)
 
 ---
 
@@ -202,7 +202,7 @@ Successfully migrated 6 new tables to PostgreSQL:
 python3 scripts/validate_xml_comp_dataset.py
 
 # Database migration
-psql -d ra_d_ps -f src/ra_d_ps/database/migrations/002_add_keyword_extraction_schema.sql
+psql -d maps -f src/maps/database/migrations/002_add_keyword_extraction_schema.sql
 
 # Test execution
 pytest -q tests/test_folder_scanning_logic.py -v

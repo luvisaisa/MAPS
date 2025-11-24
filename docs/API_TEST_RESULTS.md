@@ -37,7 +37,7 @@
 **Problem:** `parser.py` imports tkinter at module level, blocking API in headless environments
 
 **Solution:**
-- Made tkinter imports conditional in `src/ra_d_ps/__init__.py`
+- Made tkinter imports conditional in `src/maps/__init__.py`
 - Added lazy import functions in `ParseService` and `ParseCaseService`
 - Imports deferred until function call, not module load
 
@@ -63,9 +63,9 @@
 
 | Service | Status | Integration | Notes |
 |---------|--------|-------------|-------|
-| ParseService | COMPLETE | ra_d_ps.parser | XML/PDF parsing functional |
+| ParseService | COMPLETE | maps.parser | XML/PDF parsing functional |
 | PyLIDCService | COMPLETE | pylidc_adapter | PYLIDC integration functional |
-| ParseCaseService | COMPLETE | ra_d_ps.parser | Parse case detection functional |
+| ParseCaseService | COMPLETE | maps.parser | Parse case detection functional |
 | KeywordService | COMPLETE | SQL queries | Database queries functional |
 | ExportService | COMPLETE | pandas | Export to CSV/Excel/JSON |
 | ViewService | COMPLETE | SQL queries | Supabase views access |
@@ -162,14 +162,14 @@
 
 ### Import Test
 ```bash
-python -c "from src.ra_d_ps.api.main import app; print(f'Routes: {len(app.routes)}')"
+python -c "from src.maps.api.main import app; print(f'Routes: {len(app.routes)}')"
 ```
 
 ### Start Server (local)
 ```bash
 python start_api.py
 # OR
-uvicorn src.ra_d_ps.api.main:app --reload
+uvicorn src.maps.api.main:app --reload
 ```
 
 ### Check Routes

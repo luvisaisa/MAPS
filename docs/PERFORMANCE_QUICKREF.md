@@ -1,6 +1,6 @@
 # Performance Optimization Quick Reference
 
-## 🚀 Backend Optimizations
+##  Backend Optimizations
 
 ### PYLIDC Service
 ```python
@@ -12,9 +12,9 @@ PYLIDC_CACHE_TTL = 3600  # 1 hour
 ```
 
 **Key Changes:**
-- ✅ In-memory cache for scan metadata
-- ✅ Reuse slice_count/annotation_count
-- ✅ Cache query results with MD5 keys
+-  In-memory cache for scan metadata
+-  Reuse slice_count/annotation_count
+-  Cache query results with MD5 keys
 
 ### Database Connection Pooling
 ```python
@@ -48,7 +48,7 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 ---
 
-## 💻 Frontend Optimizations
+##  Frontend Optimizations
 
 ### Input Debouncing
 ```typescript
@@ -76,25 +76,25 @@ cacheTime: 10 * 60 * 1000  // Cache for 10 minutes
 
 ---
 
-## 📊 Performance Targets
+##  Performance Targets
 
 ### API Response Times (P95)
 | Endpoint | Target | Status |
 |----------|--------|--------|
-| `/health` | <50ms | ✅ 20ms |
-| `/pylidc/scans` (cached) | <500ms | ✅ 80ms |
-| `/keywords/search` | <100ms | ✅ 40ms |
+| `/health` | <50ms |  20ms |
+| `/pylidc/scans` (cached) | <500ms |  80ms |
+| `/keywords/search` | <100ms |  40ms |
 
 ### Frontend Metrics
 | Metric | Target | Status |
 |--------|--------|--------|
-| First Paint | <1.5s | ✅ 1.2s |
-| Interactive | <3.5s | ✅ 3.1s |
-| Bundle Size | <500KB | ✅ 420KB |
+| First Paint | <1.5s |  1.2s |
+| Interactive | .5s |  3.1s |
+| Bundle Size | <500KB |  420KB |
 
 ---
 
-## 🔧 Configuration
+##  Configuration
 
 ### Environment Variables
 ```bash
@@ -111,7 +111,7 @@ DB_POOL_RECYCLE=3600
 
 ---
 
-## ✅ Testing Commands
+##  Testing Commands
 
 ```bash
 # Test PYLIDC cache
@@ -130,7 +130,7 @@ ab -n 100 -c 10 http://localhost:8000/health
 
 ---
 
-## 🎯 Impact Summary
+##  Impact Summary
 
 | Optimization | Improvement |
 |--------------|-------------|
@@ -142,7 +142,7 @@ ab -n 100 -c 10 http://localhost:8000/health
 
 ---
 
-## 📝 Next Steps
+##  Next Steps
 
 **Short-term:**
 1. Apply database indexes on `keyword_directory`

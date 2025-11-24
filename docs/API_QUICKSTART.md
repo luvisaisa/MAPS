@@ -1,8 +1,8 @@
-# RA-D-PS REST API Quick Start
+# MAPS REST API Quick Start
 
 ## Overview
 
-The RA-D-PS REST API provides programmatic access to all radiology data processing features including XML/PDF parsing, PYLIDC integration, keyword extraction, and data export.
+The MAPS REST API provides programmatic access to all radiology data processing features including XML/PDF parsing, PYLIDC integration, keyword extraction, and data export.
 
 ## Installation
 
@@ -33,7 +33,7 @@ python start_api.py
 Or using uvicorn directly:
 
 ```bash
-uvicorn src.ra_d_ps.api.main:app --reload
+uvicorn src.maps.api.main:app --reload
 ```
 
 API will be available at:
@@ -234,11 +234,11 @@ Open http://localhost:8000/docs in your browser for:
 - Service layer stubs
 
 **TODO (Service Implementation):**
-- Complete parse service using ra_d_ps.parser
-- Complete PYLIDC service using ra_d_ps.adapters.pylidc_adapter
-- Complete keyword service using ra_d_ps.keyword_search_engine
-- Complete export service using ra_d_ps.exporters
-- Complete visualization service using ra_d_ps.lidc_3d_utils
+- Complete parse service using maps.parser
+- Complete PYLIDC service using maps.adapters.pylidc_adapter
+- Complete keyword service using maps.keyword_search_engine
+- Complete export service using maps.exporters
+- Complete visualization service using maps.lidc_3d_utils
 - Database query implementations
 - Authentication and authorization
 - Rate limiting

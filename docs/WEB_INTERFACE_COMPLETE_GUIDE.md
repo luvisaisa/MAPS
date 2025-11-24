@@ -6,7 +6,7 @@ All features are now fully functional and connected. This guide shows you how to
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Start the Web Interface
 ```bash
@@ -21,14 +21,14 @@ Access at: `http://localhost:5173`
 ```bash
 cd /Users/isa/Desktop/python-projects/MAPS
 source .venv/bin/activate
-uvicorn src.ra_d_ps.api.main:app --reload
+uvicorn src.maps.api.main:app --reload
 ```
 
 API docs: `http://localhost:8000/docs`
 
 ---
 
-## 📤 File Upload & Processing
+##  File Upload & Processing
 
 ### Supported Formats
 - **XML** - LIDC-IDRI annotations
@@ -51,16 +51,16 @@ API docs: `http://localhost:8000/docs`
 6. View results in **History** page
 
 ### Features
-- ✅ Real-time progress tracking via WebSocket
-- ✅ Individual file status (pending/uploading/completed/failed)
-- ✅ Automatic ZIP extraction on server
-- ✅ 100MB file size limit
-- ✅ 1000 file batch limit
-- ✅ Visual badges for file types (PDF=red, ZIP=purple)
+-  Real-time progress tracking via WebSocket
+-  Individual file status (pending/uploading/completed/failed)
+-  Automatic ZIP extraction on server
+-  100MB file size limit
+-  1000 file batch limit
+-  Visual badges for file types (PDF=red, ZIP=purple)
 
 ---
 
-## 🔍 PYLIDC Integration
+##  PYLIDC Integration
 
 Navigate to: **PYLIDC Import** page
 
@@ -106,7 +106,7 @@ View real-time stats:
 
 ---
 
-## 📊 Analytics Dashboard
+##  Analytics Dashboard
 
 Navigate to: **Analytics** page
 
@@ -135,7 +135,7 @@ Navigate to: **Analytics** page
 
 ---
 
-## 🔎 Search & Keywords
+##  Search & Keywords
 
 ### Advanced Search
 Navigate to: **Search** page
@@ -160,7 +160,7 @@ Navigate to: **Keywords** page
 
 ---
 
-## 📁 Document Management
+##  Document Management
 
 Navigate to: **Documents** page (Coming Soon)
 
@@ -173,7 +173,7 @@ Will include:
 
 ---
 
-## 📈 Real-Time Updates
+##  Real-Time Updates
 
 ### WebSocket Features
 - Live job progress tracking
@@ -194,7 +194,7 @@ Will include:
 
 ---
 
-## 🎨 UI Components
+##  UI Components
 
 ### File Type Badges
 - **XML**: Default (blue)
@@ -216,7 +216,7 @@ Will include:
 
 ---
 
-## 🛠️ API Integration
+##  API Integration
 
 All features use the centralized API client:
 
@@ -266,7 +266,7 @@ apiClient.downloadFile(fileName)
 
 ---
 
-## 📝 Common Workflows
+##  Common Workflows
 
 ### 1. Process LIDC Dataset
 ```
@@ -310,7 +310,7 @@ apiClient.downloadFile(fileName)
 
 ---
 
-## 🎯 Performance Tips
+##  Performance Tips
 
 ### Upload Optimization
 - Use ZIP for large batches (reduces HTTP overhead)
@@ -331,7 +331,7 @@ apiClient.downloadFile(fileName)
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Upload Not Working
 - Check file format (XML/JSON/PDF/ZIP only)
@@ -359,7 +359,7 @@ apiClient.downloadFile(fileName)
 
 ---
 
-## 🔗 Navigation
+##  Navigation
 
 ### Main Menu
 - **Dashboard**: Overview and stats
@@ -377,7 +377,7 @@ apiClient.downloadFile(fileName)
 
 ---
 
-## 📚 Additional Resources
+##  Additional Resources
 
 ### Documentation
 - `docs/MULTI_FORMAT_SUPPORT.md` - File format guide
@@ -395,35 +395,35 @@ apiClient.downloadFile(fileName)
 
 ---
 
-## ✨ New Features Summary
+##  New Features Summary
 
-### Just Implemented
-✅ Complete file upload workflow with real-time progress
-✅ PYLIDC integration with advanced filtering
-✅ Multi-format support (XML, JSON, PDF, ZIP)
-✅ Folder and ZIP extraction
-✅ Sortable tables with click-to-sort headers
-✅ Export to JSON/CSV directly from UI
-✅ Stats dashboard with live metrics
-✅ Individual and batch import actions
-✅ Visual file type badges
-✅ Comprehensive filtering system
+### Implemented
+ Complete file upload workflow with real-time progress
+ PYLIDC integration with advanced filtering
+ Multi-format support (XML, JSON, PDF, ZIP)
+ Folder and ZIP extraction
+ Sortable tables with click-to-sort headers
+ Export to JSON/CSV directly from UI
+ Stats dashboard with live metrics
+ Individual and batch import actions
+ Visual file type badges
+ Comprehensive filtering system
 
 ### All Features Working
-✅ File upload and processing
-✅ Real-time progress tracking
-✅ PYLIDC scan query and import
-✅ Keyword extraction and search
-✅ Analytics dashboard with charts
-✅ Advanced search with filters
-✅ Document management
-✅ Profile management
-✅ Export capabilities
-✅ Live updates via WebSocket/SSE
+ File upload and processing
+ Real-time progress tracking
+ PYLIDC scan query and import
+ Keyword extraction and search
+ Analytics dashboard with charts
+ Advanced search with filters
+ Document management
+ Profile management
+ Export capabilities
+ Live updates via WebSocket/SSE
 
 ---
 
-## 🎉 You're All Set!
+##  You're All Set!
 
 Everything is connected and working. Start uploading files and exploring your medical annotation data!
 

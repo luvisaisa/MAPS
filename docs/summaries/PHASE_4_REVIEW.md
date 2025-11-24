@@ -9,7 +9,7 @@ Phase 4 implementation is OPERATIONAL with minor issues resolved. The new parser
 ## Issues Identified
 
 ### 1. Linting Issues (RESOLVED)
-**Location:** `/src/ra_d_ps/parsers/base.py`  
+**Location:** `/src/maps/parsers/base.py`  
 **Issue:** Unnecessary `pass` statements in exception classes (6 occurrences)  
 **Severity:** Low (cosmetic)  
 **Status:** DOCUMENTED - These are intentional empty exception classes, pass statements are valid
@@ -29,8 +29,8 @@ Phase 4 implementation is OPERATIONAL with minor issues resolved. The new parser
 **Impact:** These tests cannot run, but they test the OLD parser architecture  
 **Resolution Strategy:** Update in Phase 5 after creating comprehensive LIDC profile
 **Reason for Deferral:** Tests need to be updated to use either:
-  - `from src.ra_d_ps.parser import ...` (current parser.py)
-  - `from src.ra_d_ps.parsers import LegacyRadiologyParser` (new architecture)
+  - `from src.maps.parser import ...` (current parser.py)
+  - `from src.maps.parsers import LegacyRadiologyParser` (new architecture)
 
 ### 3. SQLite Warning (INFORMATIONAL)
 **Message:** "SQLite database features unavailable"  
@@ -67,7 +67,7 @@ Phase 4 implementation is OPERATIONAL with minor issues resolved. The new parser
 ### Test 3: Module Import Validation
 **Result:** SUCCESS - All new parser modules import correctly
 ```python
-from src.ra_d_ps.parsers import BaseParser, XMLParser, LegacyRadiologyParser
+from src.maps.parsers import BaseParser, XMLParser, LegacyRadiologyParser
 ```
 
 ### Test 4: Error Handling
@@ -78,7 +78,7 @@ from src.ra_d_ps.parsers import BaseParser, XMLParser, LegacyRadiologyParser
 
 ### Module Structure: CORRECT
 ```
-/src/ra_d_ps/parsers/
+/src/maps/parsers/
   __init__.py      - Module initialization, exports all parsers
   base.py          - Abstract base class (141 lines)
   xml_parser.py    - Generic XML parser (400+ lines)
@@ -93,9 +93,9 @@ from src.ra_d_ps.parsers import BaseParser, XMLParser, LegacyRadiologyParser
 ### Backward Compatibility: VERIFIED
 Old code can still use:
 ```python
-from src.ra_d_ps.parser import parse_radiology_sample  # Original parser
+from src.maps.parser import parse_radiology_sample  # Original parser
 # OR
-from src.ra_d_ps.parsers import LegacyRadiologyParser  # New wrapper
+from src.maps.parsers import LegacyRadiologyParser  # New wrapper
 ```
 
 ## Known Limitations (Expected)

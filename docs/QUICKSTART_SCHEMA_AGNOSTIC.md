@@ -7,7 +7,7 @@
 
 ## What's Been Built
 
-I've created a **complete foundation** for transforming your radiology XML parser into a **schema-agnostic, profile-based data ingestion system**. Here's what's ready:
+A **complete foundation** has been created for transforming the radiology XML parser into a **schema-agnostic, profile-based data ingestion system**. The following components are ready:
 
 ### Completed Components
 
@@ -17,19 +17,19 @@ I've created a **complete foundation** for transforming your radiology XML parse
    - Comprehensive audit logging
    - Profile management system
 
-2. **Canonical Schema Models** (`/src/ra_d_ps/schemas/canonical.py`)
+2. **Canonical Schema Models** (`/src/maps/schemas/canonical.py`)
    - Pydantic v2 models for data validation
    - `CanonicalDocument` base class
    - `RadiologyCanonicalDocument` for your existing use case
    - Entity extraction support
 
-3. **Profile System** (`/src/ra_d_ps/schemas/profile.py`)
+3. **Profile System** (`/src/maps/schemas/profile.py`)
    - Complete profile definition schema
    - Field mapping configuration
    - Transformation engine support
    - Validation rules
 
-4. **Profile Manager** (`/src/ra_d_ps/profile_manager.py`)
+4. **Profile Manager** (`/src/maps/profile_manager.py`)
    - Load/save profiles from JSON or database
    - Profile validation and caching
    - Profile inheritance support
@@ -71,7 +71,7 @@ psql -h localhost -U ra_d_ps_user -d ra_d_ps_db \
 ### Step 4: Test Profile Manager
 ```bash
 python3 -c "
-from src.ra_d_ps.profile_manager import get_profile_manager
+from src.maps.profile_manager import get_profile_manager
 manager = get_profile_manager()
 print(f' Profile manager initialized')
 print(f' Profiles loaded: {len(manager.list_profiles())}')
@@ -81,7 +81,7 @@ print(f' Profiles loaded: {len(manager.list_profiles())}')
 ### Step 5: Test Canonical Schema
 ```bash
 python3 -c "
-from src.ra_d_ps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
+from src.maps.schemas.canonical import RadiologyCanonicalDocument, DocumentMetadata
 from datetime import datetime
 
 doc = RadiologyCanonicalDocument(
@@ -120,11 +120,11 @@ psql -h localhost -U ra_d_ps_user -d ra_d_ps_db -c "\d+ document_content"
 # Open pgAdmin (optional)
 docker-compose --profile dev up -d pgadmin
 # Navigate to http://localhost:5050
-# Email: admin@ra-d-ps.local, Password: admin
+# Email: admin@maps.local, Password: admin
 
 # Review canonical schema
 python3 -c "
-from src.ra_d_ps.schemas.canonical import CanonicalDocument
+from src.maps.schemas.canonical import CanonicalDocument
 import json
 schema = CanonicalDocument.model_json_schema()
 print(json.dumps(schema, indent=2))
@@ -158,7 +158,7 @@ EOF
 
 # Test loading
 python3 -c "
-from src.ra_d_ps.profile_manager import get_profile_manager
+from src.maps.profile_manager import get_profile_manager
 manager = get_profile_manager()
 profile = manager.import_profile('profiles/test_simple.json')
 if profile:
@@ -195,9 +195,9 @@ GUI for Non-Technical Users
 | File | Purpose | Status |
 |------|---------|--------|
 | `migrations/001_initial_schema.sql` | PostgreSQL schema |  Ready to apply |
-| `src/ra_d_ps/schemas/canonical.py` | Data models |  Complete |
-| `src/ra_d_ps/schemas/profile.py` | Profile models |  Complete |
-| `src/ra_d_ps/profile_manager.py` | Profile management |  Complete |
+| `src/maps/schemas/canonical.py` | Data models |  Complete |
+| `src/maps/schemas/profile.py` | Profile models |  Complete |
+| `src/maps/profile_manager.py` | Profile management |  Complete |
 | `docker-compose.yml` | Infrastructure |  Complete |
 | `requirements.txt` | Dependencies |  Updated |
 | `docs/IMPLEMENTATION_GUIDE_SCHEMA_AGNOSTIC.md` | Full guide |  Complete |
@@ -226,7 +226,7 @@ python3 -m pytest tests/test_profile_manager.py -v   # Will need to create
 ## Common Questions
 
 ### Q: Will this break my existing radiology parsing?
-**A:** No. The new system is designed to coexist with your existing code. You can migrate gradually.
+**A:** No. The new system is designed to coexist with your existing code. Migrate gradually.
 
 ### Q: Do I need to rewrite my parser.py?
 **A:** Not immediately. First, we create a profile that captures your existing parsing logic, then build a generic parser that uses that profile. Your old code stays until migration is complete.
@@ -240,10 +240,10 @@ python3 -m pytest tests/test_profile_manager.py -v   # Will need to create
 - Better support for concurrent writes
 
 ### Q: Can I keep using Excel exports?
-**A:** Absolutely. The RA-D-PS Excel export format will be preserved. The new system adds PostgreSQL as an additional export option.
+**A:** Absolutely. The MAPS Excel export format will be preserved. The new system adds PostgreSQL as an additional export option.
 
 ### Q: What if I want to add CSV parsing later?
-**A:** Just create a `CSVParser` class (implementing `BaseParser`), register it with `ParserFactory`, and create profiles for your CSV formats. No changes to core logic needed.
+**A:** create a `CSVParser` class (implementing `BaseParser`), register it with `ParserFactory`, and create profiles for your CSV formats. No changes to core logic needed.
 
 ---
 

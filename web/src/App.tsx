@@ -12,6 +12,7 @@ import Keywords from './pages/Keywords';
 import Search from './pages/Search';
 import AnalyticsEnhanced from './pages/AnalyticsEnhanced';
 import PYLIDCIntegration from './pages/PYLIDCIntegration';
+import Documents from './pages/Documents';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,7 +44,7 @@ function App() {
                 <Route path="/keywords" element={<Keywords />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/pylidc" element={<PYLIDCIntegration />} />
-                <Route path="/documents" element={<div className="p-8">Documents (Coming Soon)</div>} />
+                <Route path="/documents" element={<Documents />} />
                 <Route path="/3d-viz" element={<div className="p-8">3D Visualization (Coming Soon)</div>} />
                 <Route path="/export" element={<div className="p-8">Export (Coming Soon)</div>} />
               </Routes>

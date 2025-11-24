@@ -5,11 +5,11 @@
 
 ## Overview
 
-The RA-D-PS system has been successfully extended to work with the **pylidc library** for direct LIDC-IDRI dataset integration. This enables processing of LIDC data without XML parsing, using pylidc's rich ORM interface.
+The MAPS system has been successfully extended to work with the **pylidc library** for direct LIDC-IDRI dataset integration. This enables processing of LIDC data without XML parsing, using pylidc's rich ORM interface.
 
 ## What Was Implemented
 
-### 1. PyLIDC Adapter (`src/ra_d_ps/adapters/pylidc_adapter.py`)
+### 1. PyLIDC Adapter (`src/maps/adapters/pylidc_adapter.py`)
 **Size**: 400+ lines  
 **Purpose**: Convert pylidc Scan/Annotation objects to canonical schema
 
@@ -38,7 +38,7 @@ The RA-D-PS system has been successfully extended to work with the **pylidc libr
 4. Export to JSON
 5. Annotation characteristics analysis
 6. Clustered nodule analysis
-7. Integration with existing RA-D-PS system
+7. Integration with existing MAPS system
 
 ### 3. Comprehensive Documentation (`docs/PYLIDC_INTEGRATION_GUIDE.md`)
 **Size**: 700+ lines  
@@ -117,7 +117,7 @@ PyLIDC Database (SQLAlchemy ORM)
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters import PyLIDCAdapter
+from src.maps.adapters import PyLIDCAdapter
 
 # Query a scan
 scan = pl.query(pl.Scan).first()
@@ -161,11 +161,11 @@ for nodule in canonical_doc.nodules:
 - Clear adapter pattern for future integrations
 - Modular and testable design
 
-## Integration with Existing RA-D-PS
+## Integration with Existing MAPS
 
 ### Before:
 ```
-XML Files → Parser → RA-D-PS Format → Excel/SQLite
+XML Files → Parser → MAPS Format → Excel/SQLite
 ```
 
 ### After:
@@ -206,8 +206,8 @@ tests/test_pylidc_adapter.py::TestPyLIDCAdapter::test_scan_to_canonical_basic SK
 ## Files Created/Modified
 
 ### New Files:
-1.  `src/ra_d_ps/adapters/__init__.py`
-2.  `src/ra_d_ps/adapters/pylidc_adapter.py`
+1.  `src/maps/adapters/__init__.py`
+2.  `src/maps/adapters/pylidc_adapter.py`
 3.  `examples/pylidc_integration.py`
 4.  `docs/PYLIDC_INTEGRATION_GUIDE.md`
 5.  `tests/test_pylidc_adapter.py`
@@ -216,7 +216,7 @@ tests/test_pylidc_adapter.py::TestPyLIDCAdapter::test_scan_to_canonical_basic SK
 ### Modified Files:
 1.  `requirements.txt` - Added numpy and pylidc comment
 2.  `.github/copilot-instructions.md` - Already has REAL TESTS emphasis
-3.  `.github/instructions/ra-d-ps instruct.instructions.md` - Already updated
+3.  `.github/instructions/maps instruct.instructions.md` - Already updated
 
 ## Installation Instructions
 
@@ -279,7 +279,7 @@ python3 examples/pylidc_integration.py
 ## Validation
 
 ### Code Quality:
-- Follows existing RA-D-PS patterns
+- Follows existing MAPS patterns
 - Comprehensive docstrings
 - Type hints where appropriate
 - Error handling for missing pylidc
@@ -318,7 +318,7 @@ python3 examples/pylidc_integration.py
 
 ## Conclusion
 
- **PyLIDC integration is complete and production-ready** The RA-D-PS system can now process:
+ **PyLIDC integration is complete and production-ready** The MAPS system can now process:
 -  Legacy XML files (existing parser)
 -  LIDC-IDRI database (new pylidc adapter)
 -  Combined workflows (unified canonical schema)

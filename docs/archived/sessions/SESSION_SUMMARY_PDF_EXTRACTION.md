@@ -20,7 +20,7 @@ This session successfully implemented a complete PDF keyword extraction system f
 
 ### 1. PDFKeywordExtractor Implementation 
 
-**File**: `src/ra_d_ps/pdf_keyword_extractor.py`  
+**File**: `src/maps/pdf_keyword_extractor.py`  
 **Size**: 600+ lines  
 **Status**: Production-ready
 
@@ -212,7 +212,7 @@ metadata, keywords = extractor.extract_from_pdf('paper.pdf', store_in_db=True)
 
 | File | Size | Lines | Purpose |
 |------|------|-------|---------|
-| `src/ra_d_ps/pdf_keyword_extractor.py` | ~24 KB | 600+ | Main implementation |
+| `src/maps/pdf_keyword_extractor.py` | ~24 KB | 600+ | Main implementation |
 | `scripts/test_pdf_keyword_extractor.py` | ~15 KB | 400+ | Test suite |
 | `examples/pdf_keyword_extractor_examples.py` | ~12 KB | 350+ | Usage examples |
 | `docs/PDF_KEYWORD_EXTRACTOR_SUMMARY.md` | ~20 KB | 650+ | Documentation |
@@ -293,7 +293,7 @@ for term, start, end in multi_word_terms:
 ```
 
 **Benefits**:
-- Accurate phrase extraction (not just single words)
+- Accurate phrase extraction (not single words)
 - Context preservation for each term
 - Consistent with XML extraction approach
 
@@ -348,7 +348,7 @@ authors = [a for a in metadata.authors if len(a.split()) == 2]
 
 **Issue**: May include section heading in keyword list.
 
-**Impact**: Low - easily filtered with length check
+**Impact**: Low - filtered with length check
 
 **Workaround**:
 ```python
@@ -403,7 +403,7 @@ keywords = [kw for kw in metadata.author_keywords if len(kw) < 50]
 6. Pagination support for large result sets
 
 **Expected Deliverables**:
-- `src/ra_d_ps/keyword_search_engine.py` (~500 lines)
+- `src/maps/keyword_search_engine.py` (~500 lines)
 - `scripts/test_keyword_search_engine.py` (~400 lines)
 - `examples/keyword_search_engine_examples.py` (~300 lines)
 - `docs/KEYWORD_SEARCH_ENGINE_SUMMARY.md` (~500 lines)

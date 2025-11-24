@@ -126,7 +126,7 @@ python test_gui_integration.py         # GUI integration test
 
 ## Comparison with Standard Export
 
-| Feature | Standard Export | RA-D-PS Export |
+| Feature | Standard Export | MAPS Export |
 |---------|----------------|----------------|
 | Layout | Fixed columns | Dynamic radiologist blocks |
 | Naming | Manual selection | Auto-generated with timestamp |

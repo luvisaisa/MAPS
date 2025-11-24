@@ -28,7 +28,7 @@ The PDF Keyword Extractor enables extraction of keywords from radiology research
 ### File Structure
 
 ```
-src/ra_d_ps/pdf_keyword_extractor.py    # 600+ lines, PDFKeywordExtractor class
+src/maps/pdf_keyword_extractor.py    # 600+ lines, PDFKeywordExtractor class
 scripts/test_pdf_keyword_extractor.py   # 400+ lines, 8 comprehensive tests
 examples/pdf_keyword_extractor_examples.py  # 10 usage examples
 docs/PDF_KEYWORD_EXTRACTOR_SUMMARY.md   # This file
@@ -172,7 +172,7 @@ Normalizing 4 keywords:
 ### Example 1: Basic Extraction
 
 ```python
-from src.ra_d_ps.pdf_keyword_extractor import PDFKeywordExtractor
+from src.maps.pdf_keyword_extractor import PDFKeywordExtractor
 
 extractor = PDFKeywordExtractor()
 
@@ -215,8 +215,8 @@ for pdf_path, metadata, keywords in results:
 ### Example 3: Database Integration
 
 ```python
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 # create with database support
 repo = KeywordRepository()
@@ -325,7 +325,7 @@ print(f"By category: {stats['by_category']}")
 Combine XML and PDF extraction:
 
 ```python
-from src.ra_d_ps.xml_keyword_extractor import XMLKeywordExtractor
+from src.maps.xml_keyword_extractor import XMLKeywordExtractor
 
 xml_extractor = XMLKeywordExtractor(repository=repo)
 pdf_extractor = PDFKeywordExtractor(repository=repo)
@@ -444,7 +444,7 @@ Keywords: ['Introduction: The detection of pulmonary nodules', ...]
 keywords = [kw for kw in metadata.author_keywords if len(kw) < 50]
 ```
 
-**Priority**: Low - easily filtered post-extraction
+**Priority**: Low - filtered post-extraction
 
 ### 4. Multi-Column PDF Layout
 
@@ -507,7 +507,7 @@ pip3 install -r requirements.txt
 
 | File | Size | Lines | Purpose |
 |------|------|-------|---------|
-| `src/ra_d_ps/pdf_keyword_extractor.py` | ~24 KB | 600+ | Main implementation |
+| `src/maps/pdf_keyword_extractor.py` | ~24 KB | 600+ | Main implementation |
 | `scripts/test_pdf_keyword_extractor.py` | ~15 KB | 400+ | Test suite |
 | `examples/pdf_keyword_extractor_examples.py` | ~12 KB | 350+ | 10 usage examples |
 | `docs/PDF_KEYWORD_EXTRACTOR_SUMMARY.md` | ~20 KB | 650+ | This documentation |

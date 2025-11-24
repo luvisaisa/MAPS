@@ -37,10 +37,10 @@ psql --version
 psql postgres
 
 # In psql shell:
-CREATE DATABASE ra_d_ps;
+CREATE DATABASE maps;
 CREATE USER ra_d_ps_user WITH PASSWORD 'your_secure_password';
-GRANT ALL PRIVILEGES ON DATABASE ra_d_ps TO ra_d_ps_user;
-ALTER DATABASE ra_d_ps OWNER TO ra_d_ps_user;
+GRANT ALL PRIVILEGES ON DATABASE maps TO ra_d_ps_user;
+ALTER DATABASE maps OWNER TO ra_d_ps_user;
 \q
 ```
 
@@ -74,7 +74,7 @@ python scripts/seed_parse_cases.py
 
 ```bash
 # Connect to database
-psql -h localhost -U ra_d_ps_user -d ra_d_ps
+psql -h localhost -U ra_d_ps_user -d maps
 
 # In psql:
 \dt                              # List tables
@@ -155,7 +155,7 @@ Aggregated usage statistics.
 ### Python API
 
 ```python
-from src.ra_d_ps.database import ParseCaseRepository
+from src.maps.database import ParseCaseRepository
 
 # Initialize repository
 repo = ParseCaseRepository()
@@ -240,20 +240,20 @@ WHERE detection_criteria->>'min_chars' = '5'
 
 ```bash
 # Backup entire database
-pg_dump -h localhost -U ra_d_ps_user -d ra_d_ps > backup_$(date +%Y%m%d).sql
+pg_dump -h localhost -U ra_d_ps_user -d maps > backup_$(date +%Y%m%d).sql
 
 # Backup schema only
-pg_dump -h localhost -U ra_d_ps_user -d ra_d_ps --schema-only > schema.sql
+pg_dump -h localhost -U ra_d_ps_user -d maps --schema-only > schema.sql
 
 # Backup data only
-pg_dump -h localhost -U ra_d_ps_user -d ra_d_ps --data-only > data.sql
+pg_dump -h localhost -U ra_d_ps_user -d maps --data-only > data.sql
 ```
 
 ### Restore Database
 
 ```bash
 # Restore from backup
-psql -h localhost -U ra_d_ps_user -d ra_d_ps < backup_20251019.sql
+psql -h localhost -U ra_d_ps_user -d maps < backup_20251019.sql
 ```
 
 ### Reset Database (DESTRUCTIVE)
@@ -300,8 +300,8 @@ psql postgres -c "ALTER USER ra_d_ps_user WITH PASSWORD 'new_password';"
 
 ```bash
 # Grant all privileges
-psql postgres -c "GRANT ALL PRIVILEGES ON DATABASE ra_d_ps TO ra_d_ps_user;"
-psql ra_d_ps -c "GRANT ALL ON ALL TABLES IN SCHEMA public TO ra_d_ps_user;"
+psql postgres -c "GRANT ALL PRIVILEGES ON DATABASE maps TO ra_d_ps_user;"
+psql maps -c "GRANT ALL ON ALL TABLES IN SCHEMA public TO ra_d_ps_user;"
 ```
 
 ### Table already exists
@@ -334,7 +334,7 @@ All critical indexes are created automatically:
 
 ```sql
 -- Active connections
-SELECT count(*) FROM pg_stat_activity WHERE datname = 'ra_d_ps';
+SELECT count(*) FROM pg_stat_activity WHERE datname = 'maps';
 
 -- Table sizes
 SELECT tablename, pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename))
@@ -357,12 +357,12 @@ docker pull postgres:15
 
 # Run container
 docker run -d \
-  --name ra-d-ps-postgres \
-  -e POSTGRES_DB=ra_d_ps \
+  --name maps-postgres \
+  -e POSTGRES_DB=maps \
   -e POSTGRES_USER=ra_d_ps_user \
   -e POSTGRES_PASSWORD=secure_password \
   -p 5432:5432 \
-  -v ra-d-ps-data:/var/lib/postgresql/data \
+  -v maps-data:/var/lib/postgresql/data \
   postgres:15
 
 # Setup database

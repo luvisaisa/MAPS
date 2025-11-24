@@ -355,7 +355,7 @@ ab -n 100 -c 10 http://localhost:8000/health
 **Expected Metrics:**
 - First Contentful Paint: <1.5s
 - Largest Contentful Paint: <2.5s
-- Time to Interactive: <3.5s
+- Time to Interactive: .5s
 - PYLIDC page load: <2s (excluding initial API call)
 - Pagination navigation: <100ms (prefetched)
 
@@ -367,9 +367,9 @@ ab -n 100 -c 10 http://localhost:8000/health
 
 | Approach | Pros | Cons | Chosen? |
 |----------|------|------|---------|
-| **In-Memory Cache** | Fast, simple, no dependencies | Lost on restart, no sharing | ✅ Yes |
-| Redis Cache | Persistent, shared across instances | Requires Redis, added complexity | ❌ No |
-| Database Cache | Persistent, queryable | Slower, adds DB load | ❌ No |
+| **In-Memory Cache** | Fast, simple, no dependencies | Lost on restart, no sharing |  Yes |
+| Redis Cache | Persistent, shared across instances | Requires Redis, added complexity |  No |
+| Database Cache | Persistent, queryable | Slower, adds DB load |  No |
 
 **Decision:** In-memory cache for MVP, migrate to Redis if scaling to multiple API instances.
 
@@ -526,21 +526,21 @@ open http://localhost:5173/pylidc
 
 | Endpoint | Target | Current | Status |
 |----------|--------|---------|--------|
-| `/health` | <50ms | 20ms | ✅ Pass |
-| `/api/v1/profiles` | <200ms | 150ms | ✅ Pass |
-| `/api/v1/pylidc/scans` (cached) | <500ms | 80ms | ✅ Pass |
-| `/api/v1/pylidc/scans` (uncached) | <3s | 40s | ⚠️ Fail |
-| `/api/v1/keywords/search` (cached) | <100ms | 40ms | ✅ Pass |
-| `/api/v1/keywords/directory` | <1s | 300ms | ✅ Pass |
+| `/health` | <50ms | 20ms |  Pass |
+| `/api/v1/profiles` | <200ms | 150ms |  Pass |
+| `/api/v1/pylidc/scans` (cached) | <500ms | 80ms |  Pass |
+| `/api/v1/pylidc/scans` (uncached) | s | 40s |  Fail |
+| `/api/v1/keywords/search` (cached) | <100ms | 40ms |  Pass |
+| `/api/v1/keywords/directory` | <1s | 300ms |  Pass |
 
 ### Frontend Performance (Lighthouse)
 
 | Metric | Target | Current | Status |
 |--------|--------|---------|--------|
-| Performance Score | >90 | 85 | ⚠️ Near |
-| First Contentful Paint | <1.5s | 1.2s | ✅ Pass |
-| Time to Interactive | <3.5s | 3.1s | ✅ Pass |
-| Total Bundle Size | <500KB | 420KB | ✅ Pass |
+| Performance Score | >90 | 85 |  Near |
+| First Contentful Paint | <1.5s | 1.2s |  Pass |
+| Time to Interactive | .5s | 3.1s |  Pass |
+| Total Bundle Size | <500KB | 420KB |  Pass |
 
 ---
 

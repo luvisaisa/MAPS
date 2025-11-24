@@ -1,10 +1,10 @@
-# Developer Documentation - NYT XML Parser
+# Developer Documentation - MAPS
 
 ## Architecture Deep Dive
 
 ### Code Organization
 
-The NYT XML Parser follows a modular architecture designed for maintainability and extensibility:
+The MAPS follows a modular architecture designed for maintainability and extensibility:
 
 ```
 Architecture Layers:

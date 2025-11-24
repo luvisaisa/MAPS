@@ -15,7 +15,7 @@ pip3 install pdfplumber
 ## Basic Usage
 
 ```python
-from src.ra_d_ps.pdf_keyword_extractor import PDFKeywordExtractor
+from src.maps.pdf_keyword_extractor import PDFKeywordExtractor
 
 # create extractor
 extractor = PDFKeywordExtractor()
@@ -71,8 +71,8 @@ for pdf_path, metadata, keywords in results:
 ## Database Integration
 
 ```python
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 # create with database support
 repo = KeywordRepository()
@@ -251,7 +251,7 @@ python3 scripts/test_pdf_keyword_extractor.py
 
 | File | Purpose |
 |------|---------|
-| `src/ra_d_ps/pdf_keyword_extractor.py` | Main implementation (600+ lines) |
+| `src/maps/pdf_keyword_extractor.py` | Main implementation (600+ lines) |
 | `scripts/test_pdf_keyword_extractor.py` | Test suite (400+ lines) |
 | `examples/pdf_keyword_extractor_examples.py` | 10 usage examples |
 | `docs/PDF_KEYWORD_EXTRACTOR_SUMMARY.md` | Full documentation |
@@ -262,5 +262,5 @@ python3 scripts/test_pdf_keyword_extractor.py
 
 - [XML Keyword Extractor](XML_KEYWORD_EXTRACTOR_SUMMARY.md)
 - [Keyword Normalizer](KEYWORD_NORMALIZATION_SUMMARY.md)
-- [Keyword Repository API](../src/ra_d_ps/database/keyword_repository.py)
+- [Keyword Repository API](../src/maps/database/keyword_repository.py)
 - [Medical Terms Dictionary](../data/medical_terms.json)

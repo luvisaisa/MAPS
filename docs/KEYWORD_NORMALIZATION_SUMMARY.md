@@ -68,7 +68,7 @@ Successfully implemented comprehensive **medical keyword normalization** system 
 - vascular (5 terms): pulmonary embolism, infarction, etc.
 
 ### 2. KeywordNormalizer Class
-**File**: `src/ra_d_ps/keyword_normalizer.py` (400+ lines)
+**File**: `src/maps/keyword_normalizer.py` (400+ lines)
 
 **Features**:
 - Bidirectional synonym mapping with reverse lookup
@@ -149,7 +149,7 @@ normalize_batch(keywords) → Dict[str, str]
 
 ### Example 1: Basic Normalization
 ```python
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
+from src.maps.keyword_normalizer import KeywordNormalizer
 
 normalizer = KeywordNormalizer()
 
@@ -236,8 +236,8 @@ malignant = normalizer.get_diagnostic_terms('malignant')
 The normalizer can be integrated with the XML keyword extractor for enhanced extraction:
 
 ```python
-from src.ra_d_ps.xml_keyword_extractor import XMLKeywordExtractor
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
+from src.maps.xml_keyword_extractor import XMLKeywordExtractor
+from src.maps.keyword_normalizer import KeywordNormalizer
 
 # Create extractor with normalizer
 normalizer = KeywordNormalizer()
@@ -285,7 +285,7 @@ for kw in keywords:
 
 **Root Cause**: Algorithm matches longest terms first, but doesn't handle overlaps where a longer term contains a shorter term
 
-**Impact**: Minor - still detects valid medical terms, just shorter versions
+**Impact**: Minor - still detects valid medical terms, shorter versions
 
 **Recommendation**: Implement overlap detection with priority for longer matches:
 ```python
@@ -321,7 +321,7 @@ def normalize(self, keyword: str, preserve_case: bool = False) -> str:
 The normalizer integrates with `KeywordRepository` for database-stored synonyms:
 
 ```python
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.database.keyword_repository import KeywordRepository
 
 # Create normalizer with database connection
 repo = KeywordRepository()
@@ -388,7 +388,7 @@ result = normalizer.normalize("pulmonary lesion")
 
 ### Created
 -  `data/medical_terms.json` (650+ lines) - Comprehensive medical terminology
--  `src/ra_d_ps/keyword_normalizer.py` (400+ lines) - Normalizer class
+-  `src/maps/keyword_normalizer.py` (400+ lines) - Normalizer class
 -  `scripts/test_keyword_normalizer.py` (400+ lines) - Test suite
 -  `docs/KEYWORD_NORMALIZATION_SUMMARY.md` (this file)
 

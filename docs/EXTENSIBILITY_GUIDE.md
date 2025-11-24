@@ -1,6 +1,6 @@
-# RA-D-PS Extensibility Guide
+# MAPS Extensibility Guide
 
-This guide explains how to extend the RA-D-PS system with new parsers, extractors, detectors, and data formats.
+This guide explains how to extend the MAPS system with new parsers, extractors, detectors, and data formats.
 
 ---
 
@@ -17,36 +17,36 @@ This guide explains how to extend the RA-D-PS system with new parsers, extractor
 
 ## Architecture Overview
 
-The RA-D-PS system uses a **factory-based architecture** with separation of concerns:
+The MAPS system uses a **factory-based architecture** with separation of concerns:
 
 ```
-┌─────────────────────────────────────────────────┐
-│              Parse Request                      │
-└────────────────┬────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────┐
-│         Structure Detector                      │
-│   (identifies schema/parse case)                │
-└────────────────┬────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────┐
-│           Extractor Factory                     │
-│    (selects appropriate extractor)              │
-└────────────────┬────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────┐
-│         Format-Specific Extractor               │
-│   (XMLExtractor, PDFExtractor, etc.)            │
-└────────────────┬────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────┐
-│              Parser                             │
-│   (transforms to standard schema)               │
-└─────────────────────────────────────────────────┘
+
+              Parse Request                      
+
+                 
+                 
+
+         Structure Detector                      
+   (identifies schema/parse case)                
+
+                 
+                 
+
+           Extractor Factory                     
+    (selects appropriate extractor)              
+
+                 
+                 
+
+         Format-Specific Extractor               
+   (XMLExtractor, PDFExtractor, etc.)            
+
+                 
+                 
+
+              Parser                             
+   (transforms to standard schema)               
+
 ```
 
 ---
@@ -55,10 +55,10 @@ The RA-D-PS system uses a **factory-based architecture** with separation of conc
 
 ### Step 1: Create Extractor Class
 
-Create a new extractor in `src/ra_d_ps/extractors/`:
+Create a new extractor in `src/maps/extractors/`:
 
 ```python
-# src/ra_d_ps/extractors/json_extractor.py
+# src/maps/extractors/json_extractor.py
 from .base import BaseExtractor
 from typing import Dict, Any
 import json
@@ -96,7 +96,7 @@ class JSONExtractor(BaseExtractor):
 
 ### Step 2: Register in Factory
 
-Update `src/ra_d_ps/extractors/factory.py`:
+Update `src/maps/extractors/factory.py`:
 
 ```python
 from .json_extractor import JSONExtractor
@@ -117,7 +117,7 @@ class ExtractorFactory:
 
 ### Step 3: Update Router
 
-Add endpoint in `src/ra_d_ps/api/routers/parse.py`:
+Add endpoint in `src/maps/api/routers/parse.py`:
 
 ```python
 @router.post("/json", response_model=ParseResponse)
@@ -338,7 +338,7 @@ Profiles define how to map source fields to target schema.
 ### Creating a Profile
 
 ```python
-from src.ra_d_ps.schemas.profile import Profile, FieldMapping
+from src.maps.schemas.profile import Profile, FieldMapping
 
 profile = Profile(
     profile_name="custom_json_profile",
@@ -400,7 +400,7 @@ Create tests in `tests/extractors/test_json_extractor.py`:
 
 ```python
 import pytest
-from src.ra_d_ps.extractors.json_extractor import JSONExtractor
+from src.maps.extractors.json_extractor import JSONExtractor
 
 def test_json_extraction():
     extractor = JSONExtractor()
@@ -422,7 +422,7 @@ Test end-to-end flow in `tests/integration/test_json_parse.py`:
 
 ```python
 from fastapi.testclient import TestClient
-from src.ra_d_ps.api.main import app
+from src.maps.api.main import app
 
 client = TestClient(app)
 
@@ -529,7 +529,7 @@ class ExtractedData(BaseModel):
 
 ### 1. Create Extractor
 ```python
-# src/ra_d_ps/extractors/dicom_extractor.py
+# src/maps/extractors/dicom_extractor.py
 import pydicom
 from .base import BaseExtractor
 
@@ -558,7 +558,7 @@ class DICOMExtractor(BaseExtractor):
 
 ### 2. Register
 ```python
-# src/ra_d_ps/extractors/factory.py
+# src/maps/extractors/factory.py
 from .dicom_extractor import DICOMExtractor
 
 ExtractorFactory.register_extractor('dicom', DICOMExtractor)
@@ -566,7 +566,7 @@ ExtractorFactory.register_extractor('dicom', DICOMExtractor)
 
 ### 3. Add Endpoint
 ```python
-# src/ra_d_ps/api/routers/parse.py
+# src/maps/api/routers/parse.py
 @router.post("/dicom")
 async def parse_dicom(file: UploadFile = File(...), db: Session = Depends(get_db)):
     service = ParseService(db)
@@ -591,7 +591,7 @@ def test_dicom_extraction():
 For dynamic extension loading:
 
 ```python
-# src/ra_d_ps/registry.py
+# src/maps/registry.py
 class ExtensionRegistry:
     _extractors = {}
     _detectors = {}
@@ -610,7 +610,7 @@ class ExtensionRegistry:
         return list(cls._extractors.keys())
 
 # Usage in plugins
-from src.ra_d_ps.registry import ExtensionRegistry
+from src.maps.registry import ExtensionRegistry
 
 @ExtensionRegistry.register_extractor('custom_format')
 class CustomExtractor(BaseExtractor):
@@ -622,10 +622,10 @@ class CustomExtractor(BaseExtractor):
 
 ## Resources
 
-- [BaseExtractor Source](../src/ra_d_ps/extractors/base.py)
-- [ExtractorFactory Source](../src/ra_d_ps/extractors/factory.py)
-- [Profile Schema](../src/ra_d_ps/schemas/profile.py)
-- [API Routers](../src/ra_d_ps/api/routers/)
+- [BaseExtractor Source](../src/maps/extractors/base.py)
+- [ExtractorFactory Source](../src/maps/extractors/factory.py)
+- [Profile Schema](../src/maps/schemas/profile.py)
+- [API Routers](../src/maps/api/routers/)
 - [Test Fixtures](../tests/fixtures/)
 
 ---
@@ -633,7 +633,7 @@ class CustomExtractor(BaseExtractor):
 ## Support
 
 For questions or issues with extensions:
-1. Check existing extractors in `src/ra_d_ps/extractors/`
+1. Check existing extractors in `src/maps/extractors/`
 2. Review test examples in `tests/`
 3. Consult API documentation at `http://localhost:8000/docs`
 4. Open an issue in the repository

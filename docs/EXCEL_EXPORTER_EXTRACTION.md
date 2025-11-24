@@ -6,7 +6,7 @@ Successfully extracted **~629 lines** of Excel formatting logic from `gui.py` in
 
 ## What Was Created
 
-### 1. **Base Infrastructure** (`src/ra_d_ps/exporters/`)
+### 1. **Base Infrastructure** (`src/maps/exporters/`)
 ```
 exporters/
  __init__.py          # Module exports
@@ -15,7 +15,7 @@ exporters/
 ```
 
 ### 2. **Excel Formatters** #### `RADPSExcelFormatter`
-- **Purpose**: RA-D-PS format with radiologist blocks and spacers
+- **Purpose**: MAPS format with radiologist blocks and spacers
 - **Features**:
   - Auto-naming with timestamps (`folder_RA-D-PS_2025-10-19_143022.xlsx`)
   - Auto-versioning (`_v2`, `_v3` when files exist)
@@ -47,15 +47,15 @@ exporters/
 
 ### Compatible with New Parse System
 ```python
-from src.ra_d_ps.exporters import RADPSExcelFormatter
-from src.ra_d_ps.parsers.xml_parser import XMLParser
-from src.ra_d_ps.schemas.profile import Profile
+from src.maps.exporters import RADPSExcelFormatter
+from src.maps.parsers.xml_parser import XMLParser
+from src.maps.schemas.profile import Profile
 
 # Parse with modern system
 parser = XMLParser(profile)
 canonical_doc = parser.parse("file.xml")
 
-# Convert to RA-D-PS records (adapter needed)
+# Convert to MAPS records (adapter needed)
 records = convert_canonical_to_radps(canonical_doc)
 
 # Export
@@ -82,10 +82,10 @@ class NYTXMLGuiApp:
 
 ### After (Clean separation):
 ```python
-# GUI - thin controller (just UI events)
+# GUI - thin controller (UI events)
 class NYTXMLGuiApp:
     def export_ra_d_ps_excel(self):
-        from src.ra_d_ps.exporters import RADPSExcelFormatter
+        from src.maps.exporters import RADPSExcelFormatter
         
         # Parse data
         parsed_data = self.parse_files()
@@ -136,7 +136,7 @@ class NYTXMLGuiApp:
 4. Add progress callbacks for UI updates
 
 ### Phase 4: Integration with Schema-Agnostic System
-1. Create adapter: `RadiologyCanonicalDocument` → RA-D-PS records
+1. Create adapter: `RadiologyCanonicalDocument` → MAPS records
 2. Wire up new parsers → exporters
 3. Deprecate legacy parser.py export functions
 4. Full end-to-end modern pipeline
@@ -162,10 +162,10 @@ class NYTXMLGuiApp:
 
 ## Usage Examples
 
-### Basic RA-D-PS Export
+### Basic MAPS Export
 ```python
 from pathlib import Path
-from src.ra_d_ps.exporters import RADPSExcelFormatter
+from src.maps.exporters import RADPSExcelFormatter
 
 records = [
     {
@@ -210,5 +210,5 @@ Ready to proceed with Phase 2 (data transformation) or integrate with modern par
 
 ---
 **Created**: 2025-10-19  
-**Author**: RA-D-PS Refactoring Initiative  
+**Author**: MAPS Refactoring Initiative  
 **Status**:  Complete - Ready for Integration

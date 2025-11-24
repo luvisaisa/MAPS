@@ -33,7 +33,7 @@ Added the following terms to the `multi_word_terms` array:
 
 ### 2. Enhanced Database Storage with Dedicated Sector
 
-Updated `src/ra_d_ps/pdf_keyword_extractor.py` to store keywords in a dedicated **`pdf_keywords`** sector:
+Updated `src/maps/pdf_keyword_extractor.py` to store keywords in a dedicated **`pdf_keywords`** sector:
 
 **Before:**
 - Keywords stored only in `research_papers` sector
@@ -159,7 +159,7 @@ Keywords are now properly organized into sectors:
 
 1. **`data/medical_terms.json`** - Added 8 new multi-word terms for radiomics and ML
 
-2. **`src/ra_d_ps/pdf_keyword_extractor.py`** - Updated `_store_keywords_in_db()` method
+2. **`src/maps/pdf_keyword_extractor.py`** - Updated `_store_keywords_in_db()` method
    - Added dual-sector storage (pdf_keywords + research_papers)
    - Enhanced docstring with sector information
 
@@ -231,8 +231,8 @@ python3 scripts/inspect_database.py
 
 # Search for specific terms
 python3 -c "
-from src.ra_d_ps.keyword_search_engine import KeywordSearchEngine
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_search_engine import KeywordSearchEngine
+from src.maps.database.keyword_repository import KeywordRepository
 
 repo = KeywordRepository()
 search = KeywordSearchEngine(repository=repo)

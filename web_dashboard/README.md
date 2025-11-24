@@ -48,7 +48,7 @@ USING (true);
 ### 4. Deploy Dashboard
 
 **Option A: Local Testing**
-- Just open `index.html` in a web browser
+- open `index.html` in a web browser
 - No server needed
 
 **Option B: Deploy to Vercel (Free)**
@@ -69,12 +69,12 @@ USING (true);
 
 ## Features
 
-✅ **View all data** - Browse analysis table with pagination  
-✅ **Filter data** - By segment type, file type, content search  
-✅ **Live stats** - Total records, files, qualitative/quantitative counts  
-✅ **Export** - Download filtered data as CSV or JSON  
-✅ **No coding** - Point-and-click interface  
-✅ **Real-time** - Always shows latest data from database
+ **View all data** - Browse analysis table with pagination  
+ **Filter data** - By segment type, file type, content search  
+ **Live stats** - Total records, files, qualitative/quantitative counts  
+ **Export** - Download filtered data as CSV or JSON  
+ **No coding** - Point-and-click interface  
+ **Real-time** - Always shows latest data from database
 
 ## Security Notes
 

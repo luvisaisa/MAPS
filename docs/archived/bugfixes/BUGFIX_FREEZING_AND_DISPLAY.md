@@ -231,7 +231,7 @@ python3 -m pytest tests/test_simplified_gui.py -v
 
 ## Files Modified
 
-### src/ra_d_ps/gui.py
+### src/maps/gui.py
 
 **Lines ~227-250:** Added error handling in `browse_parent_folder()`
 - Added watch cursor during scan

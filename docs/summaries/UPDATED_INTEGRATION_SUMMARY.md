@@ -71,13 +71,13 @@ Now offers **three distinct processing modes**:
 - `export_ra_d_ps_excel()`: Updated to handle smart folder detection
 - `select_multiple_folders_for_one_excel()`: New method for combined export
 - `_process_multiple_folders_one_excel()`: Processes multiple folders into one Excel
-- `_process_multiple_folders()`: Updated to use RA-D-PS format
+- `_process_multiple_folders()`: Updated to use MAPS format
 
 ### Data Flow
 ```
 XML Files → parse_multiple() → convert_parsed_data_to_ra_d_ps_format() → export_excel()
                                                                               ↓
-                                                          Auto-named Excel with RA-D-PS format
+                                                          Auto-named Excel with MAPS format
 ```
 
 ### Column Layout (Dynamic)
@@ -106,13 +106,13 @@ Radiologist_2_Subtlety | ... | [spacer] |
 
 ## Backward Compatibility
 - All existing XML parsing functionality preserved
-- Old Excel formats completely replaced with RA-D-PS
+- Old Excel formats completely replaced with MAPS
 - Database export functionality unchanged
 - All configuration and validation features retained
 
 ## Testing Verification
 -  All three folder processing modes functional
--  RA-D-PS export working with real XML data
+-  MAPS export working with real XML data
 -  Auto-naming and versioning operational
 -  GUI integration seamless
 -  Error handling and progress feedback working

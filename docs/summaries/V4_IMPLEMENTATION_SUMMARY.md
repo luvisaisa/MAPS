@@ -1,7 +1,7 @@
-# V4 RA-D-PS Formatting Implementation - Completion Summary
+# V4 MAPS Formatting Implementation - Completion Summary
 
 ## Overview
-Successfully replaced the existing RA-D-PS (Radiologist-Aggregated Dynamic-Presentation Sheets) Excel formatting implementation with the improved v4 code that provides enhanced visual formatting, better conditional formatting, and solid blue spacer columns.
+Successfully replaced the existing MAPS (Radiologist-Aggregated Dynamic-Presentation Sheets) Excel formatting implementation with the improved v4 code that provides enhanced visual formatting, better conditional formatting, and solid blue spacer columns.
 
 ## Key Features Implemented
 
@@ -70,4 +70,4 @@ The v4 implementation provides significantly better visual presentation:
 
 ## Ready for Production
 
-The v4 RA-D-PS formatting implementation is complete, tested, and ready for production use. All existing functionality has been preserved while adding significant visual and functional improvements.
+The v4 MAPS formatting implementation is complete, tested, and ready for production use. All existing functionality has been preserved while adding significant visual and functional improvements.

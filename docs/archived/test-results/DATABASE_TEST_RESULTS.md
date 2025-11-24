@@ -32,7 +32,7 @@
 - **Database config:** Loaded from environment
   - Host: localhost
   - Port: 5432
-  - Database: ra_d_ps
+  - Database: maps
   - User: ra_d_ps_user
 - **Repository:** Imported successfully
 
@@ -80,24 +80,24 @@
   - Automatic timestamp triggers
 
 ### Python Modules
--  `/src/ra_d_ps/database/models.py` (185 lines)
+-  `/src/maps/database/models.py` (185 lines)
   - SQLAlchemy ORM models
   - Relationships and constraints
   - to_dict() serialization
 
--  `/src/ra_d_ps/database/db_config.py` (140 lines)
+-  `/src/maps/database/db_config.py` (140 lines)
   - Environment-based configuration
   - Connection string builder
   - Pooling settings
 
--  `/src/ra_d_ps/database/parse_case_repository.py` (425+ lines)
+-  `/src/maps/database/parse_case_repository.py` (425+ lines)
   - Repository pattern implementation
   - CRUD operations
   - Detection history tracking
   - Statistics aggregation
   - SQLite compatibility for testing
 
--  `/src/ra_d_ps/database/__init__.py`
+-  `/src/maps/database/__init__.py`
   - Module exports
 
 ### Scripts
@@ -191,9 +191,9 @@ stats = repo.get_statistics(parse_case_id=case.id)
 
 2. **Create Database & User**:
    ```bash
-   createdb -U postgres ra_d_ps
+   createdb -U postgres maps
    createuser -U postgres ra_d_ps_user
-   psql postgres -c "GRANT ALL PRIVILEGES ON DATABASE ra_d_ps TO ra_d_ps_user;"
+   psql postgres -c "GRANT ALL PRIVILEGES ON DATABASE maps TO ra_d_ps_user;"
    ```
 
 3. **Configure Environment**:

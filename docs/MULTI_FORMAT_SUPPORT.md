@@ -7,7 +7,7 @@ MAPS (Medical Annotation Processing System) supports multiple file formats for c
 ### 1. XML Files (.xml)
 **Primary format for LIDC-IDRI annotations**
 
-- **Parser**: `src/ra_d_ps/parser.py`
+- **Parser**: `src/maps/parser.py`
 - **API Endpoint**: `POST /api/v1/parse/xml`
 - **Features**:
   - Full LIDC-IDRI XML parsing
@@ -18,7 +18,7 @@ MAPS (Medical Annotation Processing System) supports multiple file formats for c
 
 **Example Usage**:
 ```python
-from src.ra_d_ps.parser import parse_radiology_sample
+from src.maps.parser import parse_radiology_sample
 
 main_df, unblinded_df = parse_radiology_sample('annotation.xml')
 ```
@@ -35,7 +35,7 @@ main_df, unblinded_df = parse_radiology_sample('annotation.xml')
 ### 3. PDF Files (.pdf)
 **Research papers and documentation**
 
-- **Parser**: `src/ra_d_ps/pdf_keyword_extractor.py`
+- **Parser**: `src/maps/pdf_keyword_extractor.py`
 - **API Endpoint**: `POST /api/v1/parse/pdf`
 - **Features**:
   - Keyword extraction from research papers
@@ -47,7 +47,7 @@ main_df, unblinded_df = parse_radiology_sample('annotation.xml')
 
 **Example Usage**:
 ```python
-from src.ra_d_ps.pdf_keyword_extractor import PDFKeywordExtractor
+from src.maps.pdf_keyword_extractor import PDFKeywordExtractor
 
 extractor = PDFKeywordExtractor()
 metadata, keywords = extractor.extract_from_pdf('paper.pdf')
@@ -63,7 +63,7 @@ metadata, keywords = extractor.extract_from_pdf('paper.pdf')
 ### 4. ZIP Archives (.zip)
 **Batch processing of multiple files**
 
-- **Parser**: `src/ra_d_ps/api/services/parse_service.py`
+- **Parser**: `src/maps/api/services/parse_service.py`
 - **API Endpoint**: `POST /api/v1/parse/zip`
 - **Features**:
   - Automatic extraction of nested directories
@@ -156,7 +156,7 @@ accept: {
 ## Backend Processing Pipeline
 
 ### Parse Service
-**Location**: `src/ra_d_ps/api/services/parse_service.py`
+**Location**: `src/maps/api/services/parse_service.py`
 
 **Methods**:
 - `parse_xml()` - XML annotation parsing
@@ -165,7 +165,7 @@ accept: {
 - `parse_batch()` - Batch processing orchestration
 
 ### Batch Router
-**Location**: `src/ra_d_ps/api/routers/batch.py`
+**Location**: `src/maps/api/routers/batch.py`
 
 **Endpoints**:
 - `POST /batch/create` - Create batch job
@@ -205,34 +205,34 @@ page_number = Column(Integer, nullable=True)  # For PDFs
 # Upload ZIP of entire LIDC dataset
 # Contains nested folders with XML annotations
 annotations.zip
-├── LIDC-IDRI-0001/
-│   └── 1.3.6.1.4.1.14519.5.2.1.6279.6001.*.xml
-├── LIDC-IDRI-0002/
-│   └── 1.3.6.1.4.1.14519.5.2.1.6279.6001.*.xml
-└── ...
+ LIDC-IDRI-0001/
+    1.3.6.1.4.1.14519.5.2.1.6279.6001.*.xml
+ LIDC-IDRI-0002/
+    1.3.6.1.4.1.14519.5.2.1.6279.6001.*.xml
+ ...
 ```
 
 ### 2. Research Literature Analysis
 ```bash
 # Upload PDFs for keyword extraction
 papers.zip
-├── radiology_paper_2023.pdf
-├── lung_nodule_study.pdf
-└── annotation_methods.pdf
+ radiology_paper_2023.pdf
+ lung_nodule_study.pdf
+ annotation_methods.pdf
 ```
 
 ### 3. Mixed Format Batch
 ```bash
 # Single ZIP with multiple formats
 batch_upload.zip
-├── annotations/
-│   ├── case001.xml
-│   └── case002.xml
-├── metadata/
-│   ├── study_info.json
-│   └── patient_data.json
-└── docs/
-    └── protocol.pdf
+ annotations/
+    case001.xml
+    case002.xml
+ metadata/
+    study_info.json
+    patient_data.json
+ docs/
+     protocol.pdf
 ```
 
 ## Performance Considerations

@@ -43,24 +43,24 @@ The MAPS testing suite provides comprehensive coverage for both the web frontend
 
 ```
 web/src/
-├── components/
-│   ├── FileUploader/
-│   │   ├── FileUploader.tsx
-│   │   └── FileUploader.test.tsx
-│   ├── BatchProcessor/
-│   │   └── BatchProcessor.test.tsx
-│   └── Layout/
-│       └── Header.test.tsx
-├── pages/
-│   ├── Dashboard.test.tsx
-│   ├── Upload.test.tsx
-│   ├── History.test.tsx
-│   └── Profiles.test.tsx
-├── services/
-│   └── api.test.ts
-└── test/
-    ├── setup.ts           # Test setup and mocks
-    └── test-utils.tsx     # Testing utilities and helpers
+ components/
+    FileUploader/
+       FileUploader.tsx
+       FileUploader.test.tsx
+    BatchProcessor/
+       BatchProcessor.test.tsx
+    Layout/
+        Header.test.tsx
+ pages/
+    Dashboard.test.tsx
+    Upload.test.tsx
+    History.test.tsx
+    Profiles.test.tsx
+ services/
+    api.test.ts
+ test/
+     setup.ts           # Test setup and mocks
+     test-utils.tsx     # Testing utilities and helpers
 ```
 
 ### Running Web Tests
@@ -157,13 +157,13 @@ beforeEach(() => {
 
 ```
 tests/
-├── test_api_comprehensive.py      # All API endpoints
-├── test_integration_workflows.py  # End-to-end workflows
-├── test_document_repository.py    # Database operations
-├── test_excel_export.py           # Excel export functionality
-├── test_pylidc_adapter.py         # PYLIDC integration
-├── test_foundation_validation.py  # Core validation logic
-└── test_xml_comp.py               # XML parsing
+ test_api_comprehensive.py      # All API endpoints
+ test_integration_workflows.py  # End-to-end workflows
+ test_document_repository.py    # Database operations
+ test_excel_export.py           # Excel export functionality
+ test_pylidc_adapter.py         # PYLIDC integration
+ test_foundation_validation.py  # Core validation logic
+ test_xml_comp.py               # XML parsing
 ```
 
 ### Running Python Tests
@@ -431,7 +431,7 @@ class TestMyEndpoint:
 2. **One Assertion Per Test:** Focus each test on one behavior
 3. **Clear Test Names:** Use descriptive names that explain what's being tested
 4. **Mock External Dependencies:** Isolate the code under test
-5. **Test Edge Cases:** Don't just test happy paths
+5. **Test Edge Cases:** Don't test happy paths
 6. **Use Fixtures:** Reuse common setup code
 7. **Keep Tests Fast:** Avoid slow operations like file I/O when possible
 8. **Test Error Paths:** Verify error handling
@@ -535,11 +535,11 @@ PYTHON_EXIT=$?
 
 # check results
 if [ $WEB_EXIT -ne 0 ] || [ $PYTHON_EXIT -ne 0 ]; then
-    echo "❌ Tests failed. Commit aborted."
+    echo " Tests failed. Commit aborted."
     exit 1
 fi
 
-echo "✅ All tests passed!"
+echo " All tests passed!"
 exit 0
 ```
 

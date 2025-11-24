@@ -4,7 +4,7 @@ Quick guide to using the newly integrated features in MAPS.
 
 ---
 
-## 🔴 Real-time Job Progress
+##  Real-time Job Progress
 
 ### Using WebSocket in React
 
@@ -50,7 +50,7 @@ const { progress, isConnected } = useJobProgress({
 
 ---
 
-## 🔄 Supabase Realtime
+##  Supabase Realtime
 
 ### Listen to Document Changes
 
@@ -106,7 +106,7 @@ const { data, isConnected } = useSupabaseRealtime({
 
 ---
 
-## 🔍 Keywords API
+##  Keywords API
 
 ### Search Keywords
 
@@ -134,7 +134,7 @@ const normalized = await apiClient.normalizeKeyword('nOdUlE');
 
 ---
 
-## 📊 Analytics API
+##  Analytics API
 
 ### Comprehensive Analytics
 
@@ -165,7 +165,7 @@ console.log(`Complete: ${completeness.completeness_percentage}%`);
 
 ---
 
-## 🔎 Advanced Search
+##  Advanced Search
 
 ### Full-text Search
 
@@ -192,7 +192,7 @@ const keywordResults = await apiClient.searchByKeywords(['nodule', 'opacity']);
 
 ---
 
-## 🗂️ Parse Cases
+##  Parse Cases
 
 ### Manage Parse Cases
 
@@ -216,7 +216,7 @@ await apiClient.createParseCase({
 
 ---
 
-## 🏥 PYLIDC Integration
+##  PYLIDC Integration
 
 ### Import PYLIDC Data
 
@@ -241,7 +241,7 @@ const annotations = await apiClient.getPYLIDCAnnotations('LIDC-IDRI-0001');
 
 ---
 
-## 🎨 3D Visualization
+##  3D Visualization
 
 ### Get Nodule Data
 
@@ -266,7 +266,7 @@ await apiClient.generateVolumeRendering('scan-456', {
 
 ---
 
-## 📁 Supabase Views
+##  Supabase Views
 
 ### Access Materialized Views
 
@@ -297,7 +297,7 @@ const metadata = await apiClient.getViewMetadata('keywords_consolidated');
 
 ---
 
-## 🗄️ Database Operations
+##  Database Operations
 
 ### Health and Stats
 
@@ -325,7 +325,7 @@ await apiClient.resetDatabase(true); // requires confirmation
 
 ---
 
-## 📤 Export
+##  Export
 
 ### Export Data
 
@@ -351,7 +351,7 @@ const jobExport = await apiClient.exportJob('job-123', {
 
 ---
 
-## 🎯 Complete Example: Upload with Real-time Progress
+##  Complete Example: Upload with Real-time Progress
 
 ```typescript
 import { useState } from 'react';
@@ -401,8 +401,8 @@ function CompleteUploadExample() {
       <button onClick={handleUpload}>Upload</button>
 
       <div>
-        Job Updates: {jobConnected ? '🟢' : '🔴'}
-        Database: {dbConnected ? '🟢' : '🔴'}
+        Job Updates: {jobConnected ? '🟢' : ''}
+        Database: {dbConnected ? '🟢' : ''}
       </div>
 
       {progress && (
@@ -419,7 +419,7 @@ function CompleteUploadExample() {
 
 ---
 
-## 🔗 API Client Reference
+##  API Client Reference
 
 All API methods are available through `apiClient`:
 
@@ -462,7 +462,7 @@ await apiClient.downloadFile(filename);
 
 ---
 
-## 📚 Additional Resources
+##  Additional Resources
 
 - **API Documentation**: http://localhost:8000/docs
 - **Complete Integration Guide**: `/COMPLETE_INTEGRATION.md`
@@ -471,4 +471,4 @@ await apiClient.downloadFile(filename);
 
 ---
 
-**Happy coding with MAPS! 🎉**
+**Happy coding with MAPS! **

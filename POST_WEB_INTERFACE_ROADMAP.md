@@ -35,15 +35,15 @@ After web interface is complete, focus on these **critical** tasks to achieve pr
 - [ ] Document authentication flow
 
 **Files to Create:**
-- `src/ra_d_ps/api/auth.py` - Authentication logic
-- `src/ra_d_ps/api/routers/auth.py` - Auth endpoints
-- `src/ra_d_ps/api/models/user.py` - User models
-- `src/ra_d_ps/database/models/user.py` - User DB model
+- `src/maps/api/auth.py` - Authentication logic
+- `src/maps/api/routers/auth.py` - Auth endpoints
+- `src/maps/api/models/user.py` - User models
+- `src/maps/database/models/user.py` - User DB model
 - `migrations/015_user_authentication.sql` - User tables
 
 **Files to Modify:**
-- `src/ra_d_ps/api/dependencies.py` - Add auth dependencies
-- `src/ra_d_ps/api/config.py` - Add JWT config
+- `src/maps/api/dependencies.py` - Add auth dependencies
+- `src/maps/api/config.py` - Add JWT config
 - All router files - Add auth decorators
 
 **Testing:**
@@ -72,11 +72,11 @@ After web interface is complete, focus on these **critical** tasks to achieve pr
 - [ ] Document rate limits in API docs
 
 **Files to Create:**
-- `src/ra_d_ps/api/middleware/rate_limit.py`
+- `src/maps/api/middleware/rate_limit.py`
 
 **Files to Modify:**
-- `src/ra_d_ps/api/main.py` - Add middleware
-- `src/ra_d_ps/api/config.py` - Rate limit config
+- `src/maps/api/main.py` - Add middleware
+- `src/maps/api/config.py` - Rate limit config
 
 **Testing:**
 - [ ] Test rate limit enforcement
@@ -178,7 +178,7 @@ async def test_parse_xml_endpoint(test_client, sample_xml):
 pytest tests/api/ -v
 
 # With coverage
-pytest tests/api/ --cov=src/ra_d_ps/api --cov-report=html
+pytest tests/api/ --cov=src/maps/api --cov-report=html
 ```
 
 ---
@@ -205,7 +205,7 @@ pytest tests/api/ --cov=src/ra_d_ps/api --cov-report=html
 - [ ] Write 15+ service tests
 
 **Files to Modify:**
-- `src/ra_d_ps/api/services/document_service.py`
+- `src/maps/api/services/document_service.py`
 
 **Database Queries:**
 - Complex joins (documents + content + keywords + parse_cases)
@@ -233,7 +233,7 @@ pytest tests/api/ --cov=src/ra_d_ps/api --cov-report=html
 - [ ] Write 15+ analytics tests
 
 **Files to Modify:**
-- `src/ra_d_ps/api/services/analytics_service.py`
+- `src/maps/api/services/analytics_service.py`
 
 **Dependencies:**
 - Install `scipy`, `statsmodels` for statistics
@@ -258,10 +258,10 @@ pytest tests/api/ --cov=src/ra_d_ps/api --cov-report=html
 - [ ] Write 10+ visualization tests
 
 **Files to Modify:**
-- `src/ra_d_ps/api/services/visualization_service.py`
+- `src/maps/api/services/visualization_service.py`
 
 **Integration Points:**
-- `src/ra_d_ps/lidc_3d_utils.py` - existing utilities
+- `src/maps/lidc_3d_utils.py` - existing utilities
 - File storage system (local or S3)
 
 ---
@@ -284,7 +284,7 @@ pytest tests/api/ --cov=src/ra_d_ps/api --cov-report=html
 - [ ] Write 10+ batch processing tests
 
 **Files to Modify:**
-- `src/ra_d_ps/api/services/batch_service.py`
+- `src/maps/api/services/batch_service.py`
 
 **Dependencies:**
 - Consider `Celery` or `RQ` for background jobs
@@ -309,7 +309,7 @@ pytest tests/api/ --cov=src/ra_d_ps/api --cov-report=html
 - [ ] Write 10+ search tests
 
 **Files to Modify:**
-- `src/ra_d_ps/api/services/search_service.py`
+- `src/maps/api/services/search_service.py`
 
 **Database:**
 - Use PostgreSQL full-text search
@@ -333,7 +333,7 @@ pytest tests/api/ --cov=src/ra_d_ps/api --cov-report=html
 - [ ] Write 8+ database admin tests
 
 **Files to Modify:**
-- `src/ra_d_ps/api/services/database_service.py`
+- `src/maps/api/services/database_service.py`
 
 **Security:**
 - Admin-only access
@@ -381,7 +381,7 @@ COPY migrations/ migrations/
 
 EXPOSE 8000
 
-CMD ["uvicorn", "src.ra_d_ps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.maps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 ---
@@ -430,7 +430,7 @@ jobs:
         with:
           python-version: 3.11
       - run: pip install -r requirements.txt
-      - run: pytest tests/ --cov=src/ra_d_ps
+      - run: pytest tests/ --cov=src/maps
 
   deploy:
     needs: test
@@ -472,8 +472,8 @@ jobs:
 - `docs/MONITORING_SETUP.md`
 
 **Files to Modify:**
-- `src/ra_d_ps/api/main.py` - Add Prometheus middleware
-- `src/ra_d_ps/api/routers/health.py` - Add health endpoints
+- `src/maps/api/main.py` - Add Prometheus middleware
+- `src/maps/api/routers/health.py` - Add health endpoints
 
 **Install:**
 ```bash
@@ -683,7 +683,7 @@ This roadmap provides a **clear path to production** with:
 3. **Feature completion** - All services implemented in week 3-4
 4. **Production deployment** - Live system in week 5-6
 
-**Follow this roadmap to achieve a production-ready RA-D-PS platform in 6 weeks.**
+**Follow this roadmap to achieve a production-ready MAPS platform in 6 weeks.**
 
 **Next Step:** After web interface completion, start with Priority 1, Task 1.1 (Authentication).
 
@@ -691,4 +691,3 @@ This roadmap provides a **clear path to production** with:
 
 **Document Version:** 1.0
 **Last Updated:** 2025-11-23
-**Author:** Claude Code (Automated Analysis)

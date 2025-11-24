@@ -7,7 +7,7 @@ Successfully extracted **~629 lines** of Excel formatting code from `gui.py` int
 ## Files Created
 
 ```
-src/ra_d_ps/exporters/
+src/maps/exporters/
  __init__.py                 # Module exports
  base.py                     # BaseExporter (120 lines)
  excel_exporter.py           # Formatters (510 lines)
@@ -33,9 +33,9 @@ All tests passing!
 
 ## Quick Start
 
-### RA-D-PS Format Export
+### MAPS Format Export
 ```python
-from src.ra_d_ps.exporters import RADPSExcelFormatter
+from src.maps.exporters import RADPSExcelFormatter
 
 records = [{"file_number": "001", "radiologists": {...}}]
 exporter = RADPSExcelFormatter()
@@ -44,7 +44,7 @@ output_path = exporter.export(records, folder_path)
 
 ### Template Format Export  
 ```python
-from src.ra_d_ps.exporters import TemplateExcelFormatter
+from src.maps.exporters import TemplateExcelFormatter
 
 template_data = [{"FileID": "001", "Radiologist 1": "Conf:4"}]
 exporter = TemplateExcelFormatter()
@@ -72,7 +72,7 @@ output_path = exporter.export(template_data, file_path)
 - Extract processing logic (~671 lines)
 
 ### Option B: Integrate with Modern Parse System
-- Create adapter: CanonicalDocument → RA-D-PS records
+- Create adapter: CanonicalDocument → MAPS records
 - Wire up new parsers → exporters
 - End-to-end modern pipeline
 

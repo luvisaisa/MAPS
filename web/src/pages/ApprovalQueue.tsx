@@ -426,6 +426,13 @@ export function ApprovalQueue() {
                 </div>
               </div>
 
+              {/* Detection Details */}
+              {reviewingItem.detection_details && (
+                <div className="mt-4 border-t border-gray-200 pt-4">
+                  <ParseCaseDetails detectionDetails={reviewingItem.detection_details} showFieldAnalysis={true} />
+                </div>
+              )}
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Override Parse Case (optional)

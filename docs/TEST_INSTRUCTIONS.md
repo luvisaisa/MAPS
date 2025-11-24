@@ -4,7 +4,7 @@
 
 ### Setup
 1. Close any running GUI windows
-2. Run: `python3 -m src.ra_d_ps`
+2. Run: `python3 -m src.maps`
 3. Watch terminal for debug output ( DEBUG messages)
 
 ---

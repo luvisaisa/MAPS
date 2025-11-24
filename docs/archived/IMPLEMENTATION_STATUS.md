@@ -1,7 +1,7 @@
 # What I Actually Implemented vs What Was Requested
 
 ## Summary
-I simplified the approach after initial complexity caused syntax errors. Here's what actually works now:
+I simplified the approach after initial complexity caused syntax errors. what actually works now:
 
 ## Current Implementation 
 

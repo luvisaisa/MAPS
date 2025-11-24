@@ -10,14 +10,14 @@ Successfully created a generic, profile-driven XML parser architecture that outp
 
 ## Architecture Components
 
-### 1. BaseParser Interface (/src/ra_d_ps/parsers/base.py)
+### 1. BaseParser Interface (/src/maps/parsers/base.py)
 - Abstract base class defining parser contract
 - Methods: can_parse(), validate(), parse(), parse_batch()
 - Custom exceptions: ParserError, ValidationError, ParseError
 - Helper methods for file validation
 - Status: Complete and stable (141 lines)
 
-### 2. XMLParser Generic Implementation (/src/ra_d_ps/parsers/xml_parser.py)
+### 2. XMLParser Generic Implementation (/src/maps/parsers/xml_parser.py)
 - Profile-driven XML parsing with canonical schema output
 - Supports XPath field extraction with namespace handling
 - Profile-based transformations and validation
@@ -30,7 +30,7 @@ Key features:
 - Handles missing/optional fields gracefully
 - Outputs RadiologyCanonicalDocument instances
 
-### 3. LegacyRadiologyParser Wrapper (/src/ra_d_ps/parsers/legacy_radiology.py)
+### 3. LegacyRadiologyParser Wrapper (/src/maps/parsers/legacy_radiology.py)
 - Maintains exact API: parse_radiology_sample() returns (main_df, unblinded_df)
 - Converts canonical schema back to DataFrame format
 - Default LIDC-IDRI profile with 3 basic field mappings
@@ -120,7 +120,7 @@ Phase 4 Implementation: SUCCESSFUL
 
 CONFIRMED: Existing code can use LegacyRadiologyParser without changes:
 ```python
-from src.ra_d_ps.parsers import LegacyRadiologyParser
+from src.maps.parsers import LegacyRadiologyParser
 
 parser = LegacyRadiologyParser()
 main_df, unblinded_df = parser.parse_radiology_sample('/path/to/file.xml')
@@ -148,10 +148,10 @@ Estimated timeline: 4-6 hours
 ## Files Changed
 
 Created:
-- /src/ra_d_ps/parsers/__init__.py
-- /src/ra_d_ps/parsers/base.py (141 lines)
-- /src/ra_d_ps/parsers/xml_parser.py (400+ lines)
-- /src/ra_d_ps/parsers/legacy_radiology.py (200+ lines)
+- /src/maps/parsers/__init__.py
+- /src/maps/parsers/base.py (141 lines)
+- /src/maps/parsers/xml_parser.py (400+ lines)
+- /src/maps/parsers/legacy_radiology.py (200+ lines)
 - /test_phase4_parser.py (validation script)
 - /docs/PHASE_4_IMPLEMENTATION_PLAN.md
 - /PHASE_4_COMPLETE.md (this document)

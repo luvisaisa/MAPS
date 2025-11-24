@@ -69,7 +69,7 @@
 **Next Action:** Apply migration to PostgreSQL instance
 
 ### Phase 2: Canonical Schema 
-- **File:** `/src/ra_d_ps/schemas/canonical.py`
+- **File:** `/src/maps/schemas/canonical.py`
 - **Status:** Complete
 - **Contents:** - `CanonicalDocument` base model
   - `RadiologyCanonicalDocument` specialized model
@@ -80,7 +80,7 @@
 **Next Action:** Import in existing parser for gradual migration
 
 ### Phase 3: Profile System 
-- **File:** `/src/ra_d_ps/schemas/profile.py`
+- **File:** `/src/maps/schemas/profile.py`
 - **Status:** Complete
 - **Contents:** - `Profile` main model
   - `FieldMapping`, `Transformation`, `ValidationRules` models
@@ -90,7 +90,7 @@
 **Next Action:** Create ProfileManager and LIDC-IDRI profile
 
 ### Phase 3.5: Profile Manager 
-- **File:** `/src/ra_d_ps/profile_manager.py`
+- **File:** `/src/maps/profile_manager.py`
 - **Status:** Complete
 - **Contents:** - `ProfileManager` class for loading, saving, validating profiles
   - File system and database storage support
@@ -131,8 +131,8 @@
 ```
 
 **Files to Analyze:**
-- `/src/ra_d_ps/parser.py` lines 427-760 (`parse_radiology_sample` function)
-- `/src/ra_d_ps/structure_detector.py` (parse case detection)
+- `/src/maps/parser.py` lines 427-760 (`parse_radiology_sample` function)
+- `/src/maps/structure_detector.py` (parse case detection)
 
 **Key Information to Extract:**
 1. XPath patterns for each parse case
@@ -254,8 +254,8 @@
 **Implementation:**
 ```python
 # Create script: /scripts/create_lidc_profile.py
-from src.ra_d_ps.profile_manager import get_profile_manager
-from src.ra_d_ps.schemas.profile import Profile, FieldMapping, DataType
+from src.maps.profile_manager import get_profile_manager
+from src.maps.schemas.profile import Profile, FieldMapping, DataType
 # ... build profile programmatically or load from JSON ...
 manager = get_profile_manager()
 manager.import_profile("/profiles/lidc_idri_standard.json")
@@ -264,7 +264,7 @@ manager.import_profile("/profiles/lidc_idri_standard.json")
 **Validation:**
 ```python
 # Test profile loading
-from src.ra_d_ps.profile_manager import get_profile_manager
+from src.maps.profile_manager import get_profile_manager
 
 manager = get_profile_manager()
 profile = manager.load_profile("lidc_idri_standard")
@@ -284,7 +284,7 @@ assert is_valid, f"Profile validation failed: {errors}"
 
 #### Step 5.1: Create Base Parser Interface
 
-**Create:** `/src/ra_d_ps/parsers/base.py`
+**Create:** `/src/maps/parsers/base.py`
 
 ```python
 """
@@ -358,7 +358,7 @@ class BaseParser(ABC):
 
 #### Step 5.2: Create Generic XML Parser
 
-**Create:** `/src/ra_d_ps/parsers/xml_parser.py`
+**Create:** `/src/maps/parsers/xml_parser.py`
 
 ```python
 """
@@ -697,8 +697,8 @@ class XMLParser(BaseParser):
 # Create test: /tests/test_xml_parser.py
 import pytest
 from pathlib import Path
-from src.ra_d_ps.parsers.xml_parser import XMLParser
-from src.ra_d_ps.profile_manager import get_profile_manager
+from src.maps.parsers.xml_parser import XMLParser
+from src.maps.profile_manager import get_profile_manager
 
 def test_xml_parser_with_lidc_profile():
     """Test XML parser with LIDC-IDRI profile"""
@@ -723,7 +723,7 @@ def test_xml_parser_with_lidc_profile():
 **Status:** NOT STARTED  
 **Estimated Time:** 4 hours
 
-**Create:** `/src/ra_d_ps/parsers/factory.py`
+**Create:** `/src/maps/parsers/factory.py`
 
 ```python
 """
@@ -834,7 +834,7 @@ psql -h localhost -U ra_d_ps_user -d ra_d_ps_db -f migrations/001_initial_schema
 ### 4. Test Profile System
 ```python
 python -c "
-from src.ra_d_ps.profile_manager import get_profile_manager
+from src.maps.profile_manager import get_profile_manager
 manager = get_profile_manager()
 print(f'Profile manager initialized with {len(manager.list_profiles())} profiles')
 "

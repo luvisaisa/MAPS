@@ -1,6 +1,6 @@
 # Performance Optimization Deployment Checklist
 
-## ✅ Pre-Deployment Verification
+##  Pre-Deployment Verification
 
 ### Code Changes Review
 - [x] Backend caching layer implemented (`pylidc_service.py`)
@@ -27,7 +27,7 @@
 
 ---
 
-## 🔧 Deployment Steps
+##  Deployment Steps
 
 ### Step 1: Backup Current State
 ```bash
@@ -82,7 +82,7 @@ git pull origin main
 
 # Restart backend
 pkill -f "uvicorn.*8000" || true
-python -m uvicorn src.ra_d_ps.api.main:app --host 0.0.0.0 --port 8000 &
+python -m uvicorn src.maps.api.main:app --host 0.0.0.0 --port 8000 &
 
 # Wait for startup
 sleep 5
@@ -120,7 +120,7 @@ curl "http://localhost:8000/api/v1/keywords/search?query=nodule&limit=50"
 
 ---
 
-## 🧪 Post-Deployment Validation
+##  Post-Deployment Validation
 
 ### Backend Health Checks
 ```bash
@@ -189,15 +189,15 @@ size_download:  %{size_download}\n" \
 **Expected Results:**
 | Metric | Target | Pass/Fail |
 |--------|--------|-----------|
-| PYLIDC cached | <1s | ⬜ |
-| Keyword cached | <100ms | ⬜ |
-| Response compressed | >60% | ⬜ |
-| No connection errors | 100% | ⬜ |
-| Frontend loads | <2s | ⬜ |
+| PYLIDC cached | <1s |  |
+| Keyword cached | <100ms |  |
+| Response compressed | >60% |  |
+| No connection errors | 100% |  |
+| Frontend loads | <2s |  |
 
 ---
 
-## 🔍 Monitoring Setup
+##  Monitoring Setup
 
 ### Add Logging for Cache Metrics
 ```python
@@ -244,7 +244,7 @@ window.addEventListener('load', () => {
 
 ---
 
-## 🚨 Rollback Plan
+##  Rollback Plan
 
 ### If Issues Occur
 
@@ -257,7 +257,7 @@ git push origin main
 # 2. Restart with old .env
 cp .env.backup .env
 pkill -f uvicorn
-python -m uvicorn src.ra_d_ps.api.main:app --host 0.0.0.0 --port 8000 &
+python -m uvicorn src.maps.api.main:app --host 0.0.0.0 --port 8000 &
 ```
 
 **Symptom: Database connection errors**
@@ -267,7 +267,7 @@ sed -i.bak '/DB_POOL/d' .env
 
 # 2. Restart backend
 pkill -f uvicorn
-python -m uvicorn src.ra_d_ps.api.main:app --host 0.0.0.0 --port 8000 &
+python -m uvicorn src.maps.api.main:app --host 0.0.0.0 --port 8000 &
 ```
 
 **Symptom: Caching issues (stale data)**
@@ -278,7 +278,7 @@ export PYLIDC_CACHE_TTL=300
 
 # 2. Restart backend to clear cache
 pkill -f uvicorn
-python -m uvicorn src.ra_d_ps.api.main:app --host 0.0.0.0 --port 8000 &
+python -m uvicorn src.maps.api.main:app --host 0.0.0.0 --port 8000 &
 ```
 
 **Symptom: Frontend errors**
@@ -294,7 +294,7 @@ npm run dev &
 
 ---
 
-## 📊 Success Criteria
+##  Success Criteria
 
 ### Performance Targets Met
 - [ ] PYLIDC cached queries: <1 second
@@ -317,7 +317,7 @@ npm run dev &
 
 ---
 
-## 📝 Post-Deployment Tasks
+##  Post-Deployment Tasks
 
 ### Immediate (Within 24 hours)
 - [ ] Monitor error logs for issues
@@ -339,7 +339,7 @@ npm run dev &
 
 ---
 
-## 🎯 Performance Regression Prevention
+##  Performance Regression Prevention
 
 ### Before Future Deployments
 1. Run performance benchmarks
@@ -357,7 +357,7 @@ npm run dev &
 
 ---
 
-## 📞 Support Contacts
+##  Support Contacts
 
 **If issues arise:**
 - Backend: Check logs at `logs/api.log`
@@ -367,7 +367,7 @@ npm run dev &
 
 ---
 
-## ✅ Deployment Sign-off
+##  Deployment Sign-off
 
 **Deployed by:** _________________  
 **Date:** _________________  

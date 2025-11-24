@@ -65,7 +65,7 @@ SELECT * FROM v_keywords_standardization_reporting;
 **Or use Python:**
 
 ```python
-from ra_d_ps.database.keyword_repository import KeywordRepository
+from maps.database.keyword_repository import KeywordRepository
 
 repo = KeywordRepository()
 keywords = repo.get_all_keywords(limit=10)
@@ -110,8 +110,8 @@ for kw in keywords:
   - Direct SQL queries
 
 ### Code Updates
-- **src/ra_d_ps/database/keyword_models.py** - Updated `Keyword` model with new fields
-- **src/ra_d_ps/database/keyword_repository.py** - Updated `add_keyword()` method with new parameters
+- **src/maps/database/keyword_models.py** - Updated `Keyword` model with new fields
+- **src/maps/database/keyword_repository.py** - Updated `add_keyword()` method with new parameters
 
 ---
 
@@ -167,7 +167,7 @@ Returns results ranked by match type (exact, partial, normalized, definition).
 ### Example 1: Get All Keywords
 
 ```python
-from ra_d_ps.database.keyword_repository import KeywordRepository
+from maps.database.keyword_repository import KeywordRepository
 
 repo = KeywordRepository()
 keywords = repo.get_all_keywords(limit=20)
@@ -266,7 +266,7 @@ ORDER BY keyword_count DESC;
 python examples/keyword_consolidated_view_examples.py
 ```
 
-This will demonstrate:
+This demonstrate:
 1. Getting all keywords
 2. Searching keywords
 3. Getting keywords by category
@@ -346,13 +346,13 @@ id,category,keyword,definition,source_refs
 
 ## Summary
 
-✅ **Migration 002** adds enhanced keyword schema
-✅ **50 radiology keywords** imported from CSV
-✅ **Consolidated view** for easy querying
-✅ **Category-specific views** for focused queries
-✅ **Helper functions** for common operations
-✅ **Python API** with full support for new fields
-✅ **Comprehensive documentation** and examples
+ **Migration 002** adds enhanced keyword schema
+ **50 radiology keywords** imported from CSV
+ **Consolidated view** for easy querying
+ **Category-specific views** for focused queries
+ **Helper functions** for common operations
+ **Python API** with full support for new fields
+ **Comprehensive documentation** and examples
 
 ---
 

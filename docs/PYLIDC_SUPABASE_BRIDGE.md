@@ -36,7 +36,7 @@ python scripts/pylidc_bridge_cli.py
 ### 3. Programmatic Usage
 
 ```python
-from ra_d_ps.pylidc_supabase_bridge import PyLIDCSupabaseBridge
+from maps.pylidc_supabase_bridge import PyLIDCSupabaseBridge
 
 # Initialize bridge
 bridge = PyLIDCSupabaseBridge()
@@ -174,7 +174,7 @@ scans = bridge.query_scans(max_slice_thickness=1.0, limit=100)
 for scan in scans:
     if not bridge.is_scan_imported(scan.patient_id):
         bridge.import_scan(scan)
-        print(f"✓ {scan.patient_id}")
+        print(f" {scan.patient_id}")
 ```
 
 ### Workflow 2: Research malignant nodules
@@ -239,7 +239,7 @@ export SUPABASE_KEY="your-key"
 
 ## API Reference
 
-See `src/ra_d_ps/pylidc_supabase_bridge.py` for full API documentation.
+See `src/maps/pylidc_supabase_bridge.py` for full API documentation.
 
 **Main Methods:**
 - `query_scans()` - Query by filters

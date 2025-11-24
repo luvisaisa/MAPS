@@ -1,7 +1,7 @@
 # Simplified 2-Button GUI Guide
 
 ## Overview
-The GUI has been simplified to provide a cleaner, more intuitive interface with just 2 main export options instead of 8 separate buttons.
+The GUI has been simplified to provide a cleaner, more intuitive interface with 2 main export options instead of 8 separate buttons.
 
 ## New Interface Layout
 

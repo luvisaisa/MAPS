@@ -48,7 +48,7 @@ cd src/case_identifier
 npm install dotenv
 node -r dotenv/config -e "
 const { validateConnection } = require('./dist/supabase-client.js');
-validateConnection().then(ok => console.log(ok ? '✓ Connected!' : '✗ Failed'));
+validateConnection().then(ok => console.log(ok ? ' Connected!' : ' Failed'));
 "
 ```
 

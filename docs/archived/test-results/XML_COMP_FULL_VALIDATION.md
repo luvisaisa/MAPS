@@ -2,7 +2,7 @@
 
 **Date:** October 19, 2025 21:56:40  
 **Validation Script:** `scripts/validate_xml_comp_dataset.py`  
-**Database:** PostgreSQL (ra_d_ps) - Pure DB-driven detection  
+**Database:** PostgreSQL (maps) - Pure DB-driven detection  
 **System:** macOS, Python 3.x
 
 ## Executive Summary

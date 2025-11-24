@@ -1,34 +1,34 @@
-# RA-D-PS Integration Test Report
+# MAPS Integration Test Report
 **Date:** November 23, 2025  
-**Status:** ✅ PARTIAL SUCCESS - Core functionality verified
+**Status:**  PARTIAL SUCCESS - Core functionality verified
 
 ---
 
-## [STAGE 5/5] ✅ Test Results Summary
+## [STAGE 5/5]  Test Results Summary
 
-### ✅ PASSING TESTS (6/9)
+###  PASSING TESTS (6/9)
 
 **Backend API Endpoints:**
-1. ✅ PASS: GET /health — Backend healthy and running
-2. ✅ PASS: GET /api/v1/profiles — Returns list of 2 profiles
-3. ✅ PASS: POST /api/v1/profiles — Profile creation successful
-4. ✅ PASS: GET /api/v1/profiles/{name} — Profile retrieval working
-5. ✅ PASS: GET /api/v1/pylidc/scans — 1,018 scans available (note: slow response ~42s)
-6. ✅ PASS: GET /api/v1/analytics/dashboard — Stats structure correct
+1.  PASS: GET /health — Backend healthy and running
+2.  PASS: GET /api/v1/profiles — Returns list of 2 profiles
+3.  PASS: POST /api/v1/profiles — Profile creation successful
+4.  PASS: GET /api/v1/profiles/{name} — Profile retrieval working
+5.  PASS: GET /api/v1/pylidc/scans — 1,018 scans available (note: slow response ~42s)
+6.  PASS: GET /api/v1/analytics/dashboard — Stats structure correct
 
-### ❌ FAILING/SKIPPED TESTS (3/9)
+###  FAILING/SKIPPED TESTS (3/9)
 
 **Database-Dependent Endpoints:**
-7. ❌ FAIL: GET /api/v1/keywords/search — Database connection issue (Supabase IPv6 routing)
+7.  FAIL: GET /api/v1/keywords/search — Database connection issue (Supabase IPv6 routing)
    - **Root Cause:** Supabase connection blocked, keyword_directory table not accessible
    - **Impact:** Keyword search, categories, tags endpoints non-functional
    - **Fix Required:** Database migration or local PostgreSQL setup
 
-8. ⚠️ SKIP: POST /api/v1/parse/xml — Requires test XML file upload
+8.  SKIP: POST /api/v1/parse/xml — Requires test XML file upload
    - **Status:** Endpoint exists, not tested due to file requirement
    - **Next Step:** Create test XML file and verify parse flow
 
-9. ⚠️ SKIP: GET /api/v1/approval-queue — Depends on parse operations
+9.  SKIP: GET /api/v1/approval-queue — Depends on parse operations
    - **Status:** Endpoint exists, requires populated queue
    - **Next Step:** Test after successful XML parse
 
@@ -37,7 +37,7 @@
 ## Code Fixes Applied
 
 ### SQLAlchemy 2.0 Compatibility
-**File:** `src/ra_d_ps/api/services/keyword_service.py`
+**File:** `src/maps/api/services/keyword_service.py`
 
 **Changes:**
 - Added `from sqlalchemy import text` import
@@ -64,23 +64,23 @@ return dict(row._mapping) if row else None
 
 ## Architecture Validation
 
-### ✅ Multi-Format Support
+###  Multi-Format Support
 - **Base Classes:** BaseParser interface verified in `parsers/base.py`
 - **Extractors:** XML and PDF extractors exist with proper inheritance
 - **Detectors:** XMLStructureDetector implemented
 - **Factory Pattern:** Extractor factory ready for registration
 
-### ✅ Profile System
+###  Profile System
 - **CRUD Operations:** All endpoints functional
 - **Validation Rules:** Schema validated (requires: `profile_name`, `file_type`, `mappings`)
 - **ProfileManager:** Integrated with dependency injection
 
-### ✅ PYLIDC Integration
+###  PYLIDC Integration
 - **Remote Query:** Successfully accessing 1,018 LIDC-IDRI scans
 - **Comprehensive Filtering:** 29+ query parameters operational
 - **Performance Note:** Initial query slow (~40s) due to remote database and Python filtering
 
-### ⚠️ Keyword System
+###  Keyword System
 - **Status:** Endpoints defined, SQL queries fixed
 - **Blocker:** Database connectivity issue
 - **Workaround:** Use local PostgreSQL or fix Supabase IPv6 routing
@@ -93,10 +93,10 @@ return dict(row._mapping) if row else None
 **File:** `web/src/services/api.ts`
 
 **Verified:**
-- ✅ Error handling patterns in place
-- ✅ Mock data removed from PYLIDC client
-- ✅ Type definitions exist in `web/src/types/api.ts`
-- ⚠️ Frontend not currently running (ports 5173/5174 inactive)
+-  Error handling patterns in place
+-  Mock data removed from PYLIDC client
+-  Type definitions exist in `web/src/types/api.ts`
+-  Frontend not currently running (ports 5173/5174 inactive)
 
 **Next Steps:**
 1. Start frontend: `cd web && npm run dev`
@@ -136,17 +136,17 @@ return dict(row._mapping) if row else None
 ## Missing Components
 
 ### Documentation
-- ❌ EXTENSIBILITY_GUIDE.md not found
+-  EXTENSIBILITY_GUIDE.md not found
   - **Action:** Create guide for adding new parsers/extractors
   - **Content:** Factory registration, parser interface, extractor patterns
 
 ### Testing Infrastructure
-- ⚠️ No automated test suite for API endpoints
+-  No automated test suite for API endpoints
   - **Recommendation:** Create pytest suite in `tests/integration/`
   - **Coverage:** Profile CRUD, parse flows, keyword operations
 
 ### Migration Status
-- ⚠️ Database migrations not verified
+-  Database migrations not verified
   - **Files:** 17 SQL migrations in `/migrations`
   - **Status:** Unknown if applied to Supabase
   - **Risk:** Schema mismatch could cause runtime errors
@@ -156,19 +156,19 @@ return dict(row._mapping) if row else None
 ## Deployment Health
 
 ### Backend (Port 8000)
-- ✅ Status: healthy
-- ✅ Uvicorn running
-- ✅ CORS configured
-- ✅ API documentation available at `/docs`
+-  Status: healthy
+-  Uvicorn running
+-  CORS configured
+-  API documentation available at `/docs`
 
 ### Frontend (Ports 5173/5174)
-- ❌ Status: not running
+-  Status: not running
 - **Action Required:** Start Vite dev server
 
 ### Database (Supabase)
-- ⚠️ Status: partial connectivity
-- ✅ Profiles table accessible
-- ❌ Keywords tables inaccessible
+-  Status: partial connectivity
+-  Profiles table accessible
+-  Keywords tables inaccessible
 - **Issue:** Network routing or missing migrations
 
 ---
@@ -199,12 +199,12 @@ return dict(row._mapping) if row else None
 
 | Category | Target | Actual | Status |
 |----------|--------|--------|--------|
-| Backend Health | 100% | 100% | ✅ |
-| Profile CRUD | 100% | 100% | ✅ |
-| PYLIDC Query | 100% | 100% | ✅ |
-| Keyword System | 100% | 0% | ❌ |
-| Frontend Running | 100% | 0% | ❌ |
-| End-to-End Flow | 100% | 33% | ⚠️ |
+| Backend Health | 100% | 100% |  |
+| Profile CRUD | 100% | 100% |  |
+| PYLIDC Query | 100% | 100% |  |
+| Keyword System | 100% | 0% |  |
+| Frontend Running | 100% | 0% |  |
+| End-to-End Flow | 100% | 33% |  |
 
 **Overall Score: 67% (4/6 systems operational)**
 
@@ -212,11 +212,11 @@ return dict(row._mapping) if row else None
 
 ## Conclusion
 
-The RA-D-PS system demonstrates **solid foundational architecture** with:
-- ✅ Working profile management
-- ✅ Functional PYLIDC integration with comprehensive filtering
-- ✅ Proper API structure and routing
-- ✅ SQLAlchemy 2.0 compatibility (after fixes)
+The MAPS system demonstrates **solid foundational architecture** with:
+-  Working profile management
+-  Functional PYLIDC integration with comprehensive filtering
+-  Proper API structure and routing
+-  SQLAlchemy 2.0 compatibility (after fixes)
 
 **Critical blockers resolved:**
 - SQL query syntax updated for modern SQLAlchemy

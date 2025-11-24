@@ -1,4 +1,4 @@
-# API Documentation - NYT XML Parser
+# API Documentation - MAPS
 
 ## Core Module APIs
 

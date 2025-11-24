@@ -48,7 +48,7 @@ If AppleScript fails or on non-macOS platforms:
 - "Add Another Folder" button for sequential selection
 
 ### Code Location
-`src/ra_d_ps/gui.py` - Lines ~177-340 in `select_folders_simple()`
+`src/maps/gui.py` - Lines ~177-340 in `select_folders_simple()`
 
 ---
 
@@ -178,7 +178,7 @@ Export each folder as an individual XLSX file
 5. **Visual hierarchy** - Bold headings, clear sections
 
 ### Code Location
-`src/ra_d_ps/gui.py` - Lines ~2025-2090 in `show_help()`
+`src/maps/gui.py` - Lines ~2025-2090 in `show_help()`
 
 ---
 
@@ -196,7 +196,7 @@ Export each folder as an individual XLSX file
 8. Choose folder 3
 9. Click Cancel (counterintuitive)
 10. No preview of selections
-11. Folders appear in simple listbox (just names)
+11. Folders appear in simple listbox (names)
 ```
 
 ### New Workflow
@@ -375,7 +375,7 @@ If a folder has thousands of XML files:
 
 ## Files Modified
 
-1. **`src/ra_d_ps/gui.py`** - `select_folders_simple()` - Completely rewritten (Lines ~177-340)
+1. **`src/maps/gui.py`** - `select_folders_simple()` - Completely rewritten (Lines ~177-340)
    - `show_help()` - Updated help content (Lines ~2025-2090)
    - Added `import tkinter.ttk as ttk` for Treeview
 
@@ -394,7 +394,7 @@ If issues arise:
 
 ### Quick Rollback (Git)
 ```bash
-git checkout HEAD~1 src/ra_d_ps/gui.py
+git checkout HEAD~1 src/maps/gui.py
 ```
 
 ### Manual Rollback
@@ -420,8 +420,7 @@ def select_folders_simple(self) -> None:
 - Import test passes
 
  **User Acceptance When:**
-- Users can select multiple folders easily
-- Users understand the difference between export modes
+- Users can select multiple folders - Users understand the difference between export modes
 - Preview provides enough context for decision-making
 - Workflow feels natural and intuitive
 

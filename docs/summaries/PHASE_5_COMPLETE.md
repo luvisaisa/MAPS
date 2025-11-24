@@ -10,7 +10,7 @@ Phase 5 successfully created a comprehensive LIDC-IDRI profile system that maps 
 
 ## Implementation Overview
 
-### 1. Comprehensive LIDC-IDRI Profile (/src/ra_d_ps/profiles/lidc_idri_profile.py)
+### 1. Comprehensive LIDC-IDRI Profile (/src/maps/profiles/lidc_idri_profile.py)
 
 **Created:** Complete profile module with 18 field mappings  
 **Lines of Code:** ~330 lines
@@ -41,7 +41,7 @@ get_profile_for_parse_case(parse_case: str) -> Profile
 - Validation rules: Required fields, optional fields, missing value markers
 - Parse case variants: 4 (Complete, WithReason, CoreOnly, Minimal)
 
-### 2. Entity Extraction in XMLParser (/src/ra_d_ps/parsers/xml_parser.py)
+### 2. Entity Extraction in XMLParser (/src/maps/parsers/xml_parser.py)
 
 **Enhanced:** Complete entity extraction implementation  
 **Lines Added:** ~250 lines
@@ -62,7 +62,7 @@ get_profile_for_parse_case(parse_case: str) -> Profile
 - Associates nodules with radiologist sessions
 - Identifies last session for unblinded data
 
-### 3. Legacy Format Conversion (/src/ra_d_ps/parsers/legacy_radiology.py)
+### 3. Legacy Format Conversion (/src/maps/parsers/legacy_radiology.py)
 
 **Enhanced:** Complete DataFrame conversion matching original parser  
 **Lines Updated:** ~150 lines
@@ -222,12 +222,12 @@ Now uses comprehensive profile instead of minimal 3-field profile.
 ## Files Created/Modified
 
 ### Created:
-1. `/src/ra_d_ps/profiles/__init__.py` (15 lines)
-2. `/src/ra_d_ps/profiles/lidc_idri_profile.py` (330 lines)
+1. `/src/maps/profiles/__init__.py` (15 lines)
+2. `/src/maps/profiles/lidc_idri_profile.py` (330 lines)
 
 ### Modified:
-1. `/src/ra_d_ps/parsers/xml_parser.py` (+250 lines - entity extraction)
-2. `/src/ra_d_ps/parsers/legacy_radiology.py` (~150 lines - format conversion)
+1. `/src/maps/parsers/xml_parser.py` (+250 lines - entity extraction)
+2. `/src/maps/parsers/legacy_radiology.py` (~150 lines - format conversion)
 
 ### Total New Code: ~745 lines
 
@@ -265,7 +265,7 @@ Now uses comprehensive profile instead of minimal 3-field profile.
 7. **Memory optimization** - Test with large file batches
 
 ### Long-Term (Phase 6+):
-8. **RA-D-PS Excel export** - Integrate with export functions
+8. **MAPS Excel export** - Integrate with export functions
 9. **Ingestion orchestrator** - Batch processing workflow
 10. **Profile JSON export** - Save profiles as configuration files
 

@@ -8,7 +8,7 @@
 
 ## Changes Made
 
-### 1. GUI Layout Restructure (`src/ra_d_ps/gui.py`)
+### 1. GUI Layout Restructure (`src/maps/gui.py`)
 
 #### Modified `_create_widgets()` Method
 **Before:** 8 buttons across 4 sections (File Selection, File Management, Export Options, Management)
@@ -151,7 +151,7 @@ python3 -m pytest tests/test_gui_workflow.py -v
 ## Technical Details
 
 ### Files Modified
-1. `src/ra_d_ps/gui.py` (2,628 lines)
+1. `src/maps/gui.py` (2,628 lines)
    - Updated `__init__()` to add `selected_folder_paths`
    - Replaced `_create_widgets()` with simplified layout
    - Added 3 new methods (select_folders_simple, single_export, multi_export)

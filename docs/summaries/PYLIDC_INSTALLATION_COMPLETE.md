@@ -46,7 +46,7 @@ $ python3 -m pytest tests/test_pylidc_adapter.py -v
 
 ### Import Verification
 ```bash
-$ python3 -c "import pylidc as pl; from src.ra_d_ps.adapters import PyLIDCAdapter; ..."
+$ python3 -c "import pylidc as pl; from src.maps.adapters import PyLIDCAdapter; ..."
 
 PyLIDC integration working!
    pylidc version: 0.2.3
@@ -56,11 +56,11 @@ PyLIDC integration working!
 ## What's Now Available
 
 ### 1. PyLIDC Adapter
-You can now use the `PyLIDCAdapter` to convert LIDC-IDRI database scans to canonical schema:
+now use the `PyLIDCAdapter` to convert LIDC-IDRI database scans to canonical schema:
 
 ```python
 import pylidc as pl
-from src.ra_d_ps.adapters import PyLIDCAdapter
+from src.maps.adapters import PyLIDCAdapter
 
 # Query a scan
 scan = pl.query(pl.Scan).first()
@@ -88,7 +88,7 @@ This includes 7 workflows:
 4. Export to JSON
 5. Annotation characteristics analysis
 6. Clustered nodule analysis
-7. Integration with existing RA-D-PS system
+7. Integration with existing MAPS system
 
 ### 3. Full Documentation
 Read the complete integration guide:
@@ -193,7 +193,7 @@ Most time spent in pylidc library initialization and mock object creation during
 - **Integration Summary**: `PYLIDC_INTEGRATION_SUMMARY.md`
 - **Example Code**: `examples/pylidc_integration.py`
 - **Test Suite**: `tests/test_pylidc_adapter.py`
-- **Adapter Source**: `src/ra_d_ps/adapters/pylidc_adapter.py`
+- **Adapter Source**: `src/maps/adapters/pylidc_adapter.py`
 
 ## Quick Commands
 
@@ -205,7 +205,7 @@ pytest tests/test_pylidc_adapter.py -v
 python3 examples/pylidc_integration.py
 
 # Quick import test
-python3 -c "import pylidc; from src.ra_d_ps.adapters import PyLIDCAdapter; print(' Working!')"
+python3 -c "import pylidc; from src.maps.adapters import PyLIDCAdapter; print(' Working!')"
 
 # Check pylidc version
 python3 -c "import pylidc; print(pylidc.__version__)"
@@ -216,6 +216,6 @@ open docs/PYLIDC_INTEGRATION_GUIDE.md
 
 ---
 
-**Installation Complete!** The RA-D-PS system now has full LIDC-IDRI dataset integration capabilities through the pylidc library. All tests are passing and the adapter is production-ready.
+**Installation Complete!** The MAPS system now has full LIDC-IDRI dataset integration capabilities through the pylidc library. All tests are passing and the adapter is production-ready.
 
 **Next**: Either configure your LIDC-IDRI database or proceed to Phase 4 of the schema-agnostic implementation.

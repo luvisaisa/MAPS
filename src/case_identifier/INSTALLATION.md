@@ -15,7 +15,7 @@ cd src/case_identifier
 npm install
 ```
 
-This will install:
+This install:
 - `@supabase/supabase-js` - Supabase client
 - `xml2js` - XML parsing
 - `pdf-parse` - PDF text extraction

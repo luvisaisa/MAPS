@@ -117,7 +117,7 @@ CREATE INDEX idx_keyword_statistics_freq ON keyword_statistics(total_frequency D
 #### Repository Interface
 ```python
 class KeywordRepository:
-    def __init__(self, database: str = "ra_d_ps")
+    def __init__(self, database: str = "maps")
     
     # Keyword CRUD
     def add_keyword(self, text: str, category: str = None) -> Keyword
@@ -152,7 +152,7 @@ class KeywordRepository:
 
 #### Implementation
 ```python
-# src/ra_d_ps/keyword_extractor.py
+# src/maps/keyword_extractor.py
 
 class XMLKeywordExtractor:
     """Extract keywords from LIDC-IDRI XML files"""
@@ -259,7 +259,7 @@ class XMLKeywordExtractor:
 
 #### Implementation
 ```python
-# src/ra_d_ps/pdf_keyword_extractor.py
+# src/maps/pdf_keyword_extractor.py
 
 import pdfplumber
 from typing import List, Dict
@@ -372,7 +372,7 @@ Create `data/medical_terms.json`:
 
 #### Normalizer Implementation
 ```python
-# src/ra_d_ps/keyword_normalizer.py
+# src/maps/keyword_normalizer.py
 
 class KeywordNormalizer:
     """Normalize medical terminology and handle synonyms"""
@@ -420,7 +420,7 @@ class KeywordNormalizer:
 
 #### Search Interface
 ```python
-# src/ra_d_ps/keyword_search.py
+# src/maps/keyword_search.py
 
 class KeywordSearchEngine:
     """Search keywords with TF-IDF ranking"""

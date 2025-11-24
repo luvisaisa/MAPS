@@ -1,4 +1,4 @@
-# RA-D-PS Repository Organization - COMPLETE
+# MAPS Repository Organization - COMPLETE
 
 ## What Was Accomplished
 
@@ -6,7 +6,7 @@
 - **Cleaned build artifacts**: Removed `build/`, `dist/`, `__pycache__/`, `*.spec`
 - **Enhanced .gitignore**: Added comprehensive Python project patterns
 - **Consolidated tests**: All `test_*.py` files moved to `/tests/` directory
-- **Created package structure**: Professional `src/ra_d_ps/` package layout
+- **Created package structure**: Professional `src/maps/` package layout
 - **Organized documentation**: All docs moved to `/docs/` directory
 
 ### Medium-Term Improvements  
@@ -34,7 +34,7 @@
 pip install -e .
 
 # Use as package
-python -c "import ra_d_ps; print('Works!')"
+python -c "import maps; print('Works!')"
 
 # CLI interface  
 python cli.py --help
@@ -48,7 +48,7 @@ python main.py                       # Launch GUI
 ### Import Compatibility
 ```python
 # New preferred imports
-from ra_d_ps import parse_radiology_sample, export_excel, NYTXMLGuiApp
+from maps import parse_radiology_sample, export_excel, NYTXMLGuiApp
 
 # Old imports still work
 from XMLPARSE import parse_radiology_sample, export_excel, NYTXMLGuiApp
@@ -57,8 +57,8 @@ from XMLPARSE import parse_radiology_sample, export_excel, NYTXMLGuiApp
 ## Repository Structure (Organized)
 
 ```
-RA-D-PS/
-  src/ra_d_ps/           # Main package
+MAPS/
+  src/maps/           # Main package
     __init__.py           # Public API
     parser.py             # Core functionality (XMLPARSE.py)
     database.py           # SQLite operations
@@ -87,7 +87,7 @@ RA-D-PS/
 ## Next Steps Available
 
 1. **Run Full Test Suite**: `python -m pytest tests/ -v`
-2. **Development**: Follow new modular structure in `src/ra_d_ps/`
+2. **Development**: Follow new modular structure in `src/maps/`
 3. **CI/CD**: Push to GitHub to trigger automated testing
 4. **Documentation**: Update README with new usage patterns
 5. **Future Refactoring**: Split `parser.py` into the modular files when ready
@@ -102,4 +102,4 @@ RA-D-PS/
 - **Documentation Hub**: Centralized, organized docs
 - **Development Ready**: Linting, formatting, testing tools configured
 
-Your RA-D-PS repository is now professionally organized and ready for continued development.
+Your MAPS repository is now professionally organized and ready for continued development.

@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-The schema-agnostic foundation for RA-D-PS is now **fully functional and tested** on Python 3.9.6. All compatibility issues have been resolved, and the system is ready for Phase 4 implementation (Generic XML Parser Core).
+The schema-agnostic foundation for MAPS is now **fully functional and tested** on Python 3.9.6. All compatibility issues have been resolved, and the system is ready for Phase 4 implementation (Generic XML Parser Core).
 
 ## Test Results
 
@@ -65,7 +65,7 @@ Results: 6/6 tests passed
   - Foreign key constraints with cascading deletes
 
 ### 2. Canonical Schema (Pydantic Models)
-- **File**: `src/ra_d_ps/schemas/canonical.py`
+- **File**: `src/maps/schemas/canonical.py`
 - **Size**: 569 lines
 - **Models**:
   - DocumentMetadata - Core metadata fields
@@ -82,7 +82,7 @@ Results: 6/6 tests passed
   - Forward references enabled via `__future__`
 
 ### 3. Profile System
-- **File**: `src/ra_d_ps/schemas/profile.py`
+- **File**: `src/maps/schemas/profile.py`
 - **Size**: 450+ lines
 - **Models**:
   - Profile - Main profile definition
@@ -97,7 +97,7 @@ Results: 6/6 tests passed
   - Profile inheritance
 
 ### 4. Profile Manager
-- **File**: `src/ra_d_ps/profile_manager.py`
+- **File**: `src/maps/profile_manager.py`
 - **Size**: 350+ lines
 - **Features**:
   - File system and database storage
@@ -139,7 +139,7 @@ See `PYTHON39_COMPATIBILITY_FIX.md` for detailed technical breakdown.
 Both instruction files now prominently feature the **CRITICAL: REAL TESTS REQUIREMENT** section:
 
 1. `.github/copilot-instructions.md` - Main instructions
-2. `.github/instructions/ra-d-ps instruct.instructions.md` - Contribution guidelines
+2. `.github/instructions/maps instruct.instructions.md` - Contribution guidelines
 
 Key emphasis:
 - Run tests BEFORE making changes
@@ -186,7 +186,7 @@ python3 tests/test_foundation_validation.py
 docker-compose up -d postgres
 
 # Access database
-docker-compose exec postgres psql -U ra_d_ps -d ra_d_ps_db
+docker-compose exec postgres psql -U maps -d ra_d_ps_db
 
 # Stop all services
 docker-compose down
@@ -195,7 +195,7 @@ docker-compose down
 cat docs/IMPLEMENTATION_GUIDE_SCHEMA_AGNOSTIC.md
 
 # Check profile manager
-python3 -c "from src.ra_d_ps.profile_manager import get_profile_manager; print(get_profile_manager())"
+python3 -c "from src.maps.profile_manager import get_profile_manager; print(get_profile_manager())"
 ```
 
 ## Known Limitations

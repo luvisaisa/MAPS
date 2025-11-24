@@ -15,7 +15,7 @@ Successfully implemented **XMLKeywordExtractor** for extracting keywords from LI
 ## Components Created
 
 ### 1. XMLKeywordExtractor Class
-**File**: `src/ra_d_ps/xml_keyword_extractor.py` (500+ lines)
+**File**: `src/maps/xml_keyword_extractor.py` (500+ lines)
 
 **Features**:
 - Multi-format XML parsing (LIDC v1 and v2)
@@ -55,7 +55,7 @@ Successfully implemented **XMLKeywordExtractor** for extracting keywords from LI
 -   **Test 6**: Batch processing (works but slow for statistics update - interrupted at 238 keywords)
 
 ### 3. Repository Enhancement
-**File**: `src/ra_d_ps/database/keyword_repository.py`
+**File**: `src/maps/database/keyword_repository.py`
 
 **New Methods Added**:
 - `get_keywords_by_category(category)` - Filter keywords by category
@@ -291,12 +291,12 @@ WHERE ks.keyword_id = keyword_stats.keyword_id;
 ## Files Modified/Created
 
 ### Created
--  `src/ra_d_ps/xml_keyword_extractor.py` (500+ lines)
+-  `src/maps/xml_keyword_extractor.py` (500+ lines)
 -  `scripts/test_xml_keyword_extractor.py` (370+ lines)
 -  `docs/XML_KEYWORD_EXTRACTOR_SUMMARY.md` (this file)
 
 ### Modified
--  `src/ra_d_ps/database/keyword_repository.py` (added `get_keywords_by_category()`)
+-  `src/maps/database/keyword_repository.py` (added `get_keywords_by_category()`)
 
 ---
 

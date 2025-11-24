@@ -1,11 +1,11 @@
-# 🚀 Next Steps - Deploy Analysis System
+#  Next Steps - Deploy Analysis System
 
 ## Current Status
-✅ Database schema deployed (002_unified_case_identifier_schema.sql)  
-✅ Python exporter created (analysis_exporter.py)  
-✅ Documentation written (ANALYSIS_AND_EXPORT_GUIDE.md)  
-⚠️ **Analysis views NOT YET deployed** (need to run 003_analysis_views.sql)  
-⚠️ **No data imported yet** (need to run pylidc bridge)  
+ Database schema deployed (002_unified_case_identifier_schema.sql)  
+ Python exporter created (analysis_exporter.py)  
+ Documentation written (ANALYSIS_AND_EXPORT_GUIDE.md)  
+ **Analysis views NOT YET deployed** (need to run 003_analysis_views.sql)  
+ **No data imported yet** (need to run pylidc bridge)  
 
 ## What You Need to Do
 
@@ -22,21 +22,21 @@ migrations/003_analysis_views.sql
 
 **Click "Run"**
 
-This will create:
-- ✅ `master_analysis_table` view
-- ✅ `export_ready_table` materialized view
-- ✅ `filter_analysis_table()` function
-- ✅ `refresh_export_table()` function
+This create:
+-  `master_analysis_table` view
+-  `export_ready_table` materialized view
+-  `filter_analysis_table()` function
+-  `refresh_export_table()` function
 
 **Verification**:
 ```python
 python3 -c "
 import sys
 sys.path.insert(0, 'src')
-from ra_d_ps.analysis_exporter import AnalysisExporter
+from maps.analysis_exporter import AnalysisExporter
 exporter = AnalysisExporter()
 data = exporter.get_master_table()
-print(f'✅ Views deployed! Found {len(data)} rows')
+print(f' Views deployed! Found {len(data)} rows')
 "
 ```
 
@@ -64,7 +64,7 @@ python3 scripts/pylidc_bridge_cli.py
 python3 -c "
 import sys
 sys.path.insert(0, 'src')
-from ra_d_ps.analysis_exporter import AnalysisExporter
+from maps.analysis_exporter import AnalysisExporter
 exporter = AnalysisExporter()
 exporter.print_summary()
 "
@@ -72,13 +72,13 @@ exporter.print_summary()
 
 **Expected output**:
 ```
-📁 FILES: 5 (or more)
+ FILES: 5 (or more)
    xml: 5
 
-📊 PROCESSING STATUS:
+ PROCESSING STATUS:
    complete: 5
 
-📄 SEGMENTS: 10 (or more)
+ SEGMENTS: 10 (or more)
    qualitative: 5
    quantitative: 5
 ```
@@ -90,7 +90,7 @@ exporter.print_summary()
 python3 -c "
 import sys
 sys.path.insert(0, 'src')
-from ra_d_ps.analysis_exporter import AnalysisExporter
+from maps.analysis_exporter import AnalysisExporter
 exporter = AnalysisExporter()
 stats = exporter.refresh_export_table()
 print(f'Refreshed {stats[\"total_rows\"]} rows in {stats[\"refresh_duration\"]}')
@@ -104,7 +104,7 @@ print(f'Refreshed {stats[\"total_rows\"]} rows in {stats[\"refresh_duration\"]}'
 python3 -c "
 import sys
 sys.path.insert(0, 'src')
-from ra_d_ps.analysis_exporter import AnalysisExporter
+from maps.analysis_exporter import AnalysisExporter
 
 exporter = AnalysisExporter()
 
@@ -115,7 +115,7 @@ exporter.export_to_json('./exports/all_data.json')
 # Export by type
 exporter.export_by_file_type('xml')
 
-print('✅ Exports complete! Check ./exports directory')
+print(' Exports complete! Check ./exports directory')
 "
 ```
 
@@ -144,7 +144,7 @@ python3 scripts/pylidc_bridge_cli.py
 python3 -c "
 import sys
 sys.path.insert(0, 'src')
-from ra_d_ps.analysis_exporter import AnalysisExporter
+from maps.analysis_exporter import AnalysisExporter
 exporter = AnalysisExporter()
 exporter.refresh_export_table()
 exporter.export_to_csv('./exports/lidc_data.csv')
@@ -173,12 +173,12 @@ exporter.print_summary()
 ## File Reference
 
 ### SQL Migrations
-- `migrations/002_unified_case_identifier_schema.sql` - ✅ Already deployed
-- `migrations/003_analysis_views.sql` - ⚠️ **DEPLOY THIS NEXT**
+- `migrations/002_unified_case_identifier_schema.sql` -  Already deployed
+- `migrations/003_analysis_views.sql` -  **DEPLOY THIS NEXT**
 
 ### Python Utilities
-- `src/ra_d_ps/analysis_exporter.py` - Export utility (ready)
-- `src/ra_d_ps/pylidc_supabase_bridge.py` - LIDC bridge (ready)
+- `src/maps/analysis_exporter.py` - Export utility (ready)
+- `src/maps/pylidc_supabase_bridge.py` - LIDC bridge (ready)
 - `scripts/pylidc_bridge_cli.py` - Interactive import CLI (ready)
 - `scripts/demo_analysis_system.py` - Demo script (ready)
 
@@ -189,24 +189,24 @@ exporter.print_summary()
 
 ---
 
-## What You'll Be Able to Do
+## What Be Able to Do
 
 After completing all steps, you can:
 
-✅ **View all data in single table** with filters  
-✅ **Export to CSV** for Excel/R/Python analysis  
-✅ **Export to JSON** for programmatic use  
-✅ **Filter by**:
+ **View all data in single table** with filters  
+ **Export to CSV** for Excel/R/Python analysis  
+ **Export to JSON** for programmatic use  
+ **Filter by**:
    - File type (XML, PDF, etc.)
    - Segment type (quantitative, qualitative, mixed)
    - Keyword count (≥5, ≥10, etc.)
    - Date range (last week, month, etc.)
    - Case patterns (with/without)
    - Keyword search ("malignancy", "spiculation", etc.)
-✅ **Get statistics** (file counts, segment counts, keyword stats)  
-✅ **Find high-value content** (cross-validated patterns, high-relevance keywords)  
-✅ **Track radiologist annotations** (qualitative segments)  
-✅ **Track measurements** (quantitative segments)  
+ **Get statistics** (file counts, segment counts, keyword stats)  
+ **Find high-value content** (cross-validated patterns, high-relevance keywords)  
+ **Track radiologist annotations** (qualitative segments)  
+ **Track measurements** (quantitative segments)  
 
 ---
 
@@ -218,4 +218,4 @@ After completing all steps, you can:
 
 **Total time**: ~15 minutes
 
-🎯 **You're one SQL deployment away from a complete analysis system!**
+ **You're one SQL deployment away from a complete analysis system!**

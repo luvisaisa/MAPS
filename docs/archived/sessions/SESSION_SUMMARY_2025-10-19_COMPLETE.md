@@ -14,7 +14,7 @@
 **Status**: Production-ready with minor optimization needed
 
 #### Created Files:
-1. **`src/ra_d_ps/xml_keyword_extractor.py`** (500+ lines)
+1. **`src/maps/xml_keyword_extractor.py`** (500+ lines)
    - Extracts keywords from LIDC-IDRI XML files
    - 4 extraction categories (characteristic, diagnosis, anatomy, metadata)
    - Context snippet preservation (50-char windows)
@@ -24,7 +24,7 @@
 2. **`scripts/test_xml_keyword_extractor.py`** (370+ lines)
    - 6 comprehensive tests
    - Test Results: **5/6 passing (83.3%)** #### Modified Files:
-3. **`src/ra_d_ps/database/keyword_repository.py`** - Added `get_keywords_by_category()` method
+3. **`src/maps/database/keyword_repository.py`** - Added `get_keywords_by_category()` method
    - Fixed session management in `get_all_keywords()`
 
 #### Test Results:
@@ -75,7 +75,7 @@
 **Status**: Production-ready with minor enhancement needed
 
 #### Created Files:
-1. **`src/ra_d_ps/keyword_normalizer.py`** (400+ lines)
+1. **`src/maps/keyword_normalizer.py`** (400+ lines)
    - Bidirectional synonym mapping
    - Abbreviation expansion
    - Multi-word term detection
@@ -116,11 +116,11 @@
 ## Files Created/Modified Summary
 
 ### Created (11 files):
-1. `src/ra_d_ps/xml_keyword_extractor.py` (500+ lines)
+1. `src/maps/xml_keyword_extractor.py` (500+ lines)
 2. `scripts/test_xml_keyword_extractor.py` (370+ lines)
 3. `docs/XML_KEYWORD_EXTRACTOR_SUMMARY.md` (documentation)
 4. `data/medical_terms.json` (650+ lines)
-5. `src/ra_d_ps/keyword_normalizer.py` (400+ lines)
+5. `src/maps/keyword_normalizer.py` (400+ lines)
 6. `scripts/test_keyword_normalizer.py` (400+ lines)
 7. `examples/keyword_normalizer_examples.py` (250+ lines)
 8. `docs/KEYWORD_NORMALIZATION_SUMMARY.md` (documentation)
@@ -128,7 +128,7 @@
 10. `docs/SESSION_SUMMARY_2025-10-19.md` (this file)
 
 ### Modified (1 file):
-1. `src/ra_d_ps/database/keyword_repository.py` (added 1 method)
+1. `src/maps/database/keyword_repository.py` (added 1 method)
 
 ### Total Lines of Code: 3,000+ lines
 
@@ -172,8 +172,8 @@
 
 ### XML → Normalizer Integration:
 ```python
-from src.ra_d_ps.xml_keyword_extractor import XMLKeywordExtractor
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
+from src.maps.xml_keyword_extractor import XMLKeywordExtractor
+from src.maps.keyword_normalizer import KeywordNormalizer
 
 # Extract and normalize
 extractor = XMLKeywordExtractor()
@@ -187,8 +187,8 @@ for kw in keywords:
 
 ### Normalizer → Database Integration:
 ```python
-from src.ra_d_ps.keyword_normalizer import KeywordNormalizer
-from src.ra_d_ps.database.keyword_repository import KeywordRepository
+from src.maps.keyword_normalizer import KeywordNormalizer
+from src.maps.database.keyword_repository import KeywordRepository
 
 # Use database synonyms
 repo = KeywordRepository()
@@ -305,7 +305,7 @@ canonical = normalizer.normalize("custom_term")
 
 ## Conclusion
 
-Successfully implemented comprehensive **keyword extraction and normalization pipeline** for RA-D-PS radiology annotation system. The system is **production-ready** with excellent test coverage (86.7%) and handles:
+Successfully implemented comprehensive **keyword extraction and normalization pipeline** for MAPS radiology annotation system. The system is **production-ready** with excellent test coverage (86.7%) and handles:
 
 1.  XML keyword extraction (LIDC-IDRI format)
 2.  Medical terminology normalization (650+ terms)

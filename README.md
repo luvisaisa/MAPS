@@ -27,7 +27,7 @@ This system was developed to address the challenges of processing heterogeneous 
 - Perform advanced analytics on radiologist agreement and data quality
 - Process up to 1000 files per batch with real-time progress tracking
 
-## 🆕 Supabase Integration (NEW!)
+##  Supabase Integration (NEW!)
 
 **Import radiology data from PYLIDC to Supabase PostgreSQL with automatic parse case detection and keyword extraction.**
 
@@ -38,23 +38,23 @@ This system was developed to address the challenges of processing heterogeneous 
 3. **Migrate**: Apply database schema: `psql "$SUPABASE_DB_URL" -f migrations/*.sql`
 4. **Import**: Run `python scripts/pylidc_to_supabase.py --limit 10`
 
-**📖 Full guide**: [docs/QUICKSTART_SUPABASE.md](docs/QUICKSTART_SUPABASE.md)
+** Full guide**: [docs/QUICKSTART_SUPABASE.md](docs/QUICKSTART_SUPABASE.md)
 
 ### Features
 
-✅ **Schema-Agnostic Design**: Automatically detects XML structure patterns
-✅ **PYLIDC Integration**: Direct import from LIDC-IDRI dataset
-✅ **Parse Case Tracking**: Know which XML schema was used for each document
-✅ **Keyword Extraction**: Automatic medical term extraction with categories
-✅ **JSONB Storage**: Flexible PostgreSQL storage with GIN indexes
-✅ **Full-Text Search**: Fast document search by keywords and content
-✅ **Analytics Ready**: Materialized views and helper functions included
+ **Schema-Agnostic Design**: Automatically detects XML structure patterns
+ **PYLIDC Integration**: Direct import from LIDC-IDRI dataset
+ **Parse Case Tracking**: Know which XML schema was used for each document
+ **Keyword Extraction**: Automatic medical term extraction with categories
+ **JSONB Storage**: Flexible PostgreSQL storage with GIN indexes
+ **Full-Text Search**: Fast document search by keywords and content
+ **Analytics Ready**: Materialized views and helper functions included
 
 ### Example Usage
 
 ```python
-from ra_d_ps.database.enhanced_document_repository import EnhancedDocumentRepository
-from ra_d_ps.adapters.pylidc_adapter import PyLIDCAdapter
+from maps.database.enhanced_document_repository import EnhancedDocumentRepository
+from maps.adapters.pylidc_adapter import PyLIDCAdapter
 import pylidc as pl
 
 # Initialize repository with parse case and keyword tracking
@@ -81,12 +81,12 @@ print(f"Parse case: {parse_case}")
 print(f"Keywords extracted: {keywords}")
 ```
 
-**📚 Documentation**:
+** Documentation**:
 - [Quick Start Guide](docs/QUICKSTART_SUPABASE.md) - Get started in 5 minutes
 - [Schema-Agnostic Guide](docs/SUPABASE_SCHEMA_AGNOSTIC_GUIDE.md) - Complete architecture documentation
 - [Examples](examples/supabase_integration.py) - Usage examples
 
-## 🚀 Complete Auto-Triggered Analysis System (NEW!)
+##  Complete Auto-Triggered Analysis System (NEW!)
 
 **Fully automatic keyword extraction, case detection, and analytics on EVERY import using database triggers!**
 
@@ -100,13 +100,13 @@ ANY IMPORT → Automatic Triggers → Keywords Extracted → Case Detected → V
 
 ### Key Features
 
-#### 🔄 **Automatic Processing (No Manual Scripts!)**
+####  **Automatic Processing (No Manual Scripts!)**
 - **Triggers on INSERT**: Automatic keyword extraction from all segment types
 - **Hybrid Case Detection**: Filename regex (1.0 confidence) + keyword signature (0.0-1.0)
 - **Confidence Thresholding**: Auto-assign ≥0.8, manual review <0.8
 - **Cross-Type Validation**: Keywords appearing in both qualitative and quantitative segments
 
-#### 📊 **Universal Views (All Data Types)**
+####  **Universal Views (All Data Types)**
 - `file_summary` - Per-file aggregated statistics
 - `segment_statistics` - Per-segment metrics (word count, numeric density, keywords)
 - `numeric_data_flat` - Auto-extracted numeric fields from JSONB
@@ -114,7 +114,7 @@ ANY IMPORT → Automatic Triggers → Keywords Extracted → Case Detected → V
 - `unresolved_segments` - Orphaned data needing assignment
 - `case_identifier_validation` - Completeness metrics with actionable recommendations
 
-#### 🏥 **LIDC Medical Views (Specialized for Radiology)**
+####  **LIDC Medical Views (Specialized for Radiology)**
 - `lidc_patient_summary` - Patient-level consensus (9 characteristics: subtlety, malignancy, etc.)
 - `lidc_nodule_analysis` - Per-nodule with per-radiologist columns
 - `lidc_patient_cases` - Case-level rollup with TCIA links
@@ -122,27 +122,27 @@ ANY IMPORT → Automatic Triggers → Keywords Extracted → Case Detected → V
 - `lidc_contour_slices` - Per-slice polygon data
 - `lidc_nodule_spatial_stats` - Derived spatial statistics
 
-#### 📤 **CSV-Ready Export Views (For Non-Technical Users)**
+####  **CSV-Ready Export Views (For Non-Technical Users)**
 - `export_universal_wide` - All data types, flattened
 - `export_lidc_analysis_ready` - SPSS/R/Stata format (one row per radiologist rating)
 - `export_lidc_with_links` - Patient summary with TCIA download links
 - `export_radiologist_data` - Inter-rater analysis format
 - `export_top_keywords` - Top 1000 keywords by relevance
 
-#### 🔐 **Public Access (Anonymous Read-Only via RLS)**
+####  **Public Access (Anonymous Read-Only via RLS)**
 - All export views accessible to anonymous users
 - LIDC medical views (de-identified data)
 - Universal analysis views
 - Internal processing tables restricted to authenticated users
 
-#### 🔑 **Canonical Keyword Semantics (NEW!)**
+####  **Canonical Keyword Semantics (NEW!)**
 - **Curated Medical Concepts**: Lung-RADS®, RadLex, LIDC-IDRI, TCIA, Radiomics, cTAKES, NER
 - **Categories**: Standardization Systems, Diagnostic Concepts, Imaging Biomarkers, Performance Metrics
 - **AMA Citations**: Full references to source papers and documentation
 - **Topic Tags**: Filtering by "LIDC", "Radiomics", "NLP", "Reporting", "Biomarkers", etc.
 - **Bidirectional Navigation**: Keyword → Files/Segments/Cases AND File/Case → Keywords
 
-#### 📍 **Keyword Navigation Views**
+####  **Keyword Navigation Views**
 - `keyword_directory` - Complete catalog with usage stats and citations
 - `keyword_occurrence_map` - Where-used at segment level
 - `file_keyword_summary` - Keywords per file
@@ -155,7 +155,7 @@ ANY IMPORT → Automatic Triggers → Keywords Extracted → Case Detected → V
 The system includes complete 3D contour processing utilities:
 
 ```python
-from ra_d_ps.lidc_3d_utils import (
+from maps.lidc_3d_utils import (
     extract_nodule_mesh,
     calculate_consensus_contour,
     compute_inter_rater_reliability,
@@ -188,15 +188,15 @@ The complete system is deployed via 14 SQL migrations:
 1. **001_initial_schema** - Core tables (already existed)
 2. **002_unified_case_identifier** - Schema-agnostic foundation (already existed)
 3. **003-005** - Various enhancements (already existed)
-4. **006_automatic_triggers** - Keyword extraction triggers ⭐ NEW
-5. **007_case_detection_system** - Hybrid case detection ⭐ NEW
-6. **008_universal_views** - Cross-format views ⭐ NEW
-7. **009_lidc_specific_views** - Medical analysis views ⭐ NEW
-8. **010_lidc_3d_contour_views** - Spatial visualization ⭐ NEW
-9. **011_export_views** - CSV-ready materialized views ⭐ NEW
-10. **012_public_access_policies** - RLS for anonymous read ⭐ NEW
-11. **013_keyword_semantics** - Canonical keywords + citations ⭐ NEW
-12. **014_keyword_navigation_views** - Keyword discovery ⭐ NEW
+4. **006_automatic_triggers** - Keyword extraction triggers  NEW
+5. **007_case_detection_system** - Hybrid case detection  NEW
+6. **008_universal_views** - Cross-format views  NEW
+7. **009_lidc_specific_views** - Medical analysis views  NEW
+8. **010_lidc_3d_contour_views** - Spatial visualization  NEW
+9. **011_export_views** - CSV-ready materialized views  NEW
+10. **012_public_access_policies** - RLS for anonymous read  NEW
+11. **013_keyword_semantics** - Canonical keywords + citations  NEW
+12. **014_keyword_navigation_views** - Keyword discovery  NEW
 
 ### Quick Commands
 
@@ -253,14 +253,14 @@ occurrences = pd.read_sql(query, engine)
 - **3D Visualization**: In-browser nodule rendering with Plotly
 - **Case Assignment Interface**: Manual review queue for confidence <0.8
 
-**📖 Complete Documentation**: [Analysis and Export System Guide](docs/ANALYSIS_AND_EXPORT_GUIDE.md)
+** Complete Documentation**: [Analysis and Export System Guide](docs/ANALYSIS_AND_EXPORT_GUIDE.md)
 
 ## Architecture Overview
 
 ### Core Components
 
 ```
-NYT XML Parser/
+MAPS/
  main.py                     # Application entry point
  XMLPARSE.py                 # Core GUI application and parsing engine
  radiology_database.py       # SQLite database operations and analytics
@@ -675,7 +675,7 @@ python main.py
 - Check error handling with malformed data
 - Performance test with large datasets
 
-**📚 Testing Documentation:**
+** Testing Documentation:**
 - [Testing Guide](docs/TESTING_GUIDE.md) - Comprehensive testing documentation
 - [Quick Reference](docs/TEST_QUICKSTART.md) - Quick commands and tips
 
