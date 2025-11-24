@@ -47,3 +47,4 @@ pingouin>=0.5.3              # Inter-rater reliability (ICC, Fleiss kappa)
 
 # Optional GUI dependencies (usually included with Python)
 # tkinter  # Usually bundled with Python
+pytest-asyncio>=1.2.0
