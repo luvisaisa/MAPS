@@ -1,12 +1,42 @@
 """Keyword Service - Uses ra_d_ps.keyword_search_engine"""
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Any
 from sqlalchemy.orm import Session
+from sqlalchemy import text
+from functools import lru_cache
+from datetime import datetime, timedelta
 import csv
 import io
+import hashlib
+import json
+
+# In-memory cache for keyword queries
+_keyword_cache: Dict[str, tuple[Any, datetime]] = {}
+CACHE_TTL_SECONDS = 300  # 5 minutes
 
 class KeywordService:
     def __init__(self, db: Session):
         self.db = db
+    
+    @staticmethod
+    def _get_cache_key(prefix: str, **kwargs) -> str:
+        """Generate cache key from parameters"""
+        params = json.dumps(kwargs, sort_keys=True)
+        return f"{prefix}:{hashlib.md5(params.encode()).hexdigest()}"
+    
+    @staticmethod
+    def _get_cached(key: str) -> Optional[Any]:
+        """Get cached value if not expired"""
+        if key in _keyword_cache:
+            value, timestamp = _keyword_cache[key]
+            if datetime.utcnow() - timestamp < timedelta(seconds=CACHE_TTL_SECONDS):
+                return value
+            del _keyword_cache[key]
+        return None
+    
+    @staticmethod
+    def _set_cache(key: str, value: Any):
+        """Set cache value with timestamp"""
+        _keyword_cache[key] = (value, datetime.utcnow())
         
     def list_keywords(self, limit: int, offset: int, category: Optional[str]):
         """Query keywords from database"""
@@ -32,48 +62,63 @@ class KeywordService:
     
     def get_directory(self):
         """Get complete keyword catalog"""
-        query = "SELECT * FROM keyword_directory ORDER BY total_occurrences DESC"
+        cache_key = self._get_cache_key("directory")
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+        
+        query = text("SELECT * FROM keyword_directory ORDER BY total_occurrences DESC")
         result = self.db.execute(query)
-        return {"keywords": [dict(row) for row in result.fetchall()]}
+        data = {"keywords": [dict(row._mapping) for row in result.fetchall()]}
+        self._set_cache(cache_key, data)
+        return data
     
     def search(self, query: str, limit: int):
         """Search keywords by term"""
-        sql = """
+        cache_key = self._get_cache_key("search", query=query, limit=limit)
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+        
+        sql = text("""
         SELECT * FROM keyword_directory
-        WHERE term ILIKE %s
+        WHERE term ILIKE :query
         ORDER BY total_occurrences DESC
-        LIMIT %s
-        """
-        result = self.db.execute(sql, [f"%{query}%", limit])
-        return [dict(row) for row in result.fetchall()]
+        LIMIT :limit
+        """)
+        result = self.db.execute(sql, {"query": f"%{query}%", "limit": limit})
+        rows = result.fetchall()
+        data = {"items": [dict(row._mapping) for row in rows], "total": len(rows)}
+        self._set_cache(cache_key, data)
+        return data
     
     def get_keyword(self, keyword_id: str):
         """Get keyword details"""
-        query = "SELECT * FROM keyword_directory WHERE keyword_id = %s"
-        result = self.db.execute(query, [keyword_id])
+        query = text("SELECT * FROM keyword_directory WHERE keyword_id = :keyword_id")
+        result = self.db.execute(query, {"keyword_id": keyword_id})
         row = result.fetchone()
-        return dict(row) if row else None
+        return dict(row._mapping) if row else None
     
     def get_occurrences(self, keyword_id: str):
         """Get keyword occurrences"""
-        query = """
+        query = text("""
         SELECT * FROM keyword_occurrence_map
-        WHERE keyword_id = %s
-        """
-        result = self.db.execute(query, [keyword_id])
-        return [dict(row) for row in result.fetchall()]
+        WHERE keyword_id = :keyword_id
+        """)
+        result = self.db.execute(query, {"keyword_id": keyword_id})
+        return [dict(row._mapping) for row in result.fetchall()]
     
     def list_categories(self):
         """List keyword categories"""
-        query = "SELECT DISTINCT subject_category FROM keyword_directory"
+        query = text("SELECT DISTINCT subject_category FROM keyword_directory WHERE subject_category IS NOT NULL")
         result = self.db.execute(query)
-        return [row[0] for row in result.fetchall()]
+        return [row[0] for row in result.fetchall() if row[0]]
     
     def list_tags(self):
         """List topic tags"""
-        query = "SELECT DISTINCT unnest(topic_tags) as tag FROM keyword_directory"
+        query = text("SELECT DISTINCT unnest(topic_tags) as tag FROM keyword_directory WHERE topic_tags IS NOT NULL AND array_length(topic_tags, 1) > 0")
         result = self.db.execute(query)
-        return [row[0] for row in result.fetchall()]
+        return [row[0] for row in result.fetchall() if row[0]]
     
     def extract(self, text: str):
         """Extract keywords from text"""
