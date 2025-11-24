@@ -49,6 +49,17 @@ class Settings(BaseModel):
     # Logging
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
 
+    # Caching Settings
+    CACHE_TTL: int = int(os.getenv("CACHE_TTL", "300"))  # 5 minutes default
+    PYLIDC_CACHE_TTL: int = int(os.getenv("PYLIDC_CACHE_TTL", "3600"))  # 1 hour for PYLIDC metadata
+    ENABLE_RESPONSE_COMPRESSION: bool = os.getenv("ENABLE_RESPONSE_COMPRESSION", "true").lower() == "true"
+
+    # Database Connection Pooling
+    DB_POOL_SIZE: int = int(os.getenv("DB_POOL_SIZE", "20"))
+    DB_MAX_OVERFLOW: int = int(os.getenv("DB_MAX_OVERFLOW", "10"))
+    DB_POOL_RECYCLE: int = int(os.getenv("DB_POOL_RECYCLE", "3600"))  # Recycle connections after 1 hour
+    DB_POOL_TIMEOUT: int = int(os.getenv("DB_POOL_TIMEOUT", "30"))
+
     class Config:
         case_sensitive = True
 

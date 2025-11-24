@@ -7,6 +7,7 @@ Shared dependencies for FastAPI endpoints.
 from fastapi import Depends, HTTPException, status
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.pool import QueuePool
 from typing import Generator
 import logging
 
@@ -19,12 +20,21 @@ engine = None
 SessionLocal = None
 
 def get_db_engine():
-    """Get or create database engine"""
+    """Get or create database engine with connection pooling"""
     global engine
     if engine is None:
         if not settings.DATABASE_URL:
             raise ValueError("DATABASE_URL not configured")
-        engine = create_engine(settings.DATABASE_URL)
+        engine = create_engine(
+            settings.DATABASE_URL,
+            poolclass=QueuePool,
+            pool_size=settings.DB_POOL_SIZE,
+            max_overflow=settings.DB_MAX_OVERFLOW,
+            pool_recycle=settings.DB_POOL_RECYCLE,
+            pool_timeout=settings.DB_POOL_TIMEOUT,
+            pool_pre_ping=True,  # Verify connections before using
+            echo=False
+        )
     return engine
 
 
