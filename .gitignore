@@ -44,6 +44,12 @@ examples/*.db
 # Configuration files (keep templates)
 configs/config.json
 
+# AI instruction files (private)
+.github/CLAUDE_CONTEXT.md
+.github/instructions/*.instructions.md
+*CLAUDE*.md
+*claude*.md
+
 # Large binary files
 *.dylib
 *.pkg
