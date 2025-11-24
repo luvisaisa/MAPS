@@ -52,7 +52,7 @@ class TestProfileEndpoints:
         # first create a test profile
         test_profile = {
             "profile_name": "test_profile",
-            "file_type": "xml",
+            "file_type": "XML",
             "description": "Test profile",
             "mappings": [],
             "validation_rules": {"required_fields": []},
@@ -74,7 +74,7 @@ class TestProfileEndpoints:
         """Test creating a new profile"""
         new_profile = {
             "profile_name": "new_test_profile",
-            "file_type": "json",
+            "file_type": "JSON",
             "description": "New test profile",
             "mappings": [
                 {
@@ -96,7 +96,7 @@ class TestProfileEndpoints:
         """Test creating profile with duplicate name"""
         profile = {
             "profile_name": "duplicate_test",
-            "file_type": "xml",
+            "file_type": "XML",
             "description": "Duplicate test",
             "mappings": [],
             "validation_rules": {"required_fields": []},
@@ -118,7 +118,7 @@ class TestProfileEndpoints:
         # create profile first
         profile = {
             "profile_name": "update_test",
-            "file_type": "xml",
+            "file_type": "XML",
             "description": "Original description",
             "mappings": [],
             "validation_rules": {"required_fields": []},
@@ -147,7 +147,7 @@ class TestProfileEndpoints:
         # create profile first
         profile = {
             "profile_name": "delete_test",
-            "file_type": "xml",
+            "file_type": "XML",
             "description": "To be deleted",
             "mappings": [],
             "validation_rules": {"required_fields": []},
