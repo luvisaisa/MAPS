@@ -4,9 +4,10 @@
  * Query PYLIDC database, select multiple scans, and import to Supabase
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '../services/api';
+import { useDebounce } from '../hooks/useDebounce';
 
 export default function PYLIDC() {
   const [selectedScans, setSelectedScans] = useState<string[]>([]);
@@ -29,6 +30,10 @@ export default function PYLIDC() {
   const [hasNodules, setHasNodules] = useState<boolean | undefined>();
   const [minAnnotations, setMinAnnotations] = useState<number | undefined>();
   const [maxAnnotations, setMaxAnnotations] = useState<number | undefined>();
+
+  // Debounce expensive filters to reduce API calls
+  const debouncedPatientId = useDebounce(patientIdFilter, 500);
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   // Filter states - Morphological Features (1-5 scale)
   const [minSubtlety, setMinSubtlety] = useState<number | undefined>();
@@ -62,9 +67,9 @@ export default function PYLIDC() {
   
   const queryClient = useQueryClient();
 
-  // Fetch PYLIDC scans
-  const { data: scansData, isLoading, error } = useQuery({
-    queryKey: ['pylidc-scans', page, searchQuery, patientIdFilter, minSlices, maxSlices, minThickness, maxThickness,
+  // Fetch PYLIDC scans with debounced filters
+  const { data: scansData, isLoading, error, isFetching } = useQuery({
+    queryKey: ['pylidc-scans', page, debouncedSearchQuery, debouncedPatientId, minSlices, maxSlices, minThickness, maxThickness,
       minSpacing, maxSpacing, contrastUsed, hasNodules, minAnnotations, maxAnnotations,
       minSubtlety, maxSubtlety, minSphericity, maxSphericity, minMargin, maxMargin,
       minLobulation, maxLobulation, minSpiculation, maxSpiculation, minMalignancy, maxMalignancy,
@@ -72,7 +77,7 @@ export default function PYLIDC() {
     queryFn: () => apiClient.getPYLIDCScans({
       page,
       page_size: 30,
-      patient_id: patientIdFilter || undefined,
+      patient_id: debouncedPatientId || undefined,
       min_slices: minSlices,
       max_slices: maxSlices,
       min_thickness: minThickness,
@@ -102,10 +107,79 @@ export default function PYLIDC() {
       max_diameter: maxDiameter,
     }),
     retry: false,
+    staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+    cacheTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
   });
+
+  // Prefetch next page for instant navigation
+  const queryClient = useQueryClient();
+  
+  useEffect(() => {
+    if (page < (scansData?.total_pages || 1)) {
+      queryClient.prefetchQuery({
+        queryKey: ['pylidc-scans', page + 1, debouncedSearchQuery, debouncedPatientId, minSlices, maxSlices, minThickness, maxThickness,
+          minSpacing, maxSpacing, contrastUsed, hasNodules, minAnnotations, maxAnnotations,
+          minSubtlety, maxSubtlety, minSphericity, maxSphericity, minMargin, maxMargin,
+          minLobulation, maxLobulation, minSpiculation, maxSpiculation, minMalignancy, maxMalignancy,
+          minTexture, maxTexture, calcification, minDiameter, maxDiameter, sortBy, sortOrder],
+        queryFn: () => apiClient.getPYLIDCScans({
+          page: page + 1,
+          page_size: 30,
+          patient_id: debouncedPatientId || undefined,
+          min_slices: minSlices,
+          max_slices: maxSlices,
+          min_thickness: minThickness,
+          max_thickness: maxThickness,
+          min_spacing: minSpacing,
+          max_spacing: maxSpacing,
+          contrast_used: contrastUsed,
+          has_nodules: hasNodules,
+          min_annotations: minAnnotations,
+          max_annotations: maxAnnotations,
+          min_subtlety: minSubtlety,
+          max_subtlety: maxSubtlety,
+          min_sphericity: minSphericity,
+          max_sphericity: maxSphericity,
+          min_margin: minMargin,
+          max_margin: maxMargin,
+          min_lobulation: minLobulation,
+          max_lobulation: maxLobulation,
+          min_spiculation: minSpiculation,
+          max_spiculation: maxSpiculation,
+          min_malignancy: minMalignancy,
+          max_malignancy: maxMalignancy,
+          min_texture: minTexture,
+          max_texture: maxTexture,
+          calcification: calcification,
+          min_diameter: minDiameter,
+          max_diameter: maxDiameter,
+        }),
+      });
+    }
+  }, [page, scansData?.total_pages, queryClient, debouncedSearchQuery, debouncedPatientId, minSlices, maxSlices, minThickness, maxThickness]);
 
   const scans: PYLIDCScan[] = scansData?.items || [];
   const totalPages = scansData?.total_pages || 1;
+
+  // Loading skeleton component
+  const LoadingSkeleton = () => (
+    <div className="animate-pulse space-y-4">
+      {[...Array(5)].map((_, i) => (
+        <div key={i} className="border border-gray-200 rounded-lg p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+            <div className="h-4 bg-gray-200 rounded w-20"></div>
+          </div>
+          <div className="grid grid-cols-4 gap-4">
+            <div className="h-3 bg-gray-200 rounded"></div>
+            <div className="h-3 bg-gray-200 rounded"></div>
+            <div className="h-3 bg-gray-200 rounded"></div>
+            <div className="h-3 bg-gray-200 rounded"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   // Import mutation
   const importMutation = useMutation({
@@ -885,9 +959,16 @@ export default function PYLIDC() {
 
       {/* Scans List */}
       {isLoading ? (
-        <div className="bg-white p-8 rounded-lg shadow text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading PYLIDC scans...</p>
+        <div className="bg-white rounded-lg shadow p-6">
+          <LoadingSkeleton />
+        </div>
+      ) : isFetching && !isLoading ? (
+        <div className="bg-white rounded-lg shadow p-6 relative">
+          <div className="absolute top-4 right-4 flex items-center gap-2 text-sm text-blue-600">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+            Updating...
+          </div>
+          <LoadingSkeleton />
         </div>
       ) : error ? (
         <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
