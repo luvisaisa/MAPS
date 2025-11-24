@@ -454,26 +454,26 @@ def parse_radiology_sample(file_path):
     print(f"  🔄 Loading XML structure...")
     tree = ET.parse(file_path)
     xml_root = tree.getroot()
-    print(f"  ✅ XML loaded, root element: {root.tag.split('}')[-1] if '}' in root.tag else root.tag}")
+    print(f"  ✅ XML loaded, root element: {xml_root.tag.split('}')[-1] if '}' in xml_root.tag else xml_root.tag}")
     
     # Debug logging for N/A diagnosis
     debug_info = []
 
     # Dynamically get the namespace from the root tag
-    m = re.match(r'\{(.*)\}', root.tag)
+    m = re.match(r'\{(.*)\}', xml_root.tag)
     ns_uri = m.group(1) if m else ''
-    
+
     # Helper to build tag with or without namespace
     def tag(name):
         return f"{{{ns_uri}}}{name}" if ns_uri else name
 
     # Detect XML structure based on root element
-    root_tag_name = root.tag.split('}')[-1] if '}' in root.tag else root.tag
+    root_tag_name = xml_root.tag.split('}')[-1] if '}' in xml_root.tag else xml_root.tag
     is_lidc_format = root_tag_name == 'LidcReadMessage'
-    
+
     # Extract header information with expected vs missing logic
     print(f"  🔍 Extracting header information...")
-    header = root.find(tag('ResponseHeader'))
+    header = xml_root.find(tag('ResponseHeader'))
     header_values = {}
     
     if header is not None:
@@ -524,7 +524,7 @@ def parse_radiology_sample(file_path):
 
     # Look for session elements
     print(f"  🔍 Looking for reading sessions...")
-    sessions = root.findall(tag(session_tag))
+    sessions = xml_root.findall(tag(session_tag))
     print(f"  📊 Found {len(sessions)} sessions (searching for {session_tag})")
     debug_info.append(f"Sessions found: {len(sessions)} (looking for {session_tag})")
     
@@ -532,7 +532,7 @@ def parse_radiology_sample(file_path):
         print(f"  ⚠️  No sessions found - trying alternative session tags")
         debug_info.append(f"❌ NO SESSIONS FOUND - trying alternative session tags")
         # Try alternative session tags
-        alt_sessions = root.findall(tag('readingSession')) + root.findall(tag('CXRreadingSession'))
+        alt_sessions = xml_root.findall(tag('readingSession')) + xml_root.findall(tag('CXRreadingSession'))
         print(f"  📊 Alternative sessions found: {len(alt_sessions)}")
         debug_info.append(f"Alternative sessions: {len(alt_sessions)}")
         if alt_sessions:
@@ -857,8 +857,8 @@ def detect_parse_case(file_path):
             return f"{{{ns_uri}}}{name}" if ns_uri else name
         
         # Check for basic structure indicators
-        header = root.find(tag('ResponseHeader'))
-        sessions = root.findall(tag('readingSession')) or root.findall(tag('CXRreadingSession'))
+        header = xml_root.find(tag('ResponseHeader'))
+        sessions = xml_root.findall(tag('readingSession')) or xml_root.findall(tag('CXRreadingSession'))
         
         if not sessions:
             return "No_Sessions_Found"
